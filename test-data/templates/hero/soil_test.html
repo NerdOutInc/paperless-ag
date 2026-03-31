@@ -1,0 +1,95 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 4px solid #2d5016; }
+  .letterhead .org-name { color: #2d5016; }
+  h2 { color: #2d5016; border-bottom: 2px solid #e8f0e0; padding-bottom: 4px; }
+  table { border: 1px solid #c5d8b0; }
+  th { background: #2d5016; color: #fff; font-weight: 600; }
+  td { border-bottom: 1px solid #e8f0e0; }
+  tr:nth-child(even) td { background: #f6f9f2; }
+  .rating-optimal { color: #2d5016; font-weight: 700; }
+  .rating-low { color: #b44; font-weight: 700; }
+  .rating-high { color: #c60; font-weight: 700; }
+  .sample-banner { background: #2d5016; color: #fff; padding: 8px 16px; margin: 0 0 16px 0; display: flex; justify-content: space-between; font-size: 10pt; }
+  .field .value { border-bottom-color: #c5d8b0; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ lab_name }}</p>
+  <p class="address">{{ lab_address }} &bull; {{ lab_phone }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="sample-banner">
+  <span>SOIL ANALYSIS REPORT</span>
+  <span>Sample ID: {{ sample_id }}</span>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Field Name</label>
+    <div class="value">{{ field_name }}</div>
+  </div>
+  <div class="field">
+    <label>Sample Date</label>
+    <div class="value">{{ sample_date }}</div>
+  </div>
+  <div class="field">
+    <label>Sample Depth</label>
+    <div class="value">{{ sample_depth }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Previous Crop</label>
+    <div class="value">{{ previous_crop }}</div>
+  </div>
+  <div class="field">
+    <label>Soil Texture</label>
+    <div class="value">{{ soil_texture }}</div>
+  </div>
+</div>
+
+<h2>Analysis Results</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Unit</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in results %}
+    <tr>
+      <td>{{ r.parameter }}</td>
+      <td style="text-align: right;">{{ r.value }}</td>
+      <td>{{ r.unit }}</td>
+      <td>{{ r.rating }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if recommendations %}
+<h2>Recommendations</h2>
+<div class="text-block">{{ recommendations }}</div>
+{% endif %}
+
+{% if notes %}
+<h2>Notes</h2>
+<div class="text-block">{{ notes }}</div>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ lab_name }} &mdash; {{ lab_address }} &mdash; {{ lab_phone }}</p>
+  <p>This report is provided for informational purposes. Results are based on the sample submitted and methods used at time of analysis.</p>
+</div>
+{% endblock %}

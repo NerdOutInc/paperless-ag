@@ -1,0 +1,129 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #1e5631; background: linear-gradient(to right, #f0f7f2, #fff); padding: 16px 0; }
+  .letterhead .org-name { color: #1e5631; }
+  h2 { color: #1e5631; font-size: 11pt; text-transform: uppercase; border-bottom: 1px solid #a8d5b6; padding-bottom: 4px; }
+  table { border: 1px solid #a8d5b6; }
+  th { background: #1e5631; color: #fff; font-size: 9pt; text-transform: uppercase; }
+  td { border-bottom: 1px solid #d4eadb; font-size: 9.5pt; }
+  tr:nth-child(even) td { background: #f4faf6; }
+  .record-header { background: #1e5631; color: #fff; padding: 6px 14px; font-size: 11pt; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; margin-bottom: 16px; }
+  .field .value { border-bottom-color: #a8d5b6; }
+  .caution-box { background: #fff8e1; border: 1px solid #f9a825; border-left: 4px solid #f9a825; padding: 10px 14px; margin: 16px 0; font-size: 9pt; }
+  .caution-box strong { color: #e65100; }
+  .weather-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+  .weather-item { text-align: center; background: #f4faf6; border: 1px solid #d4eadb; padding: 8px; border-radius: 4px; }
+  .weather-item .wx-label { font-size: 7pt; text-transform: uppercase; color: #888; letter-spacing: 0.5px; }
+  .weather-item .wx-val { font-size: 13pt; font-weight: 700; color: #1e5631; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ applicator_name }}</p>
+  <p class="address">{{ applicator_address }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="record-header">Pesticide Application Record</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Applicator License</label>
+    <div class="value">{{ applicator_license }}</div>
+  </div>
+  <div class="field">
+    <label>Application Date</label>
+    <div class="value">{{ application_date }}</div>
+  </div>
+</div>
+
+<h2>Field Information</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Farm Name</label>
+    <div class="value">{{ farm_name }}</div>
+  </div>
+  <div class="field">
+    <label>Field Name</label>
+    <div class="value">{{ field_name }}</div>
+  </div>
+  <div class="field">
+    <label>Acres Treated</label>
+    <div class="value">{{ acres_treated }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Crop</label>
+    <div class="value">{{ crop }}</div>
+  </div>
+  <div class="field">
+    <label>Crop Stage</label>
+    <div class="value">{{ crop_stage }}</div>
+  </div>
+</div>
+
+<h2>Products Applied</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>EPA Reg. #</th>
+      <th>Rate</th>
+      <th>Rate Unit</th>
+      <th>Target Pest</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.epa_reg }}</td>
+      <td style="text-align: right;">{{ p.rate }}</td>
+      <td>{{ p.rate_unit }}</td>
+      <td>{{ p.target }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Weather Conditions at Application</h2>
+<div class="weather-grid">
+  <div class="weather-item">
+    <div class="wx-label">Wind Speed</div>
+    <div class="wx-val">{{ wind_speed }}</div>
+  </div>
+  <div class="weather-item">
+    <div class="wx-label">Wind Direction</div>
+    <div class="wx-val">{{ wind_direction }}</div>
+  </div>
+  <div class="weather-item">
+    <div class="wx-label">Temperature</div>
+    <div class="wx-val">{{ temperature }}</div>
+  </div>
+  <div class="weather-item">
+    <div class="wx-label">Humidity</div>
+    <div class="wx-val">{{ humidity }}</div>
+  </div>
+</div>
+
+<div class="caution-box">
+  <strong>RESTRICTED ENTRY &amp; PRE-HARVEST INTERVALS:</strong><br>
+  REI: {{ rei }} &bull; PHI: {{ phi }}
+</div>
+
+<div class="signature-block">
+  <div class="signature-line">{{ applicator_signature }}</div>
+  <div style="font-size: 9pt; color: #666; margin-top: 2px;">Certified Applicator Signature</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ applicator_name }} &mdash; {{ applicator_address }} &mdash; License: {{ applicator_license }}</p>
+  <p>This record must be maintained for a minimum of two years as required by federal and state regulations.</p>
+</div>
+{% endblock %}

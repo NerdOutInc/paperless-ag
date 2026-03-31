@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { margin: 0.75in; size: letter; }
+  body { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #333; max-width: 7in; margin: 0 auto; }
+  h1 { font-size: 18pt; margin: 0; }
+  h2 { font-size: 13pt; margin: 24px 0 8px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { padding: 8px 12px; text-align: left; font-size: 10pt; }
+  .letterhead { padding-bottom: 16px; margin-bottom: 24px; }
+  .letterhead .org-name { font-size: 20pt; font-weight: 700; margin: 0; }
+  .letterhead .address { font-size: 9pt; color: #666; margin: 4px 0 0 0; }
+  .field-group { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
+  .field { flex: 1; min-width: 180px; }
+  .field label { font-size: 8pt; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+  .field .value { font-size: 11pt; font-weight: 600; border-bottom: 1px solid #ddd; padding: 2px 0 4px 0; }
+  .footer { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 12px; font-size: 8pt; color: #888; }
+  .signature-block { margin-top: 48px; }
+  .signature-line { border-top: 1px solid #333; width: 250px; padding-top: 4px; font-size: 10pt; color: #666; margin-top: 40px; }
+  .text-block { margin: 8px 0; text-align: justify; }
+  {% block extra_style %}{% endblock %}
+</style>
+</head>
+<body>
+{% block letterhead %}{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+</html>

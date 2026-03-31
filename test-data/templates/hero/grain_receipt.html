@@ -1,0 +1,122 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #2c3e50; }
+  .letterhead .org-name { color: #2c3e50; font-size: 18pt; }
+  h2 { color: #2c3e50; font-size: 10pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 16px; }
+  .ticket-bar { background: #2c3e50; color: #fff; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .ticket-bar .ticket-label { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+  .ticket-bar .ticket-num { font-size: 16pt; font-weight: 700; font-family: 'Courier New', monospace; }
+  .field .value { border-bottom-color: #bdc3c7; font-family: 'Courier New', monospace; }
+  table { border: 2px solid #2c3e50; }
+  th { background: #2c3e50; color: #fff; font-size: 8pt; text-transform: uppercase; }
+  td { border-bottom: 1px solid #ddd; font-family: 'Courier New', monospace; font-size: 10pt; }
+  .weight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #2c3e50; border: 2px solid #2c3e50; margin: 12px 0; }
+  .weight-cell { background: #fff; padding: 10px; text-align: center; }
+  .weight-cell .wt-label { font-size: 7pt; text-transform: uppercase; color: #888; letter-spacing: 0.5px; }
+  .weight-cell .wt-val { font-size: 14pt; font-weight: 700; color: #2c3e50; font-family: 'Courier New', monospace; }
+  .weight-cell.net { background: #ecf0f1; }
+  .settlement-box { border: 2px solid #2c3e50; padding: 12px 16px; margin: 16px 0; }
+  .settlement-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 10pt; }
+  .settlement-total { border-top: 2px solid #2c3e50; padding-top: 8px; margin-top: 4px; font-size: 13pt; font-weight: 700; color: #2c3e50; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ elevator_name }}</p>
+  <p class="address">{{ elevator_address }} &bull; {{ elevator_phone }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="ticket-bar">
+  <div>
+    <div class="ticket-label">Grain Settlement Ticket</div>
+  </div>
+  <div style="text-align: right;">
+    <div class="ticket-label">Ticket Number</div>
+    <div class="ticket-num">{{ ticket_number }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Date</label>
+    <div class="value">{{ date }}</div>
+  </div>
+  <div class="field">
+    <label>Farmer Name</label>
+    <div class="value">{{ farmer_name }}</div>
+  </div>
+  <div class="field">
+    <label>Farm</label>
+    <div class="value">{{ farm_name }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Commodity</label>
+    <div class="value">{{ commodity }}</div>
+  </div>
+  <div class="field">
+    <label>Grade</label>
+    <div class="value">{{ grade }}</div>
+  </div>
+</div>
+
+<h2>Weights</h2>
+<div class="weight-grid">
+  <div class="weight-cell">
+    <div class="wt-label">Gross Weight</div>
+    <div class="wt-val">{{ gross_weight }}</div>
+  </div>
+  <div class="weight-cell">
+    <div class="wt-label">Tare Weight</div>
+    <div class="wt-val">{{ tare_weight }}</div>
+  </div>
+  <div class="weight-cell net">
+    <div class="wt-label">Net Weight</div>
+    <div class="wt-val">{{ net_weight }}</div>
+  </div>
+</div>
+
+<h2>Quality</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Moisture</label>
+    <div class="value">{{ moisture }}</div>
+  </div>
+  <div class="field">
+    <label>Test Weight</label>
+    <div class="value">{{ test_weight }}</div>
+  </div>
+  <div class="field">
+    <label>Dockage</label>
+    <div class="value">{{ dockage }}</div>
+  </div>
+</div>
+
+<h2>Settlement</h2>
+<div class="settlement-box">
+  <div class="settlement-row">
+    <span>Net Bushels</span>
+    <span>{{ net_bushels }}</span>
+  </div>
+  <div class="settlement-row">
+    <span>Price per Bushel</span>
+    <span>{{ price_per_bushel }}</span>
+  </div>
+  <div class="settlement-row settlement-total">
+    <span>Total Amount</span>
+    <span>{{ total_amount }}</span>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ elevator_name }} &mdash; {{ elevator_address }} &mdash; {{ elevator_phone }}</p>
+  <p>This ticket is a receipt for grain delivered. Subject to final grade and weight determination.</p>
+</div>
+{% endblock %}

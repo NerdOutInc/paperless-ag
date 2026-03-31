@@ -1,0 +1,120 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 2px solid #1a1a2e; }
+  .letterhead .org-name { color: #1a1a2e; font-size: 14pt; font-variant: small-caps; letter-spacing: 1.5px; }
+  .letterhead .firm-line { font-size: 18pt; font-weight: 700; color: #1a1a2e; margin: 0; }
+  .letterhead .address { color: #555; }
+  h1 { color: #1a1a2e; text-align: center; font-size: 16pt; text-transform: uppercase; letter-spacing: 3px; border-bottom: 2px double #1a1a2e; padding-bottom: 8px; margin: 16px 0; }
+  h2 { color: #1a1a2e; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
+  table { border: 1px solid #c0c0d0; }
+  th { background: #1a1a2e; color: #fff; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { border-bottom: 1px solid #e8e8f0; font-size: 10pt; }
+  tr:nth-child(even) td { background: #f8f8fc; }
+  .field .value { border-bottom-color: #c0c0d0; }
+  .confidential-bar { background: #1a1a2e; color: #fff; padding: 4px 12px; font-size: 8pt; text-transform: uppercase; letter-spacing: 3px; text-align: center; margin-bottom: 16px; }
+  .prepared-for { background: #f0f0f5; border: 1px solid #c0c0d0; padding: 14px 16px; margin: 16px 0; text-align: center; }
+  .prepared-for .pf-label { font-size: 8pt; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+  .prepared-for .pf-name { font-size: 16pt; font-weight: 700; color: #1a1a2e; margin-top: 4px; }
+  .timeline-item { display: flex; margin: 8px 0; }
+  .timeline-year { flex: 0 0 80px; font-weight: 700; color: #1a1a2e; font-size: 12pt; padding-top: 4px; }
+  .timeline-desc { flex: 1; border-left: 2px solid #1a1a2e; padding-left: 14px; padding-bottom: 12px; font-size: 10pt; line-height: 1.6; }
+  .timeline-desc::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #1a1a2e; border-radius: 50%; margin-left: -19px; margin-right: 7px; vertical-align: middle; }
+  .recommendations-box { background: #f8f8fc; border: 1px solid #c0c0d0; border-left: 4px solid #1a1a2e; padding: 14px 16px; margin: 16px 0; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ attorney_name }}</p>
+  <p class="firm-line">{{ firm_name }}</p>
+  <p class="address">{{ firm_address }} &bull; {{ firm_phone }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="confidential-bar">Confidential &mdash; Attorney-Client Privileged</div>
+
+<h1>Farm Succession Plan</h1>
+
+<div class="prepared-for">
+  <div class="pf-label">Prepared For</div>
+  <div class="pf-name">{{ prepared_for }}</div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Date</label>
+    <div class="value">{{ date }}</div>
+  </div>
+  <div class="field">
+    <label>Farm Entity</label>
+    <div class="value">{{ farm_entity }}</div>
+  </div>
+</div>
+
+<h2>Current Ownership Structure</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th style="text-align: right;">Ownership %</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for owner in current_owners %}
+    <tr>
+      <td style="font-weight: 600;">{{ owner.name }}</td>
+      <td>{{ owner.role }}</td>
+      <td style="text-align: right;">{{ owner.ownership_pct }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Plan Elements</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 30%;">Element</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for elem in plan_elements %}
+    <tr>
+      <td style="font-weight: 600;">{{ elem.element }}</td>
+      <td>{{ elem.description }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if transition_timeline %}
+<h2>Transition Timeline</h2>
+{% for t in transition_timeline %}
+<div class="timeline-item">
+  <div class="timeline-year">{{ t.year }}</div>
+  <div class="timeline-desc">{{ t.milestone }}</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if key_recommendations %}
+<h2>Key Recommendations</h2>
+<div class="recommendations-box">
+  {{ key_recommendations }}
+</div>
+{% endif %}
+
+<div class="signature-block">
+  <div class="signature-line">{{ attorney_name }}, Attorney at Law</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ firm_name }} &mdash; {{ firm_address }} &mdash; {{ firm_phone }}</p>
+  <p>This document constitutes a planning outline only and does not represent formal legal advice. Consult with your attorney before taking action.</p>
+</div>
+{% endblock %}
