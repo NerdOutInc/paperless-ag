@@ -1,0 +1,114 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 4px solid #8b0000; }
+  .letterhead .org-name { color: #8b0000; font-size: 22pt; }
+  h2 { color: #8b0000; border-left: 4px solid #8b0000; padding-left: 10px; margin-top: 20px; }
+  table { border: 1px solid #e0c8c8; }
+  th { background: #8b0000; color: #fff; font-size: 9pt; text-transform: uppercase; }
+  td { border-bottom: 1px solid #f0e0e0; }
+  tr:nth-child(even) td { background: #fdf6f6; }
+  .contract-title { text-align: center; background: #8b0000; color: #fff; padding: 8px; font-size: 13pt; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+  .field .value { border-bottom-color: #e0c8c8; }
+  .total-row { background: #faeaea; font-weight: 700; }
+  .total-row td { border-top: 2px solid #8b0000; }
+  .grand-total { text-align: right; font-size: 14pt; font-weight: 700; color: #8b0000; margin-top: 12px; padding: 8px 12px; border-top: 2px solid #8b0000; border-bottom: 2px solid #8b0000; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ dealer_name }}</p>
+  <p class="address">{{ dealer_address }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="contract-title">Seed Purchase Agreement</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Sales Representative</label>
+    <div class="value">{{ sales_rep }}</div>
+  </div>
+  <div class="field">
+    <label>Rep Phone</label>
+    <div class="value">{{ sales_rep_phone }}</div>
+  </div>
+  <div class="field">
+    <label>Order Date</label>
+    <div class="value">{{ order_date }}</div>
+  </div>
+</div>
+
+<h2>Buyer Information</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Buyer Name</label>
+    <div class="value">{{ buyer_name }}</div>
+  </div>
+  <div class="field">
+    <label>Buyer Address</label>
+    <div class="value">{{ buyer_address }}</div>
+  </div>
+</div>
+
+<h2>Order Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Brand</th>
+      <th>Variety</th>
+      <th>Trait</th>
+      <th>Unit Type</th>
+      <th style="text-align: right;">Qty</th>
+      <th style="text-align: right;">Price/Unit</th>
+      <th style="text-align: right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.brand }}</td>
+      <td>{{ item.variety }}</td>
+      <td>{{ item.trait }}</td>
+      <td>{{ item.unit_type }}</td>
+      <td style="text-align: right;">{{ item.quantity }}</td>
+      <td style="text-align: right;">{{ item.price_per_unit }}</td>
+      <td style="text-align: right;">{{ item.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="grand-total">Total Amount: {{ total_amount }}</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Delivery Date</label>
+    <div class="value">{{ delivery_date }}</div>
+  </div>
+  <div class="field">
+    <label>Payment Terms</label>
+    <div class="value">{{ payment_terms }}</div>
+  </div>
+</div>
+
+{% if notes %}
+<h2>Additional Notes</h2>
+<div class="text-block">{{ notes }}</div>
+{% endif %}
+
+<div class="signature-block">
+  <div style="display: flex; justify-content: space-between;">
+    <div class="signature-line">Seller Signature</div>
+    <div class="signature-line">Buyer Signature</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ dealer_name }} &mdash; {{ dealer_address }}</p>
+  <p>All seed sales are subject to the terms and conditions printed on the seed tag and product use guide.</p>
+</div>
+{% endblock %}

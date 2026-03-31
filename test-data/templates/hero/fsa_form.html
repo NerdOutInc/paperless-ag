@@ -1,0 +1,133 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #003366; padding-bottom: 12px; }
+  .letterhead .org-name { color: #003366; font-size: 16pt; letter-spacing: 0.5px; }
+  .letterhead .address { color: #555; }
+  .usda-banner { background: #003366; color: #fff; padding: 4px 12px; font-size: 8pt; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+  h2 { color: #003366; font-size: 11pt; text-transform: uppercase; border-bottom: 1px solid #003366; padding-bottom: 3px; letter-spacing: 0.5px; }
+  table { border: 2px solid #003366; }
+  th { background: #003366; color: #fff; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { border: 1px solid #c0cfe0; font-size: 10pt; }
+  .form-header { display: flex; justify-content: space-between; align-items: flex-start; background: #eef3f9; border: 1px solid #c0cfe0; padding: 10px 14px; margin-bottom: 16px; }
+  .form-header .form-id { font-size: 9pt; color: #003366; }
+  .form-header .form-id strong { font-size: 12pt; display: block; }
+  .field .value { border-bottom-color: #c0cfe0; }
+  .field label { color: #003366; font-weight: 600; }
+  .govt-notice { background: #f5f5f5; border: 1px solid #ccc; padding: 8px 12px; font-size: 8pt; color: #666; margin-top: 20px; }
+  .total-bar { background: #003366; color: #fff; padding: 8px 16px; font-size: 12pt; font-weight: 700; text-align: right; margin-top: 4px; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="usda-banner">United States Department of Agriculture</div>
+<div class="letterhead">
+  <p class="org-name">{{ office_name }}</p>
+  <p class="address">{{ office_address }} &bull; {{ office_phone }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="form-header">
+  <div class="form-id">
+    Form <strong>{{ form_number }}</strong>
+  </div>
+  <div style="text-align: right;">
+    <div style="font-size: 13pt; font-weight: 700; color: #003366;">{{ form_title }}</div>
+    <div style="font-size: 9pt; color: #666;">{{ program_name }}</div>
+  </div>
+</div>
+
+<h2>Producer Information</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Producer Name</label>
+    <div class="value">{{ producer_name }}</div>
+  </div>
+  <div class="field">
+    <label>Producer Address</label>
+    <div class="value">{{ producer_address }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Farm Number</label>
+    <div class="value">{{ farm_number }}</div>
+  </div>
+  <div class="field">
+    <label>Tract Number</label>
+    <div class="value">{{ tract_number }}</div>
+  </div>
+  <div class="field">
+    <label>Effective Date</label>
+    <div class="value">{{ effective_date }}</div>
+  </div>
+</div>
+
+{% if fields %}
+<h2>Form Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 40%;">Field</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in fields %}
+    <tr>
+      <td style="font-weight: 600;">{{ f.label }}</td>
+      <td>{{ f.value }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if payment_info %}
+<h2>Payment Information</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th style="text-align: right;">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in payment_info %}
+    <tr>
+      <td>{{ p.description }}</td>
+      <td style="text-align: right;">{{ p.amount }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="total-bar">Total Payment: {{ total_payment }}</div>
+{% endif %}
+
+{% if notes %}
+<h2>Remarks</h2>
+<div class="text-block">{{ notes }}</div>
+{% endif %}
+
+<div class="signature-block">
+  <div style="display: flex; justify-content: space-between;">
+    <div class="signature-line">Producer Signature</div>
+    <div class="signature-line">Date: {{ signature_date }}</div>
+  </div>
+</div>
+
+<div class="govt-notice">
+  <strong>Privacy Act and Public Burden Statement:</strong>
+  The following statement is made in accordance with the Privacy Act of 1974 (5 U.S.C. 552a).
+  The authority for requesting information is the Commodity Credit Corporation Charter Act (15 U.S.C. 714 et seq.)
+  and the applicable program regulations.
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>USDA &mdash; Farm Service Agency &mdash; {{ office_name }} &mdash; {{ office_address }}</p>
+  <p>USDA is an equal opportunity provider, employer, and lender.</p>
+</div>
+{% endblock %}

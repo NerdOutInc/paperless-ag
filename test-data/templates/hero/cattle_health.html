@@ -1,0 +1,144 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #0e6655; }
+  .letterhead .org-name { color: #0e6655; }
+  .letterhead .vet-badge { display: inline-block; background: #0e6655; color: #fff; font-size: 8pt; padding: 2px 8px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  h2 { color: #0e6655; font-size: 11pt; border-left: 3px solid #0e6655; padding-left: 8px; }
+  table { border: 1px solid #b2dfdb; }
+  th { background: #0e6655; color: #fff; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  td { border-bottom: 1px solid #e0f2f1; font-size: 9.5pt; }
+  tr:nth-child(even) td { background: #f0faf8; }
+  .visit-bar { background: linear-gradient(135deg, #0e6655, #148f77); color: #fff; padding: 10px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+  .visit-bar .visit-type { font-size: 13pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .field .value { border-bottom-color: #b2dfdb; }
+  .dx-box { background: #e8f5e9; border-left: 4px solid #0e6655; padding: 12px 16px; margin: 16px 0; }
+  .dx-box .dx-label { font-size: 8pt; text-transform: uppercase; color: #0e6655; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .withdrawal-warning { background: #fff3e0; border: 1px solid #ffb74d; border-left: 4px solid #e65100; padding: 8px 14px; font-size: 9pt; margin: 12px 0; }
+  .withdrawal-warning strong { color: #e65100; }
+  .followup-box { background: #f0faf8; border: 1px solid #b2dfdb; padding: 12px 16px; margin: 16px 0; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ clinic_name }}</p>
+  <p class="address">{{ clinic_address }} &bull; {{ clinic_phone }}</p>
+  <span class="vet-badge">Veterinary Services</span>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="visit-bar">
+  <span class="visit-type">{{ visit_type }}</span>
+  <span>{{ date }}</span>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Veterinarian</label>
+    <div class="value">{{ vet_name }}</div>
+  </div>
+  <div class="field">
+    <label>License Number</label>
+    <div class="value">{{ vet_license }}</div>
+  </div>
+</div>
+
+<h2>Client Information</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Farm / Ranch</label>
+    <div class="value">{{ farm_name }}</div>
+  </div>
+  <div class="field">
+    <label>Owner</label>
+    <div class="value">{{ owner_name }}</div>
+  </div>
+</div>
+
+<h2>Animals Examined</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Animal ID</th>
+      <th>Breed</th>
+      <th>Age</th>
+      <th>Sex</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in animals %}
+    <tr>
+      <td style="font-weight: 600;">{{ a.id }}</td>
+      <td>{{ a.breed }}</td>
+      <td>{{ a.age }}</td>
+      <td>{{ a.sex }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if diagnosis %}
+<div class="dx-box">
+  <div class="dx-label">Diagnosis</div>
+  <div>{{ diagnosis }}</div>
+</div>
+{% endif %}
+
+<h2>Treatments Administered</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Treatment</th>
+      <th>Product</th>
+      <th>Dosage</th>
+      <th>Route</th>
+      <th>Withdrawal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in treatments %}
+    <tr>
+      <td>{{ t.treatment }}</td>
+      <td>{{ t.product }}</td>
+      <td>{{ t.dosage }}</td>
+      <td>{{ t.route }}</td>
+      <td>{{ t.withdrawal }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="withdrawal-warning">
+  <strong>WITHDRAWAL NOTICE:</strong> Do not sell or slaughter treated animals for meat or milk until the withdrawal period has elapsed. Refer to product labels for specific intervals.
+</div>
+
+{% if recommendations %}
+<h2>Recommendations</h2>
+<div class="text-block">{{ recommendations }}</div>
+{% endif %}
+
+{% if next_visit or follow_up %}
+<div class="followup-box">
+  {% if next_visit %}
+  <div class="field" style="margin-bottom: 8px;">
+    <label>Next Visit</label>
+    <div class="value">{{ next_visit }}</div>
+  </div>
+  {% endif %}
+  {% if follow_up %}
+  <div class="field">
+    <label>Follow-Up Instructions</label>
+    <div class="value" style="font-weight: 400;">{{ follow_up }}</div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ clinic_name }} &mdash; {{ clinic_address }} &mdash; {{ clinic_phone }}</p>
+  <p>{{ vet_name }}, DVM &mdash; License: {{ vet_license }}</p>
+</div>
+{% endblock %}

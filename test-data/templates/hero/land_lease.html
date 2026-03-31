@@ -1,0 +1,120 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 2px solid #1a1a2e; margin-bottom: 16px; }
+  .letterhead .org-name { color: #1a1a2e; font-size: 16pt; font-variant: small-caps; letter-spacing: 2px; }
+  h1 { color: #1a1a2e; text-align: center; font-size: 16pt; text-transform: uppercase; letter-spacing: 3px; margin: 20px 0 8px 0; }
+  h2 { color: #1a1a2e; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; margin-top: 24px; }
+  .field .value { border-bottom-color: #c0c0d0; }
+  .field label { color: #1a1a2e; }
+  .legal-text { font-size: 10pt; text-align: justify; line-height: 1.7; margin: 8px 0; }
+  .provision-list { margin: 8px 0; padding-left: 20px; }
+  .provision-list li { font-size: 10pt; line-height: 1.7; margin-bottom: 6px; text-align: justify; }
+  .doc-subtitle { text-align: center; font-size: 10pt; color: #666; margin-bottom: 24px; letter-spacing: 1px; }
+  .parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0; }
+  .party-box { border: 1px solid #c0c0d0; padding: 14px; }
+  .party-box .party-role { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; color: #1a1a2e; font-weight: 700; margin-bottom: 8px; border-bottom: 1px solid #e0e0e8; padding-bottom: 4px; }
+  .rent-highlight { background: #f0f0f5; border: 1px solid #c0c0d0; padding: 16px; text-align: center; margin: 16px 0; }
+  .rent-amount { font-size: 18pt; font-weight: 700; color: #1a1a2e; }
+  .rent-label { font-size: 8pt; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">Farm Land Lease Agreement</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Agricultural Land Lease</h1>
+<div class="doc-subtitle">State of {{ state }} &mdash; {{ county }} County</div>
+
+<h2>Parties to the Agreement</h2>
+<div class="parties-grid">
+  <div class="party-box">
+    <div class="party-role">Landlord</div>
+    <div class="field">
+      <label>Name</label>
+      <div class="value">{{ landlord_name }}</div>
+    </div>
+    <div class="field" style="margin-top: 8px;">
+      <label>Address</label>
+      <div class="value">{{ landlord_address }}</div>
+    </div>
+  </div>
+  <div class="party-box">
+    <div class="party-role">Tenant</div>
+    <div class="field">
+      <label>Name</label>
+      <div class="value">{{ tenant_name }}</div>
+    </div>
+    <div class="field" style="margin-top: 8px;">
+      <label>Address</label>
+      <div class="value">{{ tenant_address }}</div>
+    </div>
+  </div>
+</div>
+
+<h2>Property Description</h2>
+<div class="field-group">
+  <div class="field" style="flex: 2;">
+    <label>Legal Description</label>
+    <div class="value">{{ legal_description }}</div>
+  </div>
+  <div class="field">
+    <label>Total Acres</label>
+    <div class="value">{{ acres }}</div>
+  </div>
+</div>
+
+<h2>Lease Terms</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Term Start</label>
+    <div class="value">{{ term_start }}</div>
+  </div>
+  <div class="field">
+    <label>Term End</label>
+    <div class="value">{{ term_end }}</div>
+  </div>
+  <div class="field">
+    <label>Payment Schedule</label>
+    <div class="value">{{ payment_schedule }}</div>
+  </div>
+</div>
+
+<div class="rent-highlight">
+  <div class="rent-label">Annual Rent</div>
+  <div class="rent-amount">{{ annual_rent }}</div>
+</div>
+
+{% if provisions %}
+<h2>Provisions</h2>
+<ol class="provision-list">
+  {% for provision in provisions %}
+  <li>{{ provision }}</li>
+  {% endfor %}
+</ol>
+{% endif %}
+
+<div class="signature-block">
+  <div style="display: flex; justify-content: space-between;">
+    <div>
+      <div class="signature-line">Landlord</div>
+    </div>
+    <div>
+      <div class="signature-line">Tenant</div>
+    </div>
+  </div>
+  <div style="margin-top: 16px; font-size: 10pt; color: #666;">
+    Date: {{ signatures_date }}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>This lease agreement is entered into in {{ county }} County, {{ state }}.</p>
+  <p>Both parties acknowledge receipt of a signed copy of this agreement.</p>
+</div>
+{% endblock %}

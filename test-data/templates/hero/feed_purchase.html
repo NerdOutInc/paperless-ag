@@ -1,0 +1,112 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #33691e; background: linear-gradient(to right, #f1f8e9, #fff); padding: 16px 0; }
+  .letterhead .org-name { color: #33691e; font-size: 20pt; }
+  .letterhead .address { color: #558b2f; }
+  h2 { color: #33691e; font-size: 11pt; border-left: 4px solid #8bc34a; padding-left: 8px; }
+  table { border: 1px solid #c5e1a5; }
+  th { background: #33691e; color: #fff; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { border-bottom: 1px solid #dcedc8; font-size: 10pt; }
+  tr:nth-child(even) td { background: #f9fbe7; }
+  .invoice-bar { background: #33691e; color: #fff; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .invoice-bar .inv-label { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+  .invoice-bar .inv-num { font-size: 14pt; font-weight: 700; font-family: 'Courier New', monospace; }
+  .field .value { border-bottom-color: #c5e1a5; }
+  .totals-section { border-top: 2px solid #33691e; margin-top: 4px; padding-top: 8px; }
+  .totals-row { display: flex; justify-content: space-between; padding: 4px 12px; font-size: 10pt; }
+  .totals-row.subtotal { color: #666; }
+  .totals-row.delivery { color: #666; }
+  .totals-row.grand { background: #33691e; color: #fff; padding: 8px 12px; font-size: 13pt; font-weight: 700; margin-top: 4px; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ supplier_name }}</p>
+  <p class="address">{{ supplier_address }} &bull; {{ supplier_phone }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="invoice-bar">
+  <div>
+    <div class="inv-label">Feed Purchase Invoice</div>
+  </div>
+  <div style="text-align: right;">
+    <div class="inv-label">Invoice Number</div>
+    <div class="inv-num">{{ invoice_number }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Date</label>
+    <div class="value">{{ date }}</div>
+  </div>
+  <div class="field">
+    <label>Customer Name</label>
+    <div class="value">{{ customer_name }}</div>
+  </div>
+  <div class="field">
+    <label>Ranch</label>
+    <div class="value">{{ ranch_name }}</div>
+  </div>
+</div>
+
+<h2>Items Ordered</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Feed Type</th>
+      <th style="text-align: right;">Quantity</th>
+      <th>Unit</th>
+      <th style="text-align: right;">Price/Unit</th>
+      <th style="text-align: right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.feed_type }}</td>
+      <td style="text-align: right;">{{ item.quantity }}</td>
+      <td>{{ item.unit }}</td>
+      <td style="text-align: right;">{{ item.price_per_unit }}</td>
+      <td style="text-align: right; font-weight: 600;">{{ item.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="totals-section">
+  <div class="totals-row subtotal">
+    <span>Subtotal</span>
+    <span>{{ subtotal }}</span>
+  </div>
+  <div class="totals-row delivery">
+    <span>Delivery Fee</span>
+    <span>{{ delivery_fee }}</span>
+  </div>
+  <div class="totals-row grand">
+    <span>Total Amount</span>
+    <span>{{ total_amount }}</span>
+  </div>
+</div>
+
+<div class="field-group" style="margin-top: 20px;">
+  <div class="field">
+    <label>Delivery Date</label>
+    <div class="value">{{ delivery_date }}</div>
+  </div>
+  <div class="field">
+    <label>Payment Terms</label>
+    <div class="value">{{ payment_terms }}</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ supplier_name }} &mdash; {{ supplier_address }} &mdash; {{ supplier_phone }}</p>
+  <p>Thank you for your business. Payment is due per the terms stated above.</p>
+</div>
+{% endblock %}

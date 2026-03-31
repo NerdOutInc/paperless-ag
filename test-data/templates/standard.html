@@ -1,0 +1,35 @@
+{% extends "base_standard.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<div class="meta">
+  <p>{{ correspondent }} &bull; {{ date }}</p>
+  <p>{{ farm_name }}{% if farm_location %} &mdash; {{ farm_location }}{% endif %}</p>
+</div>
+
+{% for section in sections %}
+<h2>{{ section.heading }}</h2>
+
+{% if section.type == "fields" %}
+  {% for field in section["items"] %}
+  <div class="field-row"><strong>{{ field[0] }}:</strong> {{ field[1] }}</div>
+  {% endfor %}
+
+{% elif section.type == "table" %}
+  <table>
+    <thead><tr>{% for h in section.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for row in section.rows %}
+      <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% elif section.type == "text" %}
+  <div class="text-block">{{ section.content }}</div>
+
+{% elif section.type == "signature" %}
+  <div class="signature-line">{{ section.label }}</div>
+
+{% endif %}
+{% endfor %}
+{% endblock %}

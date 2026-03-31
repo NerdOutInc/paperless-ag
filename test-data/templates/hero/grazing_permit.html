@@ -1,0 +1,133 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 4px double #5d4037; }
+  .letterhead .org-name { color: #5d4037; font-size: 17pt; }
+  .letterhead .address { color: #795548; }
+  .agency-seal { display: inline-block; background: #5d4037; color: #fff; font-size: 7pt; padding: 3px 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; border-radius: 2px; }
+  h2 { color: #5d4037; font-size: 11pt; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #bcaaa4; padding-bottom: 3px; }
+  table { border: 1px solid #bcaaa4; }
+  th { background: #5d4037; color: #fff; font-size: 8pt; text-transform: uppercase; }
+  td { border-bottom: 1px solid #efebe9; }
+  tr:nth-child(even) td { background: #faf6f3; }
+  .permit-banner { background: linear-gradient(135deg, #5d4037, #795548); color: #fff; padding: 12px 16px; margin-bottom: 16px; text-align: center; }
+  .permit-banner .permit-title { font-size: 14pt; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+  .permit-banner .permit-num { font-size: 11pt; margin-top: 4px; opacity: 0.85; }
+  .field .value { border-bottom-color: #bcaaa4; }
+  .season-bar { display: flex; gap: 0; border: 2px solid #5d4037; margin: 16px 0; }
+  .season-box { flex: 1; padding: 12px; text-align: center; }
+  .season-box:first-child { border-right: 1px solid #bcaaa4; }
+  .season-box .sb-label { font-size: 7pt; text-transform: uppercase; color: #888; letter-spacing: 0.5px; }
+  .season-box .sb-val { font-size: 14pt; font-weight: 700; color: #5d4037; }
+  .fee-summary { background: #efebe9; border: 1px solid #bcaaa4; padding: 14px 16px; margin: 16px 0; display: flex; justify-content: space-around; text-align: center; }
+  .fee-item .fee-label { font-size: 7pt; text-transform: uppercase; color: #888; }
+  .fee-item .fee-val { font-size: 14pt; font-weight: 700; color: #5d4037; }
+  .conditions-list { padding-left: 20px; margin: 8px 0; }
+  .conditions-list li { font-size: 10pt; line-height: 1.6; margin-bottom: 4px; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ issuing_agency }}</p>
+  <p class="address">{{ agency_address }}</p>
+  <span class="agency-seal">Official Document</span>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="permit-banner">
+  <div class="permit-title">Grazing Permit</div>
+  <div class="permit-num">Permit No. {{ permit_number }}</div>
+</div>
+
+<h2>Permittee Information</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Permittee Name</label>
+    <div class="value">{{ permittee_name }}</div>
+  </div>
+  <div class="field">
+    <label>Ranch Name</label>
+    <div class="value">{{ ranch_name }}</div>
+  </div>
+</div>
+
+<h2>Allotment Details</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Allotment Name</label>
+    <div class="value">{{ allotment_name }}</div>
+  </div>
+  <div class="field">
+    <label>Legal Description</label>
+    <div class="value">{{ legal_description }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Permitted AUMs</label>
+    <div class="value">{{ permitted_aums }}</div>
+  </div>
+  <div class="field">
+    <label>Head Count</label>
+    <div class="value">{{ head_count }}</div>
+  </div>
+</div>
+
+<h2>Grazing Season</h2>
+<div class="season-bar">
+  <div class="season-box">
+    <div class="sb-label">Season Start</div>
+    <div class="sb-val">{{ season_start }}</div>
+  </div>
+  <div class="season-box">
+    <div class="sb-label">Season End</div>
+    <div class="sb-val">{{ season_end }}</div>
+  </div>
+</div>
+
+<h2>Fees</h2>
+<div class="fee-summary">
+  <div class="fee-item">
+    <div class="fee-label">Fee per AUM</div>
+    <div class="fee-val">{{ fee_per_aum }}</div>
+  </div>
+  <div class="fee-item">
+    <div class="fee-label">Total Fee</div>
+    <div class="fee-val">{{ total_fee }}</div>
+  </div>
+  <div class="fee-item">
+    <div class="fee-label">Issue Date</div>
+    <div class="fee-val" style="font-size: 11pt;">{{ issue_date }}</div>
+  </div>
+</div>
+
+{% if conditions %}
+<h2>Terms &amp; Conditions</h2>
+<ol class="conditions-list">
+  {% for condition in conditions %}
+  <li>{{ condition }}</li>
+  {% endfor %}
+</ol>
+{% endif %}
+
+{% if special_provisions %}
+<h2>Special Provisions</h2>
+<div class="text-block">{{ special_provisions }}</div>
+{% endif %}
+
+<div class="signature-block">
+  <div style="display: flex; justify-content: space-between;">
+    <div class="signature-line">Authorized Officer</div>
+    <div class="signature-line">Permittee</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ issuing_agency }} &mdash; {{ agency_address }}</p>
+  <p>This permit is subject to the rules and regulations governing the use of public lands.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 3px solid #34495e; }
+  .letterhead .org-name { color: #34495e; letter-spacing: 1px; }
+  h2 { color: #34495e; font-size: 11pt; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #bdc3c7; padding-bottom: 4px; }
+  table { border: 1px solid #bdc3c7; }
+  th { background: #34495e; color: #fff; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { border-bottom: 1px solid #ecf0f1; font-size: 10pt; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+  .policy-header { background: #34495e; color: #fff; padding: 12px 16px; margin-bottom: 16px; }
+  .policy-header .ph-title { font-size: 14pt; font-weight: 700; letter-spacing: 1px; }
+  .policy-header .ph-number { font-size: 10pt; opacity: 0.8; margin-top: 2px; }
+  .field .value { border-bottom-color: #bdc3c7; }
+  .coverage-card { border: 2px solid #34495e; margin: 16px 0; }
+  .coverage-card-header { background: #34495e; color: #fff; padding: 6px 14px; font-size: 9pt; text-transform: uppercase; letter-spacing: 1px; }
+  .coverage-card-body { padding: 14px; }
+  .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #bdc3c7; border: 1px solid #bdc3c7; margin: 12px 0; }
+  .value-cell { background: #fff; padding: 12px; text-align: center; }
+  .value-cell .vc-label { font-size: 7pt; text-transform: uppercase; color: #888; letter-spacing: 0.5px; }
+  .value-cell .vc-val { font-size: 14pt; font-weight: 700; color: #34495e; }
+  .perils-list { columns: 2; column-gap: 24px; margin: 8px 0; }
+  .perils-list li { font-size: 10pt; margin-bottom: 4px; break-inside: avoid; }
+  .exclusion-box { background: #fdf2f2; border: 1px solid #e0b0b0; padding: 10px 14px; margin: 12px 0; font-size: 9pt; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ insurer }}</p>
+  <p class="address">{{ insurer_address }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="policy-header">
+  <div class="ph-title">Livestock Insurance Policy</div>
+  <div class="ph-number">Policy No. {{ policy_number }}</div>
+</div>
+
+<h2>Agent</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Agent Name</label>
+    <div class="value">{{ agent_name }}</div>
+  </div>
+  <div class="field">
+    <label>Agent Phone</label>
+    <div class="value">{{ agent_phone }}</div>
+  </div>
+</div>
+
+<h2>Insured</h2>
+<div class="field-group">
+  <div class="field">
+    <label>Insured Name</label>
+    <div class="value">{{ insured_name }}</div>
+  </div>
+  <div class="field">
+    <label>Ranch Name</label>
+    <div class="value">{{ ranch_name }}</div>
+  </div>
+</div>
+
+<h2>Livestock Coverage</h2>
+<div class="coverage-card">
+  <div class="coverage-card-header">{{ coverage_type }}</div>
+  <div class="coverage-card-body">
+    <div class="field-group" style="margin: 0;">
+      <div class="field">
+        <label>Head Count</label>
+        <div class="value">{{ head_count }}</div>
+      </div>
+      <div class="field">
+        <label>Breed</label>
+        <div class="value">{{ breed }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="value-grid">
+  <div class="value-cell">
+    <div class="vc-label">Avg Value per Head</div>
+    <div class="vc-val">{{ avg_value }}</div>
+  </div>
+  <div class="value-cell">
+    <div class="vc-label">Total Insured Value</div>
+    <div class="vc-val">{{ total_value }}</div>
+  </div>
+  <div class="value-cell">
+    <div class="vc-label">Annual Premium</div>
+    <div class="vc-val">{{ premium }}</div>
+  </div>
+</div>
+
+<div class="field-group">
+  <div class="field">
+    <label>Deductible</label>
+    <div class="value">{{ deductible }}</div>
+  </div>
+  <div class="field">
+    <label>Effective Date</label>
+    <div class="value">{{ effective_date }}</div>
+  </div>
+  <div class="field">
+    <label>Expiration Date</label>
+    <div class="value">{{ expiration_date }}</div>
+  </div>
+</div>
+
+{% if covered_perils %}
+<h2>Covered Perils</h2>
+<ul class="perils-list">
+  {% for peril in covered_perils %}
+  <li>{{ peril }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if exclusions %}
+<h2>Exclusions</h2>
+<div class="exclusion-box">
+  {% for excl in exclusions %}
+  <p style="margin: 4px 0;">{{ excl }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ insurer }} &mdash; {{ insurer_address }}</p>
+  <p>This declarations page is a summary only. The complete policy terms and conditions govern coverage.</p>
+</div>
+{% endblock %}

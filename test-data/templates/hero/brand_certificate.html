@@ -1,0 +1,120 @@
+{% extends "base_hero.html" %}
+
+{% block extra_style %}
+  .letterhead { border-bottom: 4px double #3e2723; text-align: center; padding-bottom: 20px; }
+  .letterhead .org-name { color: #3e2723; font-size: 20pt; letter-spacing: 2px; font-variant: small-caps; }
+  .letterhead .address { color: #6d4c41; }
+  h2 { color: #3e2723; font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #bcaaa4; padding-bottom: 3px; }
+  .cert-frame { border: 3px solid #3e2723; padding: 4px; margin: 16px 0; }
+  .cert-inner { border: 1px solid #8d6e63; padding: 20px; }
+  .cert-title { text-align: center; margin-bottom: 24px; }
+  .cert-title h1 { color: #3e2723; font-size: 22pt; text-transform: uppercase; letter-spacing: 4px; margin: 0; font-variant: small-caps; }
+  .cert-title .cert-subtitle { font-size: 10pt; color: #8d6e63; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+  .cert-number { text-align: center; margin: 16px 0; }
+  .cert-number .cn-label { font-size: 8pt; text-transform: uppercase; color: #888; letter-spacing: 1px; }
+  .cert-number .cn-val { font-size: 18pt; font-weight: 700; color: #3e2723; font-family: 'Courier New', monospace; }
+  .field .value { border-bottom-color: #bcaaa4; }
+  .field label { color: #5d4037; }
+  .brand-display { border: 2px solid #3e2723; margin: 20px auto; padding: 24px; text-align: center; max-width: 400px; background: #efebe9; }
+  .brand-display .bd-label { font-size: 8pt; text-transform: uppercase; color: #8d6e63; letter-spacing: 1px; margin-bottom: 8px; }
+  .brand-display .bd-desc { font-size: 14pt; font-weight: 700; color: #3e2723; line-height: 1.5; }
+  .brand-display .bd-location { font-size: 10pt; color: #6d4c41; margin-top: 8px; }
+  .dates-bar { display: flex; justify-content: center; gap: 40px; margin: 20px 0; padding: 12px; background: #efebe9; }
+  .date-item { text-align: center; }
+  .date-item .dt-label { font-size: 7pt; text-transform: uppercase; color: #8d6e63; letter-spacing: 0.5px; }
+  .date-item .dt-val { font-size: 12pt; font-weight: 700; color: #3e2723; }
+  .official-seal { text-align: center; margin: 24px 0; padding: 16px; border-top: 1px solid #bcaaa4; border-bottom: 1px solid #bcaaa4; }
+  .official-seal .seal-text { font-size: 8pt; text-transform: uppercase; letter-spacing: 3px; color: #8d6e63; }
+{% endblock %}
+
+{% block letterhead %}
+<div class="letterhead">
+  <p class="org-name">{{ issuing_authority }}</p>
+  <p class="address">{{ authority_address }}</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="cert-frame">
+  <div class="cert-inner">
+    <div class="cert-title">
+      <h1>Livestock Brand Certificate</h1>
+      <div class="cert-subtitle">Official Registration</div>
+    </div>
+
+    <div class="cert-number">
+      <div class="cn-label">Certificate Number</div>
+      <div class="cn-val">{{ certificate_number }}</div>
+    </div>
+
+    <div class="dates-bar">
+      <div class="date-item">
+        <div class="dt-label">Registration Date</div>
+        <div class="dt-val">{{ registration_date }}</div>
+      </div>
+      <div class="date-item">
+        <div class="dt-label">Expiration Date</div>
+        <div class="dt-val">{{ expiration_date }}</div>
+      </div>
+    </div>
+
+    <h2>Registered Owner</h2>
+    <div class="field-group">
+      <div class="field">
+        <label>Owner Name</label>
+        <div class="value">{{ owner_name }}</div>
+      </div>
+      <div class="field">
+        <label>Ranch Name</label>
+        <div class="value">{{ ranch_name }}</div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field" style="flex: 2;">
+        <label>Ranch Address</label>
+        <div class="value">{{ ranch_address }}</div>
+      </div>
+    </div>
+
+    <h2>Registered Brand</h2>
+    <div class="brand-display">
+      <div class="bd-label">Brand Description</div>
+      <div class="bd-desc">{{ brand_description }}</div>
+      <div class="bd-location">Location: {{ brand_location }}</div>
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label>Species</label>
+        <div class="value">{{ species }}</div>
+      </div>
+      <div class="field">
+        <label>County</label>
+        <div class="value">{{ county }}</div>
+      </div>
+      <div class="field">
+        <label>State</label>
+        <div class="value">{{ state }}</div>
+      </div>
+    </div>
+
+    <div class="official-seal">
+      <div class="seal-text">Official Seal of the {{ issuing_authority }}</div>
+    </div>
+
+    <div class="signature-block">
+      <div style="display: flex; justify-content: space-between;">
+        <div class="signature-line">Brand Inspector</div>
+        <div class="signature-line">Registrar</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+  <p>{{ issuing_authority }} &mdash; {{ authority_address }}</p>
+  <p>This certificate must be renewed prior to the expiration date. Transfer of brand ownership requires filing with this office.</p>
+</div>
+{% endblock %}
