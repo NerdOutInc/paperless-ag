@@ -1,0 +1,89 @@
+# Paperless Ag
+
+A companion container for [Paperless NGX](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. Built for the [Fullstack Ag](https://fullstack.ag) community.
+
+## The Problem
+
+Farmers and ranchers accumulate a lot of documents -- leases, seed contracts, crop insurance policies, FSA paperwork, chemical application records, equipment manuals, tax returns, succession plans, soil test results. Most of this ends up in filing cabinets, scattered Google Drive folders, or boxes in the shop.
+
+The problem is retrieval. Paperless NGX handles ingestion, OCR, and keyword search well, but keyword search only works when you remember the exact words in the document. Search "fertilizer recommendations" when the document says "nutrient management plan" and you get zero results.
+
+## What This Adds
+
+A single Docker container that sits alongside a stock Paperless NGX installation and provides:
+
+1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
+2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
+
+Paperless NGX stays completely stock. Free upstream updates forever.
+
+## Architecture
+
+```
+Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
+     Web UI (:8000)          Embedding Worker              document_embeddings table
+     REST API                MCP Server (:3001)            (shared with Paperless)
+     Consumer                Search API
+```
+
+The companion container:
+- Polls Paperless for new/modified documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
+- Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
+- Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
+
+## Local Development
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Python 3.6+
+- Google Chrome (for test data PDF generation)
+
+### Start Paperless NGX
+
+```bash
+cd "Paperless NGX"
+docker compose up -d
+```
+
+Paperless will be available at http://localhost:8000 (admin / admin).
+
+### Load Test Data
+
+The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata:
+
+```bash
+cd test-data
+pip3 install -r requirements.txt
+python3 generate.py    # Generate 100 PDFs
+python3 upload.py      # Upload to Paperless with metadata
+```
+
+See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
+
+## Project Status
+
+This project is in early development. Current progress:
+
+- [x] Local Paperless NGX dev stack (Docker Compose with pgvector-enabled Postgres)
+- [x] Test data generator (100 realistic farm documents across 3 fictional farms)
+- [ ] Companion container with embedding worker
+- [ ] pgvector search API (semantic + hybrid)
+- [ ] MCP server for Claude integration
+- [ ] Install script for VPS deployment
+- [ ] DigitalOcean 1-click Marketplace image
+
+## Repository Structure
+
+```
+├── Paperless NGX/           # Docker Compose stack for local dev
+│   └── docker-compose.yml
+├── test-data/               # Fake document generator + uploader
+│   ├── generate.py          # HTML -> PDF via Chrome headless
+│   ├── upload.py            # Upload to Paperless via REST API
+│   ├── data/                # Farm definitions + 100 document manifests
+│   └── templates/           # Jinja2 HTML templates (standard + hero)
+└── docs/
+    └── superpowers/
+        └── specs/           # Design documents
+```
