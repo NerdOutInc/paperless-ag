@@ -813,13 +813,12 @@ generate_caddyfile() {
     local paperless_service="${PAPERLESS_SERVICE_NAME:-paperless}"
 
     if [[ -n "${DOMAIN:-}" ]]; then
-        local email_line=""
+        local tls_block=""
         if [[ -n "${LE_EMAIL:-}" ]]; then
-            email_line="    tls $LE_EMAIL"
+            tls_block=$'\n    tls '"$LE_EMAIL"
         fi
         cat > "$filepath" <<CADDY
-${DOMAIN} {
-${email_line}
+${DOMAIN} {${tls_block}
     handle_path /mcp/* {
         reverse_proxy companion:3001
     }
@@ -851,7 +850,7 @@ cd "$(dirname "$0")"
 mkdir -p backups
 
 echo "Backing up database before update..."
-docker compose exec -T db pg_dump -U paperless paperless > "backups/pre-update-$(date +%Y%m%d-%H%M%S).sql"
+docker compose exec -T db pg_dump --clean -U paperless paperless > "backups/pre-update-$(date +%Y%m%d-%H%M%S).sql"
 echo "[✓] Database backed up"
 
 echo "Pulling latest images..."
@@ -898,7 +897,7 @@ BACKUP_FILE="$BACKUP_DIR/paperless-$TIMESTAMP.sql"
 
 mkdir -p "$BACKUP_DIR"
 echo "Backing up database..."
-docker compose exec -T db pg_dump -U paperless paperless > "$BACKUP_FILE"
+docker compose exec -T db pg_dump --clean -U paperless paperless > "$BACKUP_FILE"
 echo "[✓] Backup saved to $BACKUP_FILE"
 
 # Keep only the last 7 daily backups
