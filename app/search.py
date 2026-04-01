@@ -3,16 +3,21 @@ import config
 import db
 import embeddings
 
+_cached_token = None
+
 
 def _get_token():
-    resp = requests.post(
-        f"{config.PAPERLESS_API_URL}/api/token/",
-        data={"username": config.PAPERLESS_USERNAME,
-              "password": config.PAPERLESS_PASSWORD},
-        timeout=10,
-    )
-    resp.raise_for_status()
-    return resp.json()["token"]
+    global _cached_token
+    if _cached_token is None:
+        resp = requests.post(
+            f"{config.PAPERLESS_API_URL}/api/token/",
+            data={"username": config.PAPERLESS_USERNAME,
+                  "password": config.PAPERLESS_PASSWORD},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        _cached_token = resp.json()["token"]
+    return _cached_token
 
 
 def _headers():
