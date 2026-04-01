@@ -415,9 +415,18 @@ do_fresh_install() {
     info "Created $install_dir"
 
     # Determine Paperless URL for PAPERLESS_URL env var
-    local paperless_url="http://localhost:8000"
+    local paperless_url
     if [[ -n "${DOMAIN:-}" ]]; then
         paperless_url="https://$DOMAIN"
+    else
+        local detected_ip
+        detected_ip=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "")
+        if [[ -n "$detected_ip" ]]; then
+            paperless_url="http://${detected_ip}"
+        else
+            paperless_url="http://localhost"
+            warn "Could not detect server IP. Update PAPERLESS_URL in .env if needed."
+        fi
     fi
 
     # Generate docker-compose.yml
