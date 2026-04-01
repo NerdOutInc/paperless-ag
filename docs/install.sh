@@ -658,7 +658,7 @@ services:"
     # Add pgvector override if needed
     if [[ "${NEEDS_PGVECTOR_OVERRIDE:-}" == "true" ]]; then
         override_content+="
-  ${DETECTED_DB_HOST}:
+  ${DB_HOST}:
     image: pgvector/pgvector:pg16"
     fi
 
@@ -667,7 +667,7 @@ services:"
     image: ${COMPANION_IMAGE}
     restart: unless-stopped
     depends_on:
-      ${DETECTED_DB_HOST}:
+      ${DB_HOST}:
         condition: service_healthy
     env_file:
       - paperless-ag.env"
