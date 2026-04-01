@@ -37,7 +37,7 @@ The companion container:
 ### Prerequisites
 
 - Docker and Docker Compose
-- Python 3.6+
+- Python 3.11+
 - Google Chrome (for test data PDF generation)
 
 ### Start Paperless NGX and companion app

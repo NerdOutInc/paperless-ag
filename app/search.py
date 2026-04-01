@@ -145,22 +145,29 @@ def get_document(doc_id):
     }
 
 
+def _get_paginated_results(url):
+    results = []
+    while url:
+        resp = requests.get(url, headers=_headers(), timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        results.extend(data.get("results", []))
+        url = data.get("next")
+    return results
+
+
 def list_tags():
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/tags/?page_size=100",
-        headers=_headers(), timeout=30,
+    results = _get_paginated_results(
+        f"{config.PAPERLESS_API_URL}/api/tags/?page_size=100"
     )
-    resp.raise_for_status()
-    return [{"id": t["id"], "name": t["name"]} for t in resp.json().get("results", [])]
+    return [{"id": t["id"], "name": t["name"]} for t in results]
 
 
 def list_document_types():
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/document_types/?page_size=100",
-        headers=_headers(), timeout=30,
+    results = _get_paginated_results(
+        f"{config.PAPERLESS_API_URL}/api/document_types/?page_size=100"
     )
-    resp.raise_for_status()
-    return [{"id": t["id"], "name": t["name"]} for t in resp.json().get("results", [])]
+    return [{"id": t["id"], "name": t["name"]} for t in results]
 
 
 def search_by_tag(tag_name, limit=20):
