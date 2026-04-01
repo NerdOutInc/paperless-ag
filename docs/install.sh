@@ -893,9 +893,13 @@ SCRIPT
 
 setup_backup_cron() {
     local install_dir="$1"
+    if ! command -v crontab &>/dev/null; then
+        warn "crontab not found. Install cron to enable daily backups."
+        return 0
+    fi
     # Add daily backup cron job (2 AM) if not already present
     local cron_line="0 2 * * * cd $install_dir && bash backup.sh >> backups/cron.log 2>&1"
-    if ! crontab -l 2>/dev/null | grep -qF "paperless" 2>/dev/null; then
+    if ! crontab -l 2>/dev/null | grep -Fq "$cron_line" 2>/dev/null; then
         (crontab -l 2>/dev/null; echo "$cron_line") | crontab -
         info "Daily backup scheduled (2:00 AM)"
     fi
