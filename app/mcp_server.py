@@ -1,3 +1,4 @@
+import secrets
 from mcp.server.fastmcp import FastMCP
 import search
 import db
@@ -9,13 +10,13 @@ def _create_mcp():
         try:
             from mcp.server.auth.provider import AccessToken, TokenVerifier
         except ImportError:
-            print("WARNING: MCP auth module not available in this SDK version.")
-            print("Running without authentication.")
-            return FastMCP("Paperless Ag", json_response=True)
+            print("ERROR: MCP_AUTH_TOKEN is set but the MCP SDK does not support authentication.")
+            print("Upgrade the mcp package or unset MCP_AUTH_TOKEN to run without auth.")
+            raise SystemExit(1)
 
         class StaticTokenVerifier(TokenVerifier):
             async def verify_token(self, token):
-                if token == config.MCP_AUTH_TOKEN:
+                if secrets.compare_digest(token, config.MCP_AUTH_TOKEN):
                     return AccessToken(
                         token=token,
                         client_id="paperless-ag",
