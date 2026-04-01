@@ -30,6 +30,16 @@ def main():
     worker_thread.start()
     print(f"Embedding worker started (sync every {config.SYNC_INTERVAL}s)")
 
+    # Monitor worker thread health in a separate daemon thread
+    def _watch_worker():
+        while True:
+            time.sleep(60)
+            if not worker_thread.is_alive():
+                print("WARNING: Embedding worker thread has stopped unexpectedly")
+                break
+
+    threading.Thread(target=_watch_worker, daemon=True, name="worker-watchdog").start()
+
     # Configure MCP server port and host
     mcp.settings.port = config.MCP_PORT
     mcp.settings.host = "0.0.0.0"

@@ -17,6 +17,7 @@ GENERAL_DOCUMENTS = [
     # ──────────────────────────────────────────────────────────────────────
     {
         "id": 71,
+        "tier": "hero",
         "title": "Cass County Property Tax Statement - Horob Family Farms 2024",
         "type": "Property Tax Statement",
         "farm": "horob",
@@ -201,6 +202,7 @@ GENERAL_DOCUMENTS = [
     # ──────────────────────────────────────────────────────────────────────
     {
         "id": 76,
+        "tier": "hero",
         "title": "Hay Purchase Invoice - Dakota Hay & Feed Supply Summer 2023",
         "type": "Feed Purchase Agreement",
         "farm": "nerdout",
@@ -391,6 +393,7 @@ GENERAL_DOCUMENTS = [
     # ──────────────────────────────────────────────────────────────────────
     {
         "id": 82,
+        "tier": "hero",
         "title": "Family Farm Transition Plan - Horob Family Farms 2023",
         "type": "Succession Plan",
         "farm": "horob",
@@ -635,6 +638,7 @@ GENERAL_DOCUMENTS = [
     # ──────────────────────────────────────────────────────────────────────
     {
         "id": 89,
+        "tier": "hero",
         "title": "ND Livestock Brand Certificate - Nerd Out Ranch 2023",
         "type": "Brand Certificate",
         "farm": "nerdout",

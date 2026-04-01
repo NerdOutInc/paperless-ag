@@ -18,17 +18,13 @@ def load_model():
     return _model
 
 
-def get_model():
-    return load_model()
-
-
 def get_embedding(text):
-    model = get_model()
+    model = load_model()
     return model.encode(text).tolist()
 
 
 def get_embeddings(texts):
-    model = get_model()
+    model = load_model()
     return model.encode(texts).tolist()
 
 

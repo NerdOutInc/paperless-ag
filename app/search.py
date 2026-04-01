@@ -1,35 +1,13 @@
-import requests
+import auth
 import config
 import db
 import embeddings
 
-_cached_token = None
-
-
-def _get_token():
-    global _cached_token
-    if _cached_token is None:
-        resp = requests.post(
-            f"{config.PAPERLESS_API_URL}/api/token/",
-            data={"username": config.PAPERLESS_USERNAME,
-                  "password": config.PAPERLESS_PASSWORD},
-            timeout=10,
-        )
-        resp.raise_for_status()
-        _cached_token = resp.json()["token"]
-    return _cached_token
-
-
-def _headers():
-    return {"Authorization": f"Token {_get_token()}"}
-
 
 def get_document_metadata(doc_id):
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/documents/{doc_id}/",
-        headers=_headers(), timeout=30,
+    resp = auth.api_request(
+        "GET", f"{config.PAPERLESS_API_URL}/api/documents/{doc_id}/",
     )
-    resp.raise_for_status()
     doc = resp.json()
     return {
         "id": doc["id"],
@@ -76,13 +54,10 @@ def semantic_search(query, limit=10):
 
 
 def keyword_search(query, limit=10):
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/documents/",
-        headers=_headers(),
+    resp = auth.api_request(
+        "GET", f"{config.PAPERLESS_API_URL}/api/documents/",
         params={"query": query, "page_size": limit},
-        timeout=30,
     )
-    resp.raise_for_status()
     return [
         {
             "id": doc["id"],
@@ -127,11 +102,9 @@ def hybrid_search(query, limit=10):
 
 
 def get_document(doc_id):
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/documents/{doc_id}/",
-        headers=_headers(), timeout=30,
+    resp = auth.api_request(
+        "GET", f"{config.PAPERLESS_API_URL}/api/documents/{doc_id}/",
     )
-    resp.raise_for_status()
     doc = resp.json()
     return {
         "id": doc["id"],
@@ -148,8 +121,7 @@ def get_document(doc_id):
 def _get_paginated_results(url):
     results = []
     while url:
-        resp = requests.get(url, headers=_headers(), timeout=30)
-        resp.raise_for_status()
+        resp = auth.api_request("GET", url)
         data = resp.json()
         results.extend(data.get("results", []))
         url = data.get("next")
@@ -176,13 +148,10 @@ def search_by_tag(tag_name, limit=20):
     if tag_id is None:
         return []
 
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/documents/",
-        headers=_headers(),
+    resp = auth.api_request(
+        "GET", f"{config.PAPERLESS_API_URL}/api/documents/",
         params={"tags__id": tag_id, "page_size": limit},
-        timeout=30,
     )
-    resp.raise_for_status()
     return [
         {"id": d["id"], "title": d.get("title", ""), "created": d.get("created", "")}
         for d in resp.json().get("results", [])
@@ -190,13 +159,10 @@ def search_by_tag(tag_name, limit=20):
 
 
 def search_by_date_range(start, end, limit=20):
-    resp = requests.get(
-        f"{config.PAPERLESS_API_URL}/api/documents/",
-        headers=_headers(),
+    resp = auth.api_request(
+        "GET", f"{config.PAPERLESS_API_URL}/api/documents/",
         params={"created__date__gte": start, "created__date__lte": end, "page_size": limit},
-        timeout=30,
     )
-    resp.raise_for_status()
     return [
         {"id": d["id"], "title": d.get("title", ""), "created": d.get("created", "")}
         for d in resp.json().get("results", [])
