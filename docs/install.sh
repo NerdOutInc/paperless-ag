@@ -456,6 +456,12 @@ do_fresh_install() {
     echo -e "  ${BOLD}Setting things up. This may take a few minutes...${NC}"
     echo
 
+    # Determine Caddy ports
+    local caddy_ports='      - "80:80"'
+    if [[ -n "${DOMAIN:-}" ]]; then
+        caddy_ports="$caddy_ports"$'\n''      - "443:443"'
+    fi
+
     # Create directory
     mkdir -p "$install_dir/backups"
     info "Created $install_dir"
@@ -559,8 +565,7 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+${caddy_ports}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
