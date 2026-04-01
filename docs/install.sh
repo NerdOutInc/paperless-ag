@@ -1114,6 +1114,13 @@ print_addon_summary() {
 main() {
     banner
 
+    # Ensure we have a TTY for interactive prompts (e.g., curl | bash)
+    if ! : </dev/tty 2>/dev/null; then
+        fail "No TTY available. This installer requires interactive input."
+        echo "  Re-run with: ssh -t host 'curl -fsSL ... | bash'"
+        exit 1
+    fi
+
     echo "  Checking your system..."
     echo
     check_platform
@@ -1122,13 +1129,6 @@ main() {
     check_ports
 
     divider
-
-    # Ensure we have a TTY for interactive prompts (e.g., curl | bash)
-    if ! [[ -r /dev/tty ]]; then
-        fail "No TTY available. This installer requires interactive input."
-        echo "  Re-run with: ssh -t host 'curl -fsSL ... | bash'"
-        exit 1
-    fi
 
     # Detect existing Paperless NGX
     PAPERLESS_CONTAINER_ID=""
