@@ -7,9 +7,9 @@ import config
 @contextmanager
 def get_cursor(need_vector=True):
     conn = psycopg2.connect(config.DATABASE_URL)
-    if need_vector:
-        register_vector(conn)
     try:
+        if need_vector:
+            register_vector(conn)
         cur = conn.cursor()
         yield cur
         conn.commit()
@@ -17,7 +17,6 @@ def get_cursor(need_vector=True):
         conn.rollback()
         raise
     finally:
-        cur.close()
         conn.close()
 
 
