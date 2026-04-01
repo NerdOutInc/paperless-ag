@@ -96,7 +96,14 @@ prompt_yn() {
 }
 
 generate_password() {
-    openssl rand -base64 32 | tr -d '/+=' | head -c 32
+    if command -v openssl &>/dev/null; then
+        openssl rand -base64 32 | tr -d '/+=' | head -c 32
+    elif command -v base64 &>/dev/null; then
+        head -c 48 /dev/urandom | base64 | tr -d '/+=' | head -c 32
+    else
+        fail "Neither openssl nor base64 is available for generating passwords."
+        exit 1
+    fi
 }
 
 # ── System Checks ────────────────────────────────────────
