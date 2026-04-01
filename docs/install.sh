@@ -8,8 +8,6 @@ set -euo pipefail
 # Usage: curl -fsSL https://paperless.fullstack.ag/install.sh | bash
 # ─────────────────────────────────────────────────────────
 
-REPO_URL="https://github.com/NerdOutInc/paperless-ag.git"
-REPO_BRANCH="main"
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
 MIN_DISK_GB=5
 MIN_RAM_MB=1024
