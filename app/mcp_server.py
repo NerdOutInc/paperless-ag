@@ -50,6 +50,7 @@ def search_documents(query: str, limit: int = 10) -> list:
         query: Natural language search query
         limit: Maximum number of results (default 10)
     """
+    limit = max(1, min(limit, 100))
     return search.hybrid_search(query, limit=limit)
 
 
@@ -62,6 +63,8 @@ def get_document(document_id: int) -> dict:
     Args:
         document_id: The Paperless document ID
     """
+    if document_id < 1:
+        return {"error": "document_id must be a positive integer"}
     return search.get_document(document_id)
 
 
@@ -92,6 +95,7 @@ def search_by_tag(tag: str, limit: int = 20) -> list:
         tag: Tag name (e.g., horob-family-farms, corn, nitrogen)
         limit: Maximum number of results
     """
+    limit = max(1, min(limit, 100))
     return search.search_by_tag(tag, limit=limit)
 
 
@@ -104,6 +108,7 @@ def search_by_date_range(start: str, end: str, limit: int = 20) -> list:
         end: End date in YYYY-MM-DD format
         limit: Maximum number of results
     """
+    limit = max(1, min(limit, 100))
     return search.search_by_date_range(start, end, limit=limit)
 
 

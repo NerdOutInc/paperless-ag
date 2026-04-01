@@ -17,6 +17,7 @@ def get_cursor(need_vector=True):
         conn.rollback()
         raise
     finally:
+        cur.close()
         conn.close()
 
 
