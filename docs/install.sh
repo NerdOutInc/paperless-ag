@@ -48,10 +48,10 @@ prompt() {
     local prompt_text="$1" default="${2:-}"
     local input
     if [[ -n "$default" ]]; then
-        read -rp "  $prompt_text [$default]: " input
+        read -rp "  $prompt_text [$default]: " input < /dev/tty
         echo "${input:-$default}"
     else
-        read -rp "  $prompt_text: " input
+        read -rp "  $prompt_text: " input < /dev/tty
         echo "$input"
     fi
 }
@@ -99,7 +99,7 @@ prompt_domain() {
 prompt_secret() {
     local prompt_text="$1" result=""
     while [[ -z "$result" ]]; do
-        read -srp "  $prompt_text: " result
+        read -srp "  $prompt_text: " result < /dev/tty
         echo >&2
         if [[ -z "$result" ]]; then
             warn "This field is required." >&2
@@ -111,7 +111,7 @@ prompt_secret() {
             continue
         fi
         local confirm
-        read -srp "  Confirm password: " confirm
+        read -srp "  Confirm password: " confirm < /dev/tty
         echo >&2
         if [[ "$result" != "$confirm" ]]; then
             warn "Passwords don't match. Try again." >&2
@@ -137,7 +137,7 @@ prompt_yn() {
     local yn_hint="[Y/n]"
     [[ "$default" == "n" ]] && yn_hint="[y/N]"
     local input
-    read -rp "  $prompt_text $yn_hint: " input
+    read -rp "  $prompt_text $yn_hint: " input < /dev/tty
     input="${input:-$default}"
     [[ "${input,,}" == "y" ]]
 }
@@ -964,7 +964,7 @@ if [[ ! -f "$BACKUP_FILE" ]]; then
 fi
 
 echo "WARNING: This will replace your current database with the backup."
-read -rp "Are you sure? [y/N]: " confirm
+read -rp "Are you sure? [y/N]: " confirm < /dev/tty
 if [[ "${confirm,,}" != "y" ]]; then
     echo "Cancelled."
     exit 0
