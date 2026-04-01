@@ -18,6 +18,7 @@ Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
 **Document flow:** Paperless ingests/OCRs docs -> Embedding Worker polls for new docs -> text chunked (500-word windows, 50-word overlap) -> embeddings generated locally (all-MiniLM-L6-v2, 384-d vectors) -> stored in pgvector -> searched via hybrid semantic+keyword with RRF scoring.
 
 **Key design decisions:**
+
 - Companion container pattern: never modify upstream Paperless NGX
 - pgvector in the same Postgres instance Paperless already uses (no separate vector DB)
 - Hybrid search combines pgvector cosine similarity with Paperless keyword API via Reciprocal Rank Fusion (k=60)
@@ -59,7 +60,7 @@ docker compose build app && docker compose up -d app
 All companion container code lives in `app/`:
 
 | File | Purpose |
-|------|---------|
+| ------ | --------- |
 | `main.py` | Entry point: retries DB connection, starts worker thread, runs MCP server (SSE) |
 | `config.py` | All env vars in one place |
 | `db.py` | pgvector operations: init schema, store/query embeddings |
