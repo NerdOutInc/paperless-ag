@@ -1,4 +1,5 @@
 import os
+from urllib.parse import quote_plus
 
 PAPERLESS_API_URL = os.getenv("PAPERLESS_API_URL", "http://localhost:8000")
 PAPERLESS_USERNAME = os.getenv("PAPERLESS_USERNAME", "admin")
@@ -12,7 +13,7 @@ def _build_database_url():
     name = os.getenv("DB_NAME", "paperless")
     user = os.getenv("DB_USER", "paperless")
     password = os.getenv("DB_PASS", "paperless-dev")
-    return f"postgresql://{user}:{password}@{host}:{port}/{name}"
+    return f"postgresql://{quote_plus(user)}:{quote_plus(password)}@{host}:{port}/{name}"
 
 DATABASE_URL = _build_database_url()
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
