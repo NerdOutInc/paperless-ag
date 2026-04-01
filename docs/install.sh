@@ -123,7 +123,21 @@ check_docker() {
         echo
         if prompt_yn "Install Docker now?"; then
             step "Installing Docker (this may take a minute)..."
-            curl -fsSL https://get.docker.com | sh 2>/dev/null
+            local tmp_docker_install
+            tmp_docker_install="$(mktemp)"
+            if ! curl -fsSL https://get.docker.com -o "$tmp_docker_install"; then
+                rm -f "$tmp_docker_install"
+                fail "Failed to download Docker install script."
+                echo "  Install Docker manually: https://docs.docker.com/engine/install/"
+                exit 1
+            fi
+            if ! sh "$tmp_docker_install"; then
+                rm -f "$tmp_docker_install"
+                fail "Docker installation failed."
+                echo "  Install Docker manually: https://docs.docker.com/engine/install/"
+                exit 1
+            fi
+            rm -f "$tmp_docker_install"
             info "Docker installed."
 
             # Add current user to docker group if not root
