@@ -34,6 +34,9 @@ def chunk_text(text, chunk_size=None, chunk_overlap=None):
     if chunk_overlap is None:
         chunk_overlap = config.CHUNK_OVERLAP
 
+    if chunk_overlap >= chunk_size:
+        raise ValueError(f"chunk_overlap ({chunk_overlap}) must be less than chunk_size ({chunk_size})")
+
     words = text.split()
     if not words:
         return []
