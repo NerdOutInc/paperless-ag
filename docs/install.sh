@@ -56,6 +56,24 @@ prompt() {
     fi
 }
 
+prompt_safe() {
+    # Like prompt, but rejects characters that break .env or YAML files
+    local prompt_text="$1" default="${2:-}" result=""
+    while true; do
+        result=$(prompt "$prompt_text" "$default")
+        if [[ -z "$result" ]]; then
+            echo "$result"
+            return
+        fi
+        if [[ "$result" =~ [\'\"\`\\\$\#] ]] || [[ "$result" == *$'\n'* ]]; then
+            warn "Cannot contain quotes, backticks, backslashes, \$, or # characters." >&2
+            continue
+        fi
+        echo "$result"
+        return
+    done
+}
+
 prompt_required() {
     local prompt_text="$1" result=""
     while [[ -z "$result" ]]; do
@@ -307,7 +325,7 @@ collect_fresh_config() {
     echo "  Let's set up your Paperless Ag instance."
     divider
 
-    ADMIN_USER=$(prompt "Admin username" "admin")
+    ADMIN_USER=$(prompt_safe "Admin username" "admin")
     ADMIN_PASSWORD=$(prompt_secret "Admin password")
 
     divider
@@ -374,7 +392,7 @@ collect_addon_config() {
     echo "  We need your Paperless admin credentials so the companion"
     echo "  container can access the Paperless API."
     echo
-    ADMIN_USER=$(prompt "Paperless admin username" "admin")
+    ADMIN_USER=$(prompt_safe "Paperless admin username" "admin")
     ADMIN_PASSWORD=$(prompt_secret "Paperless admin password")
 
     divider
