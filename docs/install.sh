@@ -671,16 +671,22 @@ services:"
     depends_on:
       ${DETECTED_DB_HOST}:
         condition: service_healthy
-    environment:
-      PAPERLESS_API_URL: ${paperless_internal_url}
-      PAPERLESS_USERNAME: ${ADMIN_USER}
-      PAPERLESS_PASSWORD: ${ADMIN_PASSWORD}
-      DATABASE_URL: postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:5432/${DB_NAME}
-      EMBEDDING_MODEL: all-MiniLM-L6-v2
-      SYNC_INTERVAL_SECONDS: \"60\"
-      MCP_HTTP_PORT: \"3001\"
-      MCP_AUTH_TOKEN: \"${MCP_AUTH_TOKEN}\"
-      PYTHONUNBUFFERED: \"1\""
+    env_file:
+      - paperless-ag.env"
+
+    # Write companion env to a separate file (avoids YAML escaping issues)
+    cat > "$compose_dir/paperless-ag.env" <<ENVFILE
+PAPERLESS_API_URL=${paperless_internal_url}
+PAPERLESS_USERNAME=${ADMIN_USER}
+PAPERLESS_PASSWORD=${ADMIN_PASSWORD}
+DATABASE_URL=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:5432/${DB_NAME}
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+SYNC_INTERVAL_SECONDS=60
+MCP_HTTP_PORT=3001
+MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN}
+PYTHONUNBUFFERED=1
+ENVFILE
+    chmod 600 "$compose_dir/paperless-ag.env"
 
     # Expose MCP port directly when no domain/Caddy is configured
     if [[ -z "${DOMAIN:-}" ]]; then
