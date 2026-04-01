@@ -218,7 +218,7 @@ check_docker() {
         exit 1
     fi
 
-    info "Docker $(docker --version 2>/dev/null | grep -oP '\d+\.\d+\.\d+' || echo '(version unknown)')"
+    info "Docker $(docker --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo '(version unknown)')"
     info "Docker Compose $(docker compose version --short 2>/dev/null || echo '(version unknown)')"
 }
 
