@@ -108,6 +108,17 @@ prompt_secret() {
     echo "$result"
 }
 
+run_quiet() {
+    # Run a command, suppress output on success, show full output on failure
+    local output
+    if output=$("$@" 2>&1); then
+        return 0
+    else
+        echo "$output" >&2
+        return 1
+    fi
+}
+
 prompt_yn() {
     local prompt_text="$1" default="${2:-y}"
     local yn_hint="[Y/n]"
@@ -614,11 +625,11 @@ ENV
 
     # Pull images and start
     step "Pulling container images (this is the slow part)..."
-    (cd "$install_dir" && docker compose pull 2>&1 | tail -1)
+    (cd "$install_dir" && run_quiet docker compose pull)
     info "Images pulled"
 
     step "Starting services..."
-    (cd "$install_dir" && docker compose up -d 2>&1 | tail -1)
+    (cd "$install_dir" && run_quiet docker compose up -d)
     info "Services started"
 
     step "Waiting for Paperless to be ready (this can take a minute on first run)..."
@@ -707,7 +718,7 @@ do_addon_install() {
 
     # Pull companion image
     step "Pulling Paperless Ag companion image..."
-    docker pull "$COMPANION_IMAGE" 2>&1 | tail -1
+    run_quiet docker pull "$COMPANION_IMAGE"
     info "Companion image pulled"
 
     # Determine internal Paperless URL
@@ -796,7 +807,7 @@ volumes:
 
     # Restart the stack (picks up override automatically)
     step "Restarting services..."
-    (cd "$compose_dir" && docker compose up -d 2>&1 | tail -1)
+    (cd "$compose_dir" && run_quiet docker compose up -d)
     info "Services started"
 
     # Wait for companion
