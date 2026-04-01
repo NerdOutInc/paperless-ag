@@ -682,6 +682,13 @@ services:"
       MCP_AUTH_TOKEN: \"${MCP_AUTH_TOKEN}\"
       PYTHONUNBUFFERED: \"1\""
 
+    # Expose MCP port directly when no domain/Caddy is configured
+    if [[ -z "${DOMAIN:-}" ]]; then
+        override_content+="
+    ports:
+      - \"3001:3001\""
+    fi
+
     # Add Caddy if domain provided
     if [[ -n "${DOMAIN:-}" ]]; then
         override_content+="
