@@ -418,10 +418,10 @@ do_fresh_install() {
                 step "Updating existing installation..."
                 if [[ -f "$install_dir/update.sh" ]]; then
                     bash "$install_dir/update.sh"
+                    return
                 else
                     warn "No update.sh found. Re-running full install."
                 fi
-                return
                 ;;
             *) exit 0 ;;
         esac
