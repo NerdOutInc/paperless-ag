@@ -77,10 +77,23 @@ prompt_safe() {
 prompt_required() {
     local prompt_text="$1" result=""
     while [[ -z "$result" ]]; do
-        result=$(prompt "$prompt_text")
+        result=$(prompt_safe "$prompt_text")
         [[ -z "$result" ]] && warn "This field is required."
     done
     echo "$result"
+}
+
+prompt_domain() {
+    local prompt_text="$1" result=""
+    while true; do
+        result=$(prompt "$prompt_text")
+        [[ -z "$result" ]] && echo "" && return
+        if [[ "$result" =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ ]]; then
+            echo "$result"
+            return
+        fi
+        warn "Domain must contain only letters, numbers, dots, and hyphens." >&2
+    done
 }
 
 prompt_secret() {
@@ -199,7 +212,7 @@ check_docker() {
     fi
 
     # Check daemon is running
-    if ! docker info &>/dev/null 2>&1; then
+    if ! docker info &>/dev/null; then
         if [[ $EUID -ne 0 ]]; then
             # Maybe user isn't in docker group
             if groups "$USER" 2>/dev/null | grep -q docker; then
@@ -294,10 +307,10 @@ detect_paperless() {
     local env_output
     env_output=$(docker inspect "$container_id" --format '{{range .Config.Env}}{{println .}}{{end}}' 2>/dev/null || echo "")
 
-    DETECTED_DB_HOST=$(echo "$env_output" | grep "^PAPERLESS_DBHOST=" | cut -d= -f2 || echo "")
-    DETECTED_DB_NAME=$(echo "$env_output" | grep "^PAPERLESS_DBNAME=" | cut -d= -f2 || echo "")
-    DETECTED_DB_USER=$(echo "$env_output" | grep "^PAPERLESS_DBUSER=" | cut -d= -f2 || echo "")
-    DETECTED_DB_PASS=$(echo "$env_output" | grep "^PAPERLESS_DBPASS=" | cut -d= -f2 || echo "")
+    DETECTED_DB_HOST=$(echo "$env_output" | grep "^PAPERLESS_DBHOST=" | cut -d= -f2- || echo "")
+    DETECTED_DB_NAME=$(echo "$env_output" | grep "^PAPERLESS_DBNAME=" | cut -d= -f2- || echo "")
+    DETECTED_DB_USER=$(echo "$env_output" | grep "^PAPERLESS_DBUSER=" | cut -d= -f2- || echo "")
+    DETECTED_DB_PASS=$(echo "$env_output" | grep "^PAPERLESS_DBPASS=" | cut -d= -f2- || echo "")
 
     # Defaults for anything not detected
     DETECTED_DB_HOST="${DETECTED_DB_HOST:-db}"
@@ -357,7 +370,7 @@ collect_fresh_config() {
         3) TIMEZONE="America/Denver" ;;
         4) TIMEZONE="America/Los_Angeles" ;;
         *)
-            TIMEZONE=$(prompt "Enter timezone (e.g. Europe/London)" "America/Chicago")
+            TIMEZONE=$(prompt_safe "Enter timezone (e.g. Europe/London)" "America/Chicago")
             ;;
     esac
 
@@ -366,14 +379,14 @@ collect_fresh_config() {
     echo "  Do you have a domain name pointed at this server?"
     echo -e "  ${DIM}(e.g., docs.smithfarms.com)${NC}"
     echo
-    DOMAIN=$(prompt "Domain (or press Enter to skip)")
+    DOMAIN=$(prompt_domain "Domain (or press Enter to skip)")
     if [[ -n "$DOMAIN" ]]; then
-        LE_EMAIL=$(prompt "Email for SSL certificate (Let's Encrypt)" "")
+        LE_EMAIL=$(prompt_safe "Email for SSL certificate (Let's Encrypt)" "")
     fi
 
     divider
 
-    INSTALL_DIR=$(prompt "Install directory" "$HOME/paperless-ag")
+    INSTALL_DIR=$(prompt_safe "Install directory" "$HOME/paperless-ag")
     DB_PASSWORD=$(generate_password)
     SECRET_KEY=$(generate_password)
     MCP_AUTH_TOKEN=$(generate_password)
@@ -411,12 +424,18 @@ collect_addon_config() {
     # Confirm DB connection details
     echo "  Confirm your database connection:"
     echo
-    DB_HOST=$(prompt "Postgres host (Docker service name)" "$DETECTED_DB_HOST")
-    DB_NAME=$(prompt "Postgres database" "$DETECTED_DB_NAME")
-    DB_USER=$(prompt "Postgres user" "$DETECTED_DB_USER")
+    DB_HOST=$(prompt_safe "Postgres host (Docker service name)" "$DETECTED_DB_HOST")
+    DB_NAME=$(prompt_safe "Postgres database" "$DETECTED_DB_NAME")
+    DB_USER=$(prompt_safe "Postgres user" "$DETECTED_DB_USER")
     if [[ -n "$DETECTED_DB_PASS" ]]; then
-        DB_PASS="$DETECTED_DB_PASS"
-        info "Database password read from existing config"
+        if [[ "$DETECTED_DB_PASS" =~ [\'\"\`\\\$\#] ]]; then
+            warn "Detected DB password contains special characters."
+            warn "Please enter it manually."
+            DB_PASS=$(prompt_secret "Postgres password")
+        else
+            DB_PASS="$DETECTED_DB_PASS"
+            info "Database password read from existing config"
+        fi
     else
         DB_PASS=$(prompt_secret "Postgres password")
     fi
@@ -426,9 +445,9 @@ collect_addon_config() {
     echo "  Do you have a domain name pointed at this server?"
     echo -e "  ${DIM}(e.g., docs.smithfarms.com)${NC}"
     echo
-    DOMAIN=$(prompt "Domain (or press Enter to skip)")
+    DOMAIN=$(prompt_domain "Domain (or press Enter to skip)")
     if [[ -n "$DOMAIN" ]]; then
-        LE_EMAIL=$(prompt "Email for SSL certificate (Let's Encrypt)" "")
+        LE_EMAIL=$(prompt_safe "Email for SSL certificate (Let's Encrypt)" "")
     fi
 
     MCP_AUTH_TOKEN=$(generate_password)
@@ -747,19 +766,19 @@ services:"
 
     # Write companion env to a separate file (avoids YAML escaping issues)
     cat > "$compose_dir/paperless-ag.env" <<ENVFILE
-PAPERLESS_API_URL="${paperless_internal_url}"
-PAPERLESS_USERNAME="${ADMIN_USER}"
-PAPERLESS_PASSWORD="${ADMIN_PASSWORD}"
-DB_HOST="${DB_HOST}"
-DB_PORT="5432"
-DB_NAME="${DB_NAME}"
-DB_USER="${DB_USER}"
-DB_PASS="${DB_PASS}"
-EMBEDDING_MODEL="all-MiniLM-L6-v2"
-SYNC_INTERVAL_SECONDS="60"
-MCP_HTTP_PORT="3001"
-MCP_AUTH_TOKEN="${MCP_AUTH_TOKEN}"
-PYTHONUNBUFFERED="1"
+PAPERLESS_API_URL='${paperless_internal_url}'
+PAPERLESS_USERNAME='${ADMIN_USER}'
+PAPERLESS_PASSWORD='${ADMIN_PASSWORD}'
+DB_HOST='${DB_HOST}'
+DB_PORT='5432'
+DB_NAME='${DB_NAME}'
+DB_USER='${DB_USER}'
+DB_PASS='${DB_PASS}'
+EMBEDDING_MODEL='all-MiniLM-L6-v2'
+SYNC_INTERVAL_SECONDS='60'
+MCP_HTTP_PORT='3001'
+MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
+PYTHONUNBUFFERED='1'
 ENVFILE
     chmod 600 "$compose_dir/paperless-ag.env"
 
@@ -850,7 +869,7 @@ CADDY
         reverse_proxy companion:3001
     }
     handle {
-        reverse_proxy ${PAPERLESS_SERVICE_NAME:-paperless}:8000
+        reverse_proxy ${paperless_service}:8000
     }
 }
 CADDY
