@@ -1,7 +1,7 @@
 # Paperless Ag - Local Development Stack
 #
 # This runs a stock Paperless NGX instance with pgvector-enabled Postgres.
-# Use this for local development of the companion container.
+# Use this for local development of the companion app container.
 #
 # Usage:
 #   docker compose up -d
@@ -73,6 +73,30 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+
+  # Companion app container - semantic search + MCP server
+  app:
+    build:
+      context: ./app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      paperless-webserver:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+    environment:
+      PAPERLESS_API_URL: http://paperless-webserver:8000
+      PAPERLESS_USERNAME: admin
+      PAPERLESS_PASSWORD: admin
+      DATABASE_URL: postgresql://paperless:paperless-dev@db:5432/paperless
+      EMBEDDING_MODEL: all-MiniLM-L6-v2
+      SYNC_INTERVAL_SECONDS: "60"
+      MCP_HTTP_PORT: "3001"
+      FASTMCP_PORT: "3001"
+      FASTMCP_HOST: "0.0.0.0"
+      PYTHONUNBUFFERED: "1"
 
 volumes:
   pgdata:
