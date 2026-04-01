@@ -647,6 +647,8 @@ do_addon_install() {
             if ! prompt_yn "Overwrite the existing override?" "n"; then
                 exit 0
             fi
+            cp "$compose_dir/docker-compose.override.yml" "$compose_dir/docker-compose.override.yml.bak.$(date +%s)"
+            info "Backed up existing override file"
         else
             warn "A docker-compose.override.yml already exists in $compose_dir"
             warn "We need to add to it. A backup will be created."
