@@ -1123,6 +1123,13 @@ main() {
 
     divider
 
+    # Ensure we have a TTY for interactive prompts (e.g., curl | bash)
+    if ! [[ -r /dev/tty ]]; then
+        fail "No TTY available. This installer requires interactive input."
+        echo "  Re-run with: ssh -t host 'curl -fsSL ... | bash'"
+        exit 1
+    fi
+
     # Detect existing Paperless NGX
     PAPERLESS_CONTAINER_ID=""
     PAPERLESS_COMPOSE_DIR=""
