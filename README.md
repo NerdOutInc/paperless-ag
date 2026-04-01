@@ -2,6 +2,22 @@
 
 A companion container for [Paperless NGX](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. Built for the [Fullstack Ag](https://fullstack.ag) community.
 
+## Deploy
+
+SSH into any Linux server and run:
+
+```bash
+curl -fsSL https://paperless.fullstack.ag/install.sh | bash
+```
+
+The installer detects if you already have Paperless NGX running and walks you through setup. Works on any VPS -- pick one to get started:
+
+[![Deploy on DigitalOcean](https://img.shields.io/badge/Deploy-DigitalOcean-0080FF?style=for-the-badge&logo=digitalocean)](https://cloud.digitalocean.com/droplets/new?size=s-2vcpu-4gb&image=docker-20-04&region=nyc1)
+[![Deploy on Hetzner](https://img.shields.io/badge/Deploy-Hetzner-D50C2D?style=for-the-badge&logo=hetzner)](https://console.hetzner.cloud/)
+[![Deploy on Vultr](https://img.shields.io/badge/Deploy-Vultr-007BFC?style=for-the-badge&logo=vultr)](https://www.vultr.com/products/cloud-compute/)
+
+> **Recommended specs:** 2 vCPU, 4 GB RAM (~$10-24/mo depending on provider). New DigitalOcean accounts get $200 in free credits.
+
 ## The Problem
 
 Farmers and ranchers accumulate a lot of documents -- leases, seed contracts, crop insurance policies, FSA paperwork, chemical application records, equipment manuals, tax returns, succession plans, soil test results. Most of this ends up in filing cabinets, scattered Google Drive folders, or boxes in the shop.
@@ -70,5 +86,5 @@ This project is in early development. Current progress:
 - [x] Companion container with embedding worker
 - [x] pgvector search API (semantic + hybrid)
 - [x] MCP server for Claude integration
-- [ ] Install script for VPS deployment
+- [x] Install script for VPS deployment
 - [ ] DigitalOcean 1-click Marketplace image
