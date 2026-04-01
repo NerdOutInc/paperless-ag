@@ -28,7 +28,7 @@ Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
 
 The companion container:
 
-- Polls Paperless for new/modified documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
+- Polls Paperless for new documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
 - Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
 - Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
 
@@ -50,7 +50,7 @@ Paperless will be available at <http://localhost:8000> (admin / admin).
 
 ### Load Test Data
 
-The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata for tesiting in development:
+The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata for testing in development:
 
 ```bash
 cd test-data
