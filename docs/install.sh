@@ -136,7 +136,9 @@ check_docker() {
                 echo "  Install Docker manually: https://docs.docker.com/engine/install/"
                 exit 1
             fi
-            if ! sh "$tmp_docker_install"; then
+            local sh_cmd="sh"
+            [[ $EUID -ne 0 ]] && sh_cmd="sudo sh"
+            if ! $sh_cmd "$tmp_docker_install"; then
                 rm -f "$tmp_docker_install"
                 fail "Docker installation failed."
                 echo "  Install Docker manually: https://docs.docker.com/engine/install/"
