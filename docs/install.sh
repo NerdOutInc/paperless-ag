@@ -667,8 +667,7 @@ services:"
     image: ${COMPANION_IMAGE}
     restart: unless-stopped
     depends_on:
-      ${DB_HOST}:
-        condition: service_healthy
+      - ${DB_HOST}
     env_file:
       - paperless-ag.env"
 
