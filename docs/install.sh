@@ -92,8 +92,8 @@ prompt_secret() {
             warn "This field is required." >&2
             continue
         fi
-        if [[ "$result" =~ [\'\"\`\\] ]]; then
-            warn "Password cannot contain single quotes, double quotes, backticks, or backslashes." >&2
+        if [[ "$result" =~ [\'\"\`\\\$\#] ]]; then
+            warn "Password cannot contain single quotes, double quotes, backticks, backslashes, \$ or # characters." >&2
             result=""
             continue
         fi
@@ -547,6 +547,7 @@ services:
       PAPERLESS_API_URL: http://paperless:8000
       PAPERLESS_USERNAME: \${ADMIN_USER}
       PAPERLESS_PASSWORD: \${ADMIN_PASSWORD}
+      # DB_PASSWORD is generated from base64 with /+= stripped, so only [A-Za-z0-9] — safe to embed without URL-encoding.
       DATABASE_URL: postgresql://paperless:\${DB_PASSWORD}@db:5432/paperless
       EMBEDDING_MODEL: all-MiniLM-L6-v2
       SYNC_INTERVAL_SECONDS: "60"

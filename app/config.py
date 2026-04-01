@@ -4,6 +4,8 @@ from urllib.parse import quote
 PAPERLESS_API_URL = os.getenv("PAPERLESS_API_URL", "http://localhost:8000")
 PAPERLESS_USERNAME = os.getenv("PAPERLESS_USERNAME", "admin")
 PAPERLESS_PASSWORD = os.getenv("PAPERLESS_PASSWORD", "admin")
+
+
 def _build_database_url():
     url = os.getenv("DATABASE_URL")
     if url:
