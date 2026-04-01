@@ -43,6 +43,11 @@ def init_db():
             CREATE INDEX IF NOT EXISTS idx_doc_embeddings_doc_id
             ON document_embeddings (document_id)
         """)
+        cur.execute("""
+            CREATE INDEX IF NOT EXISTS idx_doc_embeddings_embedding_hnsw
+            ON document_embeddings
+            USING hnsw (embedding vector_cosine_ops)
+        """)
 
 
 def store_embeddings(doc_id, chunks):

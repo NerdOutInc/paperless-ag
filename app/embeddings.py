@@ -1,21 +1,25 @@
+import threading
 from sentence_transformers import SentenceTransformer
 import config
 
 _model = None
+_model_lock = threading.Lock()
 
 
 def load_model():
     global _model
-    print(f"Loading embedding model: {config.EMBEDDING_MODEL}")
-    _model = SentenceTransformer(config.EMBEDDING_MODEL)
-    print("Model loaded.")
+    if _model is not None:
+        return _model
+    with _model_lock:
+        if _model is None:
+            print(f"Loading embedding model: {config.EMBEDDING_MODEL}")
+            _model = SentenceTransformer(config.EMBEDDING_MODEL)
+            print("Model loaded.")
     return _model
 
 
 def get_model():
-    if _model is None:
-        return load_model()
-    return _model
+    return load_model()
 
 
 def get_embedding(text):

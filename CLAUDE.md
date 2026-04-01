@@ -77,4 +77,4 @@ The MCP server (`mcp_server.py`) exposes: `search_documents`, `get_document`, `l
 
 ## Test Data
 
-Three fictional farms: Horob Family Farms (row crops, West Fargo ND), Nerd Out Ranch (cattle, Fargo ND), Pattison Acres (diversified, Minneapolis MN). 100 documents across 18 types, with 20 "hero" (styled) and 80 "standard" templates. Manifests split across `manifest_crop.py`, `manifest_livestock.py`, `manifest_general.py`.
+Three fictional farms: Horob Family Farms (row crops, West Fargo ND), Nerd Out Ranch (cattle, Fargo ND), Pattison Acres (diversified, Minneapolis MN). 100 documents across 18 types, with 20 "hero" (styled) and 80 "standard" templates. Manifests split across `test-data/data/manifest_crop.py`, `test-data/data/manifest_livestock.py`, `test-data/data/manifest_general.py`.
