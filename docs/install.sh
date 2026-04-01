@@ -942,13 +942,6 @@ print_fresh_summary() {
     local install_dir="$1"
     local paperless_url="$2"
     local mcp_url="${paperless_url}/mcp/sse"
-    local ip_addr
-    ip_addr=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR_SERVER_IP")
-
-    if [[ "$paperless_url" == "http://localhost:8000" ]]; then
-        paperless_url="http://${ip_addr}"
-        mcp_url="http://${ip_addr}/mcp/sse"
-    fi
 
     echo
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
