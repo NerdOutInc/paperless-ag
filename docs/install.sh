@@ -847,6 +847,7 @@ generate_update_script() {
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
+mkdir -p backups
 
 echo "Backing up database before update..."
 docker compose exec -T db pg_dump -U paperless paperless > "backups/pre-update-$(date +%Y%m%d-%H%M%S).sql"
