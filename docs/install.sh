@@ -321,6 +321,7 @@ collect_fresh_config() {
     INSTALL_DIR=$(prompt "Install directory" "$HOME/paperless-ag")
     DB_PASSWORD=$(generate_password)
     SECRET_KEY=$(generate_password)
+    MCP_AUTH_TOKEN=$(generate_password)
 }
 
 collect_addon_config() {
@@ -374,6 +375,8 @@ collect_addon_config() {
     if [[ -n "$DOMAIN" ]]; then
         LE_EMAIL=$(prompt "Email for SSL certificate (Let's Encrypt)" "")
     fi
+
+    MCP_AUTH_TOKEN=$(generate_password)
 }
 
 # ── Fresh Install ────────────────────────────────────────
@@ -495,6 +498,7 @@ services:
       EMBEDDING_MODEL: all-MiniLM-L6-v2
       SYNC_INTERVAL_SECONDS: "60"
       MCP_HTTP_PORT: "3001"
+      MCP_AUTH_TOKEN: \${MCP_AUTH_TOKEN}
       PYTHONUNBUFFERED: "1"
 
   caddy:
@@ -534,6 +538,7 @@ DB_PASSWORD=${DB_PASSWORD}
 SECRET_KEY=${SECRET_KEY}
 TIMEZONE=${TIMEZONE}
 PAPERLESS_URL=${paperless_url}
+MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN}
 ENV
     chmod 600 "$install_dir/.env"
     info "Generated .env"
@@ -674,6 +679,7 @@ services:"
       EMBEDDING_MODEL: all-MiniLM-L6-v2
       SYNC_INTERVAL_SECONDS: \"60\"
       MCP_HTTP_PORT: \"3001\"
+      MCP_AUTH_TOKEN: \"${MCP_AUTH_TOKEN}\"
       PYTHONUNBUFFERED: \"1\""
 
     # Add Caddy if domain provided
@@ -912,10 +918,24 @@ print_fresh_summary() {
     echo
     echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
     echo
-    echo "  Open Claude Desktop on your laptop. Go to Settings > MCP Servers."
-    echo "  Add a new server with this URL:"
+    echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}${mcp_url}${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\${NC}"
+    echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
+    echo
+    echo "  Or add this to your .mcp.json:"
+    echo
+    echo "    {"
+    echo "      \"mcpServers\": {"
+    echo "        \"paperless-ag\": {"
+    echo "          \"type\": \"sse\","
+    echo "          \"url\": \"${mcp_url}\","
+    echo "          \"headers\": {"
+    echo "            \"Authorization\": \"Bearer ${MCP_AUTH_TOKEN}\""
+    echo "          }"
+    echo "        }"
+    echo "      }"
+    echo "    }"
     echo
     echo "  Then ask Claude: \"Search my farm documents for crop insurance\""
     echo
@@ -955,9 +975,24 @@ print_addon_summary() {
     echo
     echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
     echo
-    echo "  Add this MCP server URL in Claude Desktop:"
+    echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}${mcp_url}${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\${NC}"
+    echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
+    echo
+    echo "  Or add this to your .mcp.json:"
+    echo
+    echo "    {"
+    echo "      \"mcpServers\": {"
+    echo "        \"paperless-ag\": {"
+    echo "          \"type\": \"sse\","
+    echo "          \"url\": \"${mcp_url}\","
+    echo "          \"headers\": {"
+    echo "            \"Authorization\": \"Bearer ${MCP_AUTH_TOKEN}\""
+    echo "          }"
+    echo "        }"
+    echo "      }"
+    echo "    }"
     echo
     echo "  Then ask Claude: \"Search my farm documents for crop insurance\""
     echo
