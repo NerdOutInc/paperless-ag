@@ -74,6 +74,11 @@ prompt_secret() {
             warn "This field is required." >&2
             continue
         fi
+        if [[ "$result" =~ [\'\"\`\\] ]]; then
+            warn "Password cannot contain single quotes, double quotes, backticks, or backslashes." >&2
+            result=""
+            continue
+        fi
         local confirm
         read -srp "  Confirm password: " confirm
         echo >&2
