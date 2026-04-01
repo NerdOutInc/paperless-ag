@@ -19,7 +19,7 @@ Paperless NGX stays completely stock. Free upstream updates forever.
 
 ## Architecture
 
-```
+```plaintext
 Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
      Web UI (:8000)          Embedding Worker              document_embeddings table
      REST API                MCP Server (:3001)            (shared with Paperless)
@@ -27,6 +27,7 @@ Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
 ```
 
 The companion container:
+
 - Polls Paperless for new/modified documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
 - Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
 - Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
@@ -39,18 +40,17 @@ The companion container:
 - Python 3.6+
 - Google Chrome (for test data PDF generation)
 
-### Start Paperless NGX
+### Start Paperless NGX and companion app
 
 ```bash
-cd "Paperless NGX"
 docker compose up -d
 ```
 
-Paperless will be available at http://localhost:8000 (admin / admin).
+Paperless will be available at <http://localhost:8000> (admin / admin).
 
 ### Load Test Data
 
-The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata:
+The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata for tesiting in development:
 
 ```bash
 cd test-data
@@ -67,23 +67,8 @@ This project is in early development. Current progress:
 
 - [x] Local Paperless NGX dev stack (Docker Compose with pgvector-enabled Postgres)
 - [x] Test data generator (100 realistic farm documents across 3 fictional farms)
-- [ ] Companion container with embedding worker
-- [ ] pgvector search API (semantic + hybrid)
-- [ ] MCP server for Claude integration
+- [x] Companion container with embedding worker
+- [x] pgvector search API (semantic + hybrid)
+- [x] MCP server for Claude integration
 - [ ] Install script for VPS deployment
 - [ ] DigitalOcean 1-click Marketplace image
-
-## Repository Structure
-
-```
-├── Paperless NGX/           # Docker Compose stack for local dev
-│   └── docker-compose.yml
-├── test-data/               # Fake document generator + uploader
-│   ├── generate.py          # HTML -> PDF via Chrome headless
-│   ├── upload.py            # Upload to Paperless via REST API
-│   ├── data/                # Farm definitions + 100 document manifests
-│   └── templates/           # Jinja2 HTML templates (standard + hero)
-└── docs/
-    └── superpowers/
-        └── specs/           # Design documents
-```
