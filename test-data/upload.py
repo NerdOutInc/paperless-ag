@@ -21,7 +21,7 @@ import sys
 import requests
 
 from data.manifest import DOCUMENTS
-from data.farms import FARMS, DOCUMENT_TYPES, CORRESPONDENTS, TAGS
+from data.farms import DOCUMENT_TYPES, CORRESPONDENTS, TAGS
 
 TAG_COLORS = {
     # Farm names - bold, distinct

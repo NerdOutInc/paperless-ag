@@ -36,7 +36,7 @@ docker compose down               # Stop (keep data)
 docker compose down -v            # Stop and delete all data
 ```
 
-Services: Paperless at :8000 (admin/admin), MCP server at :3001/sse, Postgres at :5432, Redis at :6379.
+Services: Paperless at :8000 (admin/admin), MCP server at :3001/sse. Postgres and Redis are internal to the Docker network (not published to host).
 
 ### Test data
 
@@ -62,7 +62,8 @@ All companion container code lives in `app/`:
 | File | Purpose |
 | ------ | --------- |
 | `main.py` | Entry point: retries DB connection, starts worker thread, runs MCP server (SSE) |
-| `config.py` | All env vars in one place |
+| `config.py` | All env vars in one place (validates int env vars) |
+| `auth.py` | Thread-safe Paperless API token management with automatic re-auth on 401 |
 | `db.py` | pgvector operations: init schema, store/query embeddings |
 | `embeddings.py` | Model loading, text chunking, embedding generation |
 | `worker.py` | `EmbeddingWorker` daemon thread: polls Paperless API, embeds new docs |

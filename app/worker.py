@@ -1,5 +1,5 @@
 import time
-import requests
+import auth
 import config
 import db
 import embeddings
@@ -8,30 +8,12 @@ import embeddings
 class EmbeddingWorker:
     def __init__(self):
         self.api_url = config.PAPERLESS_API_URL
-        self.token = None
-
-    def authenticate(self):
-        resp = requests.post(
-            f"{self.api_url}/api/token/",
-            data={"username": config.PAPERLESS_USERNAME,
-                  "password": config.PAPERLESS_PASSWORD},
-            timeout=10,
-        )
-        resp.raise_for_status()
-        self.token = resp.json()["token"]
-
-    def get_headers(self):
-        if not self.token:
-            self.authenticate()
-        return {"Authorization": f"Token {self.token}"}
 
     def get_all_document_ids(self):
         doc_ids = []
         url = f"{self.api_url}/api/documents/?page_size=100&fields=id"
-        headers = self.get_headers()
         while url:
-            resp = requests.get(url, headers=headers, timeout=30)
-            resp.raise_for_status()
+            resp = auth.api_request("GET", url)
             data = resp.json()
             for doc in data.get("results", []):
                 doc_ids.append(doc["id"])
@@ -39,13 +21,9 @@ class EmbeddingWorker:
         return doc_ids
 
     def get_document_content(self, doc_id):
-        headers = self.get_headers()
-        resp = requests.get(
-            f"{self.api_url}/api/documents/{doc_id}/",
-            headers=headers,
-            timeout=30,
+        resp = auth.api_request(
+            "GET", f"{self.api_url}/api/documents/{doc_id}/",
         )
-        resp.raise_for_status()
         return resp.json().get("content", "")
 
     def embed_document(self, doc_id):
@@ -93,7 +71,7 @@ class EmbeddingWorker:
         # Wait for Paperless to be ready
         for attempt in range(30):
             try:
-                self.authenticate()
+                auth.get_token()
                 print("Connected to Paperless API.")
                 break
             except Exception:
