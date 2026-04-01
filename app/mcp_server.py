@@ -1,4 +1,3 @@
-import json
 from mcp.server.fastmcp import FastMCP
 import search
 import db
@@ -7,7 +6,7 @@ mcp = FastMCP("Paperless Ag", json_response=True)
 
 
 @mcp.tool()
-def search_documents(query: str, limit: int = 10) -> str:
+def search_documents(query: str, limit: int = 10) -> list:
     """Search farm documents using hybrid semantic and keyword search.
 
     Combines vector similarity search (finds conceptually related documents)
@@ -18,12 +17,11 @@ def search_documents(query: str, limit: int = 10) -> str:
         query: Natural language search query
         limit: Maximum number of results (default 10)
     """
-    results = search.hybrid_search(query, limit=limit)
-    return json.dumps(results, indent=2, default=str)
+    return search.hybrid_search(query, limit=limit)
 
 
 @mcp.tool()
-def get_document(document_id: int) -> str:
+def get_document(document_id: int) -> dict:
     """Get full details and content for a specific document.
 
     Use this after searching to read the complete text of a document.
@@ -31,45 +29,41 @@ def get_document(document_id: int) -> str:
     Args:
         document_id: The Paperless document ID
     """
-    doc = search.get_document(document_id)
-    return json.dumps(doc, indent=2, default=str)
+    return search.get_document(document_id)
 
 
 @mcp.tool()
-def list_tags() -> str:
+def list_tags() -> list:
     """List all tags in the document management system.
 
     Returns all available tags. Useful for understanding how documents
     are organized and for filtering searches.
     """
-    tags = search.list_tags()
-    return json.dumps(tags, indent=2)
+    return search.list_tags()
 
 
 @mcp.tool()
-def list_document_types() -> str:
+def list_document_types() -> list:
     """List all document types in the system.
 
     Returns categories like Soil Test Report, Crop Insurance Policy, etc.
     """
-    types = search.list_document_types()
-    return json.dumps(types, indent=2)
+    return search.list_document_types()
 
 
 @mcp.tool()
-def search_by_tag(tag: str, limit: int = 20) -> str:
+def search_by_tag(tag: str, limit: int = 20) -> list:
     """Find all documents with a specific tag.
 
     Args:
         tag: Tag name (e.g., horob-family-farms, corn, nitrogen)
         limit: Maximum number of results
     """
-    results = search.search_by_tag(tag, limit=limit)
-    return json.dumps(results, indent=2, default=str)
+    return search.search_by_tag(tag, limit=limit)
 
 
 @mcp.tool()
-def search_by_date_range(start: str, end: str, limit: int = 20) -> str:
+def search_by_date_range(start: str, end: str, limit: int = 20) -> list:
     """Find documents within a date range.
 
     Args:
@@ -77,15 +71,13 @@ def search_by_date_range(start: str, end: str, limit: int = 20) -> str:
         end: End date in YYYY-MM-DD format
         limit: Maximum number of results
     """
-    results = search.search_by_date_range(start, end, limit=limit)
-    return json.dumps(results, indent=2, default=str)
+    return search.search_by_date_range(start, end, limit=limit)
 
 
 @mcp.tool()
-def get_embedding_status() -> str:
+def get_embedding_status() -> dict:
     """Check the status of document embeddings.
 
     Returns how many documents and chunks have been embedded so far.
     """
-    stats = db.get_embedding_stats()
-    return json.dumps(stats, indent=2)
+    return db.get_embedding_stats()
