@@ -964,7 +964,7 @@ if [[ ! -f "$BACKUP_FILE" ]]; then
 fi
 
 echo "WARNING: This will replace your current database with the backup."
-read -rp "Are you sure? [y/N]: " confirm < /dev/tty
+read -rp "Are you sure? [y/N]: " confirm
 if [[ "${confirm,,}" != "y" ]]; then
     echo "Cancelled."
     exit 0
@@ -1116,8 +1116,8 @@ main() {
 
     # Ensure we have a TTY for interactive prompts (e.g., curl | bash)
     if ! : </dev/tty 2>/dev/null; then
-        fail "No TTY available. This installer requires interactive input."
-        echo "  Re-run with: ssh -t host 'curl -fsSL ... | bash'"
+        fail "No TTY available. This installer requires interactive input." >&2
+        echo "  Re-run with: ssh -t host 'curl -fsSL ... | bash'" >&2
         exit 1
     fi
 
