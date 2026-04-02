@@ -1001,7 +1001,7 @@ setup_backup_cron() {
         if { crontab -l 2>/dev/null || true; echo "$cron_line"; } | crontab - 2>/dev/null; then
             info "Daily backup scheduled (2:00 AM)"
         else
-            warn "Could not set up cron job. Run manually: bash $install_dir/backup.sh"
+            warn "Could not set up cron job. Run manually: cd \"$install_dir\" && bash backup.sh"
         fi
     fi
 }
