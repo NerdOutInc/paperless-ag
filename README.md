@@ -81,10 +81,12 @@ See [test-data/README.md](test-data/README.md) for details on the test documents
 
 After installation, connect your MCP server to Claude so you can search documents through conversation.
 
+The install script prints the exact commands with your server's URL and token. The general format is:
+
 ### Claude Code
 
 ```bash
-claude mcp add --transport sse paperless-ag https://YOUR_DOMAIN/mcp/sse \
+claude mcp add --transport sse paperless-ag YOUR_SERVER_URL/mcp/sse \
   --header "Authorization: Bearer YOUR_MCP_TOKEN"
 ```
 
@@ -97,7 +99,7 @@ Add this to your Claude Desktop config or `.mcp.json`:
   "mcpServers": {
     "paperless-ag": {
       "type": "sse",
-      "url": "https://YOUR_DOMAIN/mcp/sse",
+      "url": "YOUR_SERVER_URL/mcp/sse",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }
@@ -106,7 +108,7 @@ Add this to your Claude Desktop config or `.mcp.json`:
 }
 ```
 
-Replace `YOUR_DOMAIN` with your server's domain or IP, and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file (adjust the path if you chose a different install directory):
+Replace `YOUR_SERVER_URL` with the URL from the install output (`https://yourdomain.com` if you configured a domain, or `http://YOUR_IP` if not) and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file (adjust the path if you chose a different install directory):
 
 ```bash
 grep MCP_AUTH_TOKEN /root/paperless-ag/.env

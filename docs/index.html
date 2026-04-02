@@ -180,6 +180,7 @@
             this.parentElement.querySelector('code').textContent,
           )
         "
+        aria-label="Copy to clipboard"
         title="Copy to clipboard"
       >
         <svg
@@ -269,7 +270,7 @@
 
     <p><strong>Claude Code:</strong></p>
     <div class="code-block">
-      <pre><code>claude mcp add --transport sse paperless-ag https://YOUR_DOMAIN/mcp/sse \
+      <pre><code>claude mcp add --transport sse paperless-ag YOUR_SERVER_URL/mcp/sse \
   --header "Authorization: Bearer YOUR_MCP_TOKEN"</code></pre>
       <button
         class="copy-btn"
@@ -279,6 +280,7 @@
             this.parentElement.querySelector('code').textContent,
           )
         "
+        aria-label="Copy to clipboard"
         title="Copy to clipboard"
       >
         <svg
@@ -322,7 +324,7 @@
   "mcpServers": {
     "paperless-ag": {
       "type": "sse",
-      "url": "https://YOUR_DOMAIN/mcp/sse",
+      "url": "YOUR_SERVER_URL/mcp/sse",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }
@@ -337,6 +339,7 @@
             this.parentElement.querySelector('code').textContent,
           )
         "
+        aria-label="Copy to clipboard"
         title="Copy to clipboard"
       >
         <svg
@@ -375,8 +378,10 @@
     </div>
 
     <p>
-      Replace <code>YOUR_DOMAIN</code> and <code>YOUR_MCP_TOKEN</code> with the
-      values from your install output. Lost your token? Check the
+      Replace <code>YOUR_SERVER_URL</code> with the URL from your install output
+      (<code>https://yourdomain.com</code> if you configured a domain, or
+      <code>http://YOUR_IP</code> if not) and <code>YOUR_MCP_TOKEN</code> with
+      the token from the install output. Lost your token? Check the
       <code>.env</code> file in your install directory (defaults to
       <code>/root/paperless-ag</code>):
     </p>
@@ -390,6 +395,7 @@
             this.parentElement.querySelector('code').textContent,
           )
         "
+        aria-label="Copy to clipboard"
         title="Copy to clipboard"
       >
         <svg
