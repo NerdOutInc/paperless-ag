@@ -77,6 +77,59 @@ python3 upload.py      # Upload to Paperless with metadata
 
 See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
 
+## Connect to Claude
+
+After installation, connect your MCP server to Claude so you can search documents through conversation.
+
+The install script prints the exact commands with your server's URL and token. The general format is:
+
+### Claude Code
+
+```bash
+claude mcp add --transport sse paperless-ag YOUR_SERVER_URL/mcp/sse \
+  --header "Authorization: Bearer YOUR_MCP_TOKEN"
+```
+
+### Claude Desktop / .mcp.json
+
+Add this to your Claude Desktop config or `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "paperless-ag": {
+      "type": "sse",
+      "url": "YOUR_SERVER_URL/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Replace `YOUR_SERVER_URL` with the URL from the install output (`https://yourdomain.com` if you configured a domain, or `http://YOUR_IP` if not) and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file (adjust the path if you chose a different install directory):
+
+```bash
+grep MCP_AUTH_TOKEN /root/paperless-ag/.env
+```
+
+Then try asking Claude: *"Search my farm documents for crop insurance"*
+
+## Uninstall
+
+To completely remove Paperless Ag and all its data from your server (`/root/paperless-ag` is the default install directory -- adjust if you chose a different path during setup):
+
+```bash
+cd /root/paperless-ag
+docker compose down -v
+crontab -l | grep -v paperless-ag | crontab -
+cd ~
+rm -rf /root/paperless-ag
+```
+
+> **Warning:** This deletes all documents and database contents. Run `bash /root/paperless-ag/backup.sh` first if you want to keep your data.
+
 ## Project Status
 
 This project is in early development. Current progress:
