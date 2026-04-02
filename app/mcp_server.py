@@ -35,7 +35,12 @@ class BearerTokenMiddleware:
         await self.app(scope, receive, send)
 
 
-mcp = FastMCP("Paperless Ag")
+mcp = FastMCP(
+    "Paperless Ag",
+    streamable_http_path="/mcp",
+    json_response=True,
+    stateless_http=True,
+)
 
 
 @mcp.tool()
