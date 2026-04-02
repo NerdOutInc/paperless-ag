@@ -906,20 +906,20 @@ else
     echo "[!] Database not running — skipping backup"
 fi
 
-# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add well-known block)
+# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add @discovery matcher for OAuth/OIDC endpoints)
 if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
     echo "Updating Caddyfile for streamable HTTP transport..."
     sed -i 's|handle_path /mcp/\* {|@mcp path /mcp /mcp/*\n    handle @mcp {|' Caddyfile
     # Add discovery block if missing
-    if ! grep -q 'well-known' Caddyfile; then
+    if ! grep -q 'openid-configuration' Caddyfile; then
         sed -i '/@mcp path/i\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
 fi
-# Migrate broad .well-known/* to specific discovery endpoints
-if [[ -f Caddyfile ]] && grep -q 'handle /\.well-known/\*' Caddyfile; then
-    sed -i '/handle \/\.well-known\/\*/,/}/c\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
-    echo "[✓] Caddyfile discovery block narrowed"
+# Migrate legacy .well-known/oauth* to specific discovery endpoints
+if [[ -f Caddyfile ]] && grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
+    sed -i '/handle \/\.well-known\/oauth\*/,/}/c\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
+    echo "[✓] Caddyfile discovery block updated"
 fi
 
 echo "Pulling latest images..."
