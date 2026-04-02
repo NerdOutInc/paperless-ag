@@ -84,7 +84,7 @@ using the format http://localhost:8000/documents/ID/details
 
 > This is the problem Paperless Ag solves. Farmers don't think in government form numbers and insurance terminology. They think in concepts -- "crop failure," "what do I owe on rent," "when did we spray for weeds." The semantic search in the companion container understands what you mean, not just what you type.
 
-> Paperless NGX stays completely stock. We didn't modify it at all. The companion container just sits alongside it, reads the documents through the API, generates embeddings, and exposes search through an MCP server that Claude can call. Free upstream updates forever.
+> Paperless NGX stays completely stock. We didn't modify it at all. The companion container just sits alongside it, reads the documents through the API, generates embeddings, and exposes search through an MCP server that Claude can call.
 
 ---
 
