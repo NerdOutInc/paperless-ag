@@ -36,7 +36,7 @@ docker compose down               # Stop (keep data)
 docker compose down -v            # Stop and delete all data
 ```
 
-Services: Paperless at :8000 (admin/admin), MCP server at :3001/sse. Postgres and Redis are internal to the Docker network (not published to host).
+Services: Paperless at :8000 (admin/admin), MCP server at :3001/mcp. Postgres and Redis are internal to the Docker network (not published to host).
 
 ### Test data
 
@@ -61,7 +61,7 @@ All companion container code lives in `app/`:
 
 | File | Purpose |
 | ------ | --------- |
-| `main.py` | Entry point: retries DB connection, starts worker thread, runs MCP server (SSE) |
+| `main.py` | Entry point: retries DB connection, starts worker thread, runs MCP server (streamable HTTP) |
 | `config.py` | All env vars in one place (validates int env vars) |
 | `auth.py` | Thread-safe Paperless API token management with automatic re-auth on 401 |
 | `db.py` | pgvector operations: init schema, store/query embeddings |
@@ -74,7 +74,7 @@ All companion container code lives in `app/`:
 
 ## MCP Tools
 
-The MCP server (`mcp_server.py`) exposes: `search_documents`, `get_document`, `list_tags`, `list_document_types`, `search_by_tag`, `search_by_date_range`, `get_embedding_status`. Configured in `.mcp.json` as SSE on port 3001.
+The MCP server (`mcp_server.py`) exposes: `search_documents`, `get_document`, `list_tags`, `list_document_types`, `search_by_tag`, `search_by_date_range`, `get_embedding_status`. Configured in `.mcp.json` as HTTP on port 3001.
 
 ## Linting
 

@@ -854,7 +854,7 @@ generate_caddyfile() {
         fi
         cat > "$filepath" <<CADDY
 ${DOMAIN} {${tls_block}
-    handle_path /mcp/* {
+    handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
     handle {
@@ -865,7 +865,7 @@ CADDY
     else
         cat > "$filepath" <<CADDY
 :80 {
-    handle_path /mcp/* {
+    handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
     handle {
@@ -1011,7 +1011,7 @@ setup_backup_cron() {
 print_fresh_summary() {
     local install_dir="$1"
     local paperless_url="$2"
-    local mcp_url="${paperless_url}/mcp/sse"
+    local mcp_url="${paperless_url}/mcp"
 
     echo
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
@@ -1031,7 +1031,7 @@ print_fresh_summary() {
     echo
     echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\\\${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport http paperless-ag ${mcp_url} \\\\${NC}"
     echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
     echo
     echo "  Or add this to your .mcp.json:"
@@ -1039,7 +1039,7 @@ print_fresh_summary() {
     echo "    {"
     echo "      \"mcpServers\": {"
     echo "        \"paperless-ag\": {"
-    echo "          \"type\": \"sse\","
+    echo "          \"type\": \"http\","
     echo "          \"url\": \"${mcp_url}\","
     echo "          \"headers\": {"
     echo "            \"Authorization\": \"Bearer ${MCP_AUTH_TOKEN}\""
@@ -1069,9 +1069,9 @@ print_addon_summary() {
 
     local mcp_url
     if [[ -n "${DOMAIN:-}" ]]; then
-        mcp_url="https://${DOMAIN}/mcp/sse"
+        mcp_url="https://${DOMAIN}/mcp"
     else
-        mcp_url="http://${ip_addr}:3001/sse"
+        mcp_url="http://${ip_addr}:3001/mcp"
     fi
 
     echo
@@ -1088,7 +1088,7 @@ print_addon_summary() {
     echo
     echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\\\${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport http paperless-ag ${mcp_url} \\\\${NC}"
     echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
     echo
     echo "  Or add this to your .mcp.json:"
@@ -1096,7 +1096,7 @@ print_addon_summary() {
     echo "    {"
     echo "      \"mcpServers\": {"
     echo "        \"paperless-ag\": {"
-    echo "          \"type\": \"sse\","
+    echo "          \"type\": \"http\","
     echo "          \"url\": \"${mcp_url}\","
     echo "          \"headers\": {"
     echo "            \"Authorization\": \"Bearer ${MCP_AUTH_TOKEN}\""
