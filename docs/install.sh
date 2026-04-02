@@ -10,8 +10,8 @@ set -euo pipefail
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
 MIN_DISK_GB=5
-MIN_RAM_MB=2048
-RECOMMENDED_RAM_MB=4096
+MIN_RAM_MB=1900
+RECOMMENDED_RAM_MB=3900
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
