@@ -998,8 +998,11 @@ setup_backup_cron() {
     # Add daily backup cron job (2 AM) if not already present
     local cron_line="0 2 * * * cd \"$install_dir\" && bash backup.sh >> \"$install_dir/backups/cron.log\" 2>&1"
     if ! crontab -l 2>/dev/null | grep -Fq "$cron_line" 2>/dev/null; then
-        (crontab -l 2>/dev/null; echo "$cron_line") | crontab -
-        info "Daily backup scheduled (2:00 AM)"
+        if { crontab -l 2>/dev/null || true; echo "$cron_line"; } | crontab - 2>/dev/null; then
+            info "Daily backup scheduled (2:00 AM)"
+        else
+            warn "Could not set up cron job. Run manually: bash $install_dir/backup.sh"
+        fi
     fi
 }
 

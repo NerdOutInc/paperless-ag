@@ -77,6 +77,43 @@ python3 upload.py      # Upload to Paperless with metadata
 
 See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
 
+## Connect to Claude
+
+After installation, connect your MCP server to Claude so you can search documents through conversation.
+
+### Claude Code
+
+```bash
+claude mcp add --transport sse paperless-ag https://YOUR_DOMAIN/mcp/sse \
+  --header "Authorization: Bearer YOUR_MCP_TOKEN"
+```
+
+### Claude Desktop / .mcp.json
+
+Add this to your Claude Desktop config or `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "paperless-ag": {
+      "type": "sse",
+      "url": "https://YOUR_DOMAIN/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Replace `YOUR_DOMAIN` with your server's domain or IP, and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file:
+
+```bash
+grep MCP_AUTH_TOKEN /root/paperless-ag/.env
+```
+
+Then try asking Claude: *"Search my farm documents for crop insurance"*
+
 ## Project Status
 
 This project is in early development. Current progress:

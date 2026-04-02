@@ -261,6 +261,171 @@
       </li>
     </ul>
 
+    <h2>Connect to Claude</h2>
+    <p>
+      After installation, connect your MCP server to Claude. The install script
+      prints your connection details, but here's the general format:
+    </p>
+
+    <p><strong>Claude Code:</strong></p>
+    <div class="code-block">
+      <pre><code>claude mcp add --transport sse paperless-ag https://YOUR_DOMAIN/mcp/sse \
+  --header "Authorization: Bearer YOUR_MCP_TOKEN"</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+
+    <p><strong>Claude Desktop / .mcp.json:</strong></p>
+    <div class="code-block">
+      <pre><code>{
+  "mcpServers": {
+    "paperless-ag": {
+      "type": "sse",
+      "url": "https://YOUR_DOMAIN/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_TOKEN"
+      }
+    }
+  }
+}</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+
+    <p>
+      Replace <code>YOUR_DOMAIN</code> and <code>YOUR_MCP_TOKEN</code> with the
+      values from your install output. Lost your token? Check your
+      <code>.env</code> file:
+    </p>
+    <div class="code-block">
+      <pre><code>grep MCP_AUTH_TOKEN /root/paperless-ag/.env</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+
     <h2>Requirements</h2>
     <ul>
       <li>
