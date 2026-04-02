@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Create non-root user with writable home directory for model cache
 RUN useradd -r -m -s /bin/false appuser && \
-    chmod 755 /home/appuser
+    chmod 700 /home/appuser
 
 # Point all model/cache env vars at appuser's home so the pre-download
 # lands there and runtime reads/writes go to the same place.
@@ -31,7 +31,7 @@ USER appuser
 
 EXPOSE 3001
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
     CMD curl -f http://localhost:3001/health || exit 1
 
 CMD ["python", "main.py"]
