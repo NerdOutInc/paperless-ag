@@ -910,8 +910,10 @@ fi
 if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
     echo "Updating Caddyfile for streamable HTTP transport..."
     sed -i 's|handle_path /mcp/\* {|@mcp path /mcp /mcp/*\n    handle @mcp {|' Caddyfile
-    # Add discovery block if missing
-    if ! grep -q 'openid-configuration' Caddyfile; then
+    # Add discovery block if missing and no legacy oauth block needs migration
+    if ! grep -q 'openid-configuration' Caddyfile \
+        && ! grep -q '@discovery path' Caddyfile \
+        && ! grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
         sed -i '/@mcp path/i\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
