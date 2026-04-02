@@ -318,7 +318,7 @@
       </button>
     </div>
 
-    <p><strong>Claude Desktop / .mcp.json:</strong></p>
+    <p><strong>VS Code / Cursor (<code>.mcp.json</code>):</strong></p>
     <div class="code-block">
       <pre><code>{
   "mcpServers": {
@@ -376,6 +376,194 @@
         </svg>
       </button>
     </div>
+
+    <p>
+      <strong>Claude Desktop (<code>claude_desktop_config.json</code>):</strong>
+    </p>
+    <p>
+      Claude Desktop doesn't support remote HTTP servers directly. Use
+      <code>mcp-remote</code> as a bridge. Edit your config file at
+      <code
+        >~/Library/Application Support/Claude/claude_desktop_config.json</code
+      >
+      (macOS) or
+      <code>%APPDATA%\Claude\claude_desktop_config.json</code> (Windows):
+    </p>
+    <div class="code-block">
+      <pre><code>{
+  "mcpServers": {
+    "paperless-ag": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "YOUR_SERVER_URL/mcp",
+        "--allow-http",
+        "--header",
+        "Authorization:Bearer YOUR_MCP_TOKEN"
+      ],
+      "env": {
+        "PATH": "YOUR_NODE_BIN_DIR:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        aria-label="Copy to clipboard"
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+
+    <p>
+      Replace <code>YOUR_NODE_BIN_DIR</code> with the directory containing your
+      <code>node</code> binary. Claude Desktop doesn't inherit your shell's
+      PATH, so it needs this to find <code>npx</code> and <code>node</code>.
+      Find it by running:
+    </p>
+    <div class="code-block">
+      <pre><code>dirname "$(which node)"</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        aria-label="Copy to clipboard"
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+    <p>
+      If you use <code>nvm</code> or <code>fnm</code>, use the real path instead
+      of the ephemeral shell path:
+    </p>
+    <div class="code-block">
+      <pre><code>dirname "$(readlink -f "$(which node)")"</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        aria-label="Copy to clipboard"
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+    <p>
+      If your server uses HTTPS, you can drop the
+      <code>--allow-http</code> flag and the <code>env</code> block may not be
+      needed if <code>node</code> is in a standard location like
+      <code>/usr/local/bin</code>.
+    </p>
 
     <p>
       Replace <code>YOUR_SERVER_URL</code> with the URL from your install output
