@@ -86,7 +86,7 @@ The install script prints the exact commands with your server's URL and token. T
 ### Claude Code
 
 ```bash
-claude mcp add --transport sse paperless-ag YOUR_SERVER_URL/mcp/sse \
+claude mcp add --transport http paperless-ag YOUR_SERVER_URL/mcp \
   --header "Authorization: Bearer YOUR_MCP_TOKEN"
 ```
 
@@ -98,8 +98,8 @@ Add this to your Claude Desktop config or `.mcp.json`:
 {
   "mcpServers": {
     "paperless-ag": {
-      "type": "sse",
-      "url": "YOUR_SERVER_URL/mcp/sse",
+      "type": "http",
+      "url": "YOUR_SERVER_URL/mcp",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }

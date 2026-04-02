@@ -16,22 +16,26 @@ class BearerTokenMiddleware:
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send):
         if scope["type"] in ("http", "websocket"):
-            headers = dict(scope.get("headers", []))
-            auth = headers.get(b"authorization", b"").decode()
-            if not auth.startswith("Bearer ") or not secrets.compare_digest(
-                auth[7:], self.token
-            ):
-                if scope["type"] == "http":
-                    resp = JSONResponse({"error": "unauthorized"}, status_code=401)
-                    await resp(scope, receive, send)
+            # Let OAuth discovery paths through so clients get 404 (not 401)
+            # and know OAuth isn't supported. Also exempt /health for Docker.
+            path = scope.get("path", "")
+            if not path.startswith("/.well-known/") and path != "/health":
+                headers = dict(scope.get("headers", []))
+                auth = headers.get(b"authorization", b"").decode()
+                if not auth.startswith("Bearer ") or not secrets.compare_digest(
+                    auth[7:], self.token
+                ):
+                    if scope["type"] == "http":
+                        resp = JSONResponse({"error": "unauthorized"}, status_code=401)
+                        await resp(scope, receive, send)
+                        return
+                    # Reject WebSocket upgrades
+                    await send({"type": "websocket.close", "code": 4401})
                     return
-                # Reject WebSocket upgrades
-                await send({"type": "websocket.close", "code": 4401})
-                return
         await self.app(scope, receive, send)
 
 
-mcp = FastMCP("Paperless Ag", json_response=True)
+mcp = FastMCP("Paperless Ag")
 
 
 @mcp.tool()

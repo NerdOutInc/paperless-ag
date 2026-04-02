@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 import threading
 import time
 import uvicorn
@@ -41,14 +42,34 @@ def main():
 
     threading.Thread(target=_watch_worker, daemon=True, name="worker-watchdog").start()
 
-    # Build SSE app and optionally wrap with auth middleware
-    app = mcp.sse_app()
+    # Build streamable HTTP app with health endpoint, optionally wrap with auth
+    from starlette.applications import Starlette
+    from starlette.responses import PlainTextResponse
+    from starlette.routing import Route, Mount
+
+    @asynccontextmanager
+    async def lifespan(app):
+        async with mcp.session_manager.run():
+            yield
+
+    app = Starlette(routes=[
+        Route("/health", lambda r: PlainTextResponse("ok")),
+        Mount(
+            "/",
+            app=mcp.streamable_http_app(
+                streamable_http_path="/mcp",
+                json_response=True,
+                stateless_http=True,
+                host="0.0.0.0",
+            ),
+        ),
+    ], lifespan=lifespan)
     if config.MCP_AUTH_TOKEN:
         app = BearerTokenMiddleware(app, config.MCP_AUTH_TOKEN)
         print("MCP authentication enabled (Bearer token).")
 
     # Start MCP server (blocks)
-    print(f"Starting MCP server (SSE) on port {config.MCP_PORT}...")
+    print(f"Starting MCP server (streamable HTTP) on port {config.MCP_PORT}...")
     uvicorn.run(app, host="0.0.0.0", port=config.MCP_PORT, log_level="warning")
 
 
