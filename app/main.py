@@ -58,6 +58,8 @@ def main():
         # and fall back to using configured Bearer token headers.
         Route("/.well-known/oauth-authorization-server",
               lambda r: Response(status_code=404)),
+        Route("/.well-known/openid-configuration",
+              lambda r: Response(status_code=404)),
         Mount("/", app=mcp.streamable_http_app()),
     ], lifespan=lifespan)
     if config.MCP_AUTH_TOKEN:

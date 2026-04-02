@@ -854,7 +854,7 @@ generate_caddyfile() {
         fi
         cat > "$filepath" <<CADDY
 ${DOMAIN} {${tls_block}
-    handle /.well-known/oauth* {
+    handle /.well-known/* {
         respond 404
     }
     @mcp path /mcp /mcp/*
@@ -871,7 +871,7 @@ CADDY
     else
         cat > "$filepath" <<CADDY
 :80 {
-    handle /.well-known/oauth* {
+    handle /.well-known/* {
         respond 404
     }
     @mcp path /mcp /mcp/*
@@ -904,15 +904,20 @@ else
     echo "[!] Database not running — skipping backup"
 fi
 
-# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add OAuth block)
+# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add well-known block)
 if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
     echo "Updating Caddyfile for streamable HTTP transport..."
     sed -i 's|handle_path /mcp/\* {|@mcp path /mcp /mcp/*\n    handle @mcp {|' Caddyfile
-    # Add OAuth well-known block if missing
-    if ! grep -q 'well-known/oauth' Caddyfile; then
-        sed -i '/@mcp path/i\    handle \/.well-known\/oauth* {\n        respond 404\n    }' Caddyfile
+    # Add well-known block if missing
+    if ! grep -q 'well-known' Caddyfile; then
+        sed -i '/@mcp path/i\    handle \/.well-known\/\* {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
+fi
+# Migrate narrow .well-known/oauth* to catch-all .well-known/*
+if [[ -f Caddyfile ]] && grep -q 'well-known/oauth' Caddyfile; then
+    sed -i 's|\.well-known/oauth\*|.well-known/\*|' Caddyfile
+    echo "[✓] Caddyfile well-known block widened"
 fi
 
 echo "Pulling latest images..."
