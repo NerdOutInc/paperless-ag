@@ -270,7 +270,7 @@
 
     <p><strong>Claude Code:</strong></p>
     <div class="code-block">
-      <pre><code>claude mcp add --transport sse paperless-ag YOUR_SERVER_URL/mcp/sse \
+      <pre><code>claude mcp add --transport http paperless-ag YOUR_SERVER_URL/mcp \
   --header "Authorization: Bearer YOUR_MCP_TOKEN"</code></pre>
       <button
         class="copy-btn"
@@ -323,8 +323,8 @@
       <pre><code>{
   "mcpServers": {
     "paperless-ag": {
-      "type": "sse",
-      "url": "YOUR_SERVER_URL/mcp/sse",
+      "type": "http",
+      "url": "YOUR_SERVER_URL/mcp",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }
