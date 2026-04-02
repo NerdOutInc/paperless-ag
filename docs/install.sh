@@ -854,7 +854,7 @@ generate_caddyfile() {
         fi
         cat > "$filepath" <<CADDY
 ${DOMAIN} {${tls_block}
-    handle /mcp* {
+    handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
     handle {
@@ -865,7 +865,7 @@ CADDY
     else
         cat > "$filepath" <<CADDY
 :80 {
-    handle /mcp* {
+    handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
     handle {

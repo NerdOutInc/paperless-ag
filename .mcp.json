@@ -1,8 +1,7 @@
 {
   "mcpServers": {
     "paperless-ag": {
-      "type": "sse",
-      "url": "http://localhost:3001/sse"
+      "url": "http://localhost:3001/mcp"
     }
   }
 }
