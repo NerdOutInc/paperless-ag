@@ -33,50 +33,6 @@ A single Docker container that sits alongside a stock Paperless NGX installation
 
 Paperless NGX stays completely stock.
 
-## Architecture
-
-```plaintext
-Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
-     Web UI (:8000)          Embedding Worker              document_embeddings table
-     REST API                MCP Server (:3001)            (shared with Paperless)
-     Consumer                Search API
-```
-
-The companion container:
-
-- Polls Paperless for new documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
-- Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
-- Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
-
-## Local Development
-
-### Prerequisites
-
-- Docker and Docker Compose
-- Python 3.11+
-- Google Chrome (for test data PDF generation)
-
-### Start Paperless NGX and companion app
-
-```bash
-docker compose up -d
-```
-
-Paperless will be available at <http://localhost:8000> (admin / admin).
-
-### Load Test Data
-
-The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata for testing in development:
-
-```bash
-cd test-data
-pip3 install -r requirements.txt
-python3 generate.py    # Generate 100 PDFs
-python3 upload.py      # Upload to Paperless with metadata
-```
-
-See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
-
 ## Connect to Claude
 
 After installation, connect your MCP server to Claude so you can search documents through conversation.
@@ -154,6 +110,50 @@ grep MCP_AUTH_TOKEN /root/paperless-ag/.env
 ```
 
 Then try asking Claude: *"Search my farm documents for crop insurance"*
+
+## Architecture
+
+```plaintext
+Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
+     Web UI (:8000)          Embedding Worker              document_embeddings table
+     REST API                MCP Server (:3001)            (shared with Paperless)
+     Consumer                Search API
+```
+
+The companion container:
+
+- Polls Paperless for new documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
+- Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
+- Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
+
+## Local Development
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Python 3.11+
+- Google Chrome (for test data PDF generation)
+
+### Start Paperless NGX and companion app
+
+```bash
+docker compose up -d
+```
+
+Paperless will be available at <http://localhost:8000> (admin / admin).
+
+### Load Test Data
+
+The `test-data/` directory contains a generator that creates 100 fake farm/ranch PDFs and uploads them to Paperless with metadata for testing in development:
+
+```bash
+cd test-data
+pip3 install -r requirements.txt
+python3 generate.py    # Generate 100 PDFs
+python3 upload.py      # Upload to Paperless with metadata
+```
+
+See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
 
 ## Uninstall
 
