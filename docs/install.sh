@@ -857,7 +857,8 @@ ${DOMAIN} {${tls_block}
     handle /.well-known/oauth* {
         respond 404
     }
-    handle /mcp /mcp/* {
+    @mcp path /mcp /mcp/*
+    handle @mcp {
         reverse_proxy companion:3001
     }
     handle {
@@ -871,7 +872,8 @@ CADDY
     handle /.well-known/oauth* {
         respond 404
     }
-    handle /mcp /mcp/* {
+    @mcp path /mcp /mcp/*
+    handle @mcp {
         reverse_proxy companion:3001
     }
     handle {
@@ -898,13 +900,13 @@ else
     echo "[!] Database not running — skipping backup"
 fi
 
-# Migrate Caddyfile if needed (handle_path -> handle, add OAuth block)
+# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add OAuth block)
 if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
     echo "Updating Caddyfile for streamable HTTP transport..."
-    sed -i 's|handle_path /mcp/\* {|handle /mcp /mcp/* {|' Caddyfile
+    sed -i 's|handle_path /mcp/\* {|@mcp path /mcp /mcp/*\n    handle @mcp {|' Caddyfile
     # Add OAuth well-known block if missing
     if ! grep -q 'well-known/oauth' Caddyfile; then
-        sed -i '/handle \/mcp/i\    handle \/.well-known\/oauth* {\n        respond 404\n    }' Caddyfile
+        sed -i '/@mcp path/i\    handle \/.well-known\/oauth* {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
 fi
