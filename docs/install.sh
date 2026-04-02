@@ -1031,7 +1031,7 @@ print_fresh_summary() {
     echo
     echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\\\${NC}"
     echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
     echo
     echo "  Or add this to your .mcp.json:"
@@ -1088,7 +1088,7 @@ print_addon_summary() {
     echo
     echo "  In Claude Code, run this command:"
     echo
-    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\${NC}"
+    echo -e "    ${BOLD}claude mcp add --transport sse paperless-ag ${mcp_url} \\\\${NC}"
     echo -e "    ${BOLD}  --header \"Authorization: Bearer ${MCP_AUTH_TOKEN}\"${NC}"
     echo
     echo "  Or add this to your .mcp.json:"
