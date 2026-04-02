@@ -854,6 +854,9 @@ generate_caddyfile() {
         fi
         cat > "$filepath" <<CADDY
 ${DOMAIN} {${tls_block}
+    handle /.well-known/oauth* {
+        respond 404
+    }
     handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
@@ -865,6 +868,9 @@ CADDY
     else
         cat > "$filepath" <<CADDY
 :80 {
+    handle /.well-known/oauth* {
+        respond 404
+    }
     handle /mcp /mcp/* {
         reverse_proxy companion:3001
     }
@@ -890,6 +896,17 @@ if docker compose ps --status running db 2>/dev/null | grep -q db; then
     echo "[✓] Database backed up"
 else
     echo "[!] Database not running — skipping backup"
+fi
+
+# Migrate Caddyfile if needed (handle_path -> handle, add OAuth block)
+if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
+    echo "Updating Caddyfile for streamable HTTP transport..."
+    sed -i 's|handle_path /mcp/\* {|handle /mcp /mcp/* {|' Caddyfile
+    # Add OAuth well-known block if missing
+    if ! grep -q 'well-known/oauth' Caddyfile; then
+        sed -i '/handle \/mcp/i\    handle \/.well-known\/oauth* {\n        respond 404\n    }' Caddyfile
+    fi
+    echo "[✓] Caddyfile updated"
 fi
 
 echo "Pulling latest images..."
