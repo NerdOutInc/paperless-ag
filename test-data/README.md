@@ -16,20 +16,20 @@ Paperless must be running (`docker compose up -d` from the `Paperless NGX/` dire
 ## Scripts
 
 | File | Purpose |
-|---|---|
+| --- | --- |
 | `generate.py` | Renders HTML from Jinja2 templates, converts to PDF via Chrome headless. Outputs to `output/`. |
 | `upload.py` | Uploads PDFs to Paperless NGX via REST API with metadata (document types, correspondents, tags with colors). |
 
 ### generate.py options
 
-```
+```plaintext
 --force       Regenerate PDFs even if they already exist
 --limit N     Only generate the first N documents
 ```
 
 ### upload.py options
 
-```
+```plaintext
 --url URL       Paperless base URL (default: http://localhost:8000)
 --username U    Paperless username (default: admin)
 --password P    Paperless password (default: admin)
@@ -40,7 +40,7 @@ Paperless must be running (`docker compose up -d` from the `Paperless NGX/` dire
 
 ## Directory Structure
 
-```
+```plaintext
 test-data/
 ├── generate.py              # HTML rendering + Chrome PDF conversion
 ├── upload.py                # Paperless API upload + metadata setup
@@ -77,7 +77,7 @@ test-data/
 ## The Three Farms
 
 | Farm | Type | Location |
-|---|---|---|
+| --- | --- | --- |
 | Horob Family Farms | 2,400 ac row crops (corn/soybeans/wheat) | West Fargo, ND |
 | Nerd Out Ranch | 800 head cow-calf operation | Fargo, ND |
 | Pattison Acres | 1,200 ac diversified (corn/soybeans + 200 head cattle) | Minneapolis, MN |
@@ -90,7 +90,7 @@ test-data/
 - 80 **standard** documents with clean, content-focused layouts
 
 | Document Type | Count |
-|---|---|
+| --- | --- |
 | Soil Test Reports | 7 |
 | Crop Insurance Policies | 5 |
 | Seed Contracts | 7 |

@@ -76,6 +76,12 @@ All companion container code lives in `app/`:
 
 The MCP server (`mcp_server.py`) exposes: `search_documents`, `get_document`, `list_tags`, `list_document_types`, `search_by_tag`, `search_by_date_range`, `get_embedding_status`. Configured in `.mcp.json` as SSE on port 3001.
 
+## Linting
+
+After modifying any `.md` file, run `npx markdownlint-cli2 <files>` and fix any warnings before finishing.
+
+After modifying any `.html` file, run `npx prettier --write <files>` to auto-format before finishing.
+
 ## Test Data
 
 Three fictional farms: Horob Family Farms (row crops, West Fargo ND), Nerd Out Ranch (cattle, Fargo ND), Pattison Acres (diversified, Minneapolis MN). 100 documents across 18 types, with 20 "hero" (styled) and 80 "standard" templates. Manifests split across `test-data/data/manifest_crop.py`, `test-data/data/manifest_livestock.py`, `test-data/data/manifest_general.py`.
