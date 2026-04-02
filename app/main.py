@@ -58,15 +58,7 @@ def main():
         # and fall back to using configured Bearer token headers.
         Route("/.well-known/oauth-authorization-server",
               lambda r: Response(status_code=404)),
-        Mount(
-            "/",
-            app=mcp.streamable_http_app(
-                streamable_http_path="/mcp",
-                json_response=True,
-                stateless_http=True,
-                host="0.0.0.0",
-            ),
-        ),
+        Mount("/", app=mcp.streamable_http_app()),
     ], lifespan=lifespan)
     if config.MCP_AUTH_TOKEN:
         app = BearerTokenMiddleware(app, config.MCP_AUTH_TOKEN)
