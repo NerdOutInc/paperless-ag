@@ -26,6 +26,12 @@ def main():
         print("ERROR: Could not connect to database after 15 attempts")
         return
 
+    # Pre-load the embedding model so it's ready before accepting MCP requests.
+    # Without this, the first search request would trigger a model load that
+    # can race with the worker thread or hit cache-permission issues.
+    import embeddings
+    embeddings.load_model()
+
     # Start embedding worker in background thread
     worker = EmbeddingWorker()
     worker_thread = threading.Thread(target=worker.run, daemon=True, name="embedding-worker")
