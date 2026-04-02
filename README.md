@@ -90,9 +90,9 @@ claude mcp add --transport http paperless-ag YOUR_SERVER_URL/mcp \
   --header "Authorization: Bearer YOUR_MCP_TOKEN"
 ```
 
-### Claude Desktop / .mcp.json
+### VS Code / Cursor (`.mcp.json`)
 
-Add this to your Claude Desktop config or `.mcp.json`:
+Add this to your project's `.mcp.json`:
 
 ```json
 {
@@ -107,6 +107,45 @@ Add this to your Claude Desktop config or `.mcp.json`:
   }
 }
 ```
+
+### Claude Desktop (`claude_desktop_config.json`)
+
+Claude Desktop doesn't support remote HTTP servers directly. Use `mcp-remote` as a bridge. Edit your config at `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "paperless-ag": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "YOUR_SERVER_URL/mcp",
+        "--allow-http",
+        "--header",
+        "Authorization:Bearer YOUR_MCP_TOKEN"
+      ],
+      "env": {
+        "PATH": "YOUR_NODE_BIN_DIR:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}
+```
+
+Replace `YOUR_NODE_BIN_DIR` with the directory containing your `node` binary. Claude Desktop doesn't inherit your shell's PATH, so it needs this to find `npx` and `node`. Find it by running:
+
+```bash
+dirname "$(which node)"
+```
+
+If you use `nvm` or `fnm`, use the real path instead of the ephemeral shell path:
+
+```bash
+dirname "$(readlink -f "$(which node)")"
+```
+
+If your server uses HTTPS, you can drop the `--allow-http` flag. The `env` block may not be needed if `node` is in a standard location like `/usr/local/bin`.
 
 Replace `YOUR_SERVER_URL` with the URL from the install output (`https://yourdomain.com` if you configured a domain, or `http://YOUR_IP` if not) and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file (adjust the path if you chose a different install directory):
 
