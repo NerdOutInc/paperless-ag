@@ -2,6 +2,21 @@
 
 A companion container for [Paperless NGX](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. Built for the [Fullstack Ag](https://fullstack.ag) community.
 
+## The Problem
+
+Farmers and ranchers accumulate a lot of documents -- leases, seed contracts, crop insurance policies, FSA paperwork, chemical application records, equipment manuals, tax returns, succession plans, soil test results. Most of this ends up in filing cabinets, scattered Google Drive folders, or boxes in the shop.
+
+The problem is retrieval. Paperless NGX handles ingestion, OCR, and keyword search well, but keyword search only works when you remember the exact words in the document. Search "fertilizer recommendations" when the document says "nutrient management plan" and you get zero results.
+
+## What This Adds
+
+A single Docker container that sits alongside a stock Paperless NGX installation and provides:
+
+1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
+2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
+
+Paperless NGX stays completely stock.
+
 ## Deploy
 
 SSH into any Linux server and run:
@@ -17,21 +32,6 @@ The installer detects if you already have Paperless NGX running and walks you th
 [![Deploy on Vultr](https://img.shields.io/badge/Deploy-Vultr-007BFC?style=for-the-badge&logo=vultr)](https://www.vultr.com/products/cloud-compute/)
 
 > **Recommended specs:** 2 vCPU, 4+ GB RAM (~$10-24/mo depending on provider). New DigitalOcean accounts get $200 in free credits.
-
-## The Problem
-
-Farmers and ranchers accumulate a lot of documents -- leases, seed contracts, crop insurance policies, FSA paperwork, chemical application records, equipment manuals, tax returns, succession plans, soil test results. Most of this ends up in filing cabinets, scattered Google Drive folders, or boxes in the shop.
-
-The problem is retrieval. Paperless NGX handles ingestion, OCR, and keyword search well, but keyword search only works when you remember the exact words in the document. Search "fertilizer recommendations" when the document says "nutrient management plan" and you get zero results.
-
-## What This Adds
-
-A single Docker container that sits alongside a stock Paperless NGX installation and provides:
-
-1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
-2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
-
-Paperless NGX stays completely stock.
 
 ## Connect to Claude
 
