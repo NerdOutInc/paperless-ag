@@ -10,8 +10,8 @@ set -euo pipefail
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
 MIN_DISK_GB=5
-MIN_RAM_MB=1024
-RECOMMENDED_RAM_MB=2048
+MIN_RAM_MB=2048
+RECOMMENDED_RAM_MB=4096
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
@@ -252,11 +252,11 @@ check_resources() {
     total_ram_mb=$(free -m 2>/dev/null | awk '/Mem:/ {print $2}' || echo "0")
     if (( total_ram_mb > 0 )); then
         if (( total_ram_mb < MIN_RAM_MB )); then
-            fail "Not enough RAM. Need at least 1GB, have ${total_ram_mb}MB."
-            fail "Paperless + the embedding model need at least 2GB to run well."
+            fail "Not enough RAM. Need at least 4GB, have ${total_ram_mb}MB."
+            fail "Paperless + the embedding model need at least 4GB to run well."
             exit 1
         elif (( total_ram_mb < RECOMMENDED_RAM_MB )); then
-            warn "${total_ram_mb}MB RAM. 2GB+ recommended for best performance."
+            warn "${total_ram_mb}MB RAM. 4GB+ recommended for best performance."
         else
             info "${total_ram_mb}MB RAM available"
         fi
