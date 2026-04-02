@@ -44,7 +44,7 @@ def main():
 
     # Build streamable HTTP app with health endpoint, optionally wrap with auth
     from starlette.applications import Starlette
-    from starlette.responses import PlainTextResponse
+    from starlette.responses import PlainTextResponse, Response
     from starlette.routing import Route, Mount
 
     @asynccontextmanager
@@ -54,6 +54,10 @@ def main():
 
     app = Starlette(routes=[
         Route("/health", lambda r: PlainTextResponse("ok")),
+        # Return 404 for OAuth discovery so MCP clients skip OAuth
+        # and fall back to using configured Bearer token headers.
+        Route("/.well-known/oauth-authorization-server",
+              lambda r: Response(status_code=404)),
         Mount(
             "/",
             app=mcp.streamable_http_app(
