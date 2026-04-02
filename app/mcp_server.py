@@ -40,6 +40,7 @@ mcp = FastMCP(
     streamable_http_path="/mcp",
     json_response=True,
     stateless_http=True,
+    host="0.0.0.0",
 )
 
 
