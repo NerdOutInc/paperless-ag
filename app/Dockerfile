@@ -9,14 +9,24 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pre-download embedding model during build (80MB)
+# Create non-root user with writable home directory for model cache
+RUN useradd -r -m -s /bin/false appuser && \
+    chmod 755 /home/appuser
+
+# Point all model/cache env vars at appuser's home so the pre-download
+# lands there and runtime reads/writes go to the same place.
+ENV HF_HOME=/home/appuser/.cache/huggingface
+ENV SENTENCE_TRANSFORMERS_HOME=/home/appuser/.cache/sentence_transformers
+
+# Pre-download embedding model during build (80MB), then hand
+# the entire home tree to appuser so runtime can write lock/meta files.
 ARG EMBEDDING_MODEL=all-MiniLM-L6-v2
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('${EMBEDDING_MODEL}')"
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('${EMBEDDING_MODEL}')" && \
+    chown -R appuser:appuser /home/appuser
 ENV EMBEDDING_MODEL=${EMBEDDING_MODEL}
 
 COPY *.py .
 
-RUN useradd -r -s /bin/false appuser
 USER appuser
 
 EXPOSE 3001
