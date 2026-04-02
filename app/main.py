@@ -1,9 +1,10 @@
 import threading
 import time
+import uvicorn
 import config
 import db
 from worker import EmbeddingWorker
-from mcp_server import mcp
+from mcp_server import mcp, BearerTokenMiddleware
 
 
 def main():
@@ -40,13 +41,15 @@ def main():
 
     threading.Thread(target=_watch_worker, daemon=True, name="worker-watchdog").start()
 
-    # Configure MCP server port and host
-    mcp.settings.port = config.MCP_PORT
-    mcp.settings.host = "0.0.0.0"
+    # Build SSE app and optionally wrap with auth middleware
+    app = mcp.sse_app()
+    if config.MCP_AUTH_TOKEN:
+        app = BearerTokenMiddleware(app, config.MCP_AUTH_TOKEN)
+        print("MCP authentication enabled (Bearer token).")
 
     # Start MCP server (blocks)
     print(f"Starting MCP server (SSE) on port {config.MCP_PORT}...")
-    mcp.run(transport="sse")
+    uvicorn.run(app, host="0.0.0.0", port=config.MCP_PORT, log_level="warning")
 
 
 if __name__ == "__main__":

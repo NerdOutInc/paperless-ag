@@ -1,41 +1,37 @@
 import secrets
 from mcp.server.fastmcp import FastMCP
+from starlette.responses import JSONResponse
+from starlette.types import ASGIApp, Receive, Scope, Send
 import search
 import db
 import config
 
 
-def _create_mcp():
-    if config.MCP_AUTH_TOKEN:
-        try:
-            from mcp.server.auth.provider import AccessToken, TokenVerifier
-        except ImportError:
-            print("ERROR: MCP_AUTH_TOKEN is set but the MCP SDK does not support authentication.")
-            print("Upgrade the mcp package or unset MCP_AUTH_TOKEN to run without auth.")
-            raise SystemExit(1)
+class BearerTokenMiddleware:
+    """ASGI middleware that validates a static Bearer token."""
 
-        class StaticTokenVerifier(TokenVerifier):
-            async def verify_token(self, token):
-                if secrets.compare_digest(token, config.MCP_AUTH_TOKEN):
-                    return AccessToken(
-                        token=token,
-                        client_id="paperless-ag",
-                        scopes=[],
-                    )
-                return None
+    def __init__(self, app: ASGIApp, token: str):
+        self.app = app
+        self.token = token
 
-        server = FastMCP(
-            "Paperless Ag",
-            json_response=True,
-            token_verifier=StaticTokenVerifier(),
-        )
-        print("MCP authentication enabled.")
-        return server
-
-    return FastMCP("Paperless Ag", json_response=True)
+    async def __call__(self, scope: Scope, receive: Receive, send: Send):
+        if scope["type"] in ("http", "websocket"):
+            headers = dict(scope.get("headers", []))
+            auth = headers.get(b"authorization", b"").decode()
+            if not auth.startswith("Bearer ") or not secrets.compare_digest(
+                auth[7:], self.token
+            ):
+                if scope["type"] == "http":
+                    resp = JSONResponse({"error": "unauthorized"}, status_code=401)
+                    await resp(scope, receive, send)
+                    return
+                # Reject WebSocket upgrades
+                await send({"type": "websocket.close", "code": 4401})
+                return
+        await self.app(scope, receive, send)
 
 
-mcp = _create_mcp()
+mcp = FastMCP("Paperless Ag", json_response=True)
 
 
 @mcp.tool()
