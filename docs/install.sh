@@ -854,7 +854,8 @@ generate_caddyfile() {
         fi
         cat > "$filepath" <<CADDY
 ${DOMAIN} {${tls_block}
-    handle /.well-known/oauth* {
+    @discovery path /.well-known/oauth-authorization-server /.well-known/openid-configuration
+    handle @discovery {
         respond 404
     }
     @mcp path /mcp /mcp/*
@@ -871,7 +872,8 @@ CADDY
     else
         cat > "$filepath" <<CADDY
 :80 {
-    handle /.well-known/oauth* {
+    @discovery path /.well-known/oauth-authorization-server /.well-known/openid-configuration
+    handle @discovery {
         respond 404
     }
     @mcp path /mcp /mcp/*
@@ -904,15 +906,22 @@ else
     echo "[!] Database not running — skipping backup"
 fi
 
-# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add OAuth block)
+# Migrate Caddyfile if needed (handle_path -> handle with named matcher, add @discovery matcher for OAuth/OIDC endpoints)
 if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
     echo "Updating Caddyfile for streamable HTTP transport..."
     sed -i 's|handle_path /mcp/\* {|@mcp path /mcp /mcp/*\n    handle @mcp {|' Caddyfile
-    # Add OAuth well-known block if missing
-    if ! grep -q 'well-known/oauth' Caddyfile; then
-        sed -i '/@mcp path/i\    handle \/.well-known\/oauth* {\n        respond 404\n    }' Caddyfile
+    # Add discovery block if missing and no legacy oauth block needs migration
+    if ! grep -q 'openid-configuration' Caddyfile \
+        && ! grep -q '@discovery path' Caddyfile \
+        && ! grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
+        sed -i '/@mcp path/i\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
+fi
+# Migrate legacy .well-known/oauth* to specific discovery endpoints
+if [[ -f Caddyfile ]] && grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
+    sed -i '/handle \/\.well-known\/oauth\*/,/}/c\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
+    echo "[✓] Caddyfile discovery block updated"
 fi
 
 echo "Pulling latest images..."
