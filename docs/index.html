@@ -55,18 +55,58 @@
       }
 
       pre {
-        background: #1a1a2e;
-        color: #e0e0e0;
-        padding: 1rem 1.25rem;
-        border-radius: 8px;
         overflow-x: auto;
-        margin: 1rem 0;
+        position: relative;
       }
 
       pre code {
         background: none;
         padding: 0;
         color: inherit;
+      }
+
+      .code-block {
+        background: #1a1a2e;
+        border-radius: 8px;
+        color: #e0e0e0;
+        margin: 1rem 0;
+        position: relative;
+        padding: 1rem 3rem 1rem 1.25rem;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 0.7rem;
+        right: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #e0e0e0;
+        padding: 0.4rem 0.5rem 0.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: background 0.2s;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .copy-btn:hover:active {
+        background: rgba(100, 100, 100, 0.4);
+      }
+
+      .copy-btn .check {
+        display: none;
+      }
+
+      .copy-btn.copied .copy {
+        display: none;
+      }
+
+      .copy-btn.copied .check {
+        color: #1df950;
+        display: inline;
       }
 
       a {
@@ -92,6 +132,33 @@
         font-size: 0.85rem;
       }
     </style>
+
+    <script>
+      function copyToClipboard(btn, text) {
+        console.log("Copying to clipboard:", text);
+        navigator.clipboard
+          .writeText(text)
+          .then(() => showCopied(btn, text))
+          .catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showCopied(btn, text);
+          });
+      }
+
+      function showCopied(btn, text) {
+        btn.className = "copy-btn copied";
+        setTimeout(() => {
+          btn.className = "copy-btn";
+          btn.parentElement.querySelector("code").textContent = text;
+        }, 1500);
+      }
+    </script>
   </head>
   <body>
     <h1>Paperless Ag</h1>
@@ -102,7 +169,54 @@
 
     <h2>Install</h2>
     <p>SSH into your Linux server and run:</p>
-    <pre><code>curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code></pre>
+
+    <div class="code-block">
+      <pre><code>curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code></pre>
+      <button
+        class="copy-btn"
+        onclick="
+          copyToClipboard(
+            this,
+            this.parentElement.querySelector('code').textContent,
+          )
+        "
+        title="Copy to clipboard"
+      >
+        <svg
+          class="copy"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+          <path
+            d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+          ></path>
+        </svg>
+
+        <svg
+          class="check"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="16px"
+          width="16px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </button>
+    </div>
+
     <p>
       The installer will walk you through setup. It works on any VPS
       (DigitalOcean, Hetzner, Linode, Vultr) and detects if you already have
@@ -150,7 +264,7 @@
     <h2>Requirements</h2>
     <ul>
       <li>
-        A Linux server with 2+ GB RAM (DigitalOcean $24/mo or Hetzner $10/mo
+        A Linux server with 4+ GB RAM (DigitalOcean $24/mo or Hetzner $10/mo
         recommended)
       </li>
       <li>Docker and Docker Compose (the installer can set these up)</li>
