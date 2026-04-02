@@ -31,7 +31,7 @@ A single Docker container that sits alongside a stock Paperless NGX installation
 1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
 2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
 
-Paperless NGX stays completely stock. Free upstream updates forever.
+Paperless NGX stays completely stock.
 
 ## Architecture
 
