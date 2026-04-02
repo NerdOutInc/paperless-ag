@@ -884,9 +884,13 @@ set -euo pipefail
 cd "$(dirname "$0")"
 mkdir -p backups
 
-echo "Backing up database before update..."
-docker compose exec -T db pg_dump --clean -U paperless paperless > "backups/pre-update-$(date +%Y%m%d-%H%M%S).sql"
-echo "[✓] Database backed up"
+if docker compose ps --status running db 2>/dev/null | grep -q db; then
+    echo "Backing up database before update..."
+    docker compose exec -T db pg_dump --clean -U paperless paperless > "backups/pre-update-$(date +%Y%m%d-%H%M%S).sql"
+    echo "[✓] Database backed up"
+else
+    echo "[!] Database not running — skipping backup"
+fi
 
 echo "Pulling latest images..."
 docker compose pull
