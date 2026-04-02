@@ -859,7 +859,9 @@ ${DOMAIN} {${tls_block}
     }
     @mcp path /mcp /mcp/*
     handle @mcp {
-        reverse_proxy companion:3001
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+        }
     }
     handle {
         reverse_proxy ${paperless_service}:8000
@@ -874,7 +876,9 @@ CADDY
     }
     @mcp path /mcp /mcp/*
     handle @mcp {
-        reverse_proxy companion:3001
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+        }
     }
     handle {
         reverse_proxy ${paperless_service}:8000
