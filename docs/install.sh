@@ -325,7 +325,7 @@ detect_pgvector() {
     local db_container=""
 
     if [[ -n "${PAPERLESS_COMPOSE_PROJECT:-}" ]]; then
-        db_container=$(docker ps --filter "label=com.docker.compose.project=${PAPERLESS_COMPOSE_PROJECT}" --format "{{.ID}} {{.Image}}" 2>/dev/null | grep -i "postgres" | awk '{print $1}' | head -1)
+        db_container=$(docker ps --filter "label=com.docker.compose.project=${PAPERLESS_COMPOSE_PROJECT}" --format "{{.ID}} {{.Image}}" 2>/dev/null | grep -i "postgres\|pgvector" | awk '{print $1}' | head -1)
     fi
 
     if [[ -z "$db_container" ]]; then
@@ -334,6 +334,17 @@ detect_pgvector() {
 
     DB_CONTAINER_ID="$db_container"
     DB_IMAGE=$(docker inspect "$db_container" --format '{{.Config.Image}}' 2>/dev/null || echo "")
+
+    # Extract Postgres major version from image tag
+    # Handles: postgres:18, postgres:16.2, pgvector/pgvector:pg16, library/postgres:18-alpine
+    DB_PG_MAJOR=""
+    if [[ -n "$DB_IMAGE" ]]; then
+        local tag="${DB_IMAGE##*:}"
+        # Strip leading "pg" prefix (pgvector images use pg16, pg17, etc.)
+        tag="${tag#pg}"
+        # Extract leading digits as major version
+        DB_PG_MAJOR=$(echo "$tag" | grep -oE '^[0-9]+')
+    fi
 
     # Check if pgvector extension is available
     if docker exec "$db_container" psql -U "${DETECTED_DB_USER}" -d "${DETECTED_DB_NAME}" -c "SELECT 1 FROM pg_available_extensions WHERE name = 'vector'" 2>/dev/null | grep -q "1"; then
