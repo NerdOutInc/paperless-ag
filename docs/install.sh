@@ -377,6 +377,10 @@ detect_paperless() {
         [[ -z "$DETECTED_ADMIN_USER" ]] && DETECTED_ADMIN_USER=$(read_var_from_file "PAPERLESS_ADMIN_USER" "$compose_dir/docker-compose.yml" || echo "")
         [[ -z "$DETECTED_ADMIN_PASS" ]] && DETECTED_ADMIN_PASS=$(read_var_from_file "PAPERLESS_ADMIN_PASSWORD" "$compose_dir/docker-compose.yml" || echo "")
 
+        # Try .env file
+        [[ -z "$DETECTED_ADMIN_USER" ]] && DETECTED_ADMIN_USER=$(read_var_from_file "PAPERLESS_ADMIN_USER" "$compose_dir/.env" || echo "")
+        [[ -z "$DETECTED_ADMIN_PASS" ]] && DETECTED_ADMIN_PASS=$(read_var_from_file "PAPERLESS_ADMIN_PASSWORD" "$compose_dir/.env" || echo "")
+
         if [[ -z "$DETECTED_ADMIN_PASS" ]]; then
             local env_files
             env_files=$(grep -E '^\s*-?\s*env_file:|^\s*-\s+' "$compose_dir/docker-compose.yml" 2>/dev/null | grep -oE '[a-zA-Z0-9._-]+\.env' || echo "")
