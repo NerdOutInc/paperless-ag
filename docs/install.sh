@@ -544,6 +544,19 @@ collect_addon_config() {
     info "DB host: ${DETECTED_DB_HOST}"
     info "DB name: ${DETECTED_DB_NAME}"
 
+    # Show credential detection status
+    if [[ -n "$DETECTED_DB_PASS" ]]; then
+        info "DB credentials: auto-detected"
+    else
+        warn "DB password: not found in config"
+    fi
+
+    if [[ -n "$DETECTED_ADMIN_USER" ]] && [[ -n "$DETECTED_ADMIN_PASS" ]]; then
+        info "Paperless admin: auto-detected (${DETECTED_ADMIN_USER})"
+    else
+        warn "Paperless admin: not found in config -- need your credentials"
+    fi
+
     divider
 
     echo "  We'll add semantic search to your existing Paperless installation."
@@ -555,34 +568,60 @@ collect_addon_config() {
         exit 0
     fi
 
-    divider
+    # ── Use auto-detected values, prompt only for what's missing ──
 
-    echo "  We need your Paperless admin credentials so the companion"
-    echo "  container can access the Paperless API."
-    echo
-    ADMIN_USER=$(prompt_safe "Paperless admin username" "admin")
-    ADMIN_PASSWORD=$(prompt_secret "Paperless admin password")
+    # DB credentials
+    DB_HOST="$DETECTED_DB_HOST"
+    DB_NAME="$DETECTED_DB_NAME"
+    DB_USER="$DETECTED_DB_USER"
 
-    divider
-
-    # Confirm DB connection details
-    echo "  Confirm your database connection:"
-    echo
-    DB_HOST=$(prompt_safe "Postgres host (Docker service name)" "$DETECTED_DB_HOST")
-    DB_NAME=$(prompt_safe "Postgres database" "$DETECTED_DB_NAME")
-    DB_USER=$(prompt_safe "Postgres user" "$DETECTED_DB_USER")
     if [[ -n "$DETECTED_DB_PASS" ]]; then
-        if [[ "$DETECTED_DB_PASS" =~ [\'\"\`\\\$\#] ]]; then
-            warn "Detected DB password contains special characters."
-            warn "Please enter it manually."
-            DB_PASS=$(prompt_secret "Postgres password")
-        else
-            DB_PASS="$DETECTED_DB_PASS"
-            info "Database password read from existing config"
-        fi
+        DB_PASS="$DETECTED_DB_PASS"
     else
+        divider
+        echo "  We couldn't find the database password automatically."
+        echo "  Check your docker-compose.yml for POSTGRES_PASSWORD or PAPERLESS_DBPASS."
+        echo
         DB_PASS=$(prompt_secret "Postgres password")
     fi
+
+    # Paperless admin credentials
+    if [[ -n "$DETECTED_ADMIN_USER" ]] && [[ -n "$DETECTED_ADMIN_PASS" ]]; then
+        ADMIN_USER="$DETECTED_ADMIN_USER"
+        ADMIN_PASSWORD="$DETECTED_ADMIN_PASS"
+    else
+        divider
+        echo "  We need your Paperless admin credentials so the companion"
+        echo "  container can access the Paperless API."
+        echo
+        ADMIN_USER=$(prompt_safe "Paperless admin username" "${DETECTED_ADMIN_USER:-admin}")
+        ADMIN_PASSWORD=$(prompt_secret "Paperless admin password")
+    fi
+
+    # ── Validate credentials ─────────────────────────────────
+
+    divider
+    step "Validating credentials..."
+    echo
+
+    # Validate DB connection (retry loop)
+    while ! validate_db_connection; do
+        fail "Could not connect to Postgres (user=$DB_USER, db=$DB_NAME)"
+        echo "  Check POSTGRES_PASSWORD in your docker-compose.yml."
+        echo
+        DB_PASS=$(prompt_secret "Postgres password")
+    done
+    info "Database connection verified"
+
+    # Validate Paperless API (retry loop)
+    while ! validate_paperless_api; do
+        fail "Could not authenticate with Paperless (user=$ADMIN_USER)"
+        echo "  Check your Paperless admin username and password."
+        echo
+        ADMIN_USER=$(prompt_safe "Paperless admin username" "$ADMIN_USER")
+        ADMIN_PASSWORD=$(prompt_secret "Paperless admin password")
+    done
+    info "Paperless API authentication verified"
 
     divider
 
