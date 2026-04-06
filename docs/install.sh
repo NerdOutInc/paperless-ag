@@ -280,6 +280,22 @@ check_ports() {
     fi
 }
 
+# Read a variable from a file (docker-compose.yml, .env, or env_file).
+# Usage: read_var_from_file "VARNAME" "/path/to/file"
+# Matches: VARNAME=value, VARNAME: value, VARNAME='value', VARNAME="value"
+read_var_from_file() {
+    local varname="$1" filepath="$2"
+    [[ -f "$filepath" ]] || return 1
+    local raw
+    raw=$(grep -E "^\s*${varname}[=:]" "$filepath" 2>/dev/null | head -1) || return 1
+    [[ -z "$raw" ]] && return 1
+    # Strip key and separator (= or :), then trim whitespace and quotes
+    local value
+    value=$(echo "$raw" | sed -E "s/^[^=:]*[=:]\s*//" | sed -E "s/^['\"]//;s/['\"]$//")
+    [[ -z "$value" ]] && return 1
+    echo "$value"
+}
+
 # ── Detect Existing Paperless ────────────────────────────
 
 detect_paperless() {
@@ -303,7 +319,8 @@ detect_paperless() {
     PAPERLESS_COMPOSE_PROJECT=$(docker inspect "$container_id" --format '{{index .Config.Labels "com.docker.compose.project"}}' 2>/dev/null || echo "")
     PAPERLESS_SERVICE_NAME=$(docker inspect "$container_id" --format '{{index .Config.Labels "com.docker.compose.service"}}' 2>/dev/null || echo "paperless-webserver")
 
-    # Extract DB connection from container environment
+    # ── DB credentials cascade ──────────────────────────────
+    # Source 1: Paperless container env
     local env_output
     env_output=$(docker inspect "$container_id" --format '{{range .Config.Env}}{{println .}}{{end}}' 2>/dev/null || echo "")
 
@@ -312,10 +329,63 @@ detect_paperless() {
     DETECTED_DB_USER=$(echo "$env_output" | grep "^PAPERLESS_DBUSER=" | cut -d= -f2- || echo "")
     DETECTED_DB_PASS=$(echo "$env_output" | grep "^PAPERLESS_DBPASS=" | cut -d= -f2- || echo "")
 
+    # Source 2: Postgres container env (POSTGRES_PASSWORD, etc.)
+    if [[ -z "$DETECTED_DB_PASS" ]] && [[ -n "${PAPERLESS_COMPOSE_PROJECT:-}" ]]; then
+        local db_container
+        db_container=$(docker ps --filter "label=com.docker.compose.project=${PAPERLESS_COMPOSE_PROJECT}" --format "{{.ID}} {{.Image}}" 2>/dev/null | grep -i "postgres\|pgvector" | awk '{print $1}' | head -1)
+        if [[ -n "$db_container" ]]; then
+            local db_env
+            db_env=$(docker inspect "$db_container" --format '{{range .Config.Env}}{{println .}}{{end}}' 2>/dev/null || echo "")
+            [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(echo "$db_env" | grep "^POSTGRES_PASSWORD=" | cut -d= -f2- || echo "")
+            [[ -z "$DETECTED_DB_USER" ]] && DETECTED_DB_USER=$(echo "$db_env" | grep "^POSTGRES_USER=" | cut -d= -f2- || echo "")
+            [[ -z "$DETECTED_DB_NAME" ]] && DETECTED_DB_NAME=$(echo "$db_env" | grep "^POSTGRES_DB=" | cut -d= -f2- || echo "")
+        fi
+    fi
+
+    # Source 3: Compose file and env files on disk
+    local compose_dir="${PAPERLESS_COMPOSE_DIR:-}"
+    if [[ -z "$DETECTED_DB_PASS" ]] && [[ -n "$compose_dir" ]]; then
+        # Try docker-compose.yml directly
+        DETECTED_DB_PASS=$(read_var_from_file "PAPERLESS_DBPASS" "$compose_dir/docker-compose.yml" || echo "")
+        [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(read_var_from_file "POSTGRES_PASSWORD" "$compose_dir/docker-compose.yml" || echo "")
+
+        # Try .env file
+        [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(read_var_from_file "PAPERLESS_DBPASS" "$compose_dir/.env" || echo "")
+        [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(read_var_from_file "POSTGRES_PASSWORD" "$compose_dir/.env" || echo "")
+
+        # Try env_file references (e.g., docker-compose.env)
+        if [[ -z "$DETECTED_DB_PASS" ]]; then
+            local env_files
+            env_files=$(grep -E '^\s*-?\s*env_file:|^\s*-\s+' "$compose_dir/docker-compose.yml" 2>/dev/null | grep -oE '[a-zA-Z0-9._-]+\.env' || echo "")
+            for ef in $env_files; do
+                [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(read_var_from_file "PAPERLESS_DBPASS" "$compose_dir/$ef" || echo "")
+                [[ -z "$DETECTED_DB_PASS" ]] && DETECTED_DB_PASS=$(read_var_from_file "POSTGRES_PASSWORD" "$compose_dir/$ef" || echo "")
+            done
+        fi
+    fi
+
     # Defaults for anything not detected
     DETECTED_DB_HOST="${DETECTED_DB_HOST:-db}"
     DETECTED_DB_NAME="${DETECTED_DB_NAME:-paperless}"
     DETECTED_DB_USER="${DETECTED_DB_USER:-paperless}"
+
+    # ── Paperless admin credentials cascade ─────────────────
+    DETECTED_ADMIN_USER=$(echo "$env_output" | grep "^PAPERLESS_ADMIN_USER=" | cut -d= -f2- || echo "")
+    DETECTED_ADMIN_PASS=$(echo "$env_output" | grep "^PAPERLESS_ADMIN_PASSWORD=" | cut -d= -f2- || echo "")
+
+    if [[ -n "$compose_dir" ]]; then
+        [[ -z "$DETECTED_ADMIN_USER" ]] && DETECTED_ADMIN_USER=$(read_var_from_file "PAPERLESS_ADMIN_USER" "$compose_dir/docker-compose.yml" || echo "")
+        [[ -z "$DETECTED_ADMIN_PASS" ]] && DETECTED_ADMIN_PASS=$(read_var_from_file "PAPERLESS_ADMIN_PASSWORD" "$compose_dir/docker-compose.yml" || echo "")
+
+        if [[ -z "$DETECTED_ADMIN_PASS" ]]; then
+            local env_files
+            env_files=$(grep -E '^\s*-?\s*env_file:|^\s*-\s+' "$compose_dir/docker-compose.yml" 2>/dev/null | grep -oE '[a-zA-Z0-9._-]+\.env' || echo "")
+            for ef in $env_files; do
+                [[ -z "$DETECTED_ADMIN_USER" ]] && DETECTED_ADMIN_USER=$(read_var_from_file "PAPERLESS_ADMIN_USER" "$compose_dir/$ef" || echo "")
+                [[ -z "$DETECTED_ADMIN_PASS" ]] && DETECTED_ADMIN_PASS=$(read_var_from_file "PAPERLESS_ADMIN_PASSWORD" "$compose_dir/$ef" || echo "")
+            done
+        fi
+    fi
 
     return 0
 }
