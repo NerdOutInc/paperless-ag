@@ -1375,6 +1375,9 @@ main() {
     NEEDS_PGVECTOR_OVERRIDE=""
 
     if detect_paperless; then
+        # Detect DB container and pgvector early so validation works
+        detect_pgvector || true
+
         echo "  How would you like to install Paperless Ag?"
         echo
         echo "    1) Add to my existing Paperless NGX (recommended)"
