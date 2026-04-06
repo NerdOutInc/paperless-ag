@@ -428,6 +428,65 @@ detect_pgvector() {
     return 1
 }
 
+# ── Pre-Flight Validation ────────────────────────────────
+
+validate_db_connection() {
+    # Test that we can connect to Postgres with the detected/provided credentials
+    local db_container="${DB_CONTAINER_ID:-}"
+    local user="${DB_USER:-$DETECTED_DB_USER}"
+    local name="${DB_NAME:-$DETECTED_DB_NAME}"
+    local pass="${DB_PASS:-$DETECTED_DB_PASS}"
+
+    if [[ -z "$db_container" ]]; then
+        return 1
+    fi
+
+    if docker exec -e PGPASSWORD="$pass" "$db_container" \
+        psql -U "$user" -d "$name" -c "SELECT 1" &>/dev/null; then
+        return 0
+    fi
+    return 1
+}
+
+validate_paperless_api() {
+    # Test that we can authenticate against the Paperless API
+    local user="${ADMIN_USER:-}"
+    local pass="${ADMIN_PASSWORD:-}"
+    local paperless_url="http://localhost:8000"
+
+    # Find the published port for the Paperless container
+    if [[ -n "${PAPERLESS_CONTAINER_ID:-}" ]]; then
+        local published_port
+        published_port=$(docker inspect "$PAPERLESS_CONTAINER_ID" --format '{{range $p, $conf := .NetworkSettings.Ports}}{{if eq $p "8000/tcp"}}{{(index $conf 0).HostPort}}{{end}}{{end}}' 2>/dev/null || echo "")
+        if [[ -n "$published_port" ]]; then
+            paperless_url="http://localhost:${published_port}"
+        fi
+    fi
+
+    local http_code
+    http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        -X POST "${paperless_url}/api/token/" \
+        -H "Content-Type: application/json" \
+        -d "{\"username\":\"${user}\",\"password\":\"${pass}\"}" 2>/dev/null || echo "000")
+
+    [[ "$http_code" == "200" ]]
+}
+
+validate_pgvector_image() {
+    # Verify that a pgvector image exists for the detected Postgres major version
+    local pg_major="${DB_PG_MAJOR:-}"
+    if [[ -z "$pg_major" ]]; then
+        return 1
+    fi
+
+    PGVECTOR_IMAGE="pgvector/pgvector:pg${pg_major}"
+
+    if docker manifest inspect "$PGVECTOR_IMAGE" &>/dev/null; then
+        return 0
+    fi
+    return 1
+}
+
 # ── Collect Configuration ────────────────────────────────
 
 collect_fresh_config() {
