@@ -1,0 +1,13 @@
+:80 {
+    @api path /api/*
+    handle @api {
+        reverse_proxy localhost:8080
+    }
+
+    handle {
+        file_server {
+            root /opt/paperless-ag/setup
+            index wizard.html
+        }
+    }
+}
