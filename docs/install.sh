@@ -904,12 +904,27 @@ do_addon_install() {
     if detect_pgvector; then
         info "pgvector is available in your Postgres"
     else
+        if [[ -z "${DB_PG_MAJOR:-}" ]]; then
+            fail "Could not determine Postgres major version from image: ${DB_IMAGE:-unknown}"
+            fail "Cannot install pgvector automatically."
+            echo "  Install pgvector manually or switch to a pgvector/pgvector image."
+            exit 1
+        fi
+
+        if ! validate_pgvector_image; then
+            fail "No pgvector image found for Postgres ${DB_PG_MAJOR}"
+            fail "pgvector/pgvector:pg${DB_PG_MAJOR} does not exist."
+            echo "  Check https://hub.docker.com/r/pgvector/pgvector/tags for available versions."
+            exit 1
+        fi
+
         warn "Your Postgres doesn't have pgvector."
         if [[ -n "${DB_IMAGE:-}" ]]; then
             echo "  Current image: $DB_IMAGE"
         fi
+        echo "  Replacement:   $PGVECTOR_IMAGE"
         echo
-        echo "  We'll override the Postgres image to pgvector/pgvector:pg16"
+        echo "  We'll override the Postgres image to $PGVECTOR_IMAGE"
         echo "  (drop-in replacement -- your data stays intact)."
         echo
         if ! prompt_yn "Continue?"; then
@@ -935,7 +950,7 @@ services:"
     if [[ "${NEEDS_PGVECTOR_OVERRIDE:-}" == "true" ]]; then
         override_content+="
   ${DB_HOST}:
-    image: pgvector/pgvector:pg16"
+    image: ${PGVECTOR_IMAGE}"
     fi
 
     override_content+="
