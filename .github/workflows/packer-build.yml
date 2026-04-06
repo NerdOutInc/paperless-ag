@@ -1,0 +1,80 @@
+name: Build DigitalOcean Snapshot
+
+on:
+  schedule:
+    - cron: "0 4 * * 0"  # Sundays at 4 AM UTC
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  DIGITALOCEAN_API_TOKEN: ${{ secrets.DIGITALOCEAN_API_TOKEN }}
+
+jobs:
+  build-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: latest
+
+      - name: Init Packer plugins
+        working-directory: packer
+        run: packer init paperless-ag.pkr.hcl
+
+      - name: Build snapshot
+        working-directory: packer
+        run: packer build paperless-ag.pkr.hcl
+
+      - name: Extract snapshot ID
+        id: snapshot
+        working-directory: packer
+        run: |
+          SNAPSHOT_ID=$(jq -r '.builds[-1].artifact_id' manifest.json)
+          echo "id=$SNAPSHOT_ID" >> "$GITHUB_OUTPUT"
+          echo "Snapshot ID: $SNAPSHOT_ID"
+
+      - name: Update deploy-config.json
+        run: |
+          cat > docs/deploy-config.json <<EOF
+          {
+            "snapshot_id": "${{ steps.snapshot.outputs.id }}",
+            "built_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "droplet_size": "s-2vcpu-4gb"
+          }
+          EOF
+
+      - name: Commit deploy-config.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/deploy-config.json
+          git commit -m "ci: update snapshot ID to ${{ steps.snapshot.outputs.id }}"
+          git push
+
+      - name: Delete previous snapshot
+        run: |
+          # List all paperless-ag snapshots, delete all except the newest
+          SNAPSHOTS=$(curl -s -X GET \
+            -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" \
+            "https://api.digitalocean.com/v2/snapshots?resource_type=droplet&per_page=200" \
+            | jq -r '.snapshots[] | select(.name | startswith("paperless-ag-")) | .id' \
+            | sort -rn)
+
+          KEEP="${{ steps.snapshot.outputs.id }}"
+          for ID in $SNAPSHOTS; do
+            if [ "$ID" != "$KEEP" ]; then
+              echo "Deleting old snapshot: $ID"
+              curl -s -X DELETE \
+                -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" \
+                "https://api.digitalocean.com/v2/snapshots/$ID"
+            fi
+          done
