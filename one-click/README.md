@@ -79,12 +79,12 @@ See `templates/env.template` for the full template with defaults.
 ## First Boot Flow
 
 1. Cloud-init executes `/opt/paperless-ag/scripts/first-boot.sh`
-2. Systemd services start the setup wizard (Caddy + Flask API)
-3. Farmer accesses `http://<droplet-ip>:8000` to configure
-4. Wizard detects existing Paperless installation (if any)
+2. Systemd services start the setup wizard (Caddy + Python stdlib API)
+3. Farmer accesses `http://<droplet-ip>` to configure
+4. Farmer fills out admin credentials, timezone, optional domain
 5. On completion, `finalize-setup.sh` is called
 6. Wizard services stop, Docker Compose services start
-7. Paperless and Paperless Ag are ready at `:8000` and `:3001`
+7. Caddy reverse-proxies Paperless on `:80`/`:443` and MCP on `/mcp`
 
 ## Quick Reference
 
@@ -92,7 +92,7 @@ See `templates/env.template` for the full template with defaults.
 | --- | --- |
 | Check setup progress | `journalctl -u paperless-setup -f` |
 | View API logs | `journalctl -u paperless-setup-api -f` |
-| Restart services | `docker compose -f /opt/paperless-ag/.env restart` |
+| Restart services | `cd /opt/paperless-ag && docker compose restart` |
 | Backup documents | `/opt/paperless-ag/scripts/backup.sh` |
 | Restore documents | `/opt/paperless-ag/scripts/restore.sh <backup-file>` |
 | Update images | `/opt/paperless-ag/scripts/update.sh` |

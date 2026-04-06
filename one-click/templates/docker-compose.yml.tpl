@@ -47,8 +47,8 @@ services:
       PAPERLESS_SECRET_KEY: {{SECRET_KEY}}
       PAPERLESS_TIME_ZONE: {{TIMEZONE}}
       PAPERLESS_URL: {{PAPERLESS_URL}}
-      PAPERLESS_ADMIN_USER: {{ADMIN_USER}}
-      PAPERLESS_ADMIN_PASSWORD: {{ADMIN_PASSWORD}}
+      PAPERLESS_ADMIN_USER: "{{ADMIN_USER}}"
+      PAPERLESS_ADMIN_PASSWORD: "{{ADMIN_PASSWORD}}"
     healthcheck:
       test: ["CMD", "curl", "-fs", "http://localhost:8000"]
       interval: 30s
@@ -66,8 +66,8 @@ services:
         condition: service_healthy
     environment:
       PAPERLESS_API_URL: http://paperless:8000
-      PAPERLESS_USERNAME: {{ADMIN_USER}}
-      PAPERLESS_PASSWORD: {{ADMIN_PASSWORD}}
+      PAPERLESS_USERNAME: "{{ADMIN_USER}}"
+      PAPERLESS_PASSWORD: "{{ADMIN_PASSWORD}}"
       DATABASE_URL: postgresql://paperless:{{DB_PASSWORD}}@db:5432/paperless
       EMBEDDING_MODEL: all-MiniLM-L6-v2
       SYNC_INTERVAL_SECONDS: "60"

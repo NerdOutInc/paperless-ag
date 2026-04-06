@@ -369,6 +369,11 @@
                 if (data.state === "complete") {
                   clearInterval(interval);
                   showComplete(token, url);
+                } else if (data.state === "failed") {
+                  clearInterval(interval);
+                  document.querySelector(".progress-text").textContent =
+                    "Setup failed. Please SSH in and check logs: journalctl -u paperless-setup-api";
+                  document.querySelector(".spinner").style.display = "none";
                 }
               })
               .catch(function () {

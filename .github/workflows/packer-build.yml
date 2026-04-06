@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
@@ -44,13 +46,11 @@ jobs:
 
       - name: Update deploy-config.json
         run: |
-          cat > docs/deploy-config.json <<EOF
-          {
-            "snapshot_id": "${{ steps.snapshot.outputs.id }}",
-            "built_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "droplet_size": "s-2vcpu-4gb"
-          }
-          EOF
+          jq -n \
+            --arg id "${{ steps.snapshot.outputs.id }}" \
+            --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{"snapshot_id": $id, "built_at": $ts, "droplet_size": "s-2vcpu-4gb"}' \
+            > docs/deploy-config.json
 
       - name: Commit deploy-config.json
         run: |
