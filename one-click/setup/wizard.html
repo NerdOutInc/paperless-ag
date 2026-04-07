@@ -390,8 +390,19 @@
 
         function pollCompletion(token, url) {
           var lostContact = false;
+          var pollCount = 0;
+          var maxPolls = 200; // ~10 minutes at 3s intervals
 
           var interval = setInterval(function () {
+            pollCount++;
+            if (pollCount > maxPolls) {
+              clearInterval(interval);
+              document.querySelector(".progress-text").textContent =
+                "Setup timed out. SSH in and check: cat /opt/paperless-ag/setup.log";
+              document.querySelector(".spinner").style.display = "none";
+              return;
+            }
+
             if (lostContact) {
               // Setup API is gone -- Docker Caddy now owns :80.
               // Only probe root; a 2xx/3xx means Paperless is up.
