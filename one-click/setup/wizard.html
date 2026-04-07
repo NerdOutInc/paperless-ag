@@ -277,7 +277,13 @@
       <label>MCP Auth Token</label>
       <div class="token-box">
         <code id="mcp-token"></code>
-        <button class="copy-btn" onclick="copyToken()">Copy</button>
+        <button
+          class="copy-btn"
+          onclick="copyToken()"
+          aria-label="Copy MCP token to clipboard"
+        >
+          Copy
+        </button>
       </div>
       <div class="warning">
         Save this token now. You need it to connect Claude to your Paperless
