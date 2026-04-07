@@ -19,8 +19,8 @@ one-click/
 │   ├── first-boot.sh   # Cloud-init entry point (runs on droplet startup)
 │   ├── finalize-setup.sh # Completes setup after wizard (starts services)
 │   ├── update.sh       # Pulls latest images and restarts services
-│   ├── backup.sh       # Creates dated backup of Paperless data
-│   └── restore.sh      # Restores from backup file
+│   ├── backup.sh       # Creates dated PostgreSQL database backup
+│   └── restore.sh      # Restores database from backup file
 └── systemd/            # Systemd service units
     ├── paperless-setup.service     # Setup wizard service
     └── paperless-setup-api.service # Setup API service
@@ -94,6 +94,6 @@ See `templates/env.template` for the full template with defaults.
 | Check setup progress | `journalctl -u paperless-setup -f` |
 | View API logs | `journalctl -u paperless-setup-api -f` |
 | Restart services | `cd /opt/paperless-ag && docker compose restart` |
-| Backup documents | `/opt/paperless-ag/scripts/backup.sh` |
-| Restore documents | `/opt/paperless-ag/scripts/restore.sh <backup-file>` |
+| Backup database | `/opt/paperless-ag/scripts/backup.sh` |
+| Restore database | `/opt/paperless-ag/scripts/restore.sh <backup-file>` |
 | Update images | `/opt/paperless-ag/scripts/update.sh` |
