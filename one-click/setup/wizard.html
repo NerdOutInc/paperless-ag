@@ -440,13 +440,46 @@
 
       function copyToken() {
         var token = document.getElementById("mcp-token").textContent;
-        navigator.clipboard.writeText(token).then(function () {
-          var btn = document.querySelector(".copy-btn");
-          btn.textContent = "Copied!";
+        var btn = document.querySelector(".copy-btn");
+
+        function showResult(label) {
+          btn.textContent = label;
           setTimeout(function () {
             btn.textContent = "Copy";
           }, 2000);
-        });
+        }
+
+        function fallbackCopy(text) {
+          var textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "absolute";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, text.length);
+          var ok = false;
+          try {
+            ok = document.execCommand("copy");
+          } catch (e) {
+            ok = false;
+          }
+          document.body.removeChild(textarea);
+          return ok;
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(token)
+            .then(function () {
+              showResult("Copied!");
+            })
+            .catch(function () {
+              showResult(fallbackCopy(token) ? "Copied!" : "Copy failed");
+            });
+        } else {
+          showResult(fallbackCopy(token) ? "Copied!" : "Copy failed");
+        }
       }
     </script>
   </body>
