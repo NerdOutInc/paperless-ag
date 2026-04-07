@@ -38,7 +38,15 @@ jobs:
         id: snapshot
         working-directory: packer
         run: |
-          SNAPSHOT_ID=$(jq -r '.builds[-1].artifact_id' manifest.json)
+          ARTIFACT_ID=$(jq -r '.builds[-1].artifact_id' manifest.json)
+          # artifact_id may include a prefix like "digitalocean:12345"
+          SNAPSHOT_ID="${ARTIFACT_ID##*:}"
+
+          if ! [[ "$SNAPSHOT_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid snapshot ID extracted from artifact_id: $ARTIFACT_ID"
+            exit 1
+          fi
+
           echo "id=$SNAPSHOT_ID" >> "$GITHUB_OUTPUT"
           echo "Snapshot ID: $SNAPSHOT_ID"
 
