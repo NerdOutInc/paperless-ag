@@ -14,6 +14,7 @@ import secrets
 import string
 import subprocess
 import threading
+import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
@@ -106,12 +107,20 @@ class SetupHandler(BaseHTTPRequestHandler):
 
         state = get_state()
         if state == "in_progress":
-            self._send_json(409, {"error": "setup already in progress"})
-            return
+            # Allow retry if state has been stuck for over 10 minutes
+            # (e.g. API crashed after setting state but before finalize ran)
+            try:
+                age = time.time() - SETUP_STATE_FILE.stat().st_mtime
+            except OSError:
+                age = 0
+            if age < 600:
+                self._send_json(409, {"error": "setup already in progress"})
+                return
+            # Stale in_progress -- fall through to allow retry
         if state == "complete":
             self._send_json(409, {"error": "setup already complete"})
             return
-        # Allow retry from "pending" or "failed" state
+        # Allow retry from "pending", "failed", or stale "in_progress" state
 
         # Read request body
         length = int(self.headers.get("Content-Length", 0))
