@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Regenerate SSH host keys (cleared during snapshot build)
-dpkg-reconfigure openssh-server
+# Regenerate missing SSH host keys (cleared during snapshot build)
+ssh-keygen -A
 systemctl restart ssh
 
 # Generate a one-time setup token and persist it for the setup API
