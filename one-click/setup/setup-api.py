@@ -224,10 +224,13 @@ class SetupHandler(BaseHTTPRequestHandler):
         # Run finalize in background so we can return the response
         # before the host Caddy shuts down
         def finalize():
-            result = subprocess.run(
-                ["/opt/paperless-ag/scripts/finalize-setup.sh"],
-                capture_output=True,
-            )
+            log_path = BASE_DIR / "setup.log"
+            with open(log_path, "w") as log:
+                result = subprocess.run(
+                    ["/opt/paperless-ag/scripts/finalize-setup.sh"],
+                    stdout=log,
+                    stderr=subprocess.STDOUT,
+                )
             if result.returncode == 0:
                 set_state("complete")
             else:
