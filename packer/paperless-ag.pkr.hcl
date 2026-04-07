@@ -19,7 +19,8 @@ source "digitalocean" "paperless-ag" {
   region       = "nyc1"
   size         = "s-2vcpu-4gb"
   ssh_username = "root"
-  snapshot_name = "paperless-ag-{{timestamp}}"
+  snapshot_name    = "paperless-ag-{{timestamp}}"
+  snapshot_timeout = "60m"
   snapshot_regions = [
     "nyc1", "nyc3", "sfo3", "ams3", "sgp1",
     "lon1", "fra1", "tor1", "blr1", "syd1"
