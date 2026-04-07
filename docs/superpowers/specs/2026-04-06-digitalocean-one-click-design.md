@@ -177,14 +177,18 @@ No Docker containers start until the user completes the wizard.
 3. Render `.env` from template with all values
 4. Render `docker-compose.yml` from template
 5. Generate production Caddyfile (domain or IP mode)
-6. Run `docker compose up -d`
-7. Wait for Paperless healthcheck to pass
-8. Stop `paperless-setup.service` (which runs the host Caddy + setup-api.py).
-   The production Caddy runs as a Docker container inside Docker Compose,
-   so no config swap is needed -- `docker compose up -d` already starts it.
-   The systemd service simply stops to free port 80.
-9. Register daily backup cron (7 AM)
-10. Return JSON response: `{"status": "complete", "mcp_token": "..."}`
+6. Start the setup/finalization process and return immediately with JSON
+   response: `{"status": "started", "mcp_token": "...", "paperless_url": "..."}`
+7. Client polls `/api/status` to determine when setup has completed or
+   failed
+8. In the background, run `docker compose up -d`
+9. Wait for Paperless healthcheck to pass
+10. Register daily backup cron (7 AM)
+11. Stop `paperless-setup.service` (which runs the host Caddy +
+    setup-api.py) after setup completes successfully. The production Caddy
+    runs as a Docker container inside Docker Compose, so no config swap is
+    needed -- `docker compose up -d` already starts it. The systemd service
+    simply stops to free port 80.
 
 ### 4. Post-Setup Runtime
 
@@ -199,7 +203,7 @@ Identical to the existing Paperless Ag production stack:
 
 - `update.sh`: backs up DB, pulls latest images, restarts stack
 - `backup.sh`: `pg_dump` wrapper, writes to `/opt/paperless-ag/backups/`
-- `restore.sh`: `pg_restore` wrapper
+- `restore.sh`: `psql` wrapper for restoring SQL dumps
 
 **Re-running setup:** Not supported via the web wizard. If reconfiguration
 is needed, the user SSHes in and edits `/opt/paperless-ag/.env` + restarts
