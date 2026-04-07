@@ -243,7 +243,7 @@ existing data is risky.
 **Deploy link format:**
 
 ```text
-https://cloud.digitalocean.com/droplets/new?image=SNAPSHOT_ID&size=s-2vcpu-4gb&region=nyc1
+https://cloud.digitalocean.com/droplets/new?image=SNAPSHOT_ID&size=s-2vcpu-4gb
 ```
 
 **Website integration:** The landing page at `paperless.fullstack.ag`
