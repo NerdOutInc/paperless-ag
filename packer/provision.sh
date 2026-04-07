@@ -5,6 +5,13 @@ echo "=== Paperless Ag Image Provisioning ==="
 
 # 1. System updates
 export DEBIAN_FRONTEND=noninteractive
+
+# Wait for any existing apt/dpkg locks (unattended-upgrades, cloud-init)
+echo "Waiting for apt locks..."
+while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+    sleep 2
+done
+
 apt-get update
 apt-get upgrade -y
 
