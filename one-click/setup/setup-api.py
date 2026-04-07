@@ -89,6 +89,7 @@ class SetupHandler(BaseHTTPRequestHandler):
     def _send_json(self, status, data):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(json.dumps(data).encode())
 
