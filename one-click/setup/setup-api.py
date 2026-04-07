@@ -22,6 +22,7 @@ BASE_DIR = Path("/opt/paperless-ag")
 TEMPLATES_DIR = BASE_DIR / "templates"
 SETUP_STATE_FILE = BASE_DIR / ".setup-state"
 SETUP_TOKEN_FILE = BASE_DIR / ".setup-token"
+MAX_BODY_SIZE = 65536  # 64 KB -- plenty for the setup JSON payload
 
 # Valid IANA timezones are in /usr/share/zoneinfo -- we check against it
 ZONEINFO = Path("/usr/share/zoneinfo")
@@ -124,7 +125,14 @@ class SetupHandler(BaseHTTPRequestHandler):
         # Allow retry from "pending", "failed", or stale "in_progress" state
 
         # Read request body
-        length = int(self.headers.get("Content-Length", 0))
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+        except (ValueError, TypeError):
+            self._send_json(400, {"error": "invalid Content-Length"})
+            return
+        if length > MAX_BODY_SIZE:
+            self._send_json(413, {"error": "request body too large"})
+            return
         body = self.rfile.read(length)
         try:
             data = json.loads(body)
