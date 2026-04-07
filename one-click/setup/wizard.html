@@ -173,6 +173,20 @@
       <p class="subtitle">Configure your document management system.</p>
 
       <form id="setup-form" novalidate>
+        <label for="setup_token">Setup Token</label>
+        <input
+          type="text"
+          id="setup_token"
+          name="setup_token"
+          autocomplete="off"
+          required
+          placeholder="From your droplet console or SSH login"
+        />
+        <div class="hint">
+          Find this token in the DigitalOcean droplet console or SSH login
+          message.
+        </div>
+
         <label for="admin_user">Admin Username</label>
         <input
           type="text"
@@ -311,6 +325,7 @@
           }
 
           var payload = {
+            setup_token: document.getElementById("setup_token").value.trim(),
             admin_user: document.getElementById("admin_user").value.trim(),
             admin_password: pw,
             timezone: document.getElementById("timezone").value,

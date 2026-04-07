@@ -20,6 +20,7 @@ from pathlib import Path
 BASE_DIR = Path("/opt/paperless-ag")
 TEMPLATES_DIR = BASE_DIR / "templates"
 SETUP_STATE_FILE = BASE_DIR / ".setup-state"
+SETUP_TOKEN_FILE = BASE_DIR / ".setup-token"
 
 # Valid IANA timezones are in /usr/share/zoneinfo -- we check against it
 ZONEINFO = Path("/usr/share/zoneinfo")
@@ -69,6 +70,14 @@ def set_state(state):
     SETUP_STATE_FILE.write_text(state)
 
 
+def check_setup_token(provided):
+    """Verify the provided token matches the one generated at first boot."""
+    if not SETUP_TOKEN_FILE.exists():
+        return True  # no token file = dev/test mode, allow access
+    expected = SETUP_TOKEN_FILE.read_text().strip()
+    return secrets.compare_digest(provided, expected)
+
+
 class SetupHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         """Suppress default access logs."""
@@ -102,6 +111,12 @@ class SetupHandler(BaseHTTPRequestHandler):
             data = json.loads(body)
         except json.JSONDecodeError:
             self._send_json(400, {"error": "invalid JSON"})
+            return
+
+        # Verify one-time setup token (generated at first boot)
+        setup_token = data.get("setup_token", "")
+        if not check_setup_token(setup_token):
+            self._send_json(403, {"error": "invalid setup token"})
             return
 
         # Validate required fields
