@@ -25,8 +25,13 @@ done
 
 if [[ $elapsed -ge $timeout ]]; then
     echo "[!] Paperless did not become healthy within ${timeout}s"
+    echo "failed" > /opt/paperless-ag/.setup-state
     exit 1
 fi
+
+# Write state before stopping the API -- the Python daemon thread is killed
+# by SIGTERM before it can write this itself (KillMode=process).
+echo "complete" > /opt/paperless-ag/.setup-state
 
 # Now that the stack is up, disable and stop both setup services
 systemctl disable --now paperless-setup.service paperless-setup-api.service

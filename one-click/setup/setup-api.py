@@ -231,19 +231,17 @@ class SetupHandler(BaseHTTPRequestHandler):
             return
 
         # Run finalize in background so we can return the response
-        # before the host Caddy shuts down
+        # before the host Caddy shuts down.  State transitions are
+        # written by finalize-setup.sh itself (this daemon thread is
+        # killed by SIGTERM before it could write them).
         def finalize():
             log_path = BASE_DIR / "setup.log"
             with open(log_path, "w") as log:
-                result = subprocess.run(
+                subprocess.run(
                     ["/opt/paperless-ag/scripts/finalize-setup.sh"],
                     stdout=log,
                     stderr=subprocess.STDOUT,
                 )
-            if result.returncode == 0:
-                set_state("complete")
-            else:
-                set_state("failed")
 
         threading.Thread(target=finalize, daemon=True).start()
 
