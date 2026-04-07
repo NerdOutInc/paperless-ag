@@ -197,9 +197,6 @@ class SetupHandler(BaseHTTPRequestHandler):
         env_content = render_template(
             TEMPLATES_DIR / "env.template", variables
         )
-        compose_content = render_template(
-            TEMPLATES_DIR / "docker-compose.yml.tpl", variables
-        )
 
         if domain:
             caddy_content = render_template(
@@ -210,14 +207,16 @@ class SetupHandler(BaseHTTPRequestHandler):
                 TEMPLATES_DIR / "Caddyfile.ip.tpl", variables
             )
 
-        # Write config files
+        # Write config files -- .env is the single source of truth for
+        # secrets; docker-compose.yml uses ${...} references into it.
         env_path = BASE_DIR / ".env"
         env_path.write_text(env_content)
         env_path.chmod(0o600)
 
         compose_path = BASE_DIR / "docker-compose.yml"
-        compose_path.write_text(compose_content)
-        compose_path.chmod(0o600)
+        compose_path.write_text(
+            (TEMPLATES_DIR / "docker-compose.yml.tpl").read_text()
+        )
 
         (BASE_DIR / "Caddyfile").write_text(caddy_content)
 
