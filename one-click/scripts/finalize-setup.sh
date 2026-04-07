@@ -4,8 +4,10 @@ cd /opt/paperless-ag
 
 echo "Starting Paperless Ag stack..."
 
-# Stop the host Caddy so port 80 is free for the Docker Caddy
-systemctl stop paperless-setup.service paperless-setup-api.service
+# Stop only the host Caddy so port 80 is free for the Docker Caddy.
+# Do NOT stop paperless-setup-api.service here -- this script runs as a
+# child of that service, so stopping it would kill this process mid-setup.
+systemctl stop paperless-setup.service
 
 docker compose up -d
 
@@ -26,8 +28,8 @@ if [[ $elapsed -ge $timeout ]]; then
     exit 1
 fi
 
-# Disable the setup service so it never runs again
-systemctl disable paperless-setup.service paperless-setup-api.service
+# Now that the stack is up, disable and stop both setup services
+systemctl disable --now paperless-setup.service paperless-setup-api.service
 
 # Register daily backup cron at 7 AM
 (crontab -l 2>/dev/null || true; echo "0 7 * * * /opt/paperless-ag/scripts/backup.sh >> /opt/paperless-ag/backups/cron.log 2>&1") | crontab -
