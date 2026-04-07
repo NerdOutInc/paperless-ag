@@ -41,7 +41,7 @@ Post-setup runtime:
 ```text
 Caddy (:80/:443)
     /mcp/*  ->  companion:3001
-    /*      ->  paperless-webserver:8000
+    /*      ->  paperless:8000
 
 Docker Compose:
     db          pgvector/pgvector:pg16
