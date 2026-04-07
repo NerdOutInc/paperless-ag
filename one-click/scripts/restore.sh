@@ -27,7 +27,7 @@ echo "Stopping Paperless and companion..."
 docker compose stop paperless companion
 
 echo "Restoring database from $BACKUP_FILE..."
-docker compose exec -T db psql -U paperless -d paperless < "$BACKUP_FILE"
+docker compose exec -T db psql --single-transaction -U paperless -d paperless < "$BACKUP_FILE"
 
 echo "Restarting services..."
 docker compose up -d
