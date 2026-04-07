@@ -174,7 +174,7 @@ class SetupHandler(BaseHTTPRequestHandler):
                 # Get the droplet's public IP
                 try:
                     ip = subprocess.check_output(
-                        ["curl", "-s", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
+                        ["curl", "-sf", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
                         timeout=5,
                     ).decode().strip()
                 except Exception:
