@@ -337,6 +337,12 @@
             formError.style.display = "block";
             return;
           }
+          if (/['"\\\n\r\x00`${}]/.test(pw)) {
+            formError.textContent =
+              "Password cannot contain quotes, backslashes, backticks, $, {, }, or newlines.";
+            formError.style.display = "block";
+            return;
+          }
 
           var payload = {
             setup_token: document.getElementById("setup_token").value.trim(),
