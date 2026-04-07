@@ -207,7 +207,10 @@ class SetupHandler(BaseHTTPRequestHandler):
         env_path.write_text(env_content)
         env_path.chmod(0o600)
 
-        (BASE_DIR / "docker-compose.yml").write_text(compose_content)
+        compose_path = BASE_DIR / "docker-compose.yml"
+        compose_path.write_text(compose_content)
+        compose_path.chmod(0o600)
+
         (BASE_DIR / "Caddyfile").write_text(caddy_content)
 
         # Run finalize in background so we can return the response
