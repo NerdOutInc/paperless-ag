@@ -69,7 +69,7 @@ chmod +x /var/lib/cloud/scripts/per-instance/01-paperless-ag.sh
 # 9. Snapshot hygiene
 apt-get clean
 rm -rf /var/lib/apt/lists/*
-truncate -s 0 /var/log/*.log /var/log/**/*.log 2>/dev/null || true
+find /var/log -type f -name '*.log' -exec truncate -s 0 {} + 2>/dev/null || true
 rm -f /etc/ssh/ssh_host_*
 rm -f /root/.bash_history
 cloud-init clean --logs
