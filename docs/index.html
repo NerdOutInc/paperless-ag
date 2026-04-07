@@ -124,6 +124,53 @@
         height: 28px;
       }
 
+      .deploy-section {
+        background: #f0f7ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .deploy-section h2 {
+        margin-top: 0;
+      }
+
+      .deploy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #0080ff;
+        color: #fff;
+        text-decoration: none;
+        padding: 0.6rem 1.1rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0.75rem 0 1rem;
+        transition: background 0.2s;
+      }
+
+      .deploy-btn:hover {
+        background: #0066cc;
+        color: #fff;
+      }
+
+      .deploy-btn:visited {
+        color: #fff;
+      }
+
+      .deploy-btn[aria-disabled="true"] {
+        background: #94a3b8;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .deploy-steps {
+        padding-left: 1.5rem;
+        margin: 0;
+      }
+
       footer {
         margin-top: 3rem;
         padding-top: 1rem;
@@ -134,8 +181,31 @@
     </style>
 
     <script>
+      function initDeployButton() {
+        fetch("deploy-config.json")
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (cfg) {
+            var btn = document.getElementById("deploy-btn");
+            var notice = document.getElementById("deploy-coming-soon");
+            if (cfg.snapshot_id) {
+              btn.href =
+                "https://cloud.digitalocean.com/droplets/new?image=" +
+                cfg.snapshot_id +
+                "&size=" +
+                (cfg.droplet_size || "s-2vcpu-4gb");
+              btn.removeAttribute("aria-disabled");
+              if (notice) notice.style.display = "none";
+            }
+            // If snapshot_id is empty, button stays disabled and notice stays visible
+          })
+          .catch(function () {
+            // Leave button disabled if fetch fails
+          });
+      }
+
       function copyToClipboard(btn, text) {
-        console.log("Copying to clipboard:", text);
         navigator.clipboard
           .writeText(text)
           .then(() => showCopied(btn, text))
@@ -158,6 +228,8 @@
           btn.parentElement.querySelector("code").textContent = text;
         }, 1500);
       }
+
+      document.addEventListener("DOMContentLoaded", initDeployButton);
     </script>
   </head>
   <body>
@@ -166,6 +238,47 @@
       Semantic search and Claude integration for Paperless NGX. Built for
       farmers.
     </p>
+
+    <div class="deploy-section">
+      <h2>One-Click Deploy</h2>
+      <p>
+        Get a full Paperless Ag stack on DigitalOcean in minutes. You'll receive
+        a pre-configured droplet with Paperless NGX, semantic search, and the
+        MCP server ready to go — no manual setup required. ~$24/mo (2&nbsp;vCPU,
+        4&nbsp;GB RAM).
+      </p>
+      <a
+        id="deploy-btn"
+        class="deploy-btn"
+        href="#"
+        aria-disabled="true"
+        rel="noopener noreferrer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          width="18px"
+          height="18px"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 4l4 4h-3v4h-2v-4H8l4-4zm-5 9h10v2H7v-2z"
+          />
+        </svg>
+        Deploy on DigitalOcean
+      </a>
+      <p id="deploy-coming-soon" style="color: #64748b; font-size: 0.9rem">
+        Snapshot not yet available — check back soon or use the installer below.
+      </p>
+      <ol class="deploy-steps">
+        <li>
+          Click the button above to open the DigitalOcean droplet creation page.
+        </li>
+        <li>Choose a region, add your SSH key, and create the droplet.</li>
+        <li>Visit <code>http://YOUR_IP</code> once it boots (~1 min).</li>
+      </ol>
+    </div>
 
     <h2>Install</h2>
     <p>SSH into your Linux server and run:</p>

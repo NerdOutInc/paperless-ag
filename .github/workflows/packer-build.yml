@@ -1,0 +1,91 @@
+name: Build DigitalOcean Snapshot
+
+on:
+  schedule:
+    - cron: "0 4 * * 0"  # Sundays at 4 AM UTC
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  DIGITALOCEAN_API_TOKEN: ${{ secrets.DIGITALOCEAN_API_TOKEN }}
+
+jobs:
+  build-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@c3d53c525d422944e50ee27b840746d6522b08de # v3.2.0
+        with:
+          version: latest
+
+      - name: Init Packer plugins
+        working-directory: packer
+        run: packer init paperless-ag.pkr.hcl
+
+      - name: Build snapshot
+        working-directory: packer
+        run: packer build paperless-ag.pkr.hcl
+
+      - name: Extract snapshot ID
+        id: snapshot
+        working-directory: packer
+        run: |
+          ARTIFACT_ID=$(jq -r '.builds[-1].artifact_id' manifest.json)
+          # artifact_id may include a prefix like "digitalocean:12345"
+          SNAPSHOT_ID="${ARTIFACT_ID##*:}"
+
+          if ! [[ "$SNAPSHOT_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid snapshot ID extracted from artifact_id: $ARTIFACT_ID"
+            exit 1
+          fi
+
+          echo "id=$SNAPSHOT_ID" >> "$GITHUB_OUTPUT"
+          echo "Snapshot ID: $SNAPSHOT_ID"
+
+      - name: Update and commit deploy-config.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Ensure we're on the default branch (tag checkouts are detached)
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+          git fetch origin "$DEFAULT_BRANCH"
+          git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
+
+          jq -n \
+            --arg id "${{ steps.snapshot.outputs.id }}" \
+            --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{"snapshot_id": $id, "built_at": $ts, "droplet_size": "s-2vcpu-4gb"}' \
+            > docs/deploy-config.json
+
+          git add docs/deploy-config.json
+          git diff --cached --quiet && exit 0
+          git commit -m "ci: update snapshot ID to ${{ steps.snapshot.outputs.id }}"
+          git push origin "HEAD:$DEFAULT_BRANCH"
+
+      - name: Delete previous snapshot
+        run: |
+          # List all paperless-ag snapshots, delete all except the newest
+          SNAPSHOTS=$(curl -s -X GET \
+            -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" \
+            "https://api.digitalocean.com/v2/snapshots?resource_type=droplet&per_page=200" \
+            | jq -r '.snapshots[] | select(.name | startswith("paperless-ag-")) | .id' \
+            | sort -rn)
+
+          KEEP="${{ steps.snapshot.outputs.id }}"
+          for ID in $SNAPSHOTS; do
+            if [ "$ID" != "$KEEP" ]; then
+              echo "Deleting old snapshot: $ID"
+              curl -s -X DELETE \
+                -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN" \
+                "https://api.digitalocean.com/v2/snapshots/$ID"
+            fi
+          done
