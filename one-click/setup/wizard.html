@@ -409,16 +409,20 @@
               })
               .catch(function () {
                 // API is down because host Caddy stopped for Docker.
-                // Switch to probing the Paperless URL directly.
+                // Probe same-origin root -- Docker Caddy now owns :80.
+                // Only treat a 2xx/3xx as ready (502 = Caddy up but
+                // Paperless still starting).
                 if (!lostContact) {
                   lostContact = true;
                   document.querySelector(".progress-text").textContent =
                     "Finalizing setup... waiting for Paperless to start.";
                 }
-                fetch(url, { method: "HEAD", mode: "no-cors" })
-                  .then(function () {
-                    clearInterval(interval);
-                    showComplete(token, url);
+                fetch("/", { method: "GET", redirect: "manual" })
+                  .then(function (res) {
+                    if (res.ok || res.type === "opaqueredirect") {
+                      clearInterval(interval);
+                      showComplete(token, url);
+                    }
                   })
                   .catch(function () {
                     // Still starting up, keep polling
