@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-06
 **Branch:** `one-click`
-**Status:** Design approved, pending implementation
+**Status:** Implemented
 
 ## Goal
 
