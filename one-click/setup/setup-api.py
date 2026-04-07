@@ -34,8 +34,9 @@ _DOMAIN_RE = re.compile(
     r'(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)+$'
 )
 _EMAIL_RE = re.compile(r'^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$')
-# Characters unsafe in single-quoted .env, double-quoted YAML, or shell contexts
-_UNSAFE_VALUE_RE = re.compile(r"['\"\\\n\r\x00`$]")
+# Characters unsafe in single-quoted .env, double-quoted YAML, shell contexts,
+# or {{KEY}} template placeholders
+_UNSAFE_VALUE_RE = re.compile(r"['\"\\\n\r\x00`${}]")
 
 
 def generate_secret(length=32):
@@ -154,7 +155,7 @@ class SetupHandler(BaseHTTPRequestHandler):
         elif len(admin_password) < 8:
             errors.append("admin_password must be at least 8 characters")
         elif _UNSAFE_VALUE_RE.search(admin_password):
-            errors.append("admin_password cannot contain quotes, backslashes, backticks, $, or newlines")
+            errors.append("admin_password cannot contain quotes, backslashes, backticks, $, {, }, or newlines")
         if not timezone or not valid_timezone(timezone):
             errors.append("valid timezone is required")
         if domain:
