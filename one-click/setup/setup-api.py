@@ -9,7 +9,7 @@ No pip dependencies -- stdlib only.
 """
 
 import json
-import os
+import re
 import secrets
 import string
 import subprocess
@@ -23,6 +23,17 @@ SETUP_STATE_FILE = BASE_DIR / ".setup-state"
 
 # Valid IANA timezones are in /usr/share/zoneinfo -- we check against it
 ZONEINFO = Path("/usr/share/zoneinfo")
+
+# Validation patterns -- strict allowlists prevent injection into .env
+# (single-quoted), docker-compose.yml (double-quoted YAML), and Caddyfile.
+_USERNAME_RE = re.compile(r'^[a-zA-Z0-9_.\-]+$')
+_DOMAIN_RE = re.compile(
+    r'^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?'
+    r'(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)+$'
+)
+_EMAIL_RE = re.compile(r'^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$')
+# Characters unsafe in single-quoted .env, double-quoted YAML, or shell contexts
+_UNSAFE_VALUE_RE = re.compile(r"['\"\\\n\r\x00`$]")
 
 
 def generate_secret(length=32):
@@ -103,14 +114,23 @@ class SetupHandler(BaseHTTPRequestHandler):
         errors = []
         if not admin_user:
             errors.append("admin_user is required")
+        elif not _USERNAME_RE.match(admin_user) or len(admin_user) > 150:
+            errors.append("admin_user must contain only letters, digits, . _ - (max 150)")
         if not admin_password:
             errors.append("admin_password is required")
-        if len(admin_password) < 8:
+        elif len(admin_password) < 8:
             errors.append("admin_password must be at least 8 characters")
+        elif _UNSAFE_VALUE_RE.search(admin_password):
+            errors.append("admin_password cannot contain quotes, backslashes, backticks, $, or newlines")
         if not timezone or not valid_timezone(timezone):
             errors.append("valid timezone is required")
-        if domain and not le_email:
-            errors.append("le_email is required when domain is provided")
+        if domain:
+            if not _DOMAIN_RE.match(domain) or len(domain) > 253:
+                errors.append("domain must be a valid hostname")
+            if not le_email:
+                errors.append("le_email is required when domain is provided")
+            elif not _EMAIL_RE.match(le_email) or len(le_email) > 254:
+                errors.append("le_email must be a valid email address")
 
         if errors:
             self._send_json(400, {"errors": errors})
