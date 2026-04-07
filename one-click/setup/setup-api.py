@@ -222,8 +222,10 @@ class SetupHandler(BaseHTTPRequestHandler):
             (BASE_DIR / "Caddyfile").write_text(caddy_content)
         except Exception as exc:
             set_state("failed")
+            log_path = BASE_DIR / "setup.log"
+            log_path.write_text(f"Config generation failed: {exc}\n")
             self._send_json(500, {
-                "error": f"Setup failed during config generation: {exc}"
+                "error": "Setup failed during config generation. Check setup.log for details."
             })
             return
 
