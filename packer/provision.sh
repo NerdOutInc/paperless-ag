@@ -71,6 +71,9 @@ apt-get clean
 rm -rf /var/lib/apt/lists/*
 find /var/log -type f -name '*.log' -exec truncate -s 0 {} + 2>/dev/null || true
 rm -f /etc/ssh/ssh_host_*
+truncate -s 0 /etc/machine-id
+rm -f /var/lib/dbus/machine-id
+rm -f /var/lib/systemd/random-seed
 rm -f /root/.bash_history
 cloud-init clean --logs
 
