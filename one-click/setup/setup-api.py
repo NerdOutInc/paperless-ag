@@ -100,9 +100,14 @@ class SetupHandler(BaseHTTPRequestHandler):
             self._send_json(404, {"error": "not found"})
             return
 
-        if get_state() != "pending":
-            self._send_json(409, {"error": "setup already started"})
+        state = get_state()
+        if state == "in_progress":
+            self._send_json(409, {"error": "setup already in progress"})
             return
+        if state == "complete":
+            self._send_json(409, {"error": "setup already complete"})
+            return
+        # Allow retry from "pending" or "failed" state
 
         # Read request body
         length = int(self.headers.get("Content-Length", 0))
