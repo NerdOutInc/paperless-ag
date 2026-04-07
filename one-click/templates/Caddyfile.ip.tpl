@@ -1,4 +1,10 @@
 :80 {
+    header {
+        X-Frame-Options DENY
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+
     @discovery path /.well-known/oauth-authorization-server /.well-known/openid-configuration
     handle @discovery {
         respond 404
