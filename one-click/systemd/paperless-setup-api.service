@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/python3 /opt/paperless-ag/setup/setup-api.py
+KillMode=process
 Restart=on-failure
 RestartSec=5
 
