@@ -41,9 +41,13 @@ fi
 
 # Register daily backup cron at 7 AM (idempotent)
 cron_line="0 7 * * * /opt/paperless-ag/scripts/backup.sh >> /opt/paperless-ag/backups/cron.log 2>&1"
-existing_crontab="$(crontab -l 2>/dev/null || true)"
-if ! printf '%s\n' "$existing_crontab" | grep -Fqx "$cron_line"; then
-    printf '%s\n%s\n' "$existing_crontab" "$cron_line" | crontab -
+if command -v crontab >/dev/null 2>&1; then
+    existing_crontab="$(crontab -l 2>/dev/null || true)"
+    if ! printf '%s\n' "$existing_crontab" | grep -Fqx "$cron_line"; then
+        printf '%s\n%s\n' "$existing_crontab" "$cron_line" | crontab -
+    fi
+else
+    echo "[WARN] crontab not found; skipping daily backup cron"
 fi
 
 echo "[OK] Setup complete"
