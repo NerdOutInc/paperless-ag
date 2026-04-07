@@ -68,7 +68,7 @@ Docker Compose:
         finalize-setup.sh      Called by setup-api.py after form submit
         update.sh              Pull latest images + restart
         backup.sh              pg_dump wrapper
-        restore.sh             pg_restore wrapper
+        restore.sh             psql wrapper for restoring SQL dumps
 ```
 
 ## Component Details
