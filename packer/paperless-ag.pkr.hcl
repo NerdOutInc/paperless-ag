@@ -1,7 +1,7 @@
 packer {
   required_plugins {
     digitalocean = {
-      version = ">= 1.1.0"
+      version = ">= 1.3.0"
       source  = "github.com/digitalocean/digitalocean"
     }
   }
@@ -21,7 +21,7 @@ source "digitalocean" "paperless-ag" {
   ssh_username = "root"
   snapshot_name            = "paperless-ag-{{timestamp}}"
   snapshot_timeout         = "60m"
-  snapshot_regions_no_wait = true
+  wait_snapshot_transfer   = false
   snapshot_regions         = [
     "nyc1", "nyc3", "sfo3", "ams3", "sgp1",
     "lon1", "fra1", "tor1", "blr1", "syd1"
