@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paperless Ag Setup</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f5f5f0;
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 480px;
+        margin: 1rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #2d5016;
+      }
+      .subtitle {
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 0.6rem 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #2d5016;
+        box-shadow: 0 0 0 2px rgba(45, 80, 22, 0.15);
+      }
+      .hint {
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 0.2rem;
+      }
+      .error {
+        color: #c0392b;
+        font-size: 0.85rem;
+        margin-top: 0.3rem;
+        display: none;
+      }
+      button {
+        width: 100%;
+        padding: 0.8rem;
+        background: #2d5016;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 2rem;
+      }
+      button:hover {
+        background: #3a6b1e;
+      }
+      button:disabled {
+        background: #999;
+        cursor: not-allowed;
+      }
+      .hidden {
+        display: none;
+      }
+
+      /* Progress state */
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e0e0e0;
+        border-top-color: #2d5016;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 2rem auto;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .progress-text {
+        text-align: center;
+        color: #666;
+        font-size: 1rem;
+      }
+
+      /* Completion state */
+      .token-box {
+        background: #f8f8f5;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.8rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+        word-break: break-all;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .token-box code {
+        flex: 1;
+      }
+      .copy-btn {
+        width: auto;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        margin-top: 0;
+        white-space: nowrap;
+      }
+      .warning {
+        background: #fff8e1;
+        border: 1px solid #f0d060;
+        border-radius: 6px;
+        padding: 0.8rem;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+      }
+      .ssh-hint {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.8rem;
+      }
+      .ssh-hint code {
+        background: #f0f0f0;
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.8rem;
+      }
+      .redirect-note {
+        text-align: center;
+        color: #888;
+        font-size: 0.85rem;
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- STATE 1: Form -->
+    <div class="card" id="form-card">
+      <h1>Paperless Ag Setup</h1>
+      <p class="subtitle">Configure your document management system.</p>
+
+      <form id="setup-form" novalidate>
+        <label for="setup_token">Setup Token</label>
+        <input
+          type="text"
+          id="setup_token"
+          name="setup_token"
+          autocomplete="off"
+          required
+          placeholder="From your droplet console or SSH login"
+        />
+        <div class="hint">
+          Find this token in the DigitalOcean droplet console or SSH login
+          message.
+        </div>
+
+        <label for="admin_user">Admin Username</label>
+        <input
+          type="text"
+          id="admin_user"
+          name="admin_user"
+          autocomplete="username"
+          required
+        />
+
+        <label for="admin_password">Admin Password</label>
+        <input
+          type="password"
+          id="admin_password"
+          name="admin_password"
+          autocomplete="new-password"
+          required
+        />
+
+        <label for="confirm_password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm_password"
+          autocomplete="new-password"
+          required
+        />
+        <div class="error" id="pw-error">Passwords do not match.</div>
+
+        <label for="timezone">Timezone</label>
+        <select id="timezone" name="timezone" required>
+          <option value="">Select timezone...</option>
+          <option value="America/New_York">Eastern (America/New_York)</option>
+          <option value="America/Chicago" selected>
+            Central (America/Chicago)
+          </option>
+          <option value="America/Denver">Mountain (America/Denver)</option>
+          <option value="America/Los_Angeles">
+            Pacific (America/Los_Angeles)
+          </option>
+          <option value="America/Anchorage">Alaska (America/Anchorage)</option>
+          <option value="Pacific/Honolulu">Hawaii (Pacific/Honolulu)</option>
+        </select>
+
+        <label for="domain"
+          >Domain Name
+          <span style="font-weight: normal; color: #888"
+            >(optional)</span
+          ></label
+        >
+        <input
+          type="text"
+          id="domain"
+          name="domain"
+          placeholder="docs.yourfarm.com"
+        />
+        <div class="hint">Leave blank to use your server's IP address.</div>
+
+        <div id="email-group" class="hidden">
+          <label for="le_email">Email for HTTPS Certificate</label>
+          <input
+            type="email"
+            id="le_email"
+            name="le_email"
+            placeholder="you@example.com"
+          />
+          <div class="hint">Used by Let's Encrypt. Not shared publicly.</div>
+        </div>
+
+        <div class="error" id="form-error"></div>
+
+        <button type="submit" id="submit-btn">Set Up Paperless Ag</button>
+      </form>
+    </div>
+
+    <!-- STATE 2: Progress -->
+    <div class="card hidden" id="progress-card">
+      <h1>Setting Up Paperless Ag</h1>
+      <div class="spinner"></div>
+      <p class="progress-text">
+        Starting services... this takes a few minutes.
+      </p>
+    </div>
+
+    <!-- STATE 3: Complete -->
+    <div class="card hidden" id="complete-card">
+      <h1>Paperless Ag is Ready!</h1>
+      <p class="subtitle">Your document management system is running.</p>
+
+      <label>MCP Auth Token</label>
+      <div class="token-box">
+        <code id="mcp-token"></code>
+        <button
+          class="copy-btn"
+          onclick="copyToken()"
+          aria-label="Copy MCP token to clipboard"
+        >
+          Copy
+        </button>
+      </div>
+      <div class="warning">
+        Save this token now. You need it to connect Claude to your Paperless
+        instance.
+      </div>
+      <p class="ssh-hint">
+        Lost your token later? SSH in and run:<br />
+        <code>cat /opt/paperless-ag/.env | grep MCP_AUTH_TOKEN</code>
+      </p>
+
+      <a
+        id="paperless-link"
+        href="#"
+        style="
+          display: block;
+          margin-top: 1.5rem;
+          padding: 0.8rem;
+          background: #2d5016;
+          color: #fff;
+          border-radius: 6px;
+          font-size: 1rem;
+          font-weight: 600;
+          text-align: center;
+          text-decoration: none;
+        "
+        >Open Paperless</a
+      >
+      <p class="redirect-note" id="redirect-note"></p>
+    </div>
+
+    <script>
+      (function () {
+        var form = document.getElementById("setup-form");
+        var domainInput = document.getElementById("domain");
+        var emailGroup = document.getElementById("email-group");
+        var pwError = document.getElementById("pw-error");
+        var formError = document.getElementById("form-error");
+
+        // Show/hide email field based on domain
+        domainInput.addEventListener("input", function () {
+          emailGroup.classList.toggle("hidden", !domainInput.value.trim());
+        });
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          pwError.style.display = "none";
+          formError.style.display = "none";
+
+          var pw = document.getElementById("admin_password").value;
+          var confirm = document.getElementById("confirm_password").value;
+          if (pw !== confirm) {
+            pwError.style.display = "block";
+            return;
+          }
+          if (pw.length < 8) {
+            formError.textContent = "Password must be at least 8 characters.";
+            formError.style.display = "block";
+            return;
+          }
+          if (/['"\\\n\r\x00`${}]/.test(pw)) {
+            formError.textContent =
+              "Password cannot contain quotes, backslashes, backticks, $, {, }, or newlines.";
+            formError.style.display = "block";
+            return;
+          }
+
+          var payload = {
+            setup_token: document.getElementById("setup_token").value.trim(),
+            admin_user: document.getElementById("admin_user").value.trim(),
+            admin_password: pw,
+            timezone: document.getElementById("timezone").value,
+            domain: domainInput.value.trim(),
+            le_email: document.getElementById("le_email").value.trim(),
+          };
+
+          document.getElementById("submit-btn").disabled = true;
+
+          fetch("/api/setup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+            .then(function (res) {
+              return res.json().then(function (d) {
+                return { ok: res.ok, data: d };
+              });
+            })
+            .then(function (result) {
+              if (!result.ok) {
+                var msg = result.data.errors
+                  ? result.data.errors.join(", ")
+                  : result.data.error || "Setup failed";
+                formError.textContent = msg;
+                formError.style.display = "block";
+                document.getElementById("submit-btn").disabled = false;
+                return;
+              }
+
+              // Switch to progress state
+              document.getElementById("form-card").classList.add("hidden");
+              document
+                .getElementById("progress-card")
+                .classList.remove("hidden");
+
+              // Poll for completion
+              var token = result.data.mcp_token;
+              var url = result.data.paperless_url;
+              pollCompletion(token, url);
+            })
+            .catch(function () {
+              formError.textContent = "Connection error. Please try again.";
+              formError.style.display = "block";
+              document.getElementById("submit-btn").disabled = false;
+            });
+        });
+
+        function pollCompletion(token, url) {
+          var lostContact = false;
+          var pollCount = 0;
+          var maxPolls = 200; // ~10 minutes at 3s intervals
+
+          var interval = setInterval(function () {
+            pollCount++;
+            if (pollCount > maxPolls) {
+              clearInterval(interval);
+              document.querySelector(".progress-text").textContent =
+                "Setup timed out. SSH in and check: cat /opt/paperless-ag/setup.log";
+              document.querySelector(".spinner").style.display = "none";
+              return;
+            }
+
+            if (lostContact) {
+              // Setup API is gone -- Docker Caddy now owns :80.
+              // Only probe root; a 2xx/3xx means Paperless is up.
+              fetch("/", { method: "GET", redirect: "manual" })
+                .then(function (res) {
+                  if (res.ok || res.type === "opaqueredirect") {
+                    clearInterval(interval);
+                    showComplete(token, url);
+                  }
+                })
+                .catch(function () {
+                  // Still starting up, keep polling
+                });
+              return;
+            }
+
+            fetch("/api/status")
+              .then(function (res) {
+                return res.json();
+              })
+              .then(function (data) {
+                if (data.state === "complete") {
+                  clearInterval(interval);
+                  showComplete(token, url);
+                } else if (data.state === "failed") {
+                  clearInterval(interval);
+                  document.querySelector(".progress-text").textContent =
+                    "Setup failed. SSH in and check: cat /opt/paperless-ag/setup.log";
+                  document.querySelector(".spinner").style.display = "none";
+                }
+              })
+              .catch(function () {
+                lostContact = true;
+                document.querySelector(".progress-text").textContent =
+                  "Finalizing setup... waiting for Paperless to start.";
+              });
+          }, 3000);
+        }
+
+        function showComplete(token, url) {
+          document.getElementById("progress-card").classList.add("hidden");
+          document.getElementById("complete-card").classList.remove("hidden");
+          document.getElementById("mcp-token").textContent = token;
+          document.getElementById("paperless-link").href = url;
+
+          // Countdown redirect
+          var seconds = 30;
+          var note = document.getElementById("redirect-note");
+          var timer = setInterval(function () {
+            seconds--;
+            note.textContent =
+              "Redirecting to Paperless in " + seconds + "s...";
+            if (seconds <= 0) {
+              clearInterval(timer);
+              window.location.href = url;
+            }
+          }, 1000);
+          note.textContent = "Redirecting to Paperless in 30s...";
+        }
+      })();
+
+      function copyToken() {
+        var token = document.getElementById("mcp-token").textContent;
+        var btn = document.querySelector(".copy-btn");
+
+        function showResult(label) {
+          btn.textContent = label;
+          setTimeout(function () {
+            btn.textContent = "Copy";
+          }, 2000);
+        }
+
+        function fallbackCopy(text) {
+          var textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "absolute";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, text.length);
+          var ok = false;
+          try {
+            ok = document.execCommand("copy");
+          } catch (e) {
+            ok = false;
+          }
+          document.body.removeChild(textarea);
+          return ok;
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(token)
+            .then(function () {
+              showResult("Copied!");
+            })
+            .catch(function () {
+              showResult(fallbackCopy(token) ? "Copied!" : "Copy failed");
+            });
+        } else {
+          showResult(fallbackCopy(token) ? "Copied!" : "Copy failed");
+        }
+      }
+    </script>
+  </body>
+</html>
