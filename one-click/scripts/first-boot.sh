@@ -6,7 +6,7 @@ ssh-keygen -A
 systemctl restart ssh
 
 # Generate a one-time setup token and persist it for the setup API
-SETUP_TOKEN=$(head -c 24 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9' | head -c 32)
+SETUP_TOKEN=$(head -c 48 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9' | head -c 32)
 echo "$SETUP_TOKEN" > /opt/paperless-ag/.setup-token
 chmod 600 /opt/paperless-ag/.setup-token
 
