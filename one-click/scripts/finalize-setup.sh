@@ -31,6 +31,14 @@ fi
 # Now that the stack is up, disable and stop both setup services
 systemctl disable --now paperless-setup.service paperless-setup-api.service
 
+# Remove setup-only artifacts so the bootstrap token is no longer exposed
+rm -f /etc/update-motd.d/99-paperless-setup
+if command -v shred >/dev/null 2>&1; then
+    shred -u /opt/paperless-ag/.setup-token 2>/dev/null || true
+else
+    rm -f /opt/paperless-ag/.setup-token
+fi
+
 # Register daily backup cron at 7 AM
 (crontab -l 2>/dev/null || true; echo "0 7 * * * /opt/paperless-ag/scripts/backup.sh >> /opt/paperless-ag/backups/cron.log 2>&1") | crontab -
 
