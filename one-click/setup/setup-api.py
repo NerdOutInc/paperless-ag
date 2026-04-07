@@ -73,7 +73,10 @@ def set_state(state):
 def check_setup_token(provided):
     """Verify the provided token matches the one generated at first boot."""
     if not SETUP_TOKEN_FILE.exists():
-        return True  # no token file = dev/test mode, allow access
+        # Fail closed in production. Set PAPERLESS_SKIP_SETUP_TOKEN=1 for
+        # local development without a token file.
+        import os
+        return os.environ.get("PAPERLESS_SKIP_SETUP_TOKEN") == "1"
     expected = SETUP_TOKEN_FILE.read_text().strip()
     return secrets.compare_digest(provided, expected)
 
