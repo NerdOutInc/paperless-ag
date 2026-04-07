@@ -6,11 +6,23 @@ echo "=== Paperless Ag Image Provisioning ==="
 # 1. System updates
 export DEBIAN_FRONTEND=noninteractive
 
-# Wait for any existing apt/dpkg locks (unattended-upgrades, cloud-init)
-echo "Waiting for apt locks..."
-while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
-    sleep 2
-done
+# Helper: wait for ALL apt/dpkg lock files to be free
+wait_for_apt() {
+    while fuser /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock \
+                /var/lib/apt/lists/lock /var/cache/apt/archives/lock \
+                >/dev/null 2>&1; do
+        echo "  …apt is locked, retrying in 5s"
+        sleep 5
+    done
+}
+
+# Wait for cloud-init and any boot-time apt activity to finish
+cloud-init status --wait || true
+wait_for_apt
+
+# Remove unattended-upgrades so it can't re-acquire locks mid-provision
+apt-get -y purge unattended-upgrades
+wait_for_apt
 
 apt-get update
 apt-get upgrade -y
