@@ -161,64 +161,71 @@ class SetupHandler(BaseHTTPRequestHandler):
 
         set_state("in_progress")
 
-        # Generate secrets
-        db_password = generate_secret(32)
-        secret_key = generate_secret(50)
-        mcp_token = generate_secret(32)
+        try:
+            # Generate secrets
+            db_password = generate_secret(32)
+            secret_key = generate_secret(50)
+            mcp_token = generate_secret(32)
 
-        # Determine Paperless URL
-        if domain:
-            paperless_url = f"https://{domain}"
-        else:
-            # Get the droplet's public IP
-            try:
-                ip = subprocess.check_output(
-                    ["curl", "-s", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
-                    timeout=5,
-                ).decode().strip()
-            except Exception:
-                ip = "localhost"
-            paperless_url = f"http://{ip}"
+            # Determine Paperless URL
+            if domain:
+                paperless_url = f"https://{domain}"
+            else:
+                # Get the droplet's public IP
+                try:
+                    ip = subprocess.check_output(
+                        ["curl", "-s", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
+                        timeout=5,
+                    ).decode().strip()
+                except Exception:
+                    ip = "localhost"
+                paperless_url = f"http://{ip}"
 
-        # Template variables
-        variables = {
-            "ADMIN_USER": admin_user,
-            "ADMIN_PASSWORD": admin_password,
-            "DB_PASSWORD": db_password,
-            "SECRET_KEY": secret_key,
-            "TIMEZONE": timezone,
-            "PAPERLESS_URL": paperless_url,
-            "MCP_AUTH_TOKEN": mcp_token,
-            "DOMAIN": domain,
-            "LE_EMAIL": le_email,
-        }
+            # Template variables
+            variables = {
+                "ADMIN_USER": admin_user,
+                "ADMIN_PASSWORD": admin_password,
+                "DB_PASSWORD": db_password,
+                "SECRET_KEY": secret_key,
+                "TIMEZONE": timezone,
+                "PAPERLESS_URL": paperless_url,
+                "MCP_AUTH_TOKEN": mcp_token,
+                "DOMAIN": domain,
+                "LE_EMAIL": le_email,
+            }
 
-        # Render config files
-        env_content = render_template(
-            TEMPLATES_DIR / "env.template", variables
-        )
-
-        if domain:
-            caddy_content = render_template(
-                TEMPLATES_DIR / "Caddyfile.domain.tpl", variables
-            )
-        else:
-            caddy_content = render_template(
-                TEMPLATES_DIR / "Caddyfile.ip.tpl", variables
+            # Render config files
+            env_content = render_template(
+                TEMPLATES_DIR / "env.template", variables
             )
 
-        # Write config files -- .env is the single source of truth for
-        # secrets; docker-compose.yml uses ${...} references into it.
-        env_path = BASE_DIR / ".env"
-        env_path.write_text(env_content)
-        env_path.chmod(0o600)
+            if domain:
+                caddy_content = render_template(
+                    TEMPLATES_DIR / "Caddyfile.domain.tpl", variables
+                )
+            else:
+                caddy_content = render_template(
+                    TEMPLATES_DIR / "Caddyfile.ip.tpl", variables
+                )
 
-        compose_path = BASE_DIR / "docker-compose.yml"
-        compose_path.write_text(
-            (TEMPLATES_DIR / "docker-compose.yml.tpl").read_text()
-        )
+            # Write config files -- .env is the single source of truth for
+            # secrets; docker-compose.yml uses ${...} references into it.
+            env_path = BASE_DIR / ".env"
+            env_path.write_text(env_content)
+            env_path.chmod(0o600)
 
-        (BASE_DIR / "Caddyfile").write_text(caddy_content)
+            compose_path = BASE_DIR / "docker-compose.yml"
+            compose_path.write_text(
+                (TEMPLATES_DIR / "docker-compose.yml.tpl").read_text()
+            )
+
+            (BASE_DIR / "Caddyfile").write_text(caddy_content)
+        except Exception as exc:
+            set_state("failed")
+            self._send_json(500, {
+                "error": f"Setup failed during config generation: {exc}"
+            })
+            return
 
         # Run finalize in background so we can return the response
         # before the host Caddy shuts down
