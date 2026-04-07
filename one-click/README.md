@@ -68,10 +68,10 @@ Each build updates `docs/deploy-config.json` with the new snapshot ID, which the
 Required in `.env` after setup:
 
 ```bash
-ADMIN_USER=admin
-ADMIN_PASSWORD=...
-DB_PASSWORD=...
-SECRET_KEY=...
+ADMIN_USER='admin'
+ADMIN_PASSWORD='...'
+DB_PASSWORD='...'
+SECRET_KEY='...'
 ...
 ```
 
