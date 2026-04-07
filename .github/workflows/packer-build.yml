@@ -50,21 +50,26 @@ jobs:
           echo "id=$SNAPSHOT_ID" >> "$GITHUB_OUTPUT"
           echo "Snapshot ID: $SNAPSHOT_ID"
 
-      - name: Update deploy-config.json
+      - name: Update and commit deploy-config.json
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Ensure we're on the default branch (tag checkouts are detached)
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+          git fetch origin "$DEFAULT_BRANCH"
+          git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
+
           jq -n \
             --arg id "${{ steps.snapshot.outputs.id }}" \
             --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             '{"snapshot_id": $id, "built_at": $ts, "droplet_size": "s-2vcpu-4gb"}' \
             > docs/deploy-config.json
 
-      - name: Commit deploy-config.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/deploy-config.json
+          git diff --cached --quiet && exit 0
           git commit -m "ci: update snapshot ID to ${{ steps.snapshot.outputs.id }}"
-          git push
+          git push origin "HEAD:$DEFAULT_BRANCH"
 
       - name: Delete previous snapshot
         run: |
