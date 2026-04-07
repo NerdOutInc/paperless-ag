@@ -389,6 +389,8 @@
         });
 
         function pollCompletion(token, url) {
+          var lostContact = false;
+
           var interval = setInterval(function () {
             fetch("/api/status")
               .then(function (res) {
@@ -401,17 +403,26 @@
                 } else if (data.state === "failed") {
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
-                    "Setup failed. Please SSH in and check logs: journalctl -u paperless-setup-api";
+                    "Setup failed. SSH in and check: cat /opt/paperless-ag/setup.log";
                   document.querySelector(".spinner").style.display = "none";
                 }
               })
               .catch(function () {
-                // API may be down because host Caddy stopped --
-                // that means finalize is running. Wait, then redirect.
-                clearInterval(interval);
-                setTimeout(function () {
-                  showComplete(token, url);
-                }, 10000);
+                // API is down because host Caddy stopped for Docker.
+                // Switch to probing the Paperless URL directly.
+                if (!lostContact) {
+                  lostContact = true;
+                  document.querySelector(".progress-text").textContent =
+                    "Finalizing setup... waiting for Paperless to start.";
+                }
+                fetch(url, { method: "HEAD", mode: "no-cors" })
+                  .then(function () {
+                    clearInterval(interval);
+                    showComplete(token, url);
+                  })
+                  .catch(function () {
+                    // Still starting up, keep polling
+                  });
               });
           }, 3000);
         }
