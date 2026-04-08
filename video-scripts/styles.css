@@ -1,0 +1,279 @@
+/* ── Reset & Base ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background: #f5f5f0;
+  color: #2c2c2c;
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+a {
+  color: #2d6a4f;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── Back Link ───────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+.back-link::before {
+  content: "\2190\00a0";
+}
+
+/* ── Index Page ──────────────────────────────────── */
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.page-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.video-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.video-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.15s;
+}
+.video-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.video-card a {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.video-card .badge {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge.concept {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.badge.install {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.video-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.video-length {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* ── Video Page Header ───────────────────────────── */
+.video-header {
+  margin-bottom: 2rem;
+}
+.video-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.video-header .meta {
+  display: flex;
+  gap: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Prep Box ────────────────────────────────────── */
+.prep-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-left: 4px solid #2d6a4f;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+}
+.prep-box h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+.prep-box ul {
+  list-style: none;
+  padding: 0;
+}
+.prep-box li {
+  padding: 0.2rem 0;
+  font-size: 0.95rem;
+}
+.prep-box li::before {
+  content: "\2610\00a0";
+  color: #aaa;
+}
+
+/* ── Section Divider ─────────────────────────────── */
+.section-divider {
+  background: #2d6a4f;
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px 6px 0 0;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+.section-divider:first-of-type {
+  margin-top: 0;
+}
+
+/* ── Choreography Table ──────────────────────────── */
+.choreo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  table-layout: fixed;
+}
+.choreo:last-of-type {
+  border-radius: 0 0 6px 6px;
+  margin-bottom: 2rem;
+}
+
+.choreo th {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  border-bottom: 2px solid #eee;
+  background: #fafaf7;
+}
+.choreo th:first-child {
+  width: 40%;
+}
+.choreo th:last-child {
+  width: 60%;
+}
+
+.choreo td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  border-bottom: 1px solid #f0f0eb;
+  font-size: 0.95rem;
+}
+
+/* ── Action Types (left column) ──────────────────── */
+.choreo .screen {
+  border-left: 4px solid #43a047;
+}
+.choreo .click {
+  border-left: 4px solid #1e88e5;
+}
+.choreo .wait {
+  border-left: 4px solid #fb8c00;
+}
+.choreo .type-cmd {
+  border-left: 4px solid #8e24aa;
+}
+
+/* ── Labels ──────────────────────────────────────── */
+.action-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-bottom: 0.3rem;
+}
+.action-label.show {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.action-label.click-label {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.action-label.wait-label {
+  background: #fff3e0;
+  color: #e65100;
+}
+.action-label.type-label {
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.action-desc {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+/* ── Narration (right column) ────────────────────── */
+.narration {
+  color: #333;
+  font-style: italic;
+}
+
+/* ── Tip Callout ─────────────────────────────────── */
+.tip {
+  background: #fffde7;
+  border: 1px solid #f0e68c;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.tip strong {
+  color: #f9a825;
+}
+
+/* ── Print Styles ────────────────────────────────── */
+@media print {
+  body {
+    padding: 0.5rem;
+    background: #fff;
+  }
+  .back-link {
+    display: none;
+  }
+  .video-card {
+    break-inside: avoid;
+  }
+  .choreo {
+    font-size: 0.85rem;
+  }
+}

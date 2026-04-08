@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 5: How to Install on DigitalOcean</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a href="index.html" class="back-link">All Videos</a>
+
+    <div class="video-header">
+      <h1>Video 5: How to Install on DigitalOcean</h1>
+      <div class="meta">
+        <span>Target: 8-12 minutes</span>
+        <span>Type: Install walkthrough</span>
+      </div>
+    </div>
+
+    <div class="prep-box">
+      <h3>Before You Record</h3>
+      <ul>
+        <li>DigitalOcean account logged in</li>
+        <li>
+          SSH key already added to your DO account (or be ready to create one
+          during recording)
+        </li>
+        <li>Terminal app open (iTerm, Terminal, etc.)</li>
+        <li>
+          Have the install command ready to paste:
+          <code
+            >curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code
+          >
+        </li>
+        <li>
+          Plan to fast-forward / cut the droplet creation wait time (1-2
+          minutes) and any long download steps in post
+        </li>
+        <li>Credit card on file or free credits available on DO</li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <strong>Editing note:</strong> This video will need cuts/fast-forwards
+      during droplet creation (~1 min), Docker image pulls, and embedding
+      generation. Call these out when recording so you know where to cut.
+    </div>
+
+    <!-- ── SECTION: Intro ───────────────────────────── -->
+    <div class="section-divider">Intro (0:00 - 0:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >DigitalOcean dashboard, logged in. Droplets page.</span
+          >
+        </td>
+        <td class="narration">
+          "Alright, let's actually set this up. We're going to create a server
+          on DigitalOcean, install Paperless NGX and Paperless Ag, and by the
+          end you'll have a working document archive you can search using AI."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Create Droplet ──────────────────── -->
+    <div class="section-divider">Create the Droplet (0:30 - 3:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Create" &rarr; "Droplets" in the top nav.</span
+          >
+        </td>
+        <td class="narration">
+          "First we need a server. Click Create, then Droplets."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Region: pick the closest one (e.g., New York or San
+            Francisco).</span
+          >
+        </td>
+        <td class="narration">
+          "Pick the region closest to you. I'm going with New York but it
+          doesn't matter much."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Image: select Ubuntu 24.04 (or the default LTS). Make sure it's
+            under the OS tab, not Marketplace.</span
+          >
+        </td>
+        <td class="narration">
+          "For the image, just grab Ubuntu &mdash; the latest version is fine.
+          This is the operating system the server will run."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Size: scroll to the 4 GB / 2 CPU tier ($24/mo). Click it.</span
+          >
+        </td>
+        <td class="narration">
+          "For size, we need at least 4 gigs of memory. This one at 24 bucks a
+          month is the sweet spot. If you're just getting started, DigitalOcean
+          gives new accounts 200 dollars in free credits, so you can try it out
+          for several months at no cost."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Authentication: select SSH Key (recommended). If you need to add
+            one, click "New SSH Key" and walk through it briefly.</span
+          >
+        </td>
+        <td class="narration">
+          "For authentication, use an SSH key. This is like a digital key that
+          lets you log into your server securely without typing a password every
+          time. If you don't have one set up yet, DigitalOcean will walk you
+          through creating one &mdash; it takes about a minute."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Give it a hostname like "paperless" or "my-docs." Click "Create
+            Droplet."</span
+          >
+        </td>
+        <td class="narration">
+          "Give it a name &mdash; I'll call mine 'paperless' &mdash; and hit
+          Create Droplet."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait / Cut</span>
+          <span class="action-desc"
+            >Droplet is being created. Show the progress bar briefly, then
+            cut/fast-forward to when it's done and shows the IP address.</span
+          >
+        </td>
+        <td class="narration">
+          "This takes about a minute to spin up. I'll fast forward&hellip;
+          Alright, it's ready. And here's our IP address &mdash; that's the
+          address of our new server."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: SSH In ──────────────────────────── -->
+    <div class="section-divider">Connect to the Server (3:00 - 4:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Copy the IP address from the DigitalOcean dashboard. Switch to your
+            Terminal.</span
+          >
+        </td>
+        <td class="narration">
+          "Now we need to connect to it. Copy that IP address and open up a
+          terminal."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Type: <code>ssh root@YOUR_IP_ADDRESS</code> and hit Enter. Accept
+            the fingerprint prompt if shown.</span
+          >
+        </td>
+        <td class="narration">
+          "Type 'ssh root@' and paste your IP address. If it asks about a
+          fingerprint, just type 'yes.' And we're in &mdash; we're now on our
+          server."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Run Installer ───────────────────── -->
+    <div class="section-divider">Run the Install Script (4:00 - 7:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Type or paste:
+            <code
+              >curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code
+            ></span
+          >
+        </td>
+        <td class="narration">
+          "Now the fun part. We just run one command. This script handles
+          everything &mdash; it installs Docker, sets up the database, and gets
+          Paperless and our search add-on running."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait</span>
+          <span class="action-desc"
+            >The installer will show a banner and start asking questions. Walk
+            through each prompt as it appears.</span
+          >
+        </td>
+        <td class="narration">"It'll ask us a few questions as it goes."</td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Answer installer prompts as they come: <br />- Install directory
+            (accept default /root/paperless-ag) <br />- Paperless admin username
+            <br />- Paperless admin password <br />- Domain name (if you have
+            one, otherwise skip) <br />Walk through each one, explaining your
+            choice.</span
+          >
+        </td>
+        <td class="narration">
+          "Install directory &mdash; the default is fine. Pick a username and
+          password for your Paperless login. If you've got a domain name you
+          want to use, enter it here &mdash; otherwise just skip it and you can
+          access it by IP address."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait / Cut</span>
+          <span class="action-desc"
+            >Script downloads Docker images and starts services. This can take
+            3-5 minutes. Show a few seconds of progress, then cut/fast-forward
+            to when it finishes.</span
+          >
+        </td>
+        <td class="narration">
+          "Now it's pulling down all the pieces and starting everything up. This
+          takes a few minutes depending on your internet speed. I'll skip
+          ahead&hellip;"
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >The installer's final output. It should show the Paperless URL, MCP
+            connection details, and the MCP auth token. Pause here so viewers
+            can see it.</span
+          >
+        </td>
+        <td class="narration">
+          "And we're done. The script tells us everything we need &mdash; here's
+          the URL to access Paperless, and here are the details we'll need later
+          to connect Claude. I'd save these somewhere."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Verify ──────────────────────────── -->
+    <div class="section-divider">Verify It Works (7:00 - 8:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Switch to your browser. Navigate to
+            <code>http://YOUR_IP:8000</code>. The Paperless login page should
+            appear.</span
+          >
+        </td>
+        <td class="narration">
+          "Let's make sure it's working. Open your browser and go to your
+          server's IP address, port 8000."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Log in with the username and password you chose during
+            install.</span
+          >
+        </td>
+        <td class="narration">
+          "Log in with the username and password you just set up. And there it
+          is &mdash; Paperless is running. It's empty right now, but you can
+          start uploading documents right away."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Optionally drag-and-drop a PDF into Paperless to show it ingesting
+            a document.</span
+          >
+        </td>
+        <td class="narration">
+          "You can just drag and drop a PDF right into the browser and Paperless
+          will process it &mdash; read the text, add it to your archive, and our
+          search add-on will automatically pick it up."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Connect Claude ──────────────────── -->
+    <div class="section-divider">Connect to Claude (8:30 - 10:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Go back to the terminal where the install output is still showing
+            the MCP connection details.</span
+          >
+        </td>
+        <td class="narration">
+          "Now let's connect this to Claude so you can search your documents
+          with plain English. Remember those connection details from the
+          install? We need those now."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Open Claude Desktop. Go to Settings &rarr; Developer &rarr; Edit
+            Config (or show the config file location).</span
+          >
+        </td>
+        <td class="narration">
+          "Open up Claude Desktop and go to Settings, then Developer, then Edit
+          Config. This opens a file where we tell Claude how to connect to our
+          Paperless server."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Paste the Claude Desktop config from the install output into the
+            config file. It uses the <code>mcp-remote</code> bridge. Save the
+            file.</span
+          >
+        </td>
+        <td class="narration">
+          "Paste in the config the installer gave you. This tells Claude where
+          your server is and gives it permission to search your documents. Save
+          the file."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Restart Claude Desktop. Open a new chat. Look for the MCP tools
+            indicator (hammer icon or similar).</span
+          >
+        </td>
+        <td class="narration">
+          "Restart Claude, open a new chat, and you should see the tools icon
+          showing it's connected to Paperless."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Type a test query in Claude, like: "What chemicals did I spray on
+            my corn this year?" Watch it call the MCP tool and find the Chemical
+            Application Records.</span
+          >
+        </td>
+        <td class="narration">
+          "Let's try it. 'What chemicals did I spray on my corn this year?' And
+          there it goes &mdash; it found the chemical application records and
+          pulled out the products, rates, everything. You're up and running."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Wrap-Up ─────────────────────────── -->
+    <div class="section-divider">Wrap-Up (10:30 - 11:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Claude's response with search results visible.</span
+          >
+        </td>
+        <td class="narration">
+          "And that's the whole thing &mdash; from zero to a searchable document
+          archive with AI in about ten minutes of actual work. Start scanning
+          your paperwork and it'll all be searchable from here on out. If you've
+          got a NAS at home, check out our other video on setting this up on a
+          QNAP or Synology."
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

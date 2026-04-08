@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 4: What Is Docker?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a href="index.html" class="back-link">All Videos</a>
+
+    <div class="video-header">
+      <h1>Video 4: What Is Docker?</h1>
+      <div class="meta">
+        <span>Target: 2-3 minutes</span>
+        <span>Type: Concept (standalone)</span>
+      </div>
+    </div>
+
+    <div class="prep-box">
+      <h3>Before You Record</h3>
+      <ul>
+        <li>Docker Desktop open (on your Mac)</li>
+        <li>
+          Have a few containers running (the Paperless stack is perfect) so
+          Docker Desktop isn't empty
+        </li>
+        <li>Terminal open in a second window or tab</li>
+      </ul>
+    </div>
+
+    <!-- ── SECTION: Hook ────────────────────────────── -->
+    <div class="section-divider">Hook &mdash; The Analogy (0:00 - 0:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Docker Desktop main screen, showing running containers.</span
+          >
+        </td>
+        <td class="narration">
+          "When we set up Paperless, we're going to use something called Docker.
+          If you've never heard of it, don't worry &mdash; it's simpler than it
+          sounds."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: What It Is ──────────────────────── -->
+    <div class="section-divider">Plain English Explanation (0:30 - 1:15)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Docker Desktop, containers list. Point is to have a visual while
+            you explain.</span
+          >
+        </td>
+        <td class="narration">
+          "Think of Docker like a shipping container &mdash; the kind you see on
+          trains and cargo ships. The whole point of a shipping container is
+          that it doesn't matter what's inside. Could be grain, could be tractor
+          parts. It fits on any truck, any ship, any train. You don't have to
+          worry about how to load it &mdash; it just works."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc">Still Docker Desktop.</span>
+        </td>
+        <td class="narration">
+          "Docker does the same thing for software. Instead of installing a
+          program and hoping it works on your computer, everything the program
+          needs gets packed into a container. You run the container and it just
+          works &mdash; doesn't matter if you're on a Mac, a Linux server, or a
+          NAS in your shop."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: What It Looks Like ──────────────── -->
+    <div class="section-divider">What It Looks Like (1:15 - 2:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >In Docker Desktop, click on the Paperless-related containers. Show
+            the container list &mdash; db, redis, paperless-webserver, app. Show
+            them running (green status).</span
+          >
+        </td>
+        <td class="narration">
+          "Here's what it actually looks like. These are the containers running
+          Paperless right now on my computer. There's a few of them working
+          together &mdash; one for the database, one for Paperless itself, and
+          one for the search add-on we built."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Switch to the Terminal. Run <code>docker compose ps</code> to show
+            running containers in the terminal too.</span
+          >
+        </td>
+        <td class="narration">
+          "You can see them in the terminal too. Each one is running in its own
+          little box, keeping things clean and separate."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Why It Matters ──────────────────── -->
+    <div class="section-divider">Why Docker Matters for You (2:00 - 2:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Docker Desktop with the running containers visible.</span
+          >
+        </td>
+        <td class="narration">
+          "The reason this matters for you is that you don't have to be a
+          programmer to set this up. Docker handles all the complicated parts.
+          You basically say 'run this' and it pulls everything down and starts
+          it up. If something breaks, you throw away the container and start
+          fresh. Your data is stored separately, so nothing gets lost."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Wrap-Up ─────────────────────────── -->
+    <div class="section-divider">Wrap-Up (2:30 - 2:45)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc">Docker Desktop, containers running.</span>
+        </td>
+        <td class="narration">
+          "That's Docker &mdash; it packages software so it runs the same
+          everywhere, and you don't have to worry about installing dependencies
+          or breaking things. In the install videos, you'll see that our setup
+          script handles all the Docker stuff for you automatically."
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
