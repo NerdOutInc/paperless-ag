@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 2: What We Added (Paperless Ag)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a href="index.html" class="back-link">All Videos</a>
+
+    <div class="video-header">
+      <h1>Video 2: What We Added (Paperless Ag)</h1>
+      <div class="meta">
+        <span>Target: 4-6 minutes</span>
+        <span>Type: Concept + Setup (standalone)</span>
+      </div>
+    </div>
+
+    <div class="prep-box">
+      <h3>Before You Record</h3>
+      <ul>
+        <li>Paperless NGX running with documents loaded</li>
+        <li>Paperless Ag companion container running and connected</li>
+        <li>
+          Claude Desktop installed but NOT yet configured with the MCP server
+          (you'll do this live during recording)
+        </li>
+        <li>
+          Have your server URL and MCP auth token ready to paste (from the
+          install script output or your .env file)
+        </li>
+        <li>
+          The keyword-fail demo uses "fertilizer recommendations" in Paperless
+          search (returns zero results because the docs say "Nutrient Management
+          Plan" and list products like "Anhydrous Ammonia 82-0-0"). The Claude
+          demo asks the same thing and finds the right documents semantically.
+        </li>
+        <li>
+          Test the full flow once before recording so you know it works, then
+          remove the MCP config so you can do it fresh on camera
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── SECTION: The Problem ─────────────────────── -->
+    <div class="section-divider">
+      The Problem with Keyword Search (0:00 - 0:40)
+    </div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Paperless NGX dashboard, documents visible.</span
+          >
+        </td>
+        <td class="narration">
+          "So we just looked at Paperless NGX &mdash; it's great for getting
+          your paperwork digitized and searchable. But there's a catch with
+          keyword search."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Type "fertilizer recommendations" into the Paperless search bar.
+            Show zero or poor results.</span
+          >
+        </td>
+        <td class="narration">
+          "Say I'm looking for fertilizer recommendations. I type that in
+          and&hellip; nothing. But I know those documents are in here. The
+          problem is the document is called a 'Nutrient Management Plan' and
+          lists products like 'Anhydrous Ammonia.' Keyword search only works
+          when you guess the exact words."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: What We Built ───────────────────── -->
+    <div class="section-divider">What Paperless Ag Adds (0:40 - 1:20)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Paperless dashboard still showing the failed search. Pause for a
+            beat.</span
+          >
+        </td>
+        <td class="narration">
+          "That's what Paperless Ag fixes. It's a small add-on that sits right
+          alongside Paperless and gives it semantic search &mdash; meaning it
+          understands what you're looking for, not just the exact words."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Keep Paperless visible. This is a talking point, no clicks
+            needed.</span
+          >
+        </td>
+        <td class="narration">
+          "It reads through every document you've uploaded and builds an
+          understanding of what each one is about. All of that happens on your
+          own machine &mdash; nothing gets sent to the cloud. Your documents
+          stay private."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Connect to Claude ─────────────────── -->
+    <div class="section-divider">
+      Connecting to Claude Desktop (1:20 - 3:00)
+    </div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Switch to Claude Desktop. Show the main chat interface
+            briefly.</span
+          >
+        </td>
+        <td class="narration">
+          "The other thing we added is a connection to Claude &mdash;
+          Anthropic's AI assistant. Instead of typing keywords into a search
+          bar, you can just ask a question in plain English. Let me show you how
+          to set that up."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >In Claude Desktop, click Settings (gear icon or Claude menu &rarr;
+            Settings).</span
+          >
+        </td>
+        <td class="narration">"Open up Settings in Claude Desktop."</td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Developer" in the left sidebar, then click "Edit Config."
+            This opens <code>claude_desktop_config.json</code> in your default
+            text editor.</span
+          >
+        </td>
+        <td class="narration">
+          "Go to Developer, then Edit Config. This opens up a settings file
+          where we tell Claude how to talk to our Paperless server."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Paste the MCP config into the file. It should look like:
+            <br /><br />
+            <code
+              >{ "mcpServers": { "paperless-ag": { "command": "npx", "args":
+              ["-y", "mcp-remote", "YOUR_SERVER_URL/mcp", "--allow-http",
+              "--header", "Authorization:Bearer YOUR_MCP_TOKEN"] } } }</code
+            >
+            <br /><br />
+            Replace YOUR_SERVER_URL and YOUR_MCP_TOKEN with the real values from
+            your install output.</span
+          >
+        </td>
+        <td class="narration">
+          "Paste in this config. You need two things &mdash; your server's URL
+          and the access token from when you set up Paperless Ag. The install
+          script gives you both of these at the end. I'll paste mine in now."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc">Save the file and close the editor.</span>
+        </td>
+        <td class="narration">"Save the file."</td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Quit Claude Desktop completely (Cmd+Q on Mac or close from system
+            tray on Windows), then reopen it.</span
+          >
+        </td>
+        <td class="narration">
+          "Now quit Claude Desktop completely and reopen it so it picks up the
+          new config."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Open a new chat. Look for the MCP tools indicator &mdash; a small
+            hammer/wrench icon near the text input, or a tools section showing
+            "paperless-ag" is connected.</span
+          >
+        </td>
+        <td class="narration">
+          "Open a new chat and look for the tools icon down here. You should see
+          'paperless-ag' listed &mdash; that means Claude is connected to your
+          documents."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Demo It ─────────────────────────── -->
+    <div class="section-divider">Try It Out (3:00 - 4:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Type into Claude: "What are my fertilizer recommendations?"</span
+          >
+        </td>
+        <td class="narration">
+          "Let's try the exact same search that just failed. I'll ask Claude
+          &mdash; 'What are my fertilizer recommendations?'"
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait</span>
+          <span class="action-desc"
+            >Wait for Claude to call the search_documents MCP tool and return
+            results. It should find the Nutrient Management Plan documents and
+            pull out the actual application rates and products. Let the response
+            stream in fully.</span
+          >
+        </td>
+        <td class="narration">
+          "It searched through all my documents and found the Nutrient
+          Management Plan &mdash; even though I never said those words. It
+          pulled out the actual products, the application rates, everything.
+          Same question, completely different result."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Let Claude's full response be visible. Pause so viewers can read
+            it.</span
+          >
+        </td>
+        <td class="narration">
+          "That's the difference between keyword search and actually
+          understanding what you're asking for. You don't have to remember the
+          exact words in the document &mdash; just describe what you're looking
+          for."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Wrap-Up ─────────────────────────── -->
+    <div class="section-divider">Wrap-Up (4:30 - 5:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Claude's response still visible with the search results.</span
+          >
+        </td>
+        <td class="narration">
+          "So that's Paperless Ag &mdash; smarter search and AI integration for
+          your documents, running right alongside Paperless NGX. Your Paperless
+          stays completely stock, your data stays on your own hardware, and now
+          you can just ask Claude to find what you need. In the next videos
+          we'll cover what a VPS and Docker are, and then walk through setting
+          up the whole thing from scratch."
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
