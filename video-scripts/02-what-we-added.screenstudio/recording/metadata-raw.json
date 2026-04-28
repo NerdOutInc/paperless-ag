@@ -1,0 +1,75 @@
+{
+  "logFilename" : "polyrecorder.log",
+  "polyrecorderVersion" : "2.5.0",
+  "recorders" : [
+    {
+      "configuration" : {
+
+      },
+      "cursorImagesFolder" : "cursors",
+      "cursorsInfoFile" : "cursors.json",
+      "id" : "channel-0-cursor",
+      "type" : "cursor"
+    },
+    {
+      "configuration" : {
+        "captureKeyStrokes" : true
+      },
+      "id" : "channel-0-input",
+      "sessions" : [
+        {
+          "durationMs" : 229762.27487495635,
+          "keyStrokesFilename" : "keystrokes-0.json",
+          "mouseClicksFilename" : "mouseclicks-0.json",
+          "mouseMovesFilename" : "mousemoves-0.json",
+          "processTimeEndMs" : 230087.63650001492,
+          "processTimeStartMs" : 325.36162505857646,
+          "unixEndMs" : 1777412062196.3955,
+          "unixStartMs" : 1777411832434.1206
+        }
+      ],
+      "type" : "input"
+    },
+    {
+      "configuration" : {
+        "displayId" : 1,
+        "excludeFinderDesktopIcons" : true,
+        "excludedWindowIds" : [
+          69205,
+          69206,
+          69207
+        ]
+      },
+      "id" : "channel-1-display",
+      "sessions" : [
+        {
+          "bounds" : {
+            "height" : 982,
+            "width" : 1512,
+            "x" : 0,
+            "y" : 0
+          },
+          "displayRefreshRate" : 120,
+          "durationMs" : 229762.274875,
+          "outputFilename" : "channel-1-display-0.m3u8",
+          "processTimeEndMs" : 230087.63649994216,
+          "processTimeStartMs" : 325.36162494216114,
+          "recordingScale" : 0.5,
+          "unixEndMs" : 1777412062196.3955,
+          "unixStartMs" : 1777411832434.1206
+        }
+      ],
+      "type" : "display"
+    }
+  ],
+  "sessions" : [
+    {
+      "durationMs" : 229762.27487495635,
+      "processTimeEndMs" : 230087.63650001492,
+      "processTimeStartMs" : 325.36162505857646,
+      "unixEndMs" : 1777412062196.3955,
+      "unixStartMs" : 1777411832434.1206
+    }
+  ],
+  "state" : "complete"
+}

@@ -1,0 +1,618 @@
+{
+  "json": {
+    "id": "Vt6SHdI4Y0",
+    "name": "best-one-yet-2026-04-27",
+    "createdAt": "2026-04-27T17:59:43.211Z",
+    "updatedAt": "2026-04-27T17:59:43.211Z",
+    "lastSavedAt": "2026-04-27T18:25:17.575Z",
+    "config": {
+      "backgroundGradient": {
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 1,
+          "y": 1
+        },
+        "stops": [
+          {
+            "color": "#111111",
+            "at": 0
+          },
+          {
+            "color": "#444444",
+            "at": 1
+          }
+        ]
+      },
+      "backgroundPaddingRatio": 0,
+      "insetPadding": {
+        "bottom": 0,
+        "left": 0,
+        "right": 0,
+        "top": 0
+      },
+      "insetColor": "#000000",
+      "insetAlpha": 0.5,
+      "motionBlurAmount": 1,
+      "motionBlurCursorAmount": 1,
+      "motionBlurScreenMoveAmount": 1,
+      "motionBlurScreenZoomAmount": 1,
+      "cursorSize": 1.5,
+      "cursorSet": {
+        "id": "macos-tahoe",
+        "variants": {}
+      },
+      "cursorRotateOnXMovementRatio": 0.5,
+      "cursorBaseRotation": 0,
+      "useDefaultCursorIfAppCursorHasLowResolution": true,
+      "alwaysUseDefaultCursor": false,
+      "hideNotMovingCursorAfterMs": null,
+      "loopCursorPositionBeforeEndMs": null,
+      "removeCurshorShakeTreshold": 500,
+      "optimizeOriginalCursorTypes": true,
+      "clickEffect": null,
+      "clickSoundEffect": null,
+      "backgroundColor": "#3F37C9",
+      "backgroundImage": null,
+      "backgroundType": "system",
+      "backgroundSystemName": "macOS/sonoma-evening.jpg",
+      "backgroundBlur": 0,
+      "hideCursor": false,
+      "mouseMovementSpring": {
+        "stiffness": 470,
+        "damping": 70,
+        "mass": 3
+      },
+      "screenMovementSpring": {
+        "mass": 2.25,
+        "stiffness": 200,
+        "damping": 40
+      },
+      "mouseClickSpring": {
+        "stiffness": 700,
+        "damping": 30,
+        "mass": 1
+      },
+      "defaultOutputAspectRatio": null,
+      "windowBorderRadius": 0,
+      "alwaysKeepZoomedIn": false,
+      "shadowIntensity": 0.75,
+      "shadowAngle": 90,
+      "shadowDistance": 25,
+      "shadowBlur": 20,
+      "shadowIsDirectional": false,
+      "disableMouseMovementSpring": false,
+      "hideCamera": false,
+      "mirrorCamera": false,
+      "cameraRoundness": 0.25,
+      "cameraSize": 0.35,
+      "cameraPosition": "bottom-right",
+      "cameraPositionPoint": {
+        "x": 1,
+        "y": 1
+      },
+      "cameraScaleDuringZoom": 0.7,
+      "cameraAspectRatio": "original",
+      "stopCursorMovementInLastPartMs": 0,
+      "showShortcuts": false,
+      "hiddenShortcuts": {},
+      "showShortcutsWithSingleLetters": false,
+      "showTranscript": true,
+      "transcriptSizeRatio": 1,
+      "shortcutsSizeRatio": 1,
+      "audioVolume": 1,
+      "muteMicrophone": false,
+      "muteSystemAudio": false,
+      "muteExternalDeviceAudio": false,
+      "improveMicrophoneAudio": false,
+      "backgroundAudioFileName": null,
+      "muteBackgroundAudio": false,
+      "backgroundAudioVolume": 0.05,
+      "clickSoundEffectVolume": 0.25,
+      "microphoneInStereoMode": false,
+      "deviceFrameKey": null,
+      "defaultLayout": {
+        "type": "both",
+        "cameraSize": 0.35,
+        "cameraPositionPoint": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "enableDeviceMockup": true,
+      "adjustDeviceFrameToRecordingSize": true,
+      "recordingRange": [
+        0,
+        127141.28216658719
+      ],
+      "recordingCrop": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      }
+    },
+    "meta": {
+      "recordingFlags": []
+    },
+    "scenes": [
+      {
+        "id": "SylJgIH7E0",
+        "name": "Default",
+        "zoomRanges": [
+          {
+            "id": "a2LgZbDfCk",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 1465.811995967742,
+            "endTime": 3821.8235887096757,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "GI1gmUz4Gg",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 9913,
+            "endTime": 11392.315776209676,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "mPD42eDjSJ",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 36241,
+            "endTime": 39642.34047379032,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "ZXZfXwIrPs",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 50136,
+            "endTime": 58380.80720766129,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "1rKAgILq9q",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 62947.54039314519,
+            "endTime": 65709.79467741938,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "jWDgEKauTh",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 77264,
+            "endTime": 86678.64465725806,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          },
+          {
+            "id": "fr5jrb7woc",
+            "zoom": 1.505,
+            "type": "follow-click-groups",
+            "snapToEdgesRatio": 0.25,
+            "manualTargetPoint": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "glideDirection": null,
+            "glideSpeed": 0.5,
+            "isDisabled": false,
+            "startTime": 99318,
+            "endTime": 102136,
+            "isSystem": false,
+            "hasInstantAnimation": false
+          }
+        ],
+        "type": "recording",
+        "sessionIndex": 0,
+        "slices": [
+          {
+            "id": "xwEZ13C0wD",
+            "timeScale": 1,
+            "sourceStartMs": 0,
+            "sourceEndMs": 2104.8387096774195,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false,
+            "externalDeviceAudioVolume": 1
+          },
+          {
+            "id": "soQSSur8S0",
+            "timeScale": 2,
+            "sourceStartMs": 2104.8387096774195,
+            "sourceEndMs": 3193.548387096774,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "z76lvcGhy7",
+            "timeScale": 1,
+            "sourceStartMs": 3193.548387096774,
+            "sourceEndMs": 3532.2580645161293,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "TfDUGD9WBS",
+            "timeScale": 1,
+            "sourceStartMs": 3532.2580645161293,
+            "sourceEndMs": 9580.645161290324,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "MblSp8uLU8",
+            "timeScale": 1,
+            "sourceStartMs": 9580.645161290324,
+            "sourceEndMs": 11419.354838709678,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "AwZQxlq4eb",
+            "timeScale": 1,
+            "sourceStartMs": 11419.354838709678,
+            "sourceEndMs": 15096.774193548388,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "bTEYzIb1lc",
+            "timeScale": 2,
+            "sourceStartMs": 15096.774193548388,
+            "sourceEndMs": 18026.652903225782,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "W4WYT2GGa5",
+            "timeScale": 1,
+            "sourceStartMs": 18026.652903225782,
+            "sourceEndMs": 35884.57343088461,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "rhR5ZC7DAu",
+            "timeScale": 1,
+            "sourceStartMs": 35884.57343088461,
+            "sourceEndMs": 36682.9605276588,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "tf5sWROWbo",
+            "timeScale": 1.3333333333333333,
+            "sourceStartMs": 36682.9605276588,
+            "sourceEndMs": 39126.50891475558,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "ushNMQnDTt",
+            "timeScale": 1,
+            "sourceStartMs": 39126.50891475558,
+            "sourceEndMs": 39662.30778572332,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "I0OYimFgN5",
+            "timeScale": 1,
+            "sourceStartMs": 39662.30778572332,
+            "sourceEndMs": 42811.99278572332,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "UU3Co85S9H",
+            "timeScale": 2,
+            "sourceStartMs": 42811.99278572332,
+            "sourceEndMs": 45908.766979271706,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "CTgyvkfHej",
+            "timeScale": 1,
+            "sourceStartMs": 45908.766979271706,
+            "sourceEndMs": 49818.928151461725,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "UtKyACEJpf",
+            "timeScale": 1,
+            "sourceStartMs": 49818.928151461725,
+            "sourceEndMs": 51246.571958165354,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "toEvqxW6Zz",
+            "timeScale": 1,
+            "sourceStartMs": 53278.83002268148,
+            "sourceEndMs": 55020.76550655245,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "ykNZg74HuN",
+            "timeScale": 2,
+            "sourceStartMs": 55020.76550655245,
+            "sourceEndMs": 56254.636474294384,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "8UFgUwdkbm",
+            "timeScale": 1,
+            "sourceStartMs": 56254.636474294384,
+            "sourceEndMs": 58335.28163558471,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "vp0JlEfhXA",
+            "timeScale": 1,
+            "sourceStartMs": 58335.28163558471,
+            "sourceEndMs": 59712.92583606354,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "5HZqoq5nZr",
+            "timeScale": 1,
+            "sourceStartMs": 59712.92583606354,
+            "sourceEndMs": 65256.60338142645,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "gqfSLg45i3",
+            "timeScale": 1,
+            "sourceStartMs": 65256.60338142645,
+            "sourceEndMs": 75950.15176852322,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "10mRDIM7sw",
+            "timeScale": 1,
+            "sourceStartMs": 75950.15176852322,
+            "sourceEndMs": 80106.18519216233,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "8IgJblYCUQ",
+            "timeScale": 1.3333333333333333,
+            "sourceStartMs": 80106.18519216233,
+            "sourceEndMs": 80662.63680506556,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "4XeGw5Gi5K",
+            "timeScale": 1,
+            "sourceStartMs": 80662.63680506556,
+            "sourceEndMs": 83348.18564894157,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "Jcx0vtm52P",
+            "timeScale": 2,
+            "sourceStartMs": 83348.18564894157,
+            "sourceEndMs": 86549.7335792591,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "A6AasZl2rr",
+            "timeScale": 1,
+            "sourceStartMs": 86549.7335792591,
+            "sourceEndMs": 89348.18564894157,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "UCyTXLmLj2",
+            "timeScale": 2,
+            "sourceStartMs": 89348.18564894157,
+            "sourceEndMs": 91186.89532636093,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "1XmDOUXlcA",
+            "timeScale": 1,
+            "sourceStartMs": 91186.89532636093,
+            "sourceEndMs": 98687.44464276716,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "ffAnMHIQTM",
+            "timeScale": 1,
+            "sourceStartMs": 98687.44464276716,
+            "sourceEndMs": 102270.93089213713,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": false,
+            "disableSmoothMouseMovement": false
+          },
+          {
+            "id": "hkO36MgDrl",
+            "timeScale": 1,
+            "sourceStartMs": 102270.93089213713,
+            "sourceEndMs": 108125.63374936998,
+            "volume": 1,
+            "systemAudioVolume": 1,
+            "externalDeviceAudioVolume": 1,
+            "hideCursor": true,
+            "disableSmoothMouseMovement": false
+          }
+        ],
+        "layouts": [],
+        "masks": [],
+        "resolvedTypingSpeedIncreaseSuggestions": []
+      }
+    ]
+  },
+  "meta": {
+    "values": {
+      "createdAt": [
+        "Date"
+      ],
+      "updatedAt": [
+        "Date"
+      ],
+      "lastSavedAt": [
+        "Date"
+      ]
+    }
+  }
+}
