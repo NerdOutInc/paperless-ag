@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 6: How to Install on a Raspberry Pi</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a href="index.html" class="back-link">All Videos</a>
+
+    <div class="video-header">
+      <h1>Video 6: How to Install on a Raspberry Pi</h1>
+      <div class="meta">
+        <span>Target: 10-14 minutes</span>
+        <span>Type: Install walkthrough</span>
+      </div>
+    </div>
+
+    <div class="prep-box">
+      <h3>Before You Record</h3>
+      <ul>
+        <li>
+          Raspberry Pi 4 (4 GB minimum) or Pi 5 (8 GB recommended), power
+          supply, and an SD card or USB SSD (256 GB+ recommended)
+        </li>
+        <li>
+          Raspberry Pi Imager installed on your computer
+          (<code>raspberrypi.com/software</code>)
+        </li>
+        <li>
+          Ethernet cable plugged into the Pi (recommended) or Wi-Fi credentials
+          ready for the Imager
+        </li>
+        <li>
+          Terminal app open on your recording computer, ready to SSH into the Pi
+        </li>
+        <li>
+          Have the install command ready to paste:
+          <code
+            >curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code
+          >
+        </li>
+        <li>
+          Plan to cut / fast-forward the SD-card flash (2-5 min), first-boot
+          wait (1-2 min), and Docker image pulls (5-15 min on a Pi)
+        </li>
+        <li>
+          Router admin page open in a tab if you plan to demo DHCP reservation
+        </li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <strong>Hardware note:</strong> Pi 4 with 2 GB RAM will not work &mdash;
+      Paperless, Postgres, Redis, and the embedding model need at least 4 GB
+      together. A USB SSD is strongly recommended over an SD card for database
+      workloads.
+    </div>
+
+    <!-- ── SECTION: Intro ───────────────────────────── -->
+    <div class="section-divider">Intro (0:00 - 0:45)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Close-up of the Raspberry Pi hardware on your desk &mdash; Pi,
+            power supply, SSD or SD card visible.</span
+          >
+        </td>
+        <td class="narration">
+          "If you'd rather run Paperless at home instead of paying for a cloud
+          server, a Raspberry Pi is one of the cheapest ways to do it. It's
+          small, quiet, sips power, and handles this workload just fine. I'll
+          walk through the whole thing &mdash; from flashing the SD card to
+          searching documents with Claude."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Still on the Pi hardware. Point at the USB port where the SSD plugs
+            in if you have one.</span
+          >
+        </td>
+        <td class="narration">
+          "You'll want a Pi 4 with at least 4 gigs of RAM, or a Pi 5. If you
+          have a USB SSD, plug it in &mdash; the database runs a lot better off
+          a real drive than off an SD card."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Flash the OS ────────────────────── -->
+    <div class="section-divider">Flash Raspberry Pi OS (0:45 - 3:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Open Raspberry Pi Imager on your computer. Plug the SD card (or
+            SSD) into the computer.</span
+          >
+        </td>
+        <td class="narration">
+          "First step &mdash; we need to install an operating system. Open up
+          Raspberry Pi Imager. If you don't have it, grab it from
+          raspberrypi.com/software &mdash; it's free."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Choose Device" and pick your Pi model (Pi 4 or Pi 5).</span
+          >
+        </td>
+        <td class="narration">"Pick your Pi model up top."</td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Choose OS." Navigate to
+            <strong>Raspberry Pi OS (other)</strong> &rarr;
+            <strong>Raspberry Pi OS Lite (64-bit)</strong>.</span
+          >
+        </td>
+        <td class="narration">
+          "For the OS, pick Raspberry Pi OS Lite, 64-bit. We don't need the
+          desktop version &mdash; this is going to be a headless server, so
+          skipping the desktop saves us a bunch of RAM."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Choose Storage" and select your SD card or SSD.</span
+          >
+        </td>
+        <td class="narration">
+          "Pick your storage &mdash; the SD card or the SSD you're flashing."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click "Next," then "Edit Settings" when prompted to apply OS
+            customization. The settings dialog opens.</span
+          >
+        </td>
+        <td class="narration">
+          "Before we flash, the Imager will ask if we want to customize
+          settings. Hit Edit Settings &mdash; this is where we pre-configure the
+          Pi so we don't have to hook up a monitor and keyboard later."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >In the General tab: set hostname to <code>paperless</code>,
+            username + password, and Wi-Fi credentials if you're not using
+            Ethernet. Set locale / timezone.</span
+          >
+        </td>
+        <td class="narration">
+          "Set the hostname to 'paperless' so it's easy to find on the network.
+          Pick a username and a good password. If you're on Wi-Fi, enter your
+          network name and password. Set your timezone."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Switch to the Services tab. Enable SSH with password
+            authentication.</span
+          >
+        </td>
+        <td class="narration">
+          "Over on the Services tab, turn on SSH. That's how we'll log into the
+          Pi from our computer."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Click Save, then Yes to apply settings, then Yes to confirm erasing
+            the drive. Flashing begins.</span
+          >
+        </td>
+        <td class="narration">
+          "Save, confirm, and the Imager flashes the card. This takes a few
+          minutes."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait / Cut</span>
+          <span class="action-desc"
+            >Flashing + verification takes 2-5 minutes. Cut to the finished
+            state.</span
+          >
+        </td>
+        <td class="narration">"I'll skip ahead&hellip; And it's done."</td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Boot and SSH ────────────────────── -->
+    <div class="section-divider">Boot the Pi &amp; SSH In (3:00 - 4:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >The Pi hardware. Plug the SD card (or SSD) into the Pi. Plug in
+            Ethernet, then power.</span
+          >
+        </td>
+        <td class="narration">
+          "Pop the card into the Pi, plug in your network cable, and give it
+          power. The first boot takes about a minute while the OS expands itself
+          onto the card."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Switch to your Terminal on your computer.</span
+          >
+        </td>
+        <td class="narration">
+          "Once it's had a minute to boot, switch over to your terminal."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Run <code>ssh YOUR_USERNAME@paperless.local</code>. Accept the
+            fingerprint prompt, type the password you set earlier.</span
+          >
+        </td>
+        <td class="narration">
+          "Type 'ssh', your username, at paperless dot local. That hostname is
+          what we set in the Imager. If it asks about a fingerprint, type 'yes.'
+          Then enter your password."
+        </td>
+      </tr>
+      <tr>
+        <td class="tip" style="margin: 0; border-radius: 0; border-top: none">
+          <strong>Fallback:</strong> If <code>paperless.local</code> doesn't
+          resolve (some routers don't do mDNS), find the Pi in your router's
+          admin page under connected devices, and SSH in by IP instead:
+          <code>ssh YOUR_USERNAME@192.168.1.xxx</code>.
+        </td>
+        <td class="narration">
+          "If 'paperless.local' doesn't work &mdash; some routers don't support
+          that &mdash; just check your router's admin page for connected
+          devices, find the Pi, and use its IP address instead. Either way, same
+          result."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Terminal showing the Pi's shell prompt (<code
+              >user@paperless:~ $</code
+            >).</span
+          >
+        </td>
+        <td class="narration">
+          "We're in &mdash; that's the Pi's command line."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Run Installer ───────────────────── -->
+    <div class="section-divider">Run the Install Script (4:30 - 7:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Paste:
+            <code
+              >curl -fsSL https://paperless.fullstack.ag/install.sh | bash</code
+            ></span
+          >
+        </td>
+        <td class="narration">
+          "Now the good part &mdash; one command does everything. This is the
+          same script we used for the DigitalOcean install. It figures out we're
+          on a Pi automatically."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait</span>
+          <span class="action-desc"
+            >Installer checks system resources (RAM, disk). If Docker isn't
+            installed it prompts to install it.</span
+          >
+        </td>
+        <td class="narration">
+          "It checks that the Pi has enough memory and disk space. Then it asks
+          if we want to install Docker &mdash; yes, we do."
+        </td>
+      </tr>
+      <tr>
+        <td class="tip" style="margin: 0; border-radius: 0; border-top: none">
+          <strong>Gotcha:</strong> After Docker installs, the script tells you
+          to log out and back in (Docker needs a group change). When that
+          happens, exit SSH, SSH back in, and re-run the same install command.
+        </td>
+        <td class="narration">
+          "Heads up &mdash; after Docker installs, it'll tell you to log out and
+          log back in. That's normal. Just type 'exit,' then SSH back in and
+          re-run the same install command. It picks up where it left off."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Walk through the installer prompts:<br />- Install directory
+            (accept default <code>~/paperless-ag</code>)<br />- Admin username +
+            password for Paperless<br />- Timezone<br />- Domain name (press
+            Enter to skip &mdash; local network install)</span
+          >
+        </td>
+        <td class="narration">
+          "It asks a handful of questions. Install directory &mdash; the
+          default's fine. Username and password for Paperless. Timezone. Domain
+          name &mdash; since we're on our home network, just hit enter to skip."
+        </td>
+      </tr>
+      <tr>
+        <td class="wait">
+          <span class="action-label wait-label">Wait / Cut</span>
+          <span class="action-desc"
+            >Docker pulls about 2 GB of images on ARM. On a Pi this takes 5-15
+            minutes depending on internet speed. Cut to the finished
+            state.</span
+          >
+        </td>
+        <td class="narration">
+          "Now it's pulling down all the images &mdash; Paperless, Postgres,
+          Redis, and our search add-on. On a Pi this is the slow part. I'll skip
+          ahead&hellip;"
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >The installer's final summary: Paperless URL, MCP URL, MCP auth
+            token. Pause so viewers can see it.</span
+          >
+        </td>
+        <td class="narration">
+          "Done. And the script prints out everything we need &mdash; the URL to
+          access Paperless, the MCP endpoint for Claude, and the auth token.
+          Copy that token somewhere safe, we'll need it in a minute."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Verify ──────────────────────────── -->
+    <div class="section-divider">Verify on the Network (7:30 - 9:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Open a browser tab on your computer. Navigate to
+            <code>http://paperless.local</code> (or
+            <code>http://PI-IP</code>).</span
+          >
+        </td>
+        <td class="narration">
+          "Open a browser and go to paperless dot local &mdash; or the Pi's IP
+          address. The installer sets up a reverse proxy, so it's just plain
+          port 80, no extra port number needed."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Log in with the admin username and password you chose during
+            install.</span
+          >
+        </td>
+        <td class="narration">
+          "Log in with the username and password you just set. And there it is
+          &mdash; Paperless, running on the Pi."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Drag and drop a PDF into Paperless to show it ingesting. The
+            document appears in the list after a moment.</span
+          >
+        </td>
+        <td class="narration">
+          "Drop in a test PDF to make sure everything's wired up. Paperless
+          picks it up, OCRs it, and our add-on builds the search index in the
+          background."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Briefly mention DHCP reservation. Optionally flip to the router
+            admin page showing the DHCP leases.</span
+          >
+        </td>
+        <td class="narration">
+          "Quick tip &mdash; go into your router's admin page and give the Pi a
+          DHCP reservation. That locks it to the same IP forever, so bookmarks
+          don't break the next time it reboots."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Connect Claude ──────────────────── -->
+    <div class="section-divider">Connect to Claude (9:00 - 11:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Switch back to the terminal where the install summary is still
+            visible with the MCP URL and auth token.</span
+          >
+        </td>
+        <td class="narration">
+          "Last step &mdash; connect Claude so we can search with plain English.
+          Grab the MCP URL and auth token from the install output."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Open Claude Desktop. Go to Settings &rarr; Developer &rarr; Edit
+            Config.</span
+          >
+        </td>
+        <td class="narration">
+          "Open Claude Desktop, Settings, Developer, Edit Config."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Paste the MCP config the installer generated. URL is
+            <code>http://paperless.local/mcp</code> (or the Pi's IP) with the
+            auth token in the Authorization header. Save the file.</span
+          >
+        </td>
+        <td class="narration">
+          "Paste in the config from the install output. The URL is your Pi's
+          address plus slash mcp, and the auth token goes in the header. Save
+          it."
+        </td>
+      </tr>
+      <tr>
+        <td class="click">
+          <span class="action-label click-label">Click</span>
+          <span class="action-desc"
+            >Quit Claude Desktop completely and reopen it. Start a new chat.
+            Verify the MCP tools indicator shows paperless-ag connected.</span
+          >
+        </td>
+        <td class="narration">
+          "Quit Claude and reopen it so it picks up the new config. Start a new
+          chat, and you should see paperless-ag in the tools list &mdash; that
+          means Claude is talking to the Pi."
+        </td>
+      </tr>
+      <tr>
+        <td class="type-cmd">
+          <span class="action-label type-label">Type</span>
+          <span class="action-desc"
+            >Ask Claude a test query, e.g., "When was my John Deere last
+            serviced?" Watch it call the search_documents tool and pull back the
+            equipment service record.</span
+          >
+        </td>
+        <td class="narration">
+          "Let's try it &mdash; 'When was my John Deere last serviced?' And
+          there it goes, searches the Pi, pulls back the equipment service
+          record. Everything running locally on hardware you own."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Tips ────────────────────────────── -->
+    <div class="section-divider">Tips &amp; Considerations (11:00 - 12:00)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Pi hardware sitting on the desk with the status LED blinking.</span
+          >
+        </td>
+        <td class="narration">
+          "A few things worth knowing. Use a USB SSD if you can &mdash; an SD
+          card works, but the database is faster and more reliable off a real
+          drive. Ethernet beats Wi-Fi if you have the option. And the first big
+          batch of documents will take a while to embed on ARM, but it runs in
+          the background, so you can keep using Paperless while it catches up."
+        </td>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc">Same shot.</span>
+        </td>
+        <td class="narration">
+          "Since this is on your home network, you can only get to it from home
+          unless you set up a VPN or remote access &mdash; that's a topic for
+          another day. If you need access from anywhere, the DigitalOcean setup
+          from our other video is the better fit."
+        </td>
+      </tr>
+    </table>
+
+    <!-- ── SECTION: Wrap-Up ─────────────────────────── -->
+    <div class="section-divider">Wrap-Up (12:00 - 12:30)</div>
+    <table class="choreo">
+      <tr>
+        <th>On Screen</th>
+        <th>Narration</th>
+      </tr>
+      <tr>
+        <td class="screen">
+          <span class="action-label show">Show</span>
+          <span class="action-desc"
+            >Paperless running in the browser, Claude response visible in the
+            other window.</span
+          >
+        </td>
+        <td class="narration">
+          "And that's it &mdash; Paperless with smart search running on a
+          Raspberry Pi in your house. No monthly fees, no cloud subscription,
+          your documents never leave the building. Plug in a scanner and start
+          feeding it paperwork."
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

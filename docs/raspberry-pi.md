@@ -174,21 +174,35 @@ Add to your `.mcp.json`:
 
 ### Claude Desktop
 
-Add to your Claude Desktop config (`Settings > Developer > Edit Config`):
+Claude Desktop uses `mcp-remote` as a bridge for HTTP MCP servers. On macOS,
+open Claude Desktop and choose **Claude > Settings** from the menu bar, then go
+to **Developer** and click **Edit Config**. Add this to
+`claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "paperless-ag": {
-      "type": "http",
-      "url": "http://<your-pi-ip>/mcp",
-      "headers": {
-        "Authorization": "Bearer YOUR_MCP_AUTH_TOKEN"
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://<your-pi-ip>/mcp",
+        "--allow-http",
+        "--header",
+        "Authorization:Bearer YOUR_MCP_AUTH_TOKEN"
+      ],
+      "env": {
+        "PATH": "YOUR_NODE_BIN_DIR:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin"
       }
     }
   }
 }
 ```
+
+Replace `YOUR_NODE_BIN_DIR` with the directory that contains `node`; on the Pi
+you can usually find it with `dirname "$(which node)"`. Save the file, quit
+Claude Desktop completely, and reopen it before checking the connector.
 
 Then try: *"Search my documents for crop insurance"*
 

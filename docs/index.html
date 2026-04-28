@@ -262,7 +262,9 @@
     <h2>Connect to Claude</h2>
     <p>
       After installation, connect your MCP server to Claude. The install script
-      prints your connection details, but here's the general format:
+      prints Claude Code and <code>.mcp.json</code> examples with your server
+      URL and token. Claude Desktop uses those same values in the
+      <code>mcp-remote</code> bridge config below.
     </p>
 
     <p><strong>Claude Code:</strong></p>
@@ -379,12 +381,10 @@
     </p>
     <p>
       Claude Desktop doesn't support remote HTTP servers directly. Use
-      <code>mcp-remote</code> as a bridge. Edit your config file at
-      <code
-        >~/Library/Application Support/Claude/claude_desktop_config.json</code
-      >
-      (macOS) or
-      <code>%APPDATA%\Claude\claude_desktop_config.json</code> (Windows):
+      <code>mcp-remote</code> as a bridge. On macOS, open Claude Desktop, choose
+      <strong>Claude &gt; Settings</strong> from the menu bar, go to
+      <strong>Developer</strong>, and click <strong>Edit Config</strong>. On
+      Windows, edit <code>%APPDATA%\Claude\claude_desktop_config.json</code>:
     </p>
     <div class="code-block">
       <pre><code>{
@@ -560,6 +560,12 @@
       <code>--allow-http</code> flag and the <code>env</code> block may not be
       needed if <code>node</code> is in a standard location like
       <code>/usr/local/bin</code>.
+    </p>
+
+    <p>
+      Save the file, quit Claude Desktop completely, and reopen it. In a new
+      chat, open the connectors/tools menu and confirm
+      <code>paperless-ag</code> is enabled.
     </p>
 
     <p>

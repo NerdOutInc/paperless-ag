@@ -1278,6 +1278,12 @@ print_fresh_summary() {
     echo "      }"
     echo "    }"
     echo
+    echo "  Claude Desktop uses mcp-remote instead of the .mcp.json HTTP block."
+    echo "  Open Claude > Settings > Developer > Edit Config and use:"
+    echo "    Server URL: ${mcp_url}"
+    echo "    Token:      ${MCP_AUTH_TOKEN}"
+    echo "  Full config example: https://paperless.fullstack.ag"
+    echo
     echo "  Then ask Claude: \"Search my farm documents for crop insurance\""
     echo
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -1334,6 +1340,12 @@ print_addon_summary() {
     echo "        }"
     echo "      }"
     echo "    }"
+    echo
+    echo "  Claude Desktop uses mcp-remote instead of the .mcp.json HTTP block."
+    echo "  Open Claude > Settings > Developer > Edit Config and use:"
+    echo "    Server URL: ${mcp_url}"
+    echo "    Token:      ${MCP_AUTH_TOKEN}"
+    echo "  Full config example: https://paperless.fullstack.ag"
     echo
     echo "  Then ask Claude: \"Search my farm documents for crop insurance\""
     echo

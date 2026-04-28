@@ -1,0 +1,8 @@
+[
+{"activeModifiers":[],"button":"left","cursorId":"arrow","processTimeMs":9266.907749697566,"type":"mouseDown","unixTimeMs":1777417360730.6108,"x":1200,"y":650},
+{"activeModifiers":[],"button":"left","cursorId":"arrow","processTimeMs":9285.185499698855,"type":"mouseUp","unixTimeMs":1777417360748.8887,"x":1200,"y":650},
+{"activeModifiers":[],"button":"left","cursorId":"pointingHand","processTimeMs":61542.31574968435,"type":"mouseDown","unixTimeMs":1777417413006.0188,"x":573,"y":544},
+{"activeModifiers":[],"button":"left","cursorId":"pointingHand","processTimeMs":61560.548332636245,"type":"mouseUp","unixTimeMs":1777417413024.2515,"x":573,"y":544},
+{"activeModifiers":[],"button":"left","cursorId":"arrow","processTimeMs":74740.96429161727,"type":"mouseDown","unixTimeMs":1777417426204.6675,"x":1250,"y":520},
+{"activeModifiers":[],"button":"left","cursorId":"arrow","processTimeMs":74756.70437468216,"type":"mouseUp","unixTimeMs":1777417426220.4075,"x":1250,"y":520}
+]
