@@ -1,0 +1,31 @@
+Hey this is Brian from Fullstack Ag.
+
+If you would rather run Paperless Ag at home instead of renting a cloud server, a Raspberry Pi is a nice little option. It is small, quiet, cheap to power, and it keeps your document archive on your own network.
+
+I would use a Pi 4 with at least 4 gigabytes of memory, or a Pi 5 if you have one. For storage, an SD card works for trying things, but a USB SSD is much better for a real archive because the database will be writing to disk over time.
+
+On your main computer, open Raspberry Pi Imager. Choose your Pi model, then choose Raspberry Pi OS Lite, 64-bit. We do not need a desktop environment because this Pi is going to be a small server. Then choose the SD card or SSD you are flashing.
+
+Before writing the image, edit the settings. Set the hostname to paperless so it is easy to find on the network. Pick a username and a strong password. Set your timezone. If you are using Wi-Fi, enter the network details here. Then go to Services and enable SSH, because that is how we will log into the Pi without plugging in a monitor.
+
+Now write the image. This erases the card or drive, so make sure you picked the right one. Flashing and verification take a few minutes, so I will skip ahead to the finished card.
+
+Put the card or SSD into the Pi, plug in Ethernet if you can, and then connect power. The first boot can take a minute or two while the system expands and starts services.
+
+Back on your computer, open a terminal and SSH into paperless.local with the username you created. If paperless.local does not resolve on your network, check your router for connected devices and use the Pi's IP address instead. Accept the fingerprint, enter your password, and now we are on the Pi.
+
+The install command is the same one we used for the cloud server. Paste it and press enter. The installer checks the Pi, installs Docker if needed, and then sets up the Paperless stack.
+
+If Docker gets installed for the first time, the script may ask you to log out and back in so your user can run Docker commands. That is normal. Type exit, SSH back in, and run the same command again. Then answer the prompts: install directory, Paperless admin user, password, timezone, and skip the domain name for a local network install.
+
+On a Pi, pulling images and starting everything can take a while, especially the first time. I will skip ahead. When the installer finishes, it prints the local Paperless URL, the MCP URL, and the token for Claude.
+
+Open a browser and go to paperless.local, or the Pi's IP address. Log in with the admin account you created. Now Paperless is running on the Raspberry Pi in your house.
+
+I like to upload one small PDF right away to confirm the pipeline. Paperless ingests it, OCRs it, and Paperless Ag starts indexing it for semantic search. A big archive will take longer on ARM hardware, but it catches up in the background.
+
+Two practical tips: give the Pi a DHCP reservation in your router so its address does not change, and set up backups before you trust it with important documents. Also remember that this is local by default. If you want access away from home, use a VPN or choose the cloud install instead of opening random ports to the internet.
+
+That is the Raspberry Pi install: flash the OS, SSH in, run the installer, open Paperless on your local network, and start feeding it documents. No monthly server bill, and the archive lives on hardware you own.
+
+Thanks for watching!

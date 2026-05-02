@@ -1,0 +1,29 @@
+Hey this is Brian from Fullstack Ag.
+
+In this video, we are going to install Paperless NGX and Paperless Ag on DigitalOcean. By the end, you will have a cloud server running your document archive and the search connector details you need for Claude.
+
+First we need a server. In DigitalOcean, click Create, then Droplet. Pick the region closest to where you normally work. For me, the exact region is not the important part; I just want something nearby and reliable.
+
+For the image, choose Ubuntu LTS. That is a normal Linux server operating system and it works well with the installer. For size, I recommend starting with at least 4 gigabytes of memory and 2 CPUs. Paperless, the database, Redis, and the embedding worker all need some room, and this keeps the first install from feeling cramped.
+
+For authentication, use an SSH key if you can. It is more secure than sending a root password around, and DigitalOcean makes it pretty easy to add one. I will name this server paperless-ag-demo. Remember, this is a real server that costs money while it exists, so if you are following along just to test, delete it when you are done.
+
+Now I will create the Droplet. This usually takes about a minute. I will skip ahead to the useful part. Once it is ready, copy the public IP address. That is how we are going to connect to the server.
+
+Open your terminal and type ssh root at that IP address. The first time you connect, your computer may ask if you trust the server fingerprint. Type yes. Now we are logged into the Droplet, and everything we type is running on that cloud server.
+
+The install is one command. I will paste the Paperless Ag install command and press enter. The script checks the server, installs anything it needs, sets up Docker, and writes the configuration files for Paperless, Postgres, Redis, Caddy, and the Paperless Ag companion.
+
+It asks a few questions. The default install directory is fine. I will choose an admin username and a strong password for Paperless. Then I will set the timezone. If you have a domain name pointed at this server, enter it here and the installer can use HTTPS. If you do not have a domain yet, press enter and you can use the IP address for now.
+
+Now it pulls the Docker images and starts the services. This is the part where the terminal is busy for a few minutes, so I will skip ahead. When it finishes, the important thing is this summary: the Paperless URL, the MCP URL for Claude, and the MCP auth token.
+
+Let us verify the web app first. Open the Paperless URL from the installer, log in with the username and password you just chose, and there it is. This is stock Paperless NGX running on your new server, with Paperless Ag running beside it.
+
+I like to upload one small PDF right away, just to prove the pipeline works. Paperless ingests the file, OCRs it, and the companion starts indexing the text in the background. For a big first batch of documents, give it time to catch up.
+
+Before you close the terminal, save the summary somewhere safe. The MCP URL and token are what you use to connect Claude later. The installer also gives you commands for logs, backups, updates, and stopping the stack. Those are worth keeping.
+
+That is the DigitalOcean install: create the server, SSH in, run the installer, log into Paperless, and save your Claude connection details. In a later step you can point a domain at it, set up regular backups, and start scanning your documents.
+
+Thanks for watching!

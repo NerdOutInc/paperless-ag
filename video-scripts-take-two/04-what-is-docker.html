@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 4: What Is Docker?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="back-link">All Videos</a>
+
+      <header class="video-header">
+        <p class="video-kicker">Video 4</p>
+        <h1 class="video-title">What Is Docker?</h1>
+        <p class="video-summary">
+          Make Docker feel practical: containers are the packaged services, and
+          Compose is the recipe that starts them together.
+        </p>
+        <div class="meta-strip">
+          <span class="pill demo">Target: about 2 minutes</span>
+          <span class="pill">Start: Docker Desktop or terminal</span>
+          <span class="pill">Finish: running stack</span>
+        </div>
+        <p class="transcript-link">
+          Plain narration:
+          <a href="04-what-is-docker-transcript.txt"
+            >04-what-is-docker-transcript.txt</a
+          >
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Before Recording</h2>
+        <ul>
+          <li>
+            Have the Paperless Ag local stack running so Docker Desktop or
+            <code>docker compose ps</code> shows real containers.
+          </li>
+          <li>
+            Show containers with friendly names: Paperless, Postgres, Redis,
+            companion, and optionally Caddy in an install environment.
+          </li>
+          <li>
+            Avoid turning this into a Docker tutorial. The purpose is to remove
+            fear before the install scripts use Docker.
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="section-title">Choreography</h2>
+      <table class="choreo">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>On Screen</th>
+            <th>Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time">0:00-0:25</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Docker Desktop with the Paperless stack running, or a terminal
+              ready to run <code>docker compose ps</code>.
+            </td>
+            <td class="narration">
+              Hey this is Brian from Fullstack Ag. When we install Paperless Ag,
+              you are going to see Docker mentioned a lot. Docker sounds like a
+              programmer thing, but for this project you can think of it as the
+              packaging system that keeps the whole setup predictable.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:25-0:55</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Point at individual running containers.
+            </td>
+            <td class="narration">
+              Paperless is not just one program. It has the Paperless web app, a
+              Postgres database, Redis for background work, and Paperless Ag for
+              semantic search and Claude. Docker puts each piece in its own
+              container so the pieces do not get tangled up with the rest of the
+              computer.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:55-1:25</td>
+            <td class="action type">
+              <span class="label">Type</span>
+              In terminal, run <code>docker compose ps</code> and show the
+              running services.
+            </td>
+            <td class="narration">
+              Docker Compose is the recipe that starts the containers together.
+              Instead of installing a database by hand, then Redis by hand, then
+              Paperless by hand, the Compose file says: here are the services,
+              here is how they connect, and here is where the data should live.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:25-1:55</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Keep the running service list visible. Optionally point at volumes
+              in Docker Desktop if available.
+            </td>
+            <td class="narration">
+              That last part matters. Containers can be replaced, updated, or
+              restarted, but your documents and database live in persistent
+              storage. So Docker gives us a clean way to update the software
+              without treating your data as disposable.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:55-2:20</td>
+            <td class="action">
+              <span class="label">Show</span>
+              End on Docker Desktop or terminal with all services healthy.
+            </td>
+            <td class="narration">
+              The reason we use Docker is that the same stack can run on my Mac,
+              on a DigitalOcean server, or on a Raspberry Pi with the same basic
+              commands. You do not need to become a Docker expert. The installer
+              handles the boring parts for you. Thanks for watching!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

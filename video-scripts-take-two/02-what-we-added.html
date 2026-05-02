@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 2: What We Added with Paperless Ag</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="back-link">All Videos</a>
+
+      <header class="video-header">
+        <p class="video-kicker">Video 2</p>
+        <h1 class="video-title">What We Added with Paperless Ag</h1>
+        <p class="video-summary">
+          Keep this one centered on the payoff: keyword search can miss the
+          right document, while Paperless Ag lets Claude search by meaning.
+        </p>
+        <div class="meta-strip">
+          <span class="pill demo">Target: 3-4 minutes</span>
+          <span class="pill">Start: Paperless search</span>
+          <span class="pill">Finish: Claude answer</span>
+        </div>
+        <p class="transcript-link">
+          Plain narration:
+          <a href="02-what-we-added-transcript.txt"
+            >02-what-we-added-transcript.txt</a
+          >
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Before Recording</h2>
+        <ul>
+          <li>
+            Local stack running with 100 demo documents and embeddings covering
+            all documents.
+          </li>
+          <li>
+            Paperless Ag MCP connector already working in Claude Desktop. This
+            version avoids the long config-editing sequence.
+          </li>
+          <li>
+            Paperless keyword demo:
+            <code>fertilizer recommendations</code>, typed with no quotes,
+            should return zero documents in the demo data.
+          </li>
+          <li>
+            Claude prompt:
+            <code
+              >What are my fertilizer recommendations? Search my Paperless Ag
+              documents.</code
+            >
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="section-title">Choreography</h2>
+      <table class="choreo">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>On Screen</th>
+            <th>Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time">0:00-0:25</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Start on Paperless NGX with the full demo archive visible.
+            </td>
+            <td class="narration">
+              Hey this is Brian from Fullstack Ag. In the last video, we saw
+              Paperless NGX turn farm paperwork into a searchable archive. That
+              is already useful, but normal search still has one annoying
+              problem.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:25-0:55</td>
+            <td class="action type">
+              <span class="label">Type</span>
+              Search <code>fertilizer recommendations</code> in Paperless. Show
+              the empty result state.
+            </td>
+            <td class="narration">
+              You have to guess the words the document actually used. If I
+              search for fertilizer recommendations, Paperless comes back empty.
+              But I know those records exist. They are just named things like
+              Nutrient Management Plan and they mention products like anhydrous
+              ammonia instead of the words I typed.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:55-1:35</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Hold on the failed search, then switch to
+              <code>paperless.fullstack.ag</code> or a simple architecture
+              section on the project page.
+            </td>
+            <td class="narration">
+              Paperless Ag fixes that by adding semantic search. It does not
+              replace Paperless NGX and it does not modify Paperless itself. It
+              runs beside it as a companion container, reads the text Paperless
+              already extracted, and builds a local search index based on
+              meaning.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:35-2:05</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Show the project page bullets or keep Paperless visible while
+              explaining the architecture.
+            </td>
+            <td class="narration">
+              The technical version is: it splits documents into chunks, creates
+              embeddings with a small local model, stores those embeddings in
+              Postgres with pgvector, and exposes search tools through MCP. The
+              plain-English version is: Claude gets a safe way to search your
+              Paperless archive.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">2:05-2:50</td>
+            <td class="action type">
+              <span class="label">Type</span>
+              Switch to Claude Desktop with the <code>paperless-ag</code>
+              connector visible. Ask the fertilizer question and submit with
+              Return.
+            </td>
+            <td class="narration">
+              So now I can ask the question the way I would say it out loud:
+              what are my fertilizer recommendations? Claude calls the Paperless
+              Ag search tool, searches the archive by meaning, and finds the
+              nutrient plans that keyword search missed.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">2:50-3:35</td>
+            <td class="action wait">
+              <span class="label">Wait</span>
+              Let Claude answer. Slowly scroll the response so the source
+              documents and recommendation details are visible.
+            </td>
+            <td class="narration">
+              That is the important difference. I do not have to remember the
+              exact title, the exact product name, or the exact phrase. I can
+              describe the thing I need, and Claude can bring back the right
+              documents with enough context to answer.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">3:35-4:00</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Hold on Claude's answer with the connector context visible.
+            </td>
+            <td class="narration">
+              The indexing happens on your server, using your Paperless data and
+              the Postgres database Paperless already needs. When you ask Claude
+              a question, it gets the search results it needs to help you.
+              Paperless stays stock, and Paperless Ag adds the smarter layer
+              beside it. Thanks for watching!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section class="panel note">
+        <h2>Recording Improvements From Take One</h2>
+        <ul>
+          <li>
+            Keep connector setup out of this short concept video. The config
+            edit is useful, but it made the original video carry two jobs.
+          </li>
+          <li>
+            Keep the failed keyword search because it creates a clean before and
+            after.
+          </li>
+          <li>
+            Preserve the local/private nuance: indexing is local, while Claude
+            receives search results when the user asks a question.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
