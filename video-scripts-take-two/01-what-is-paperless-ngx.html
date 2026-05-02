@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 1: What Is Paperless NGX?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="back-link">All Videos</a>
+
+      <header class="video-header">
+        <p class="video-kicker">Video 1</p>
+        <h1 class="video-title">What Is Paperless NGX?</h1>
+        <p class="video-summary">
+          Show the core promise quickly: scan or upload a document, let
+          Paperless read it, then find it again when the paper itself would have
+          been lost.
+        </p>
+        <div class="meta-strip">
+          <span class="pill demo">Target: 2-3 minutes</span>
+          <span class="pill">Start: logged-in Documents page</span>
+          <span class="pill">Finish: clean archive view</span>
+        </div>
+        <p class="transcript-link">
+          Plain narration:
+          <a href="01-what-is-paperless-ngx-transcript.txt"
+            >01-what-is-paperless-ngx-transcript.txt</a
+          >
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Before Recording</h2>
+        <ul>
+          <li>Paperless NGX running with the demo archive loaded.</li>
+          <li>
+            Prepare one high-contrast PDF named
+            <code>01-handwritten-shop-note.pdf</code>. It should visibly read:
+            "John Deere 4440 hydraulic hose replaced April 12."
+          </li>
+          <li>
+            Rehearse OCR before recording. If real handwriting is too brittle,
+            use a scanned note with very large dark lettering or a handwriting
+            font rendered into a PDF.
+          </li>
+          <li>
+            Start in Helium on the logged-in Documents page with no active
+            filters, no address-bar focus, and no notification banners.
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="section-title">Choreography</h2>
+      <table class="choreo">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>On Screen</th>
+            <th>Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time">0:00-0:20</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Hold on the Paperless Documents page, then gently scroll the
+              archive.
+            </td>
+            <td class="narration">
+              Hey this is Brian from Fullstack Ag. In this first video, I want
+              to show you Paperless NGX, which is the open-source document
+              archive that Paperless Ag builds on top of.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:20-0:45</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Keep the document grid visible; hover or point at farm documents
+              like leases, policies, invoices, and soil tests.
+            </td>
+            <td class="narration">
+              Think of all the paper that piles up around a farm: leases, crop
+              insurance, FSA forms, equipment records, chemical logs, notes from
+              the shop. Paperless gives all of that a single home.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:45-1:20</td>
+            <td class="action click">
+              <span class="label">Click</span>
+              Drag the prepared note PDF into Paperless or click upload and
+              choose it. Show the upload/consumer state briefly.
+            </td>
+            <td class="narration">
+              To make that real, I have a little note here that started as a
+              piece of paper. I am going to drop the PDF into Paperless. It
+              uploads it, files away the original, and then tries to read the
+              text on the page with OCR, which is optical character recognition.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:20-1:50</td>
+            <td class="action wait">
+              <span class="label">Wait</span>
+              Let the document finish processing. Open the new document or its
+              preview once it appears.
+            </td>
+            <td class="narration">
+              That is the first big win. The document is not just a picture in a
+              folder anymore. Paperless knows the date, can store tags and a
+              document type, and most importantly, it can search the text it
+              found.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:50-2:25</td>
+            <td class="action type">
+              <span class="label">Type</span>
+              Search <code>hydraulic hose</code>. Show the uploaded note in the
+              result list, then open it if the preview is clean.
+            </td>
+            <td class="narration">
+              So later, if I remember something about a hydraulic hose but not
+              where I put the note, I can search for that phrase and pull it
+              right back up. That is the basic Paperless workflow: capture the
+              paper once, then stop hunting for it.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">2:25-2:55</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Clear the search, return to the full archive, and hold steady.
+            </td>
+            <td class="narration">
+              Paperless NGX is not the AI part yet. It is the solid foundation:
+              upload, OCR, tags, dates, document types, and a searchable archive
+              running on hardware you control. In the next video, I will show
+              you what Paperless Ag adds to make that search a lot smarter.
+              Thanks for watching!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <section class="panel note">
+        <h2>Recording Improvements From Take One</h2>
+        <ul>
+          <li>
+            Start logged in on the archive instead of spending precious seconds
+            on login, unless the final audio needs that trust-building beat.
+          </li>
+          <li>
+            The upload demo makes OCR concrete and gives the viewer something
+            useful to remember.
+          </li>
+          <li>
+            The handwritten-note idea is valuable, but it must be rehearsed
+            because handwriting OCR is less predictable than typed scans.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

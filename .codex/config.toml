@@ -1,0 +1,2 @@
+[mcp_servers.paperless-ag]
+url = "http://localhost:3001/mcp"

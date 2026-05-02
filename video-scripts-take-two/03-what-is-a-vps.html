@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video 3: What Is a VPS?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <a href="index.html" class="back-link">All Videos</a>
+
+      <header class="video-header">
+        <p class="video-kicker">Video 3</p>
+        <h1 class="video-title">What Is a VPS?</h1>
+        <p class="video-summary">
+          Explain the rented-server idea before the viewer sees a real
+          DigitalOcean install.
+        </p>
+        <div class="meta-strip">
+          <span class="pill demo">Target: about 2 minutes</span>
+          <span class="pill">Start: VPS explainer page</span>
+          <span class="pill">Finish: Droplet form, no create</span>
+        </div>
+        <p class="transcript-link">
+          Plain narration:
+          <a href="03-what-is-a-vps-transcript.txt"
+            >03-what-is-a-vps-transcript.txt</a
+          >
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Before Recording</h2>
+        <ul>
+          <li>
+            Use Helium and start on a public DigitalOcean VPS or Droplets page.
+          </li>
+          <li>
+            Keep the DigitalOcean session warm if showing the create Droplet
+            form. Do not create a Droplet in this concept video.
+          </li>
+          <li>
+            If using the Paperless Ag deploy badge, open the site with
+            <code>open -a Helium</code> during choreography so the address bar
+            does not steal focus.
+          </li>
+        </ul>
+      </section>
+
+      <h2 class="section-title">Choreography</h2>
+      <table class="choreo">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>On Screen</th>
+            <th>Narration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time">0:00-0:25</td>
+            <td class="action">
+              <span class="label">Show</span>
+              DigitalOcean VPS or Droplets page, clean and already loaded.
+            </td>
+            <td class="narration">
+              Hey this is Brian from Fullstack Ag. Before we install Paperless
+              Ag in the cloud, it helps to know what a VPS is. VPS stands for
+              virtual private server, but the plain version is simpler: it is a
+              computer you rent online.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:25-0:55</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Slowly scroll a VPS explainer page or the Droplets overview.
+            </td>
+            <td class="narration">
+              Instead of buying a physical computer, plugging it in at home, and
+              keeping it online yourself, you rent a small slice of a server in
+              a data center. The provider handles power, internet, cooling, and
+              the hardware. You get a Linux machine that is always on.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">0:55-1:25</td>
+            <td class="action click">
+              <span class="label">Click</span>
+              Open the Paperless Ag deploy link or DigitalOcean Create Droplet
+              form. Show size and region controls only.
+            </td>
+            <td class="narration">
+              On DigitalOcean, a VPS is called a Droplet. When you create one,
+              you pick a region, an operating system, and a size. For Paperless
+              Ag, I like starting with at least 4 gigabytes of memory and 2
+              CPUs. That gives Paperless, Postgres, Redis, and the search add-on
+              enough room to breathe.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:25-1:55</td>
+            <td class="action">
+              <span class="label">Show</span>
+              Hold on the create form. Keep the pointer away from final create
+              buttons and pricing footers.
+            </td>
+            <td class="narration">
+              The nice part is that a VPS is already reachable from the
+              internet, so you can open your document archive from the office,
+              the house, or the field. The tradeoff is that it is a real server:
+              use strong passwords, SSH keys, backups, and delete it when you no
+              longer need it so you stop paying for it.
+            </td>
+          </tr>
+          <tr>
+            <td class="time">1:55-2:15</td>
+            <td class="action">
+              <span class="label">Show</span>
+              End on the Droplet form or the Paperless Ag deploy page.
+            </td>
+            <td class="narration">
+              That is all a VPS is for our purposes: an always-on Linux computer
+              rented from a cloud provider. In the install video, we will create
+              one and put Paperless Ag on it step by step. Thanks for watching!
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
