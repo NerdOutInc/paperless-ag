@@ -39,12 +39,21 @@
           </li>
           <li>
             Paperless Ag MCP connector already working in Claude Desktop. This
-            version avoids the long config-editing sequence.
+            version avoids the long config-editing sequence, and the connector
+            does not need to be visible on screen.
+          </li>
+          <li>
+            Claude Desktop MCP config points at
+            <code>http://localhost:3001/mcp</code> with the local demo bearer
+            token.
           </li>
           <li>
             Paperless keyword demo:
             <code>fertilizer recommendations</code>, typed with no quotes,
             should return zero documents in the demo data.
+          </li>
+          <li>
+            Start Helium on the Paperless Documents page with filters cleared.
           </li>
           <li>
             Claude prompt:
@@ -114,8 +123,8 @@
             <td class="time">1:35-2:05</td>
             <td class="action">
               <span class="label">Show</span>
-              Show the project page bullets or keep Paperless visible while
-              explaining the architecture.
+              Show the project page bullets and use the scroll helper to slowly
+              scroll the full page during the architecture explanation.
             </td>
             <td class="narration">
               The technical version is: it splits documents into chunks, creates
@@ -129,9 +138,10 @@
             <td class="time">2:05-2:50</td>
             <td class="action type">
               <span class="label">Type</span>
-              Switch to Claude Desktop with the <code>paperless-ag</code>
-              connector visible. Ask the fertilizer question and submit with
-              Return.
+              Switch to Claude Desktop. Ask the fertilizer question and submit
+              by moving the cursor to the visible up-arrow send button and
+              clicking it. Keep recording while Claude works, even if the
+              response takes a while.
             </td>
             <td class="narration">
               So now I can ask the question the way I would say it out loud:
@@ -144,8 +154,9 @@
             <td class="time">2:50-3:35</td>
             <td class="action wait">
               <span class="label">Wait</span>
-              Let Claude answer. Slowly scroll the response so the source
-              documents and recommendation details are visible.
+              Let Claude answer, waiting as long as needed. Slowly scroll the
+              response so the source documents and recommendation details are
+              visible.
             </td>
             <td class="narration">
               That is the important difference. I do not have to remember the
@@ -185,6 +196,52 @@
           <li>
             Preserve the local/private nuance: indexing is local, while Claude
             receives search results when the user asks a question.
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel note">
+        <h2>Keeper Take</h2>
+        <ul>
+          <li>
+            Retake 2 recorded after resetting macOS panels and app state. This
+            take includes the requested lower Paperless search field, deeper
+            project-page scrolling, deeper Claude-response scrolling, and
+            localhost MCP setup.
+          </li>
+          <li>
+            Screen Studio keyboard start/stop path smoke-tested with readable
+            display track at
+            <code
+              >~/Screen Studio Projects/Built-in Retina Display 2026-05-06
+              19:43:26.screenstudio/recording/channel-1-display-0.mp4</code
+            >.
+          </li>
+          <li>
+            Keeper project:
+            <code
+              >~/Screen Studio Projects/Built-in Retina Display 2026-05-06
+              22:03:37.screenstudio</code
+            >.
+          </li>
+          <li>
+            Display track duration from ffprobe:
+            <code>218.810000s</code>.
+          </li>
+          <li>
+            Frame-check helper:
+            <code>02-what-we-added-check-frames.sh</code>. Contact sheets:
+            <code>/tmp/02-retake2-check-frames.jpg</code>, focused project-page
+            frames at <code>/tmp/02-retake2-project-*.jpg</code>, and focused
+            verification frames at <code>/tmp/02-retake2-verify-*.jpg</code>.
+          </li>
+          <li>
+            Frame review passed: no Codex, no stale Screen Studio windows, no
+            emoji picker or Notification Center, Paperless uses the lower
+            <code>Title &amp; content</code> search field and shows
+            <code>0 documents (filtered)</code>, the project page reaches the
+            bottom links/footer area, and Claude answers from Paperless Ag
+            results with sources visible after the final scroll.
           </li>
         </ul>
       </section>
