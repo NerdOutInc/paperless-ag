@@ -1,0 +1,22 @@
+ Hey, this is Brian from Fullstack Egg. In the last video, we saw Papillis NGX turn
+ farm paperwork into a searchable archive. And while that's already useful, the
+ normal search could still be better. With the built-in search, you have to know
+ the words the document actually used. So if I search for fertilizer recommendations,
+ Papillis comes back empty. Now I know those records exist. They are just named
+ things like Nutrient Management Plan, and they mention products like ammonia
+ instead of the words I typed. Papillis Egg fixes that by adding semantic search.
+ It doesn't replace Papillis NGX, and it doesn't modify the install itself. It
+ runs beside it as a companion Docker container, and it reads the text Papillis
+ already extracted. So it builds a local search index based on meaning rather than
+ keywords. And what Papillis Egg is going to do is expose those search tools to
+ cloud or any AI agent through MCP. MCP stands for Model Context Protocol, and
+ it's just the standard way for an AI agent to connect to external tools. So
+ now I can ask the question the way I would say it out loud. What are my
+ fertilizer recommendations? And Claude calls the Papillis Egg Search tool, searches
+ the archive by meaning, and it finds the nutrient plans that the keyword search
+ missed. And that's the difference with adding semantic search. I don't have to
+ remember the exact title or product name, I can just describe the thing I need. And
+ Claude knows how to bring back the right documents. And Papillis Egg indexes the
+ documents on your server without modifying your Papillis NGX data. So your
+ Papillis install stays stock, and Papillis Egg just adds the smarter layer
+ right beside it. And that's it today, so thanks for watching.
