@@ -1,6 +1,6 @@
 # Install Paperless Ag on a Raspberry Pi
 
-Run Paperless NGX with semantic search on your home network using a
+Run Paperless-ngx with semantic search on your home network using a
 Raspberry Pi. This guide walks through the full setup -- from flashing the
 SD card to searching your documents with Claude.
 
@@ -250,7 +250,7 @@ A daily backup runs automatically at 2 AM via cron.
 cd ~/paperless-ag
 docker compose logs -f              # all services
 docker compose logs -f companion    # just the semantic search companion
-docker compose logs -f paperless    # just Paperless NGX
+docker compose logs -f paperless    # just Paperless-ngx
 ```
 
 ## Performance tips

@@ -1,7 +1,7 @@
 Hey this is Brian from Fullstack Ag.
 
 In the last video, 
-we saw Paperless NGX turn farm paperwork into a searchable archive. 
+we saw Paperless-ngx turn farm paperwork into a searchable archive. 
 And while that's already useful, 
 the normal search could still be better.
 
@@ -13,7 +13,7 @@ they are just named things like Nutrient Management Plan,
 and they mention products like anhydrous ammonia instead of the words I typed.
 
 Paperless Ag fixes that by adding semantic search. 
-It does not replace Paperless NGX,
+It does not replace Paperless-ngx,
 and it does not modify Paperless itself. 
 It runs beside it as a companion container, 
 reads the text Paperless already extracted, 
@@ -41,7 +41,7 @@ I can describe the thing I need,
 and Claude can bring back the right documents with enough context to answer.
 
 Paperless Ag indexes the documents on your server 
-without modifying your Paperless NGX data. 
+without modifying your Paperless-ngx data. 
 Paperless stays stock, 
 and Paperless Ag adds the smarter layer beside it.
 

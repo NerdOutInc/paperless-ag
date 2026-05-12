@@ -31,7 +31,7 @@ banner() {
     echo
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
     echo -e "${BOLD}  Paperless Ag Setup${NC}"
-    echo -e "${DIM}  Semantic search for Paperless NGX${NC}"
+    echo -e "${DIM}  Semantic search for Paperless-ngx${NC}"
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
     echo
 }
@@ -537,7 +537,7 @@ collect_fresh_config() {
 }
 
 collect_addon_config() {
-    echo "  We found Paperless NGX running on this server."
+    echo "  We found Paperless-ngx running on this server."
     echo
     info "Container: $(docker inspect "$PAPERLESS_CONTAINER_ID" --format '{{.Name}}' 2>/dev/null | sed 's/^\///')"
     [[ -n "$PAPERLESS_COMPOSE_DIR" ]] && info "Compose dir: $PAPERLESS_COMPOSE_DIR"
@@ -1379,7 +1379,7 @@ main() {
 
     divider
 
-    # Detect existing Paperless NGX
+    # Detect existing Paperless-ngx
     PAPERLESS_CONTAINER_ID=""
     PAPERLESS_COMPOSE_DIR=""
     PAPERLESS_COMPOSE_PROJECT=""
@@ -1392,7 +1392,7 @@ main() {
 
         echo "  How would you like to install Paperless Ag?"
         echo
-        echo "    1) Add to my existing Paperless NGX (recommended)"
+        echo "    1) Add to my existing Paperless-ngx (recommended)"
         echo "    2) Fresh install (new Paperless + companion)"
         echo
         local choice
@@ -1408,7 +1408,7 @@ main() {
                 ;;
         esac
     else
-        echo "  No existing Paperless NGX found. Setting up a fresh install."
+        echo "  No existing Paperless-ngx found. Setting up a fresh install."
         divider
         collect_fresh_config
         do_fresh_install

@@ -19,7 +19,7 @@
     {
       "source": "0.0 still",
       "output": "3.0-21.0",
-      "action": "The first Paperless NGX documents frame is held.",
+      "action": "The first Paperless-ngx documents frame is held.",
       "narration": "Intro and the explanation of normal keyword search.",
       "edit": "Freeze a clean first frame; no cursor motion or typing is frozen mid-action."
     },
@@ -83,14 +83,14 @@
       "source": "82.0-86.139",
       "output": "124.65-128.375",
       "action": "Source list and final answer area scroll into the final source view.",
-      "narration": "Paperless NGX stays stock while Paperless Ag runs beside it.",
+      "narration": "Paperless-ngx stays stock while Paperless Ag runs beside it.",
       "edit": "Mild speed-up until the frame that previously appeared around output 02:13."
     },
     {
       "source": "86.139 still",
       "output": "128.375-135.25",
       "action": "Final Claude source list frame holds through the outro fade.",
-      "narration": "Paperless NGX stays stock while Paperless Ag runs beside it.",
+      "narration": "Paperless-ngx stays stock while Paperless Ag runs beside it.",
       "edit": "Freeze the clean final Claude frame until the outro title card fade begins."
     }
   ]

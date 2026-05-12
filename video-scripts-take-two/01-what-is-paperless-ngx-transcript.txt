@@ -1,7 +1,7 @@
 Hey this is Brian from Fullstack Ag.
 
-Today I want to show you something called Paperless NGX. 
-Paperless NGX is an open-source digital archive for documents.
+Today I want to show you something called Paperless-ngx. 
+Paperless-ngx is an open-source digital archive for documents.
 
 Think of all the paper that piles up around a farm: 
 leases, crop insurance, equipment records, notes from the shop. 
@@ -25,7 +25,7 @@ I can search for that phrase and pull it right back up.
 That is the basic Paperless workflow: capture the paper once, 
 then stop hunting for it.
 
-Paperless NGX is not the AI part yet. 
+Paperless-ngx is not the AI part yet. 
 It is the solid foundation: upload, OCR, tags, dates, document types, 
 and a searchable archive running on hardware you control. 
 In another video, 

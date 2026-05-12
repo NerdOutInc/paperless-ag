@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Paperless Ag is a companion Docker container for [Paperless NGX](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. It lets farmers search their document archive using natural language. Paperless NGX stays completely stock.
+Paperless Ag is a companion Docker container for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. It lets farmers search their document archive using natural language. Paperless-ngx stays completely stock.
 
 ## Architecture
 
 ```plaintext
-Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
+Paperless-ngx (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
      Web UI (:8000)          Embedding Worker              document_embeddings table
      REST API                MCP Server (:3001)            (shared with Paperless)
      Consumer                Search API
@@ -19,7 +19,7 @@ Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
 
 **Key design decisions:**
 
-- Companion container pattern: never modify upstream Paperless NGX
+- Companion container pattern: never modify upstream Paperless-ngx
 - pgvector in the same Postgres instance Paperless already uses (no separate vector DB)
 - Hybrid search combines pgvector cosine similarity with Paperless keyword API via Reciprocal Rank Fusion (k=60)
 - Local embedding model (all-MiniLM-L6-v2) -- no external API calls

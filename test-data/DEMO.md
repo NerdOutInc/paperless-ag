@@ -26,7 +26,7 @@ Verify all services are healthy:
 
 Open <http://localhost:8000> and log in (admin/admin).
 
-> I've got about a hundred farm documents in Paperless -- leases, crop insurance policies, FSA paperwork, chemical application records, equipment invoices, you name it. Paperless NGX does a great job ingesting and OCR'ing everything. But watch what happens when I search the way a farmer actually thinks.
+> I've got about a hundred farm documents in Paperless -- leases, crop insurance policies, FSA paperwork, chemical application records, equipment invoices, you name it. Paperless-ngx does a great job ingesting and OCR'ing everything. But watch what happens when I search the way a farmer actually thinks.
 
 ### [Click the search bar]
 
@@ -84,7 +84,7 @@ using the format http://localhost:8000/documents/ID/details
 
 > This is the problem Paperless Ag solves. Farmers don't think in government form numbers and insurance terminology. They think in concepts -- "crop failure," "what do I owe on rent," "when did we spray for weeds." The semantic search in the companion container understands what you mean, not just what you type.
 
-> Paperless NGX stays completely stock. We didn't modify it at all. The companion container just sits alongside it, reads the documents through the API, generates embeddings, and exposes search through an MCP server that Claude can call.
+> Paperless-ngx stays completely stock. We didn't modify it at all. The companion container just sits alongside it, reads the documents through the API, generates embeddings, and exposes search through an MCP server that Claude can call.
 
 ---
 
@@ -92,6 +92,6 @@ using the format http://localhost:8000/documents/ID/details
 
 - **The search term "crop failure" appears in zero documents** -- every document uses formal/industry terminology instead
 - **Semantic search bridges the vocabulary gap** between how farmers think and how documents are written
-- **Paperless NGX is unmodified** -- the companion container adds search without touching upstream
+- **Paperless-ngx is unmodified** -- the companion container adds search without touching upstream
 - **Local embedding model** (all-MiniLM-L6-v2) -- no data leaves the server
 - **Claude constructs the Paperless links** from document IDs, so results are immediately actionable

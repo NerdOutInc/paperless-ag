@@ -1,21 +1,21 @@
 # Paperless Ag
 
-A companion container for [Paperless NGX](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. Built for the [Fullstack Ag](https://fullstack.ag) community.
+A companion container for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) that adds semantic search and an MCP server for Claude integration. Built for the [Fullstack Ag](https://fullstack.ag) community.
 
 ## The Problem
 
 Farmers and ranchers accumulate a lot of documents -- leases, seed contracts, crop insurance policies, FSA paperwork, chemical application records, equipment manuals, tax returns, succession plans, soil test results. Most of this ends up in filing cabinets, scattered Google Drive folders, or boxes in the shop.
 
-The problem is retrieval. Paperless NGX handles ingestion, OCR, and keyword search well, but keyword search only works when you remember the exact words in the document. Search "fertilizer recommendations" when the document says "nutrient management plan" and you get zero results.
+The problem is retrieval. Paperless-ngx handles ingestion, OCR, and keyword search well, but keyword search only works when you remember the exact words in the document. Search "fertilizer recommendations" when the document says "nutrient management plan" and you get zero results.
 
 ## What This Adds
 
-A single Docker container that sits alongside a stock Paperless NGX installation and provides:
+A single Docker container that sits alongside a stock Paperless-ngx installation and provides:
 
 1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
 2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
 
-Paperless NGX stays completely stock.
+Paperless-ngx stays completely stock.
 
 ## Deploy
 
@@ -25,7 +25,7 @@ SSH into any Linux server and run:
 curl -fsSL https://paperless.fullstack.ag/install.sh | bash
 ```
 
-The installer detects if you already have Paperless NGX running and walks you through setup. Works on any VPS -- pick one to get started:
+The installer detects if you already have Paperless-ngx running and walks you through setup. Works on any VPS -- pick one to get started:
 
 [![Deploy on DigitalOcean](https://img.shields.io/badge/Deploy-DigitalOcean-0080FF?style=for-the-badge&logo=digitalocean)](https://cloud.digitalocean.com/droplets/new?size=s-2vcpu-4gb&image=docker-20-04&region=nyc1)
 [![Deploy on Hetzner](https://img.shields.io/badge/Deploy-Hetzner-D50C2D?style=for-the-badge&logo=hetzner)](https://console.hetzner.cloud/)
@@ -139,7 +139,7 @@ Then try asking Claude: *"Search my farm documents for crop insurance"*
 ## Architecture
 
 ```plaintext
-Paperless NGX (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
+Paperless-ngx (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
      Web UI (:8000)          Embedding Worker              document_embeddings table
      REST API                MCP Server (:3001)            (shared with Paperless)
      Consumer                Search API
@@ -159,7 +159,7 @@ The companion container:
 - Python 3.11+
 - Google Chrome (for test data PDF generation)
 
-### Start Paperless NGX and companion app
+### Start Paperless-ngx and companion app
 
 ```bash
 docker compose up -d
@@ -228,7 +228,7 @@ rm -rf /root/paperless-ag
 
 This project is in early development. Current progress:
 
-- [x] Local Paperless NGX dev stack (Docker Compose with pgvector-enabled Postgres)
+- [x] Local Paperless-ngx dev stack (Docker Compose with pgvector-enabled Postgres)
 - [x] Test data generator (100 realistic farm documents across 3 fictional farms)
 - [x] Companion container with embedding worker
 - [x] pgvector search API (semantic + hybrid)

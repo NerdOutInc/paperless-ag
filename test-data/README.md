@@ -1,6 +1,6 @@
 # Test Data Generator
 
-Generates 100 fake farm/ranch PDF documents and uploads them to a local Paperless NGX instance. Used for testing the semantic search companion container.
+Generates 100 fake farm/ranch PDF documents and uploads them to a local Paperless-ngx instance. Used for testing the semantic search companion container.
 
 ## Quick Start
 
@@ -11,14 +11,14 @@ python3 generate.py        # Generate 100 PDFs in output/
 python3 upload.py           # Upload to Paperless at localhost:8000
 ```
 
-Paperless must be running (`docker compose up -d` from the `Paperless NGX/` directory). Default credentials: admin / admin.
+Paperless must be running (`docker compose up -d` from the `Paperless-ngx/` directory). Default credentials: admin / admin.
 
 ## Scripts
 
 | File | Purpose |
 | --- | --- |
 | `generate.py` | Renders HTML from Jinja2 templates, converts to PDF via Chrome headless. Outputs to `output/`. |
-| `upload.py` | Uploads PDFs to Paperless NGX via REST API with metadata (document types, correspondents, tags with colors). |
+| `upload.py` | Uploads PDFs to Paperless-ngx via REST API with metadata (document types, correspondents, tags with colors). |
 
 ### generate.py options
 
@@ -113,4 +113,4 @@ test-data/
 
 - Python 3.6+
 - Google Chrome (used headless for PDF conversion)
-- Paperless NGX running locally (for upload step)
+- Paperless-ngx running locally (for upload step)
