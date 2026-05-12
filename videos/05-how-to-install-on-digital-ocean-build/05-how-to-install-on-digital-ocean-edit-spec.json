@@ -1,0 +1,244 @@
+{
+  "output": "05-how-to-install-on-digital-ocean-preview-v23.mp4",
+  "inputs": {
+    "video": "source/05-how-to-install-on-digital-ocean-combined.mp4",
+    "audio": "audio/05-how-to-install-on-digital-ocean-narration-v13.m4a"
+  },
+  "timeline": {
+    "width": 3600,
+    "height": 2160,
+    "fps": 60,
+    "segments": [
+      {
+        "type": "freeze",
+        "path": "patches/paperless-site-clean-background-still-v16.png",
+      "duration": 22.0
+      },
+      {
+        "type": "video",
+        "start": 0.0,
+        "end": 4.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 4.0,
+        "end": 6.9,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/sync_001_00-06-900.jpg",
+      "duration": 5.6
+      },
+      {
+        "type": "video",
+        "start": 6.9,
+        "end": 9.833333,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/sync_002_00-09-833.jpg",
+        "duration": 1.7
+      },
+      {
+        "type": "video",
+        "start": 9.833333,
+        "end": 11.2,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/plan-fine-source/plan-source_009_00-11-200.jpg",
+        "duration": 8.0
+      },
+      {
+        "type": "video",
+        "start": 11.2,
+        "end": 17.8,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 17.8,
+        "end": 18.2,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/ssh-no-cursor-source/ssh-source_005_00-19-000.jpg",
+        "duration": 18.5
+      },
+      {
+        "type": "video",
+        "start": 22.0,
+        "end": 25.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 27.5,
+        "end": 35.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/create-source-fine/create-source_004_00-35-000.jpg",
+        "duration": 2.5
+      },
+      {
+        "type": "video",
+        "start": 35.0,
+        "end": 36.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 36.0,
+        "end": 67.0,
+        "setpts_multiplier": 0.135483871
+      },
+      {
+        "type": "freeze",
+        "path": "frames/sync_010_01-07-000.jpg",
+        "duration": 8.16
+      },
+      {
+        "type": "video",
+        "start": 67.0,
+        "end": 71.8,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 71.8,
+        "end": 76.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/create-source-fine/create-source_015_01-16-000.jpg",
+        "duration": 8.14
+      },
+      {
+        "type": "video",
+        "start": 76.0,
+        "end": 80.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "contact-sheets/source-80-110-frames/source-terminal-install_003_01-20-000.jpg",
+        "duration": 3.5
+      },
+      {
+        "type": "freeze",
+        "path": "patches/paperless-site-clean-background-still-v16.png",
+        "duration": 6.0
+      },
+      {
+        "type": "video",
+        "start": 82.0,
+        "end": 86.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 86.0,
+        "end": 105.0,
+        "setpts_multiplier": 0.1152
+      },
+      {
+        "type": "video",
+        "start": 105.0,
+        "end": 128.0,
+        "setpts_multiplier": 0.546086957
+      },
+      {
+        "type": "video",
+        "start": 128.0,
+        "end": 135.26782006920414,
+        "setpts_multiplier": 0.7225
+      },
+      {
+        "type": "video",
+        "start": 135.26782006920414,
+        "end": 376.0,
+        "setpts_multiplier": 0.058155894
+      },
+      {
+        "type": "video",
+        "start": 376.0,
+        "end": 380.65,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "contact-sheets/source-360-390-frames/source-late_012_06-20-650.jpg",
+        "duration": 11.35
+      },
+      {
+        "type": "video",
+        "start": 381.8,
+        "end": 392.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/sync_021_06-32-000.jpg",
+        "duration": 3.7
+      },
+      {
+        "type": "video",
+        "start": 392.0,
+        "end": 403.5,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/sync_023_06-43-500.jpg",
+        "duration": 49.5222
+      }
+    ],
+    "intro": {
+      "path": "cards/intro-how-to-install-on-digital-ocean.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    },
+    "outro": {
+      "path": "cards/outro-fullstack-ag.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    },
+    "overlays": [
+      {
+        "path": "patches/browser-right-edge-clean-overlay-v16.png",
+        "start": 25.0,
+        "end": 27.25,
+        "x": 0,
+        "y": 0
+      }
+    ]
+  },
+  "profiles": {
+    "preview": {
+      "video_codec": "libx264",
+      "preset": "veryfast",
+      "crf": 28,
+      "scale_width": 1280,
+      "audio_codec": "aac",
+      "audio_bitrate": "128k",
+      "movflags_faststart": true,
+      "shortest": true
+    },
+    "hq": {
+      "video_codec": "libx264",
+      "preset": "slow",
+      "crf": 18,
+      "audio_codec": "copy",
+      "movflags_faststart": true,
+      "shortest": true
+    }
+  }
+}

@@ -1,0 +1,52 @@
+ Hey, this is Brian from Fullstack Egg.
+ I'm going to show you how to install Papeless NGX and Papeless Egg to a digital ocean droplet.
+ And by the end of this video, you'll have a working document archive.
+ You can search using AI.
+ I'm going to start on paperless.fullstack.egg and I'm going to use the button to deploy to
+ digital ocean.
+ You don't have to use our button, you can just create a droplet manually.
+ The button just sets a couple of defaults for you.
+ So I'm going to scroll past the region and you can see that Ubuntu is selected for us
+ and we have a basic droplet with a regular CPU and 4GB of memory.
+ And for authentication, I'm going to use my SSH key that I have already added to digital
+ ocean and this will allow me to securely log into the server without typing a password
+ in every time.
+ You can click add SSH key and digital ocean has instructions for how to generate the
+ SSH key on your computer and get the key added to digital ocean.
+ And finally we need to give our droplet a name, I'm going to call my paperless video.
+ So now we have a droplet that is going to cost us $24 a month and we'll go ahead and
+ hit create.
+ This will take a minute to spin up so I'll fast forward and here it is ready and we have
+ our IP address.
+ So to connect to our new server, we will copy the IP address and open up a terminal and
+ we will type SSH root at and paste the IP address.
+ I'll hit return and if it asks about a fingerprint, I'll type yes and now we're logged into our
+ server and now we get to do the fun part.
+ We're going to go to paperless.fullstack.egg and copy the install script and we'll go back
+ to our terminal where we're logged into our server and we'll paste the script and run
+ it.
+ The script is going to ask us a few questions.
+ So the install directory, the default is fine.
+ We'll choose our username and password to log into paperless and if you have a domain
+ name you're going to point at your digital option droplet, you can enter it here otherwise
+ you can skip it and just access it by the IP address.
+ So now the script is pulling down all the pieces and starting everything up.
+ This will take a few minutes and I'll just skip ahead here and we're done.
+ The script tells us everything we need.
+ Here's the URL to access paperless and here are the details we'll need later to connect
+ to Cloud and I'll just save these somewhere and let me make sure it's working.
+ I'm going to open my browser, go to my server's IP address with the port 8000 and I'll log
+ in with the username and password I just set up and there it is, paperless is running.
+ And to get started I can just drag and drop a PDF right into the browser and paperless
+ is going to process it, read the text and add it to my archive and our search add-on
+ will automatically pick it up as well.
+ And be sure to check out our video about what we added to paperless, our paperless
+ egg add-on and in that video we show you how to connect paperless to Cloud and make queries
+ using just plain English and that's the whole thing.
+ I've got a searchable document archive that you can access from anywhere and you're in
+ full control of your own data.
+ So I found you how easy this is to get set up on digital ocean but you might not want
+ to pay $24 a month for this.
+ So in another video I'm going to show you how to install this on a Raspberry Pi.
+ The Raspberry Pi you'll need will cost you around $200 but it'll save you almost $300
+ a year so go ahead and check that video out as well and thanks for watching.
