@@ -55,6 +55,43 @@ Requires Google Chrome for headless HTML-to-PDF conversion.
 docker compose build app && docker compose up -d app
 ```
 
+### Local MCP proof for Claude Desktop
+
+When proving the local MCP flow, do not edit tracked Compose files just to set a
+demo token. Use a temporary override:
+
+```bash
+cat >/tmp/paperless-ag.override.yml <<'YAML'
+services:
+  app:
+    environment:
+      MCP_AUTH_TOKEN: paperless-ag-local-demo
+YAML
+
+docker compose \
+  -f docker-compose.yml \
+  -f /tmp/paperless-ag.override.yml \
+  up -d --build
+```
+
+Before asking Claude to use Paperless Ag, verify all of these:
+
+- Paperless responds at `http://localhost:8000`.
+- Companion health responds at `http://localhost:3001/health`.
+- Unauthenticated MCP requests fail and authenticated MCP requests work with
+  `Authorization: Bearer paperless-ag-local-demo`.
+- `document_embeddings` covers all 100 demo documents.
+- Claude Desktop is configured with `mcp-remote` for
+  `http://localhost:3001/mcp` and has relaunched.
+- Claude shows the `paperless-ag` connector enabled or has spawned an
+  `mcp-remote` process for `localhost:3001/mcp`.
+
+Claude Desktop's macOS config file is
+`~/Library/Application Support/Claude/claude_desktop_config.json`. Open it from
+Claude Desktop with **Claude > Settings > Developer > Edit Config**. If editing
+it in VS Code, verify the save reached disk with `jq` before relaunching Claude;
+VS Code can hold a stale copy and report a "file is newer" conflict.
+
 ## Code Layout
 
 All companion container code lives in `app/`:
@@ -81,6 +118,37 @@ The MCP server (`mcp_server.py`) exposes: `search_documents`, `get_document`, `l
 After modifying any `.md` file, run `npx markdownlint-cli2 <files>` and fix any warnings before finishing.
 
 After modifying any `.html` file, run `npx prettier --write <files>` to auto-format before finishing.
+
+After modifying any `.sh` helper script, run `bash -n <files>` before finishing.
+
+## Screencast Assets
+
+Keep screencast source assets in `video-scripts/` and version them with git.
+For each video, keep the naming convention together:
+
+- `NN-slug.m4a`
+- `NN-slug-actions.md`
+- `NN-slug.screenstudio`
+- Any repeatable recording helpers, such as `NN-slug-record.sh`,
+  `NN-slug-keeper.sh`, or `NN-slug-check-frames.sh`
+
+The actions file is the source of truth for transcript cues, reset/setup steps,
+`cliclick` coordinates, keyboard sequences, dry-run logs, state checks, final
+Screen Studio project path, frame-check contact sheet, and keeper duration.
+
+When recording with Screen Studio:
+
+- Minimize all Screen Studio project/recording windows before starting a new
+  take.
+- Hide Codex and non-target workbench apps before starting; restore Codex when
+  not recording.
+- For Helium recordings, quit and reopen Helium from scratch if the browser
+  state is noisy.
+- Avoid visible address-bar focus unless it is part of the demo; use
+  `open -a Helium <url>` for clean site switches.
+- Verify app switches before the next click or keystroke.
+- After every completed take, run the repo's frame-check helper or create one.
+  Review timestamp-based frames before calling a take the keeper.
 
 ## Test Data
 

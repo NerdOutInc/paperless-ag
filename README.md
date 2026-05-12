@@ -37,7 +37,9 @@ The installer detects if you already have Paperless NGX running and walks you th
 
 After installation, connect your MCP server to Claude so you can search documents through conversation.
 
-The install script prints the exact commands with your server's URL and token. The general format is:
+The install script prints the exact Claude Code and `.mcp.json` examples with
+your server's URL and token. Claude Desktop uses the same URL and token in the
+`mcp-remote` bridge config below.
 
 ### Claude Code
 
@@ -66,7 +68,10 @@ Add this to your project's `.mcp.json`:
 
 ### Claude Desktop (`claude_desktop_config.json`)
 
-Claude Desktop doesn't support remote HTTP servers directly. Use `mcp-remote` as a bridge. Edit your config at `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+Claude Desktop doesn't support remote HTTP servers directly. Use `mcp-remote`
+as a bridge. On macOS, open Claude Desktop, choose **Claude > Settings** from
+the menu bar, go to **Developer**, and click **Edit Config**. On Windows, edit
+`%APPDATA%\Claude\claude_desktop_config.json`:
 
 ```json
 {
@@ -101,7 +106,27 @@ If you use `nvm` or `fnm`, use the real path instead of the ephemeral shell path
 dirname "$(readlink -f "$(which node)")"
 ```
 
-If your server uses HTTPS, you can drop the `--allow-http` flag. The `env` block may not be needed if `node` is in a standard location like `/usr/local/bin`.
+If your server uses HTTPS, you can drop the `--allow-http` flag. The `env`
+block may not be needed if `node` is in a standard location like
+`/usr/local/bin`.
+
+Save the file, quit Claude Desktop completely, and reopen it. In a new chat,
+open the connectors/tools menu and confirm `paperless-ag` is enabled.
+
+If the connector does not appear, first validate the JSON file and confirm
+Claude can find Node:
+
+```bash
+jq . "$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+dirname "$(which node)"
+```
+
+Then quit and reopen Claude Desktop again. On macOS, a working `mcp-remote`
+configuration will start a process containing your MCP URL:
+
+```bash
+pgrep -fl 'mcp-remote'
+```
 
 Replace `YOUR_SERVER_URL` with the URL from the install output (`https://yourdomain.com` if you configured a domain, or `http://YOUR_IP` if not) and `YOUR_MCP_TOKEN` with the token shown at the end of the install script. If you've lost the token, check your `.env` file (adjust the path if you chose a different install directory):
 
@@ -154,6 +179,36 @@ python3 upload.py      # Upload to Paperless with metadata
 ```
 
 See [test-data/README.md](test-data/README.md) for details on the test documents, farms, and document types.
+
+### Test the local MCP server with Claude Desktop
+
+For local development, give the companion a temporary MCP token without editing
+tracked Compose files:
+
+```bash
+cat >/tmp/paperless-ag.override.yml <<'YAML'
+services:
+  app:
+    environment:
+      MCP_AUTH_TOKEN: paperless-ag-local-demo
+YAML
+
+docker compose -f docker-compose.yml -f /tmp/paperless-ag.override.yml up -d --build
+```
+
+Verify the MCP server and embeddings:
+
+```bash
+curl -f http://localhost:3001/health
+
+docker compose exec -T db psql -U paperless -d paperless \
+  -c "select count(*) as embedding_rows, count(distinct document_id) as embedded_documents from document_embeddings;"
+```
+
+Then use `http://localhost:3001/mcp` and
+`Authorization:Bearer paperless-ag-local-demo` in the Claude Desktop
+`mcp-remote` config above. The local demo should report 100 embedded documents
+after the test data finishes processing.
 
 ## Uninstall
 

@@ -1,0 +1,13 @@
+Hey this is Brian from Fullstack Ag.
+
+When we install Paperless Ag, you are going to see Docker mentioned a lot. Docker sounds like a programmer thing, but for this project you can think of it as the packaging system that keeps the whole setup predictable.
+
+Paperless is not just one program. It has the Paperless web app, a Postgres database, Redis for background work, and Paperless Ag for semantic search and Claude. Docker puts each piece in its own container so the pieces do not get tangled up with the rest of the computer.
+
+Docker Compose is the recipe that starts the containers together. Instead of installing a database by hand, then Redis by hand, then Paperless by hand, the Compose file says: here are the services, here is how they connect, and here is where the data should live.
+
+That last part matters. Containers can be replaced, updated, or restarted, but your documents and database live in persistent storage. So Docker gives us a clean way to update the software without treating your data as disposable.
+
+The reason we use Docker is that the same stack can run on my Mac, on a DigitalOcean server, or on a Raspberry Pi with the same basic commands. You do not need to become a Docker expert. The installer handles the boring parts for you.
+
+Thanks for watching!

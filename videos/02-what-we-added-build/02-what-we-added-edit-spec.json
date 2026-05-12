@@ -1,0 +1,105 @@
+{
+  "output": "02-what-we-added-preview.mp4",
+  "inputs": {
+    "video": "../src/02-what-we-added.mp4",
+    "audio": "../src/02-what-we-added.m4a"
+  },
+  "timeline": {
+    "width": 3600,
+    "height": 2160,
+    "fps": 60,
+    "segments": [
+      {
+        "type": "freeze",
+        "path": "frames/freeze-first-frame.png",
+        "duration": 18.0
+      },
+      {
+        "type": "video",
+        "start": 0.0,
+        "end": 5.5,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-paperless-empty.png",
+        "duration": 13.5
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-project-top.png",
+        "duration": 25.0
+      },
+      {
+        "type": "video",
+        "start": 9.0,
+        "end": 11.0,
+        "setpts_multiplier": 6.0
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-project-claude-config-011.png",
+        "duration": 8.0
+      },
+      {
+        "type": "video",
+        "start": 17.0,
+        "end": 25.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 25.0,
+        "end": 64.0,
+        "setpts_multiplier": 0.35
+      },
+      {
+        "type": "video",
+        "start": 64.0,
+        "end": 82.0,
+        "setpts_multiplier": 1.0
+      },
+      {
+        "type": "video",
+        "start": 82.0,
+        "end": 86.139,
+        "setpts_multiplier": 0.9
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-claude-final-source-list.png",
+        "duration": 6.8749
+      }
+    ],
+    "intro": {
+      "path": "cards/intro-what-we-added.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    },
+    "outro": {
+      "path": "cards/outro-fullstack-ag.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    }
+  },
+  "profiles": {
+    "preview": {
+      "video_codec": "libx264",
+      "preset": "veryfast",
+      "crf": 28,
+      "scale_width": 1280,
+      "audio_codec": "aac",
+      "audio_bitrate": "128k",
+      "movflags_faststart": true,
+      "shortest": true
+    },
+    "hq": {
+      "video_codec": "libx264",
+      "preset": "slow",
+      "crf": 18,
+      "audio_codec": "copy",
+      "movflags_faststart": true,
+      "shortest": true
+    }
+  }
+}

@@ -1,0 +1,604 @@
+{
+	"systeminfo": "WHISPER : COREML = 0 | OPENVINO = 0 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "base",
+		"multilingual": false,
+		"vocab": 51864,
+		"audio": {
+			"ctx": 1500,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"text": {
+			"ctx": 448,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/Users/brian/.cache/whisper.cpp/ggml-base.en.bin",
+		"language": "en",
+		"translate": false
+	},
+	"result": {
+		"language": "en"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:03,360"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 3360
+			},
+			"text": " Hey, this is Brian from Fullstack Egg."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:03,360",
+				"to": "00:00:12,360"
+			},
+			"offsets": {
+				"from": 3360,
+				"to": 12360
+			},
+			"text": " I'm going to show you how to install Papeless NGX and Papeless Egg to a digital ocean droplet."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:12,360",
+				"to": "00:00:15,840"
+			},
+			"offsets": {
+				"from": 12360,
+				"to": 15840
+			},
+			"text": " And by the end of this video, you'll have a working document archive."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:15,840",
+				"to": "00:00:18,560"
+			},
+			"offsets": {
+				"from": 15840,
+				"to": 18560
+			},
+			"text": " You can search using AI."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:18,560",
+				"to": "00:00:25,680"
+			},
+			"offsets": {
+				"from": 18560,
+				"to": 25680
+			},
+			"text": " I'm going to start on paperless.fullstack.egg and I'm going to use the button to deploy to"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:25,680",
+				"to": "00:00:28,080"
+			},
+			"offsets": {
+				"from": 25680,
+				"to": 28080
+			},
+			"text": " digital ocean."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:28,080",
+				"to": "00:00:33,240"
+			},
+			"offsets": {
+				"from": 28080,
+				"to": 33240
+			},
+			"text": " You don't have to use our button, you can just create a droplet manually."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:33,240",
+				"to": "00:00:36,960"
+			},
+			"offsets": {
+				"from": 33240,
+				"to": 36960
+			},
+			"text": " The button just sets a couple of defaults for you."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:36,960",
+				"to": "00:00:43,960"
+			},
+			"offsets": {
+				"from": 36960,
+				"to": 43960
+			},
+			"text": " So I'm going to scroll past the region and you can see that Ubuntu is selected for us"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:43,960",
+				"to": "00:00:51,720"
+			},
+			"offsets": {
+				"from": 43960,
+				"to": 51720
+			},
+			"text": " and we have a basic droplet with a regular CPU and 4GB of memory."
+		},
+		{
+			"timestamps": {
+				"from": "00:00:51,720",
+				"to": "00:00:57,360"
+			},
+			"offsets": {
+				"from": 51720,
+				"to": 57360
+			},
+			"text": " And for authentication, I'm going to use my SSH key that I have already added to digital"
+		},
+		{
+			"timestamps": {
+				"from": "00:00:57,360",
+				"to": "00:01:03,120"
+			},
+			"offsets": {
+				"from": 57360,
+				"to": 63120
+			},
+			"text": " ocean and this will allow me to securely log into the server without typing a password"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:03,120",
+				"to": "00:01:05,440"
+			},
+			"offsets": {
+				"from": 63120,
+				"to": 65440
+			},
+			"text": " in every time."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:05,440",
+				"to": "00:01:11,420"
+			},
+			"offsets": {
+				"from": 65440,
+				"to": 71420
+			},
+			"text": " You can click add SSH key and digital ocean has instructions for how to generate the"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:11,420",
+				"to": "00:01:17,760"
+			},
+			"offsets": {
+				"from": 71420,
+				"to": 77760
+			},
+			"text": " SSH key on your computer and get the key added to digital ocean."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:17,760",
+				"to": "00:01:25,000"
+			},
+			"offsets": {
+				"from": 77760,
+				"to": 85000
+			},
+			"text": " And finally we need to give our droplet a name, I'm going to call my paperless video."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:25,000",
+				"to": "00:01:30,440"
+			},
+			"offsets": {
+				"from": 85000,
+				"to": 90440
+			},
+			"text": " So now we have a droplet that is going to cost us $24 a month and we'll go ahead and"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:30,440",
+				"to": "00:01:32,160"
+			},
+			"offsets": {
+				"from": 90440,
+				"to": 92160
+			},
+			"text": " hit create."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:32,160",
+				"to": "00:01:39,720"
+			},
+			"offsets": {
+				"from": 92160,
+				"to": 99720
+			},
+			"text": " This will take a minute to spin up so I'll fast forward and here it is ready and we have"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:39,720",
+				"to": "00:01:42,160"
+			},
+			"offsets": {
+				"from": 99720,
+				"to": 102160
+			},
+			"text": " our IP address."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:42,160",
+				"to": "00:01:49,440"
+			},
+			"offsets": {
+				"from": 102160,
+				"to": 109440
+			},
+			"text": " So to connect to our new server, we will copy the IP address and open up a terminal and"
+		},
+		{
+			"timestamps": {
+				"from": "00:01:49,440",
+				"to": "00:01:55,920"
+			},
+			"offsets": {
+				"from": 109440,
+				"to": 115920
+			},
+			"text": " we will type SSH root at and paste the IP address."
+		},
+		{
+			"timestamps": {
+				"from": "00:01:55,920",
+				"to": "00:02:03,160"
+			},
+			"offsets": {
+				"from": 115920,
+				"to": 123160
+			},
+			"text": " I'll hit return and if it asks about a fingerprint, I'll type yes and now we're logged into our"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:03,160",
+				"to": "00:02:06,880"
+			},
+			"offsets": {
+				"from": 123160,
+				"to": 126880
+			},
+			"text": " server and now we get to do the fun part."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:06,880",
+				"to": "00:02:12,960"
+			},
+			"offsets": {
+				"from": 126880,
+				"to": 132960
+			},
+			"text": " We're going to go to paperless.fullstack.egg and copy the install script and we'll go back"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:12,960",
+				"to": "00:02:18,440"
+			},
+			"offsets": {
+				"from": 132960,
+				"to": 138440
+			},
+			"text": " to our terminal where we're logged into our server and we'll paste the script and run"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:18,440",
+				"to": "00:02:19,440"
+			},
+			"offsets": {
+				"from": 138440,
+				"to": 139440
+			},
+			"text": " it."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:19,440",
+				"to": "00:02:23,120"
+			},
+			"offsets": {
+				"from": 139440,
+				"to": 143120
+			},
+			"text": " The script is going to ask us a few questions."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:23,120",
+				"to": "00:02:27,280"
+			},
+			"offsets": {
+				"from": 143120,
+				"to": 147280
+			},
+			"text": " So the install directory, the default is fine."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:27,280",
+				"to": "00:02:32,960"
+			},
+			"offsets": {
+				"from": 147280,
+				"to": 152960
+			},
+			"text": " We'll choose our username and password to log into paperless and if you have a domain"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:32,960",
+				"to": "00:02:37,660"
+			},
+			"offsets": {
+				"from": 152960,
+				"to": 157660
+			},
+			"text": " name you're going to point at your digital option droplet, you can enter it here otherwise"
+		},
+		{
+			"timestamps": {
+				"from": "00:02:37,660",
+				"to": "00:02:42,560"
+			},
+			"offsets": {
+				"from": 157660,
+				"to": 162560
+			},
+			"text": " you can skip it and just access it by the IP address."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:42,560",
+				"to": "00:02:47,120"
+			},
+			"offsets": {
+				"from": 162560,
+				"to": 167120
+			},
+			"text": " So now the script is pulling down all the pieces and starting everything up."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:47,120",
+				"to": "00:02:53,680"
+			},
+			"offsets": {
+				"from": 167120,
+				"to": 173680
+			},
+			"text": " This will take a few minutes and I'll just skip ahead here and we're done."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:53,680",
+				"to": "00:02:56,000"
+			},
+			"offsets": {
+				"from": 173680,
+				"to": 176000
+			},
+			"text": " The script tells us everything we need."
+		},
+		{
+			"timestamps": {
+				"from": "00:02:56,000",
+				"to": "00:03:01,440"
+			},
+			"offsets": {
+				"from": 176000,
+				"to": 181440
+			},
+			"text": " Here's the URL to access paperless and here are the details we'll need later to connect"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:01,440",
+				"to": "00:03:06,920"
+			},
+			"offsets": {
+				"from": 181440,
+				"to": 186920
+			},
+			"text": " to Cloud and I'll just save these somewhere and let me make sure it's working."
+		},
+		{
+			"timestamps": {
+				"from": "00:03:06,920",
+				"to": "00:03:14,080"
+			},
+			"offsets": {
+				"from": 186920,
+				"to": 194080
+			},
+			"text": " I'm going to open my browser, go to my server's IP address with the port 8000 and I'll log"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:14,080",
+				"to": "00:03:20,600"
+			},
+			"offsets": {
+				"from": 194080,
+				"to": 200600
+			},
+			"text": " in with the username and password I just set up and there it is, paperless is running."
+		},
+		{
+			"timestamps": {
+				"from": "00:03:20,600",
+				"to": "00:03:26,680"
+			},
+			"offsets": {
+				"from": 200600,
+				"to": 206680
+			},
+			"text": " And to get started I can just drag and drop a PDF right into the browser and paperless"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:26,680",
+				"to": "00:03:33,000"
+			},
+			"offsets": {
+				"from": 206680,
+				"to": 213000
+			},
+			"text": " is going to process it, read the text and add it to my archive and our search add-on"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:33,000",
+				"to": "00:03:35,800"
+			},
+			"offsets": {
+				"from": 213000,
+				"to": 215800
+			},
+			"text": " will automatically pick it up as well."
+		},
+		{
+			"timestamps": {
+				"from": "00:03:35,800",
+				"to": "00:03:40,480"
+			},
+			"offsets": {
+				"from": 215800,
+				"to": 220480
+			},
+			"text": " And be sure to check out our video about what we added to paperless, our paperless"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:40,480",
+				"to": "00:03:49,240"
+			},
+			"offsets": {
+				"from": 220480,
+				"to": 229240
+			},
+			"text": " egg add-on and in that video we show you how to connect paperless to Cloud and make queries"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:49,240",
+				"to": "00:03:53,840"
+			},
+			"offsets": {
+				"from": 229240,
+				"to": 233840
+			},
+			"text": " using just plain English and that's the whole thing."
+		},
+		{
+			"timestamps": {
+				"from": "00:03:53,840",
+				"to": "00:03:59,760"
+			},
+			"offsets": {
+				"from": 233840,
+				"to": 239760
+			},
+			"text": " I've got a searchable document archive that you can access from anywhere and you're in"
+		},
+		{
+			"timestamps": {
+				"from": "00:03:59,760",
+				"to": "00:04:02,440"
+			},
+			"offsets": {
+				"from": 239760,
+				"to": 242440
+			},
+			"text": " full control of your own data."
+		},
+		{
+			"timestamps": {
+				"from": "00:04:02,440",
+				"to": "00:04:07,200"
+			},
+			"offsets": {
+				"from": 242440,
+				"to": 247200
+			},
+			"text": " So I found you how easy this is to get set up on digital ocean but you might not want"
+		},
+		{
+			"timestamps": {
+				"from": "00:04:07,200",
+				"to": "00:04:10,720"
+			},
+			"offsets": {
+				"from": 247200,
+				"to": 250720
+			},
+			"text": " to pay $24 a month for this."
+		},
+		{
+			"timestamps": {
+				"from": "00:04:10,720",
+				"to": "00:04:16,280"
+			},
+			"offsets": {
+				"from": 250720,
+				"to": 256280
+			},
+			"text": " So in another video I'm going to show you how to install this on a Raspberry Pi."
+		},
+		{
+			"timestamps": {
+				"from": "00:04:16,280",
+				"to": "00:04:22,400"
+			},
+			"offsets": {
+				"from": 256280,
+				"to": 262400
+			},
+			"text": " The Raspberry Pi you'll need will cost you around $200 but it'll save you almost $300"
+		},
+		{
+			"timestamps": {
+				"from": "00:04:22,400",
+				"to": "00:04:27,120"
+			},
+			"offsets": {
+				"from": 262400,
+				"to": 267120
+			},
+			"text": " a year so go ahead and check that video out as well and thanks for watching."
+		}
+	]
+}

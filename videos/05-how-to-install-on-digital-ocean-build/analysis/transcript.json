@@ -1,0 +1,329 @@
+{
+  "schema": "nerdout.transcript.v1",
+  "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/05-how-to-install-on-digital-ocean.m4a",
+  "duration": 267.540317,
+  "language": "en",
+  "engine": "whisper.cpp",
+  "model": "/Users/brian/.cache/whisper.cpp/ggml-base.en.bin",
+  "whisper_cli": "/opt/homebrew/bin/whisper-cli",
+  "raw_outputs": {
+    "text": "/Users/brian/github/nerdoutinc/paperless-ag/videos/05-how-to-install-on-digital-ocean-build/analysis/whisper.txt",
+    "srt": "/Users/brian/github/nerdoutinc/paperless-ag/videos/05-how-to-install-on-digital-ocean-build/analysis/whisper.srt",
+    "json": "/Users/brian/github/nerdoutinc/paperless-ag/videos/05-how-to-install-on-digital-ocean-build/analysis/whisper.json"
+  },
+  "segments": [
+    {
+      "id": "n001",
+      "start": 0.0,
+      "end": 3.36,
+      "text": "Hey, this is Brian from Fullstack Egg."
+    },
+    {
+      "id": "n002",
+      "start": 3.36,
+      "end": 12.36,
+      "text": "I'm going to show you how to install Papeless NGX and Papeless Egg to a digital ocean droplet."
+    },
+    {
+      "id": "n003",
+      "start": 12.36,
+      "end": 15.84,
+      "text": "And by the end of this video, you'll have a working document archive."
+    },
+    {
+      "id": "n004",
+      "start": 15.84,
+      "end": 18.56,
+      "text": "You can search using AI."
+    },
+    {
+      "id": "n005",
+      "start": 18.56,
+      "end": 25.68,
+      "text": "I'm going to start on paperless.fullstack.egg and I'm going to use the button to deploy to"
+    },
+    {
+      "id": "n006",
+      "start": 25.68,
+      "end": 28.08,
+      "text": "digital ocean."
+    },
+    {
+      "id": "n007",
+      "start": 28.08,
+      "end": 33.24,
+      "text": "You don't have to use our button, you can just create a droplet manually."
+    },
+    {
+      "id": "n008",
+      "start": 33.24,
+      "end": 36.96,
+      "text": "The button just sets a couple of defaults for you."
+    },
+    {
+      "id": "n009",
+      "start": 36.96,
+      "end": 43.96,
+      "text": "So I'm going to scroll past the region and you can see that Ubuntu is selected for us"
+    },
+    {
+      "id": "n010",
+      "start": 43.96,
+      "end": 51.72,
+      "text": "and we have a basic droplet with a regular CPU and 4GB of memory."
+    },
+    {
+      "id": "n011",
+      "start": 51.72,
+      "end": 57.36,
+      "text": "And for authentication, I'm going to use my SSH key that I have already added to digital"
+    },
+    {
+      "id": "n012",
+      "start": 57.36,
+      "end": 63.12,
+      "text": "ocean and this will allow me to securely log into the server without typing a password"
+    },
+    {
+      "id": "n013",
+      "start": 63.12,
+      "end": 65.44,
+      "text": "in every time."
+    },
+    {
+      "id": "n014",
+      "start": 65.44,
+      "end": 71.42,
+      "text": "You can click add SSH key and digital ocean has instructions for how to generate the"
+    },
+    {
+      "id": "n015",
+      "start": 71.42,
+      "end": 77.76,
+      "text": "SSH key on your computer and get the key added to digital ocean."
+    },
+    {
+      "id": "n016",
+      "start": 77.76,
+      "end": 85.0,
+      "text": "And finally we need to give our droplet a name, I'm going to call my paperless video."
+    },
+    {
+      "id": "n017",
+      "start": 85.0,
+      "end": 90.44,
+      "text": "So now we have a droplet that is going to cost us $24 a month and we'll go ahead and"
+    },
+    {
+      "id": "n018",
+      "start": 90.44,
+      "end": 92.16,
+      "text": "hit create."
+    },
+    {
+      "id": "n019",
+      "start": 92.16,
+      "end": 99.72,
+      "text": "This will take a minute to spin up so I'll fast forward and here it is ready and we have"
+    },
+    {
+      "id": "n020",
+      "start": 99.72,
+      "end": 102.16,
+      "text": "our IP address."
+    },
+    {
+      "id": "n021",
+      "start": 102.16,
+      "end": 109.44,
+      "text": "So to connect to our new server, we will copy the IP address and open up a terminal and"
+    },
+    {
+      "id": "n022",
+      "start": 109.44,
+      "end": 115.92,
+      "text": "we will type SSH root at and paste the IP address."
+    },
+    {
+      "id": "n023",
+      "start": 115.92,
+      "end": 123.16,
+      "text": "I'll hit return and if it asks about a fingerprint, I'll type yes and now we're logged into our"
+    },
+    {
+      "id": "n024",
+      "start": 123.16,
+      "end": 126.88,
+      "text": "server and now we get to do the fun part."
+    },
+    {
+      "id": "n025",
+      "start": 126.88,
+      "end": 132.96,
+      "text": "We're going to go to paperless.fullstack.egg and copy the install script and we'll go back"
+    },
+    {
+      "id": "n026",
+      "start": 132.96,
+      "end": 138.44,
+      "text": "to our terminal where we're logged into our server and we'll paste the script and run"
+    },
+    {
+      "id": "n027",
+      "start": 138.44,
+      "end": 139.44,
+      "text": "it."
+    },
+    {
+      "id": "n028",
+      "start": 139.44,
+      "end": 143.12,
+      "text": "The script is going to ask us a few questions."
+    },
+    {
+      "id": "n029",
+      "start": 143.12,
+      "end": 147.28,
+      "text": "So the install directory, the default is fine."
+    },
+    {
+      "id": "n030",
+      "start": 147.28,
+      "end": 152.96,
+      "text": "We'll choose our username and password to log into paperless and if you have a domain"
+    },
+    {
+      "id": "n031",
+      "start": 152.96,
+      "end": 157.66,
+      "text": "name you're going to point at your digital option droplet, you can enter it here otherwise"
+    },
+    {
+      "id": "n032",
+      "start": 157.66,
+      "end": 162.56,
+      "text": "you can skip it and just access it by the IP address."
+    },
+    {
+      "id": "n033",
+      "start": 162.56,
+      "end": 167.12,
+      "text": "So now the script is pulling down all the pieces and starting everything up."
+    },
+    {
+      "id": "n034",
+      "start": 167.12,
+      "end": 173.68,
+      "text": "This will take a few minutes and I'll just skip ahead here and we're done."
+    },
+    {
+      "id": "n035",
+      "start": 173.68,
+      "end": 176.0,
+      "text": "The script tells us everything we need."
+    },
+    {
+      "id": "n036",
+      "start": 176.0,
+      "end": 181.44,
+      "text": "Here's the URL to access paperless and here are the details we'll need later to connect"
+    },
+    {
+      "id": "n037",
+      "start": 181.44,
+      "end": 186.92,
+      "text": "to Cloud and I'll just save these somewhere and let me make sure it's working."
+    },
+    {
+      "id": "n038",
+      "start": 186.92,
+      "end": 194.08,
+      "text": "I'm going to open my browser, go to my server's IP address with the port 8000 and I'll log"
+    },
+    {
+      "id": "n039",
+      "start": 194.08,
+      "end": 200.6,
+      "text": "in with the username and password I just set up and there it is, paperless is running."
+    },
+    {
+      "id": "n040",
+      "start": 200.6,
+      "end": 206.68,
+      "text": "And to get started I can just drag and drop a PDF right into the browser and paperless"
+    },
+    {
+      "id": "n041",
+      "start": 206.68,
+      "end": 213.0,
+      "text": "is going to process it, read the text and add it to my archive and our search add-on"
+    },
+    {
+      "id": "n042",
+      "start": 213.0,
+      "end": 215.8,
+      "text": "will automatically pick it up as well."
+    },
+    {
+      "id": "n043",
+      "start": 215.8,
+      "end": 220.48,
+      "text": "And be sure to check out our video about what we added to paperless, our paperless"
+    },
+    {
+      "id": "n044",
+      "start": 220.48,
+      "end": 229.24,
+      "text": "egg add-on and in that video we show you how to connect paperless to Cloud and make queries"
+    },
+    {
+      "id": "n045",
+      "start": 229.24,
+      "end": 233.84,
+      "text": "using just plain English and that's the whole thing."
+    },
+    {
+      "id": "n046",
+      "start": 233.84,
+      "end": 239.76,
+      "text": "I've got a searchable document archive that you can access from anywhere and you're in"
+    },
+    {
+      "id": "n047",
+      "start": 239.76,
+      "end": 242.44,
+      "text": "full control of your own data."
+    },
+    {
+      "id": "n048",
+      "start": 242.44,
+      "end": 247.2,
+      "text": "So I found you how easy this is to get set up on digital ocean but you might not want"
+    },
+    {
+      "id": "n049",
+      "start": 247.2,
+      "end": 250.72,
+      "text": "to pay $24 a month for this."
+    },
+    {
+      "id": "n050",
+      "start": 250.72,
+      "end": 256.28,
+      "text": "So in another video I'm going to show you how to install this on a Raspberry Pi."
+    },
+    {
+      "id": "n051",
+      "start": 256.28,
+      "end": 262.4,
+      "text": "The Raspberry Pi you'll need will cost you around $200 but it'll save you almost $300"
+    },
+    {
+      "id": "n052",
+      "start": 262.4,
+      "end": 267.12,
+      "text": "a year so go ahead and check that video out as well and thanks for watching."
+    }
+  ],
+  "text": "Hey, this is Brian from Fullstack Egg.\nI'm going to show you how to install Papeless NGX and Papeless Egg to a digital ocean droplet.\nAnd by the end of this video, you'll have a working document archive.\nYou can search using AI.\nI'm going to start on paperless.fullstack.egg and I'm going to use the button to deploy to\ndigital ocean.\nYou don't have to use our button, you can just create a droplet manually.\nThe button just sets a couple of defaults for you.\nSo I'm going to scroll past the region and you can see that Ubuntu is selected for us\nand we have a basic droplet with a regular CPU and 4GB of memory.\nAnd for authentication, I'm going to use my SSH key that I have already added to digital\nocean and this will allow me to securely log into the server without typing a password\nin every time.\nYou can click add SSH key and digital ocean has instructions for how to generate the\nSSH key on your computer and get the key added to digital ocean.\nAnd finally we need to give our droplet a name, I'm going to call my paperless video.\nSo now we have a droplet that is going to cost us $24 a month and we'll go ahead and\nhit create.\nThis will take a minute to spin up so I'll fast forward and here it is ready and we have\nour IP address.\nSo to connect to our new server, we will copy the IP address and open up a terminal and\nwe will type SSH root at and paste the IP address.\nI'll hit return and if it asks about a fingerprint, I'll type yes and now we're logged into our\nserver and now we get to do the fun part.\nWe're going to go to paperless.fullstack.egg and copy the install script and we'll go back\nto our terminal where we're logged into our server and we'll paste the script and run\nit.\nThe script is going to ask us a few questions.\nSo the install directory, the default is fine.\nWe'll choose our username and password to log into paperless and if you have a domain\nname you're going to point at your digital option droplet, you can enter it here otherwise\nyou can skip it and just access it by the IP address.\nSo now the script is pulling down all the pieces and starting everything up.\nThis will take a few minutes and I'll just skip ahead here and we're done.\nThe script tells us everything we need.\nHere's the URL to access paperless and here are the details we'll need later to connect\nto Cloud and I'll just save these somewhere and let me make sure it's working.\nI'm going to open my browser, go to my server's IP address with the port 8000 and I'll log\nin with the username and password I just set up and there it is, paperless is running.\nAnd to get started I can just drag and drop a PDF right into the browser and paperless\nis going to process it, read the text and add it to my archive and our search add-on\nwill automatically pick it up as well.\nAnd be sure to check out our video about what we added to paperless, our paperless\negg add-on and in that video we show you how to connect paperless to Cloud and make queries\nusing just plain English and that's the whole thing.\nI've got a searchable document archive that you can access from anywhere and you're in\nfull control of your own data.\nSo I found you how easy this is to get set up on digital ocean but you might not want\nto pay $24 a month for this.\nSo in another video I'm going to show you how to install this on a Raspberry Pi.\nThe Raspberry Pi you'll need will cost you around $200 but it'll save you almost $300\na year so go ahead and check that video out as well and thanks for watching."
+}

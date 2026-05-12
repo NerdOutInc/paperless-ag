@@ -1,0 +1,34 @@
+Hey this is Brian from Fullstack Ag.
+
+Today I want to show you something called Paperless NGX. 
+Paperless NGX is an open-source digital archive for documents.
+
+Think of all the paper that piles up around a farm: 
+leases, crop insurance, equipment records, notes from the shop. 
+Paperless gives all of that a single home.
+
+I have a little note here that started as a piece of paper. 
+I am going to drop the photo into Paperless. 
+It uploads it, files away the original, 
+and then tries to read the text on the page with OCR, 
+which is optical character recognition.
+
+That is the first big win. 
+The document is not just a picture in a folder anymore. 
+Paperless knows the date, can store tags and a document type, 
+and most importantly, it can search the text it found.
+
+So later, if I remember something about a hydraulic hose,
+but not where I put the note, 
+I can search for that phrase and pull it right back up. 
+
+That is the basic Paperless workflow: capture the paper once, 
+then stop hunting for it.
+
+Paperless NGX is not the AI part yet. 
+It is the solid foundation: upload, OCR, tags, dates, document types, 
+and a searchable archive running on hardware you control. 
+In another video, 
+I will show you what Paperless Ag adds to make searching a lot smarter.
+
+So... Thanks for watching!
