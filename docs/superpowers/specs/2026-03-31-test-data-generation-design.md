@@ -1,13 +1,13 @@
 # Test Data Generation Design
 
 **Date:** 2026-03-31
-**Purpose:** Generate 100 fake farm/ranch PDFs for testing Paperless NGX and the semantic search companion container.
+**Purpose:** Generate 100 fake farm/ranch PDFs for testing Paperless-ngx and the semantic search companion container.
 
 ---
 
 ## Overview
 
-Generate 100 realistic PDF documents representing the paperwork that farms and ranches accumulate. Upload them to a local Paperless NGX instance (localhost:8000) via the REST API with pre-assigned metadata (correspondents, document types, tags). This provides immediate test data for developing the pgvector semantic search companion container.
+Generate 100 realistic PDF documents representing the paperwork that farms and ranches accumulate. Upload them to a local Paperless-ngx instance (localhost:8000) via the REST API with pre-assigned metadata (correspondents, document types, tags). This provides immediate test data for developing the pgvector semantic search companion container.
 
 ## Farms
 
@@ -71,7 +71,7 @@ test-data/
 2. For each document: renders HTML from its Jinja2 template with the document's data
 3. Writes HTML to a temp file, converts via `chrome --headless --print-to-pdf`
 4. Repeats for all 100 documents
-5. Uploads each PDF to Paperless NGX via `POST /api/documents/post_document/` with metadata
+5. Uploads each PDF to Paperless-ngx via `POST /api/documents/post_document/` with metadata
 
 ### Chrome PDF Conversion
 
@@ -87,6 +87,7 @@ test-data/
 ### Hero Documents (20)
 
 Full visual treatment per template:
+
 - Letterheads with company/agency names and addresses
 - Styled headers with colored backgrounds or borders
 - Data tables with proper formatting
@@ -99,6 +100,7 @@ Each hero document is a unique HTML template. These are good for demos and scree
 ### Standard Documents (80)
 
 Content-focused with minimal styling:
+
 - Clean sans-serif typography (system font stack)
 - Proper heading hierarchy (h1/h2/h3)
 - Tables where the document type calls for them
@@ -106,7 +108,7 @@ Content-focused with minimal styling:
 
 ~15 reusable Jinja2 templates (one per document type), rendered with varied data to produce 80 distinct documents.
 
-## Paperless NGX Metadata
+## Paperless-ngx Metadata
 
 ### Correspondents
 
@@ -126,6 +128,7 @@ Each document is assigned a correspondent representing its source. Examples:
 ### Document Types
 
 Created in Paperless to match the categories in the distribution table:
+
 - Soil Test Report
 - Crop Insurance Policy
 - Seed Contract
@@ -148,6 +151,7 @@ Created in Paperless to match the categories in the distribution table:
 ### Tags
 
 Each document gets 2-4 tags:
+
 - **Farm name:** `horob-family-farms`, `nerd-out-ranch`, `pattison-acres`
 - **Year:** `2023`, `2024`, `2025`, `2026`
 - **Topical tags (selected per doc):** `corn`, `soybeans`, `wheat`, `cattle`, `nitrogen`, `phosphorus`, `herbicide`, `insurance`, `lease`, `tax`, `equipment`, `hay`
@@ -166,6 +170,7 @@ Document text uses realistic technical language to enable meaningful semantic se
 ### Semantic Search Test Queries
 
 The content should enable these example queries to return meaningful results:
+
 - "find me everything related to nitrogen management" -- hits soil tests, chemical records, nutrient management plans
 - "what did my soil test say about phosphorus levels" -- finds specific soil test results with P levels
 - "crop insurance documents from 2024" -- date range + type filtering
@@ -175,7 +180,7 @@ The content should enable these example queries to return meaningful results:
 
 ## Upload Script
 
-The upload step uses the Paperless NGX REST API:
+The upload step uses the Paperless-ngx REST API:
 
 1. Authenticate: get API token via `POST /api/token/` with admin/admin credentials
 2. Create document types via `POST /api/document_types/`

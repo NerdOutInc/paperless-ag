@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Upload generated PDFs to Paperless NGX via its REST API.
+Upload generated PDFs to Paperless-ngx via its REST API.
 
 Creates document types, correspondents, and tags in Paperless, then uploads
 each PDF with the correct metadata. Idempotent -- existing items are reused.
@@ -226,12 +226,12 @@ def upload_document(base_url, headers, doc, pdf_path, type_lookup, corr_lookup, 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Upload generated PDFs to Paperless NGX."
+        description="Upload generated PDFs to Paperless-ngx."
     )
     parser.add_argument(
         "--url",
         default="http://localhost:8000",
-        help="Paperless NGX base URL (default: http://localhost:8000).",
+        help="Paperless-ngx base URL (default: http://localhost:8000).",
     )
     parser.add_argument(
         "--username",

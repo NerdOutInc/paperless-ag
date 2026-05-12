@@ -354,7 +354,7 @@ Replace lines 395-454 with:
 
 ```bash
 collect_addon_config() {
-    echo "  We found Paperless NGX running on this server."
+    echo "  We found Paperless-ngx running on this server."
     echo
     info "Container: $(docker inspect "$PAPERLESS_CONTAINER_ID" --format '{{.Name}}' 2>/dev/null | sed 's/^\///')"
     [[ -n "$PAPERLESS_COMPOSE_DIR" ]] && info "Compose dir: $PAPERLESS_COMPOSE_DIR"
@@ -556,7 +556,7 @@ overriding."
 
 - No file changes. This is a manual verification task.
 
-The droplet at 157.245.90.6 has a recovered Paperless NGX with `postgres:18`.
+The droplet at 157.245.90.6 has a recovered Paperless-ngx with `postgres:18`.
 Test the updated install script against it.
 
 - [ ] **Step 1: Reset the droplet to pre-install state**

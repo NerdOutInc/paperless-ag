@@ -9,14 +9,14 @@ version — which destroys databases running newer Postgres versions.
 
 ## Root Cause Analysis
 
-Tested on a Digital Ocean droplet running stock Paperless NGX with
+Tested on a Digital Ocean droplet running stock Paperless-ngx with
 `postgres:18`. Three failures occurred:
 
 1. The pgvector override switched `postgres:18` to `pgvector/pgvector:pg16`.
    Postgres data files are not backward-compatible between major versions, so
    pg16 initialized a fresh empty database. All Paperless tables were lost.
 2. `PAPERLESS_DBPASS` was not set as an explicit env var on the Paperless
-   container (Paperless NGX defaults it). The script fell back to prompting
+   container (Paperless-ngx defaults it). The script fell back to prompting
    the user, who didn't know the value. The actual password was in the
    Postgres container's `POSTGRES_PASSWORD` env var and in
    `docker-compose.yml`.

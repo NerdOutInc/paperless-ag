@@ -1,6 +1,6 @@
 # Paperless Ag - Local Development Stack
 #
-# This runs a stock Paperless NGX instance with pgvector-enabled Postgres.
+# This runs a stock Paperless-ngx instance with pgvector-enabled Postgres.
 # Use this for local development of the companion app container.
 #
 # Usage:
@@ -27,7 +27,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # Redis - required by Paperless NGX for Celery task queue
+  # Redis - required by Paperless-ngx for Celery task queue
   redis:
     image: redis:7-alpine
     restart: unless-stopped
@@ -39,7 +39,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # Stock Paperless NGX - no modifications
+  # Stock Paperless-ngx - no modifications
   paperless-webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     restart: unless-stopped
