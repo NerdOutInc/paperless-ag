@@ -1,0 +1,3776 @@
+{
+  "schema": "nerdout.timing_map.v1",
+  "source_video": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.mp4",
+  "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.m4a",
+  "artifacts": {
+    "media_summary": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/media-summary.json",
+    "transcript": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/transcript.json",
+    "screen_events": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/screen-events.json",
+    "screen_events_contact_sheet": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/screen-events-contact-sheet.jpg",
+    "timing_map_markdown": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/timing-map.md",
+    "timing_map_json": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/timing-map.json"
+  },
+  "media_summary": {
+    "schema": "nerdout.media_summary.v1",
+    "source_video": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.mp4",
+    "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.m4a",
+    "video": {
+      "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.mp4",
+      "duration": 51.716667,
+      "width": 3600,
+      "height": 2160,
+      "fps": 60.0,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "bit_rate": 26972680.0,
+      "has_embedded_audio": false,
+      "embedded_audio_codecs": []
+    },
+    "audio": {
+      "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.m4a",
+      "duration": 129.335147,
+      "codec": "aac",
+      "channels": 2,
+      "sample_rate": 44100.0,
+      "bit_rate": 263385.0
+    },
+    "duration_delta": 77.61848
+  },
+  "warnings": [
+    "Narration is 77.6s longer than the source video."
+  ],
+  "rows": [
+    {
+      "id": "tm001",
+      "transcript_segment": {
+        "id": "n001",
+        "start": 0.0,
+        "end": 3.7,
+        "text": "Hey, this is Brian from Fullstack Egg."
+      },
+      "narration_time": {
+        "start": 0.0,
+        "end": 3.7,
+        "mid": 1.85,
+        "inferred": false
+      },
+      "expected_source_time": 0.74,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 4.260248770970199,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.260248770970199,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm002",
+      "transcript_segment": {
+        "id": "n002",
+        "start": 3.7,
+        "end": 5.9,
+        "text": "Before we set up paperless,"
+      },
+      "narration_time": {
+        "start": 3.7,
+        "end": 5.9,
+        "mid": 4.8,
+        "inferred": false
+      },
+      "expected_source_time": 1.919,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 3.08064545981457,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 5.58064545981457,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.08064545981457,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm003",
+      "transcript_segment": {
+        "id": "n003",
+        "start": 5.9,
+        "end": 9.1,
+        "text": "we're going to need somewhere to install it."
+      },
+      "narration_time": {
+        "start": 5.9,
+        "end": 9.1,
+        "mid": 7.5,
+        "inferred": false
+      },
+      "expected_source_time": 2.999,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 2.0010085309602657,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 4.501008530960266,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.0010085309602657,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm004",
+      "transcript_segment": {
+        "id": "n004",
+        "start": 9.1,
+        "end": 13.98,
+        "text": "We could install it on our own computer at home."
+      },
+      "narration_time": {
+        "start": 9.1,
+        "end": 13.98,
+        "mid": 11.54,
+        "inferred": false
+      },
+      "expected_source_time": 4.614,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 0.38555179297086273,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 2.8855517929708627,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.38555179297086273,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 5.385551792970863,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm005",
+      "transcript_segment": {
+        "id": "n005",
+        "start": 13.98,
+        "end": 16.54,
+        "text": "Or if we want to install it in the Cloud,"
+      },
+      "narration_time": {
+        "start": 13.98,
+        "end": 16.54,
+        "mid": 15.26,
+        "inferred": false
+      },
+      "expected_source_time": 6.102,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 1.1019479756728456,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 1.3980520243271544,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.1019479756728456,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.8980520243271544,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm006",
+      "transcript_segment": {
+        "id": "n006",
+        "start": 16.54,
+        "end": 19.22,
+        "text": "we could set up a VPS."
+      },
+      "narration_time": {
+        "start": 16.54,
+        "end": 19.22,
+        "mid": 17.88,
+        "inferred": false
+      },
+      "expected_source_time": 7.15,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 2.149595662190727,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 0.35040433780927316,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.149595662190727,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.850404337809273,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm007",
+      "transcript_segment": {
+        "id": "n007",
+        "start": 19.22,
+        "end": 23.14,
+        "text": "VPS stands for Virtual Private Server."
+      },
+      "narration_time": {
+        "start": 19.22,
+        "end": 23.14,
+        "mid": 21.18,
+        "inferred": false
+      },
+      "expected_source_time": 8.469,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 3.469151908568211,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 0.969151908568211,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.530848091431789,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.469151908568211,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm008",
+      "transcript_segment": {
+        "id": "n008",
+        "start": 23.14,
+        "end": 25.46,
+        "text": "You can think of it as renting"
+      },
+      "narration_time": {
+        "start": 23.14,
+        "end": 25.46,
+        "mid": 24.3,
+        "inferred": false
+      },
+      "expected_source_time": 9.717,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 17.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.5769,
+          "distance_from_expected": 4.71673235968874,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 2.2167323596887396,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.2832676403112604,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.71673235968874,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0002_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm009",
+      "transcript_segment": {
+        "id": "n009",
+        "start": 25.46,
+        "end": 29.98,
+        "text": "a small office space instead of buying your own building."
+      },
+      "narration_time": {
+        "start": 25.46,
+        "end": 29.98,
+        "mid": 27.72,
+        "inferred": false
+      },
+      "expected_source_time": 11.084,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 5.915727530429143,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 3.584272469570857,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.0842724695708572,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm010",
+      "transcript_segment": {
+        "id": "n010",
+        "start": 29.98,
+        "end": 34.78,
+        "text": "Someone else owns the building and handles all the maintenance,"
+      },
+      "narration_time": {
+        "start": 29.98,
+        "end": 34.78,
+        "mid": 32.38,
+        "inferred": false
+      },
+      "expected_source_time": 12.948,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 4.052354164332451,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "stable_hold",
+          "time": 7.5,
+          "start": 0.0,
+          "end": 15.0,
+          "duration": 15.0,
+          "score": 0.6285,
+          "distance_from_expected": 5.447645835667549,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0003_00-07-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.947645835667549,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm011",
+      "transcript_segment": {
+        "id": "n011",
+        "start": 34.78,
+        "end": 37.94,
+        "text": "and you just use the space."
+      },
+      "narration_time": {
+        "start": 34.78,
+        "end": 37.94,
+        "mid": 36.36,
+        "inferred": false
+      },
+      "expected_source_time": 14.539,
+      "likely_source_range": {
+        "start": 8.0,
+        "end": 22.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 2.4608893580953684,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "anchor",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.539110641904632,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0004_00-10-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 5.460889358095368,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm012",
+      "transcript_segment": {
+        "id": "n012",
+        "start": 37.94,
+        "end": 42.62,
+        "text": "Setting up a VPS is just like renting an office."
+      },
+      "narration_time": {
+        "start": 37.94,
+        "end": 42.62,
+        "mid": 40.28,
+        "inferred": false
+      },
+      "expected_source_time": 16.107,
+      "likely_source_range": {
+        "start": 14.107,
+        "end": 28.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 0.8934164836105971,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e007",
+          "kind": "stable_hold",
+          "time": 21.5,
+          "start": 17.0,
+          "end": 26.0,
+          "duration": 9.0,
+          "score": 0.6327,
+          "distance_from_expected": 5.393416483610597,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0010_00-21-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.893416483610597,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm013",
+      "transcript_segment": {
+        "id": "n013",
+        "start": 42.62,
+        "end": 47.98,
+        "text": "A company like DigitalOcean has huge data centers full of servers."
+      },
+      "narration_time": {
+        "start": 42.62,
+        "end": 47.98,
+        "mid": 45.3,
+        "inferred": false
+      },
+      "expected_source_time": 18.114,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 28.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 1.1139084729999915,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.111,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e007",
+          "kind": "stable_hold",
+          "time": 21.5,
+          "start": 17.0,
+          "end": 26.0,
+          "duration": 9.0,
+          "score": 0.6327,
+          "distance_from_expected": 3.3860915270000085,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0010_00-21-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.111,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.8860915270000085,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.111,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.111,
+        "terms": [
+          "digitalocean"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm014",
+      "transcript_segment": {
+        "id": "n014",
+        "start": 47.98,
+        "end": 51.3,
+        "text": "You rent just a slice of one of those servers."
+      },
+      "narration_time": {
+        "start": 47.98,
+        "end": 51.3,
+        "mid": 49.64,
+        "inferred": false
+      },
+      "expected_source_time": 19.849,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 28.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 2.849324869750987,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e007",
+          "kind": "stable_hold",
+          "time": 21.5,
+          "start": 17.0,
+          "end": 26.0,
+          "duration": 9.0,
+          "score": 0.6327,
+          "distance_from_expected": 1.650675130249013,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0010_00-21-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.15067513024901302,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 5.150675130249013,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0011_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm015",
+      "transcript_segment": {
+        "id": "n015",
+        "start": 51.3,
+        "end": 52.66,
+        "text": "It's always on,"
+      },
+      "narration_time": {
+        "start": 51.3,
+        "end": 52.66,
+        "mid": 51.98,
+        "inferred": false
+      },
+      "expected_source_time": 20.785,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 28.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 3.785010208091382,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e007",
+          "kind": "stable_hold",
+          "time": 21.5,
+          "start": 17.0,
+          "end": 26.0,
+          "duration": 9.0,
+          "score": 0.6327,
+          "distance_from_expected": 0.7149897919086179,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0010_00-21-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.7850102080913821,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.214989791908618,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0011_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm016",
+      "transcript_segment": {
+        "id": "n016",
+        "start": 52.66,
+        "end": 54.82,
+        "text": "always connected to the Internet,"
+      },
+      "narration_time": {
+        "start": 52.66,
+        "end": 54.82,
+        "mid": 53.74,
+        "inferred": false
+      },
+      "expected_source_time": 21.489,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 28.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "scene_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.065,
+          "distance_from_expected": 4.488773539492708,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Missed the Deploy 2026 Keynot...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0007_00-17-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e007",
+          "kind": "stable_hold",
+          "time": 21.5,
+          "start": 17.0,
+          "end": 26.0,
+          "duration": 9.0,
+          "score": 0.6327,
+          "distance_from_expected": 0.011226460507291591,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0010_00-21-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "anchor",
+          "time": 20.0,
+          "start": null,
+          "end": 20.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.4887735394927084,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Introducing DigitalOcean Al-N...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0009_00-20-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.5112264605072916,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -> B...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0011_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm017",
+      "transcript_segment": {
+        "id": "n017",
+        "start": 54.82,
+        "end": 58.34,
+        "text": "and you can run whatever you want to install on it."
+      },
+      "narration_time": {
+        "start": 54.82,
+        "end": 58.34,
+        "mid": 56.58,
+        "inferred": false
+      },
+      "expected_source_time": 22.624,
+      "likely_source_range": {
+        "start": 20.624,
+        "end": 30.5
+      },
+      "candidate_events": [
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 4.875608357564243,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 5.375608357564243,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 5.875608357564243,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e011",
+          "kind": "scene_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.1793,
+          "distance_from_expected": 5.375608357564243,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm018",
+      "transcript_segment": {
+        "id": "n018",
+        "start": 58.34,
+        "end": 62.26,
+        "text": "Here's what setting up a VPS actually looks like."
+      },
+      "narration_time": {
+        "start": 58.34,
+        "end": 62.26,
+        "mid": 60.3,
+        "inferred": false
+      },
+      "expected_source_time": 24.112,
+      "likely_source_range": {
+        "start": 22.112,
+        "end": 32.0
+      },
+      "candidate_events": [
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 3.388108588920538,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 3.888108588920538,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 4.388108588920538,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 5.888108588920538,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm019",
+      "transcript_segment": {
+        "id": "n019",
+        "start": 62.26,
+        "end": 65.66,
+        "text": "On DigitalOcean, they call a VPS a droplet."
+      },
+      "narration_time": {
+        "start": 62.26,
+        "end": 65.66,
+        "mid": 63.96,
+        "inferred": false
+      },
+      "expected_source_time": 25.575,
+      "likely_source_range": {
+        "start": 23.575,
+        "end": 32.0
+      },
+      "candidate_events": [
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 1.92460075202915,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 2.42460075202915,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 2.92460075202915,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 4.42460075202915,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.2,
+        "terms": [
+          "digitalocean"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm020",
+      "transcript_segment": {
+        "id": "n020",
+        "start": 65.66,
+        "end": 70.54,
+        "text": "You pick the size you need based on your software requirements."
+      },
+      "narration_time": {
+        "start": 65.66,
+        "end": 70.54,
+        "mid": 68.1,
+        "inferred": false
+      },
+      "expected_source_time": 27.231,
+      "likely_source_range": {
+        "start": 25.231,
+        "end": 32.0
+      },
+      "candidate_events": [
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 0.26915746111921734,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 0.7691574611192173,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 1.2691574611192173,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 2.7691574611192173,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm021",
+      "transcript_segment": {
+        "id": "n021",
+        "start": 70.54,
+        "end": 75.3,
+        "text": "For paperless, we're going to need something with about four gigs of memory."
+      },
+      "narration_time": {
+        "start": 70.54,
+        "end": 75.3,
+        "mid": 72.92,
+        "inferred": false
+      },
+      "expected_source_time": 29.158,
+      "likely_source_range": {
+        "start": 25.5,
+        "end": 32.0
+      },
+      "candidate_events": [
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 0.6581943896503262,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 0.8418056103496738,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 1.1581943896503262,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 1.6581943896503262,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm022",
+      "transcript_segment": {
+        "id": "n022",
+        "start": 75.3,
+        "end": 79.74,
+        "text": "On DigitalOcean, that's going to run us about 24 bucks a month,"
+      },
+      "narration_time": {
+        "start": 75.3,
+        "end": 79.74,
+        "mid": 77.52,
+        "inferred": false
+      },
+      "expected_source_time": 30.998,
+      "likely_source_range": {
+        "start": 25.5,
+        "end": 32.998
+      },
+      "candidate_events": [
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 0.9975758239946941,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e012",
+          "kind": "ocr_change",
+          "time": 28.5,
+          "start": null,
+          "end": 28.5,
+          "duration": null,
+          "score": 0.4142,
+          "distance_from_expected": 2.497575823994694,
+          "ocr_text": "t DigitalOce8rh Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0015_00-28-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 28.0,
+          "start": null,
+          "end": 28.0,
+          "duration": null,
+          "score": 0.7126,
+          "distance_from_expected": 2.997575823994694,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean <- 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0014_00-28-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 27.5,
+          "start": null,
+          "end": 27.5,
+          "duration": null,
+          "score": 0.5693,
+          "distance_from_expected": 3.497575823994694,
+          "ocr_text": "r DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 ->...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0013_00-27-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "digitalocean"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.2,
+        "terms": [
+          "digitalocean"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm023",
+      "transcript_segment": {
+        "id": "n023",
+        "start": 79.74,
+        "end": 83.1,
+        "text": "which is less than a lot of software subscriptions,"
+      },
+      "narration_time": {
+        "start": 79.74,
+        "end": 83.1,
+        "mid": 81.42,
+        "inferred": false
+      },
+      "expected_source_time": 32.557,
+      "likely_source_range": {
+        "start": 28.0,
+        "end": 37.5
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 34.5,
+          "start": null,
+          "end": 34.5,
+          "duration": null,
+          "score": 0.5548,
+          "distance_from_expected": 1.9429486121046509,
+          "ocr_text": "f DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-P...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0017_00-34-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "ocr_change",
+          "time": 35.0,
+          "start": null,
+          "end": 35.0,
+          "duration": null,
+          "score": 0.3825,
+          "distance_from_expected": 2.442948612104651,
+          "ocr_text": "t DigitalOcean Droplets | Q DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0018_00-35-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 2.557051387895349,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 2.942948612104651,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm024",
+      "transcript_segment": {
+        "id": "n024",
+        "start": 83.1,
+        "end": 85.86,
+        "text": "and you own everything on it."
+      },
+      "narration_time": {
+        "start": 83.1,
+        "end": 85.86,
+        "mid": 84.48,
+        "inferred": false
+      },
+      "expected_source_time": 33.781,
+      "likely_source_range": {
+        "start": 28.0,
+        "end": 37.5
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 34.5,
+          "start": null,
+          "end": 34.5,
+          "duration": null,
+          "score": 0.5548,
+          "distance_from_expected": 0.7193600927364372,
+          "ocr_text": "f DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-P...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0017_00-34-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "ocr_change",
+          "time": 35.0,
+          "start": null,
+          "end": 35.0,
+          "duration": null,
+          "score": 0.3825,
+          "distance_from_expected": 1.2193600927364372,
+          "ocr_text": "t DigitalOcean Droplets | Q DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0018_00-35-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 1.7193600927364372,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 3.780639907263563,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm025",
+      "transcript_segment": {
+        "id": "n025",
+        "start": 85.86,
+        "end": 87.86,
+        "text": "As you can see here,"
+      },
+      "narration_time": {
+        "start": 85.86,
+        "end": 87.86,
+        "mid": 86.86,
+        "inferred": false
+      },
+      "expected_source_time": 34.732,
+      "likely_source_range": {
+        "start": 28.0,
+        "end": 37.5
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 34.5,
+          "start": null,
+          "end": 34.5,
+          "duration": null,
+          "score": 0.5548,
+          "distance_from_expected": 0.23231986677217265,
+          "ocr_text": "f DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-P...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0017_00-34-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "ocr_change",
+          "time": 35.0,
+          "start": null,
+          "end": 35.0,
+          "duration": null,
+          "score": 0.3825,
+          "distance_from_expected": 0.26768013322782735,
+          "ocr_text": "t DigitalOcean Droplets | Q DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0018_00-35-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 0.7676801332278274,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "ocr_change",
+          "time": 30.0,
+          "start": null,
+          "end": 30.0,
+          "duration": null,
+          "score": 0.5534,
+          "distance_from_expected": 4.732319866772173,
+          "ocr_text": "f DigitalOcean Droplets | fj DigitalOcean 4 c https:Ilwww.digitslocean.comlproductsldroplets Now Available: Kimi K2.6 -...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0016_00-30-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm026",
+      "transcript_segment": {
+        "id": "n026",
+        "start": 87.86,
+        "end": 90.66,
+        "text": "you can choose the region your server lives in,"
+      },
+      "narration_time": {
+        "start": 87.86,
+        "end": 90.66,
+        "mid": 89.26,
+        "inferred": false
+      },
+      "expected_source_time": 35.692,
+      "likely_source_range": {
+        "start": 32.5,
+        "end": 42.0
+      },
+      "candidate_events": [
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 0.1919971368648845,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "ocr_change",
+          "time": 35.0,
+          "start": null,
+          "end": 35.0,
+          "duration": null,
+          "score": 0.3825,
+          "distance_from_expected": 0.6919971368648845,
+          "ocr_text": "t DigitalOcean Droplets | Q DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0018_00-35-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 34.5,
+          "start": null,
+          "end": 34.5,
+          "duration": null,
+          "score": 0.5548,
+          "distance_from_expected": 1.1919971368648845,
+          "ocr_text": "f DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-P...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0017_00-34-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e020",
+          "kind": "ocr_change",
+          "time": 40.0,
+          "start": null,
+          "end": 40.0,
+          "duration": null,
+          "score": 0.5077,
+          "distance_from_expected": 4.3080028631351155,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pro Mo...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0020_00-40-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm027",
+      "transcript_segment": {
+        "id": "n027",
+        "start": 90.66,
+        "end": 94.9,
+        "text": "so you're going to want to just choose whatever is closest to you."
+      },
+      "narration_time": {
+        "start": 90.66,
+        "end": 94.9,
+        "mid": 92.78,
+        "inferred": false
+      },
+      "expected_source_time": 37.1,
+      "likely_source_range": {
+        "start": 32.5,
+        "end": 42.0
+      },
+      "candidate_events": [
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 1.5995237996675442,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "ocr_change",
+          "time": 35.0,
+          "start": null,
+          "end": 35.0,
+          "duration": null,
+          "score": 0.3825,
+          "distance_from_expected": 2.099523799667544,
+          "ocr_text": "t DigitalOcean Droplets | Q DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0018_00-35-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 34.5,
+          "start": null,
+          "end": 34.5,
+          "duration": null,
+          "score": 0.5548,
+          "distance_from_expected": 2.599523799667544,
+          "ocr_text": "f DigitalOcearh Droplets | DigitalOcean 4 C https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-P...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0017_00-34-500_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e020",
+          "kind": "ocr_change",
+          "time": 40.0,
+          "start": null,
+          "end": 40.0,
+          "duration": null,
+          "score": 0.5077,
+          "distance_from_expected": 2.900476200332456,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pro Mo...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0020_00-40-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm028",
+      "transcript_segment": {
+        "id": "n028",
+        "start": 94.9,
+        "end": 97.98,
+        "text": "I'm sure when you hear $24 a month,"
+      },
+      "narration_time": {
+        "start": 94.9,
+        "end": 97.98,
+        "mid": 96.44,
+        "inferred": false
+      },
+      "expected_source_time": 38.563,
+      "likely_source_range": {
+        "start": 33.5,
+        "end": 43.5
+      },
+      "candidate_events": [
+        {
+          "id": "e020",
+          "kind": "ocr_change",
+          "time": 40.0,
+          "start": null,
+          "end": 40.0,
+          "duration": null,
+          "score": 0.5077,
+          "distance_from_expected": 1.4369683634410748,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pro Mo...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0020_00-40-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e021",
+          "kind": "ocr_change",
+          "time": 41.0,
+          "start": null,
+          "end": 41.0,
+          "duration": null,
+          "score": 0.4549,
+          "distance_from_expected": 2.436968363441075,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean * c https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0021_00-41-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e022",
+          "kind": "ocr_change",
+          "time": 41.5,
+          "start": null,
+          "end": 41.5,
+          "duration": null,
+          "score": 0.569,
+          "distance_from_expected": 2.936968363441075,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0022_00-41-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 3.063031636558925,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm029",
+      "transcript_segment": {
+        "id": "n029",
+        "start": 97.98,
+        "end": 101.9,
+        "text": "you're thinking, \"Why not just run this on my own computer?\""
+      },
+      "narration_time": {
+        "start": 97.98,
+        "end": 101.9,
+        "mid": 99.94,
+        "inferred": false
+      },
+      "expected_source_time": 39.963,
+      "likely_source_range": {
+        "start": 33.5,
+        "end": 43.5
+      },
+      "candidate_events": [
+        {
+          "id": "e020",
+          "kind": "ocr_change",
+          "time": 40.0,
+          "start": null,
+          "end": 40.0,
+          "duration": null,
+          "score": 0.5077,
+          "distance_from_expected": 0.03743901122252424,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pro Mo...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0020_00-40-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e021",
+          "kind": "ocr_change",
+          "time": 41.0,
+          "start": null,
+          "end": 41.0,
+          "duration": null,
+          "score": 0.4549,
+          "distance_from_expected": 1.0374390112225242,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean * c https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0021_00-41-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e022",
+          "kind": "ocr_change",
+          "time": 41.5,
+          "start": null,
+          "end": 41.5,
+          "duration": null,
+          "score": 0.569,
+          "distance_from_expected": 1.5374390112225242,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0022_00-41-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e018",
+          "kind": "ocr_change",
+          "time": 35.5,
+          "start": null,
+          "end": 35.5,
+          "duration": null,
+          "score": 0.3558,
+          "distance_from_expected": 4.462560988777476,
+          "ocr_text": "r DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitslocean.comlproduct$ldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0019_00-35-500_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm030",
+      "transcript_segment": {
+        "id": "n030",
+        "start": 101.9,
+        "end": 105.86,
+        "text": "You totally can do that, but a VPS is always on,"
+      },
+      "narration_time": {
+        "start": 101.9,
+        "end": 105.86,
+        "mid": 103.88,
+        "inferred": false
+      },
+      "expected_source_time": 41.538,
+      "likely_source_range": {
+        "start": 38.0,
+        "end": 47.0
+      },
+      "candidate_events": [
+        {
+          "id": "e022",
+          "kind": "ocr_change",
+          "time": 41.5,
+          "start": null,
+          "end": 41.5,
+          "duration": null,
+          "score": 0.569,
+          "distance_from_expected": 0.038031173846341915,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0022_00-41-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e021",
+          "kind": "ocr_change",
+          "time": 41.0,
+          "start": null,
+          "end": 41.0,
+          "duration": null,
+          "score": 0.4549,
+          "distance_from_expected": 0.5380311738463419,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean * c https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0021_00-41-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e020",
+          "kind": "ocr_change",
+          "time": 40.0,
+          "start": null,
+          "end": 40.0,
+          "duration": null,
+          "score": 0.5077,
+          "distance_from_expected": 1.538031173846342,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pro Mo...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0020_00-40-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e024",
+          "kind": "ocr_change",
+          "time": 45.0,
+          "start": null,
+          "end": 45.0,
+          "duration": null,
+          "score": 0.6643,
+          "distance_from_expected": 3.461968826153658,
+          "ocr_text": "f DigitalOceark Droplets | fj DigitalOcean * c https:Ilwww.digitalocean.comlproductsldroplets Missed the Deploy 2026 Ke...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0024_00-45-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm031",
+      "transcript_segment": {
+        "id": "n031",
+        "start": 105.86,
+        "end": 110.34,
+        "text": "even when your home Internet goes down or you turn off your laptop,"
+      },
+      "narration_time": {
+        "start": 105.86,
+        "end": 110.34,
+        "mid": 108.1,
+        "inferred": false
+      },
+      "expected_source_time": 43.225,
+      "likely_source_range": {
+        "start": 39.0,
+        "end": 47.5
+      },
+      "candidate_events": [
+        {
+          "id": "e022",
+          "kind": "ocr_change",
+          "time": 41.5,
+          "start": null,
+          "end": 41.5,
+          "duration": null,
+          "score": 0.569,
+          "distance_from_expected": 1.7254637070927004,
+          "ocr_text": "t DigitalOcean Droplets | DigitalOcean 4 c https:Ilwww.digitalocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0022_00-41-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e024",
+          "kind": "ocr_change",
+          "time": 45.0,
+          "start": null,
+          "end": 45.0,
+          "duration": null,
+          "score": 0.6643,
+          "distance_from_expected": 1.7745362929072996,
+          "ocr_text": "f DigitalOceark Droplets | fj DigitalOcean * c https:Ilwww.digitalocean.comlproductsldroplets Missed the Deploy 2026 Ke...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0024_00-45-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e021",
+          "kind": "ocr_change",
+          "time": 41.0,
+          "start": null,
+          "end": 41.0,
+          "duration": null,
+          "score": 0.4549,
+          "distance_from_expected": 2.2254637070927004,
+          "ocr_text": "f DigitalOcean Droplets | DigitalOcean * c https:Ilwww.digitslocean.comlproductsldroplets Now Available: DeepSeek-V4-Pr...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0021_00-41-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e025",
+          "kind": "ocr_change",
+          "time": 45.5,
+          "start": null,
+          "end": 45.5,
+          "duration": null,
+          "score": 0.9118,
+          "distance_from_expected": 2.2745362929072996,
+          "ocr_text": "? DigitalOcean Droplets | Sca. t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0025_00-45-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm032",
+      "transcript_segment": {
+        "id": "n032",
+        "start": 110.34,
+        "end": 113.94,
+        "text": "and when you want to access your documents from your phone in the field,"
+      },
+      "narration_time": {
+        "start": 110.34,
+        "end": 113.94,
+        "mid": 112.14,
+        "inferred": false
+      },
+      "expected_source_time": 44.841,
+      "likely_source_range": {
+        "start": 42.841,
+        "end": 50.0
+      },
+      "candidate_events": [
+        {
+          "id": "e024",
+          "kind": "ocr_change",
+          "time": 45.0,
+          "start": null,
+          "end": 45.0,
+          "duration": null,
+          "score": 0.6643,
+          "distance_from_expected": 0.15907955491789494,
+          "ocr_text": "f DigitalOceark Droplets | fj DigitalOcean * c https:Ilwww.digitalocean.comlproductsldroplets Missed the Deploy 2026 Ke...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0024_00-45-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e025",
+          "kind": "ocr_change",
+          "time": 45.5,
+          "start": null,
+          "end": 45.5,
+          "duration": null,
+          "score": 0.9118,
+          "distance_from_expected": 0.6590795549178949,
+          "ocr_text": "? DigitalOcean Droplets | Sca. t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0025_00-45-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e027",
+          "kind": "ocr_change",
+          "time": 46.0,
+          "start": null,
+          "end": 46.0,
+          "duration": null,
+          "score": 0.5537,
+          "distance_from_expected": 1.159079554917895,
+          "ocr_text": "DigitalOcean Droplets | Sca', t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size=...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0026_00-46-000_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e028",
+          "kind": "ocr_change",
+          "time": 48.0,
+          "start": null,
+          "end": 48.0,
+          "duration": null,
+          "score": 0.5682,
+          "distance_from_expected": 3.159079554917895,
+          "ocr_text": "? DigitalOcean Droplets | Sca, t DigitalOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0027_00-48-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm033",
+      "transcript_segment": {
+        "id": "n033",
+        "start": 113.94,
+        "end": 117.98,
+        "text": "the VPS is already on the Internet and ready to go."
+      },
+      "narration_time": {
+        "start": 113.94,
+        "end": 117.98,
+        "mid": 115.96,
+        "inferred": false
+      },
+      "expected_source_time": 46.368,
+      "likely_source_range": {
+        "start": 43.0,
+        "end": 50.0
+      },
+      "candidate_events": [
+        {
+          "id": "e027",
+          "kind": "ocr_change",
+          "time": 46.0,
+          "start": null,
+          "end": 46.0,
+          "duration": null,
+          "score": 0.5537,
+          "distance_from_expected": 0.36840676664635197,
+          "ocr_text": "DigitalOcean Droplets | Sca', t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size=...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0026_00-46-000_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e025",
+          "kind": "ocr_change",
+          "time": 45.5,
+          "start": null,
+          "end": 45.5,
+          "duration": null,
+          "score": 0.9118,
+          "distance_from_expected": 0.868406766646352,
+          "ocr_text": "? DigitalOcean Droplets | Sca. t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0025_00-45-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e024",
+          "kind": "ocr_change",
+          "time": 45.0,
+          "start": null,
+          "end": 45.0,
+          "duration": null,
+          "score": 0.6643,
+          "distance_from_expected": 1.368406766646352,
+          "ocr_text": "f DigitalOceark Droplets | fj DigitalOcean * c https:Ilwww.digitalocean.comlproductsldroplets Missed the Deploy 2026 Ke...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0024_00-45-000_scene_pre.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e028",
+          "kind": "ocr_change",
+          "time": 48.0,
+          "start": null,
+          "end": 48.0,
+          "duration": null,
+          "score": 0.5682,
+          "distance_from_expected": 1.631593233353648,
+          "ocr_text": "? DigitalOcean Droplets | Sca, t DigitalOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0027_00-48-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm034",
+      "transcript_segment": {
+        "id": "n034",
+        "start": 117.98,
+        "end": 122.14,
+        "text": "So that's it. A VPS is just a computer you write online."
+      },
+      "narration_time": {
+        "start": 117.98,
+        "end": 122.14,
+        "mid": 120.06,
+        "inferred": false
+      },
+      "expected_source_time": 48.008,
+      "likely_source_range": {
+        "start": 43.5,
+        "end": 51.717
+      },
+      "candidate_events": [
+        {
+          "id": "e028",
+          "kind": "ocr_change",
+          "time": 48.0,
+          "start": null,
+          "end": 48.0,
+          "duration": null,
+          "score": 0.5682,
+          "distance_from_expected": 0.007855436388069847,
+          "ocr_text": "? DigitalOcean Droplets | Sca, t DigitalOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0027_00-48-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e031",
+          "kind": "ocr_change",
+          "time": 50.0,
+          "start": null,
+          "end": 50.0,
+          "duration": null,
+          "score": 0.5237,
+          "distance_from_expected": 1.9921445636119302,
+          "ocr_text": "? DigitalOcean Droplets | Sca', t DigitslOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0028_00-50-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e027",
+          "kind": "ocr_change",
+          "time": 46.0,
+          "start": null,
+          "end": 46.0,
+          "duration": null,
+          "score": 0.5537,
+          "distance_from_expected": 2.00785543638807,
+          "ocr_text": "DigitalOcean Droplets | Sca', t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size=...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0026_00-46-000_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e025",
+          "kind": "ocr_change",
+          "time": 45.5,
+          "start": null,
+          "end": 45.5,
+          "duration": null,
+          "score": 0.9118,
+          "distance_from_expected": 2.50785543638807,
+          "ocr_text": "? DigitalOcean Droplets | Sca. t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0025_00-45-500_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm035",
+      "transcript_segment": {
+        "id": "n035",
+        "start": 122.14,
+        "end": 125.74,
+        "text": "In a later video, we'll walk you through actually creating one of these"
+      },
+      "narration_time": {
+        "start": 122.14,
+        "end": 125.74,
+        "mid": 123.94,
+        "inferred": false
+      },
+      "expected_source_time": 49.559,
+      "likely_source_range": {
+        "start": 44.0,
+        "end": 51.717
+      },
+      "candidate_events": [
+        {
+          "id": "e031",
+          "kind": "ocr_change",
+          "time": 50.0,
+          "start": null,
+          "end": 50.0,
+          "duration": null,
+          "score": 0.5237,
+          "distance_from_expected": 0.4406663102953772,
+          "ocr_text": "? DigitalOcean Droplets | Sca', t DigitslOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0028_00-50-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e032",
+          "kind": "ocr_change",
+          "time": 51.0,
+          "start": null,
+          "end": 51.0,
+          "duration": null,
+          "score": 0.6207,
+          "distance_from_expected": 1.4406663102953772,
+          "ocr_text": "? DigitalOcean Droplets | Sca, * DigitslOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0029_00-51-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e028",
+          "kind": "ocr_change",
+          "time": 48.0,
+          "start": null,
+          "end": 48.0,
+          "duration": null,
+          "score": 0.5682,
+          "distance_from_expected": 1.5593336897046228,
+          "ocr_text": "? DigitalOcean Droplets | Sca, t DigitalOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0027_00-48-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e027",
+          "kind": "ocr_change",
+          "time": 46.0,
+          "start": null,
+          "end": 46.0,
+          "duration": null,
+          "score": 0.5537,
+          "distance_from_expected": 3.559333689704623,
+          "ocr_text": "DigitalOcean Droplets | Sca', t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size=...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0026_00-46-000_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm036",
+      "transcript_segment": {
+        "id": "n036",
+        "start": 125.74,
+        "end": 128.94,
+        "text": "and installing paperless on it step-by-step."
+      },
+      "narration_time": {
+        "start": 125.74,
+        "end": 128.94,
+        "mid": 127.34,
+        "inferred": false
+      },
+      "expected_source_time": 50.919,
+      "likely_source_range": {
+        "start": 44.0,
+        "end": 51.717
+      },
+      "candidate_events": [
+        {
+          "id": "e032",
+          "kind": "ocr_change",
+          "time": 51.0,
+          "start": null,
+          "end": 51.0,
+          "duration": null,
+          "score": 0.6207,
+          "distance_from_expected": 0.08112351099735804,
+          "ocr_text": "? DigitalOcean Droplets | Sca, * DigitslOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0029_00-51-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e031",
+          "kind": "ocr_change",
+          "time": 50.0,
+          "start": null,
+          "end": 50.0,
+          "duration": null,
+          "score": 0.5237,
+          "distance_from_expected": 0.918876489002642,
+          "ocr_text": "? DigitalOcean Droplets | Sca', t DigitslOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0028_00-50-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e028",
+          "kind": "ocr_change",
+          "time": 48.0,
+          "start": null,
+          "end": 48.0,
+          "duration": null,
+          "score": 0.5682,
+          "distance_from_expected": 2.918876489002642,
+          "ocr_text": "? DigitalOcean Droplets | Sca, t DigitalOcean <- * C https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&s...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0027_00-48-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e027",
+          "kind": "ocr_change",
+          "time": 46.0,
+          "start": null,
+          "end": 46.0,
+          "duration": null,
+          "score": 0.5537,
+          "distance_from_expected": 4.918876489002642,
+          "ocr_text": "DigitalOcean Droplets | Sca', t DigitslOcean * c https:Ilcloud.digitalocean.comldropletslnew?i=f291ac&region=nyc1&size=...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/frames/frame_0026_00-46-000_scene_post.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 77.6s longer than the source video overall."
+      ]
+    }
+  ]
+}

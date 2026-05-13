@@ -1,0 +1,36 @@
+ Hey, this is Brian from Fullstack Egg.
+ Before we set up paperless,
+ we're going to need somewhere to install it.
+ We could install it on our own computer at home.
+ Or if we want to install it in the Cloud,
+ we could set up a VPS.
+ VPS stands for Virtual Private Server.
+ You can think of it as renting
+ a small office space instead of buying your own building.
+ Someone else owns the building and handles all the maintenance,
+ and you just use the space.
+ Setting up a VPS is just like renting an office.
+ A company like DigitalOcean has huge data centers full of servers.
+ You rent just a slice of one of those servers.
+ It's always on,
+ always connected to the Internet,
+ and you can run whatever you want to install on it.
+ Here's what setting up a VPS actually looks like.
+ On DigitalOcean, they call a VPS a droplet.
+ You pick the size you need based on your software requirements.
+ For paperless, we're going to need something with about four gigs of memory.
+ On DigitalOcean, that's going to run us about 24 bucks a month,
+ which is less than a lot of software subscriptions,
+ and you own everything on it.
+ As you can see here,
+ you can choose the region your server lives in,
+ so you're going to want to just choose whatever is closest to you.
+ I'm sure when you hear $24 a month,
+ you're thinking, "Why not just run this on my own computer?"
+ You totally can do that, but a VPS is always on,
+ even when your home Internet goes down or you turn off your laptop,
+ and when you want to access your documents from your phone in the field,
+ the VPS is already on the Internet and ready to go.
+ So that's it. A VPS is just a computer you write online.
+ In a later video, we'll walk you through actually creating one of these
+ and installing paperless on it step-by-step.

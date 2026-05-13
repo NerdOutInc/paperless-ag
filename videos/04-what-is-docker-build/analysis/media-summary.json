@@ -1,0 +1,26 @@
+{
+  "schema": "nerdout.media_summary.v1",
+  "source_video": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.mp4",
+  "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.m4a",
+  "video": {
+    "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.mp4",
+    "duration": 31.0,
+    "width": 3600,
+    "height": 2160,
+    "fps": 60.0,
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "bit_rate": 29779928.0,
+    "has_embedded_audio": false,
+    "embedded_audio_codecs": []
+  },
+  "audio": {
+    "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.m4a",
+    "duration": 120.418685,
+    "codec": "aac",
+    "channels": 2,
+    "sample_rate": 44100.0,
+    "bit_rate": 261764.0
+  },
+  "duration_delta": 89.418685
+}
