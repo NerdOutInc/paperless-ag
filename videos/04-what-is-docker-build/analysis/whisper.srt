@@ -1,0 +1,148 @@
+1
+00:00:00,000 --> 00:00:03,080
+ Hey, this is Brian from Fullstack Egg.
+
+2
+00:00:03,080 --> 00:00:04,920
+ When we set up paperless,
+
+3
+00:00:04,920 --> 00:00:07,560
+ we use something called Docker,
+
+4
+00:00:07,560 --> 00:00:10,360
+ and I'm going to tell you a little bit about it.
+
+5
+00:00:10,360 --> 00:00:16,520
+ You can think of Docker like a collection of shipping containers that all have different things inside,
+
+6
+00:00:16,520 --> 00:00:21,040
+ but because they are all inside of that same container,
+
+7
+00:00:21,040 --> 00:00:23,640
+ it makes it really easy to manage,
+
+8
+00:00:23,640 --> 00:00:27,080
+ and Docker does the same thing for software.
+
+9
+00:00:27,080 --> 00:00:31,480
+ Instead of installing a program and hoping it works on your computer,
+
+10
+00:00:31,480 --> 00:00:35,240
+ everything the program needs gets packed into a container.
+
+11
+00:00:35,240 --> 00:00:38,640
+ So when you run that container, it just works,
+
+12
+00:00:38,640 --> 00:00:42,520
+ and it doesn't matter if you're running it on your desktop computer
+
+13
+00:00:42,520 --> 00:00:46,800
+ or on a VPS in the cloud, it always works the same.
+
+14
+00:00:46,800 --> 00:00:50,640
+ So this is Docker desktop on my Mac,
+
+15
+00:00:50,640 --> 00:00:55,000
+ and these are the containers running paperless right now on my computer.
+
+16
+00:00:55,000 --> 00:00:58,440
+ There's a few of them working together, one for the database,
+
+17
+00:00:58,440 --> 00:01:00,320
+ one for paperless itself,
+
+18
+00:01:00,320 --> 00:01:03,480
+ and one for the search add-on that we built.
+
+19
+00:01:03,480 --> 00:01:07,600
+ And here I'll show you them running in the terminal as well.
+
+20
+00:01:07,600 --> 00:01:10,000
+ Each one is running in its own little box,
+
+21
+00:01:10,000 --> 00:01:12,320
+ keeping things clean and separate.
+
+22
+00:01:12,320 --> 00:01:15,040
+ And while this all might seem complicated,
+
+23
+00:01:15,040 --> 00:01:18,080
+ you really don't have to be a programmer to set this up.
+
+24
+00:01:18,080 --> 00:01:21,000
+ Docker handles all the complicated parts.
+
+25
+00:01:21,000 --> 00:01:23,080
+ You basically say, "Run this,"
+
+26
+00:01:23,080 --> 00:01:26,160
+ and it pulls everything down and starts it up.
+
+27
+00:01:26,160 --> 00:01:30,440
+ And if something breaks, you throw away the container and start fresh.
+
+28
+00:01:30,440 --> 00:01:34,400
+ Your data is stored separately, so nothing gets lost.
+
+29
+00:01:34,400 --> 00:01:36,760
+ So that's Docker in a nutshell.
+
+30
+00:01:36,760 --> 00:01:40,240
+ It packages software, so it runs the same everywhere,
+
+31
+00:01:40,240 --> 00:01:43,400
+ and you don't have to worry about installing all these dependencies
+
+32
+00:01:43,400 --> 00:01:45,400
+ and breaking things.
+
+33
+00:01:45,400 --> 00:01:48,760
+ And for the paperless install videos,
+
+34
+00:01:48,760 --> 00:01:52,760
+ you'll see that our setup script handles all the Docker stuff for you,
+
+35
+00:01:52,760 --> 00:01:56,720
+ automatically, so you really don't have to worry about it.
+
+36
+00:01:56,720 --> 00:01:58,160
+ And that's it for now.
+
+37
+00:01:58,160 --> 00:01:59,880
+ Thanks again for watching.
+

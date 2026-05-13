@@ -1,0 +1,116 @@
+{
+  "output": "renders/04-what-is-docker-preview.mp4",
+  "inputs": {
+    "video": "../src/04-what-is-docker.mp4",
+    "audio": "../src/04-what-is-docker.m4a"
+  },
+  "timeline": {
+    "width": 3600,
+    "height": 2160,
+    "fps": 60,
+    "segments": [
+      {
+        "type": "freeze",
+        "path": "analysis/frames/frame_0001_00-00-000_anchor.jpg",
+        "duration": 7.7
+      },
+      {
+        "type": "video",
+        "start": 0,
+        "end": 3.3,
+        "setpts_multiplier": 1
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-output-00-14-source-00-03-300.jpg",
+        "duration": 14
+      },
+      {
+        "type": "video",
+        "start": 3.3,
+        "end": 15.030435,
+        "setpts_multiplier": 1.61971831
+      },
+      {
+        "type": "video",
+        "start": 17.5,
+        "end": 20.5,
+        "setpts_multiplier": 1
+      },
+      {
+        "type": "freeze",
+        "path": "analysis/frames/frame_0010_00-20-000_anchor.jpg",
+        "duration": 13.7
+      },
+      {
+        "type": "video",
+        "start": 20.5,
+        "end": 21,
+        "setpts_multiplier": 1
+      },
+      {
+        "type": "video",
+        "start": 21,
+        "end": 24,
+        "setpts_multiplier": 4
+      },
+      {
+        "type": "video",
+        "start": 24,
+        "end": 25.5,
+        "setpts_multiplier": 1
+      },
+      {
+        "type": "video",
+        "start": 25.5,
+        "end": 31,
+        "setpts_multiplier": 1
+      },
+      {
+        "type": "freeze",
+        "path": "analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+        "duration": 2.8
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-output-00-48-source-00-18-500.jpg",
+        "duration": 19
+      },
+      {
+        "type": "freeze",
+        "path": "frames/freeze-output-00-05-source-00-00-000.jpg",
+        "duration": 12.418685
+      }
+    ],
+    "intro": {
+      "path": "cards/intro-what-is-docker.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    },
+    "outro": {
+      "path": "cards/outro-fullstack-ag.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    }
+  },
+  "profiles": {
+    "preview": {
+      "video_codec": "libx264",
+      "preset": "veryfast",
+      "crf": 28,
+      "scale_width": 1280,
+      "audio_codec": "aac",
+      "audio_bitrate": "128k",
+      "movflags_faststart": true,
+      "shortest": true
+    },
+    "hq": {
+      "video_codec": "libx264",
+      "preset": "slow",
+      "crf": 18,
+      "audio_codec": "copy",
+      "movflags_faststart": true,
+      "shortest": true
+    }
+  }
+}

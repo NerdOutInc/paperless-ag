@@ -1,0 +1,37 @@
+ Hey, this is Brian from Fullstack Egg.
+ When we set up paperless,
+ we use something called Docker,
+ and I'm going to tell you a little bit about it.
+ You can think of Docker like a collection of shipping containers that all have different things inside,
+ but because they are all inside of that same container,
+ it makes it really easy to manage,
+ and Docker does the same thing for software.
+ Instead of installing a program and hoping it works on your computer,
+ everything the program needs gets packed into a container.
+ So when you run that container, it just works,
+ and it doesn't matter if you're running it on your desktop computer
+ or on a VPS in the cloud, it always works the same.
+ So this is Docker desktop on my Mac,
+ and these are the containers running paperless right now on my computer.
+ There's a few of them working together, one for the database,
+ one for paperless itself,
+ and one for the search add-on that we built.
+ And here I'll show you them running in the terminal as well.
+ Each one is running in its own little box,
+ keeping things clean and separate.
+ And while this all might seem complicated,
+ you really don't have to be a programmer to set this up.
+ Docker handles all the complicated parts.
+ You basically say, "Run this,"
+ and it pulls everything down and starts it up.
+ And if something breaks, you throw away the container and start fresh.
+ Your data is stored separately, so nothing gets lost.
+ So that's Docker in a nutshell.
+ It packages software, so it runs the same everywhere,
+ and you don't have to worry about installing all these dependencies
+ and breaking things.
+ And for the paperless install videos,
+ you'll see that our setup script handles all the Docker stuff for you,
+ automatically, so you really don't have to worry about it.
+ And that's it for now.
+ Thanks again for watching.

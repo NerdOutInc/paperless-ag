@@ -1,0 +1,144 @@
+1
+00:00:00,000 --> 00:00:03,700
+ Hey, this is Brian from Fullstack Egg.
+
+2
+00:00:03,700 --> 00:00:05,900
+ Before we set up paperless,
+
+3
+00:00:05,900 --> 00:00:09,100
+ we're going to need somewhere to install it.
+
+4
+00:00:09,100 --> 00:00:13,980
+ We could install it on our own computer at home.
+
+5
+00:00:13,980 --> 00:00:16,540
+ Or if we want to install it in the Cloud,
+
+6
+00:00:16,540 --> 00:00:19,220
+ we could set up a VPS.
+
+7
+00:00:19,220 --> 00:00:23,140
+ VPS stands for Virtual Private Server.
+
+8
+00:00:23,140 --> 00:00:25,460
+ You can think of it as renting
+
+9
+00:00:25,460 --> 00:00:29,980
+ a small office space instead of buying your own building.
+
+10
+00:00:29,980 --> 00:00:34,780
+ Someone else owns the building and handles all the maintenance,
+
+11
+00:00:34,780 --> 00:00:37,940
+ and you just use the space.
+
+12
+00:00:37,940 --> 00:00:42,620
+ Setting up a VPS is just like renting an office.
+
+13
+00:00:42,620 --> 00:00:47,980
+ A company like DigitalOcean has huge data centers full of servers.
+
+14
+00:00:47,980 --> 00:00:51,300
+ You rent just a slice of one of those servers.
+
+15
+00:00:51,300 --> 00:00:52,660
+ It's always on,
+
+16
+00:00:52,660 --> 00:00:54,820
+ always connected to the Internet,
+
+17
+00:00:54,820 --> 00:00:58,340
+ and you can run whatever you want to install on it.
+
+18
+00:00:58,340 --> 00:01:02,260
+ Here's what setting up a VPS actually looks like.
+
+19
+00:01:02,260 --> 00:01:05,660
+ On DigitalOcean, they call a VPS a droplet.
+
+20
+00:01:05,660 --> 00:01:10,540
+ You pick the size you need based on your software requirements.
+
+21
+00:01:10,540 --> 00:01:15,300
+ For paperless, we're going to need something with about four gigs of memory.
+
+22
+00:01:15,300 --> 00:01:19,740
+ On DigitalOcean, that's going to run us about 24 bucks a month,
+
+23
+00:01:19,740 --> 00:01:23,100
+ which is less than a lot of software subscriptions,
+
+24
+00:01:23,100 --> 00:01:25,860
+ and you own everything on it.
+
+25
+00:01:25,860 --> 00:01:27,860
+ As you can see here,
+
+26
+00:01:27,860 --> 00:01:30,660
+ you can choose the region your server lives in,
+
+27
+00:01:30,660 --> 00:01:34,900
+ so you're going to want to just choose whatever is closest to you.
+
+28
+00:01:34,900 --> 00:01:37,980
+ I'm sure when you hear $24 a month,
+
+29
+00:01:37,980 --> 00:01:41,900
+ you're thinking, "Why not just run this on my own computer?"
+
+30
+00:01:41,900 --> 00:01:45,860
+ You totally can do that, but a VPS is always on,
+
+31
+00:01:45,860 --> 00:01:50,340
+ even when your home Internet goes down or you turn off your laptop,
+
+32
+00:01:50,340 --> 00:01:53,940
+ and when you want to access your documents from your phone in the field,
+
+33
+00:01:53,940 --> 00:01:57,980
+ the VPS is already on the Internet and ready to go.
+
+34
+00:01:57,980 --> 00:02:02,140
+ So that's it. A VPS is just a computer you write online.
+
+35
+00:02:02,140 --> 00:02:05,740
+ In a later video, we'll walk you through actually creating one of these
+
+36
+00:02:05,740 --> 00:02:08,940
+ and installing paperless on it step-by-step.
+

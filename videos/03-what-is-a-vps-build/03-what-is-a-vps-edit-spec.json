@@ -1,0 +1,104 @@
+{
+  "output": "03-what-is-a-vps-preview.mp4",
+  "inputs": {
+    "video": "03-what-is-a-vps-mixed-visual-source.mp4",
+    "audio": "03-what-is-a-vps-audio-deblipped-01-26.m4a"
+  },
+  "timeline": {
+    "segments": [
+      {
+        "type": "video",
+        "start": 0.0,
+        "end": 27.0
+      },
+      {
+        "type": "video",
+        "start": 27.0,
+        "end": 45.0,
+        "setpts_multiplier": 1.5555555556
+      },
+      {
+        "type": "video",
+        "start": 45.0,
+        "end": 51.054373,
+        "setpts_multiplier": 0.8258494109
+      },
+      {
+        "type": "freeze",
+        "path": "manual-frames/current-01-03.jpg",
+        "duration": 6.0
+      },
+      {
+        "type": "video",
+        "start": 51.054373,
+        "end": 52.265247,
+        "setpts_multiplier": 0.8258494109
+      },
+      {
+        "type": "freeze",
+        "path": "manual-frames/current-01-04.jpg",
+        "duration": 6.0
+      },
+      {
+        "type": "video",
+        "start": 52.265247,
+        "end": 71.639239,
+        "setpts_multiplier": 0.8258494109
+      },
+      {
+        "type": "video",
+        "start": 88.591482,
+        "end": 97.067604,
+        "setpts_multiplier": 0.8258494109
+      },
+      {
+        "type": "video",
+        "start": 101.911102,
+        "end": 104.332851,
+        "setpts_multiplier": 0.8258494109
+      },
+      {
+        "type": "video",
+        "start": 104.332851,
+        "end": 107.965474,
+        "setpts_multiplier": 2.4775482327
+      },
+      {
+        "type": "video",
+        "start": 107.965474,
+        "end": 118.0,
+        "setpts_multiplier": 0.8258494109
+      }
+    ],
+    "intro": {
+      "path": "cards/intro-what-is-a-vps.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    },
+    "outro": {
+      "path": "cards/outro-fullstack-ag.png",
+      "duration": 4.0,
+      "fade_duration": 1.0
+    }
+  },
+  "profiles": {
+    "preview": {
+      "video_codec": "libx264",
+      "preset": "veryfast",
+      "crf": 28,
+      "scale_width": 1280,
+      "audio_codec": "aac",
+      "audio_bitrate": "128k",
+      "movflags_faststart": true,
+      "shortest": true
+    },
+    "hq": {
+      "video_codec": "libx264",
+      "preset": "slow",
+      "crf": 18,
+      "audio_codec": "copy",
+      "movflags_faststart": true,
+      "shortest": true
+    }
+  }
+}

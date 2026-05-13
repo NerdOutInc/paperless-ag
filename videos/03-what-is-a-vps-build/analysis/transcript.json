@@ -1,0 +1,233 @@
+{
+  "schema": "nerdout.transcript.v1",
+  "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/03-what-is-a-vps.m4a",
+  "duration": 129.335147,
+  "language": "en",
+  "engine": "whisper.cpp",
+  "model": "/Users/brian/.cache/whisper.cpp/ggml-base.en.bin",
+  "whisper_cli": "/opt/homebrew/bin/whisper-cli",
+  "raw_outputs": {
+    "text": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/whisper.txt",
+    "srt": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/whisper.srt",
+    "json": "/Users/brian/github/nerdoutinc/paperless-ag/videos/03-what-is-a-vps-build/analysis/whisper.json"
+  },
+  "segments": [
+    {
+      "id": "n001",
+      "start": 0.0,
+      "end": 3.7,
+      "text": "Hey, this is Brian from Fullstack Egg."
+    },
+    {
+      "id": "n002",
+      "start": 3.7,
+      "end": 5.9,
+      "text": "Before we set up paperless,"
+    },
+    {
+      "id": "n003",
+      "start": 5.9,
+      "end": 9.1,
+      "text": "we're going to need somewhere to install it."
+    },
+    {
+      "id": "n004",
+      "start": 9.1,
+      "end": 13.98,
+      "text": "We could install it on our own computer at home."
+    },
+    {
+      "id": "n005",
+      "start": 13.98,
+      "end": 16.54,
+      "text": "Or if we want to install it in the Cloud,"
+    },
+    {
+      "id": "n006",
+      "start": 16.54,
+      "end": 19.22,
+      "text": "we could set up a VPS."
+    },
+    {
+      "id": "n007",
+      "start": 19.22,
+      "end": 23.14,
+      "text": "VPS stands for Virtual Private Server."
+    },
+    {
+      "id": "n008",
+      "start": 23.14,
+      "end": 25.46,
+      "text": "You can think of it as renting"
+    },
+    {
+      "id": "n009",
+      "start": 25.46,
+      "end": 29.98,
+      "text": "a small office space instead of buying your own building."
+    },
+    {
+      "id": "n010",
+      "start": 29.98,
+      "end": 34.78,
+      "text": "Someone else owns the building and handles all the maintenance,"
+    },
+    {
+      "id": "n011",
+      "start": 34.78,
+      "end": 37.94,
+      "text": "and you just use the space."
+    },
+    {
+      "id": "n012",
+      "start": 37.94,
+      "end": 42.62,
+      "text": "Setting up a VPS is just like renting an office."
+    },
+    {
+      "id": "n013",
+      "start": 42.62,
+      "end": 47.98,
+      "text": "A company like DigitalOcean has huge data centers full of servers."
+    },
+    {
+      "id": "n014",
+      "start": 47.98,
+      "end": 51.3,
+      "text": "You rent just a slice of one of those servers."
+    },
+    {
+      "id": "n015",
+      "start": 51.3,
+      "end": 52.66,
+      "text": "It's always on,"
+    },
+    {
+      "id": "n016",
+      "start": 52.66,
+      "end": 54.82,
+      "text": "always connected to the Internet,"
+    },
+    {
+      "id": "n017",
+      "start": 54.82,
+      "end": 58.34,
+      "text": "and you can run whatever you want to install on it."
+    },
+    {
+      "id": "n018",
+      "start": 58.34,
+      "end": 62.26,
+      "text": "Here's what setting up a VPS actually looks like."
+    },
+    {
+      "id": "n019",
+      "start": 62.26,
+      "end": 65.66,
+      "text": "On DigitalOcean, they call a VPS a droplet."
+    },
+    {
+      "id": "n020",
+      "start": 65.66,
+      "end": 70.54,
+      "text": "You pick the size you need based on your software requirements."
+    },
+    {
+      "id": "n021",
+      "start": 70.54,
+      "end": 75.3,
+      "text": "For paperless, we're going to need something with about four gigs of memory."
+    },
+    {
+      "id": "n022",
+      "start": 75.3,
+      "end": 79.74,
+      "text": "On DigitalOcean, that's going to run us about 24 bucks a month,"
+    },
+    {
+      "id": "n023",
+      "start": 79.74,
+      "end": 83.1,
+      "text": "which is less than a lot of software subscriptions,"
+    },
+    {
+      "id": "n024",
+      "start": 83.1,
+      "end": 85.86,
+      "text": "and you own everything on it."
+    },
+    {
+      "id": "n025",
+      "start": 85.86,
+      "end": 87.86,
+      "text": "As you can see here,"
+    },
+    {
+      "id": "n026",
+      "start": 87.86,
+      "end": 90.66,
+      "text": "you can choose the region your server lives in,"
+    },
+    {
+      "id": "n027",
+      "start": 90.66,
+      "end": 94.9,
+      "text": "so you're going to want to just choose whatever is closest to you."
+    },
+    {
+      "id": "n028",
+      "start": 94.9,
+      "end": 97.98,
+      "text": "I'm sure when you hear $24 a month,"
+    },
+    {
+      "id": "n029",
+      "start": 97.98,
+      "end": 101.9,
+      "text": "you're thinking, \"Why not just run this on my own computer?\""
+    },
+    {
+      "id": "n030",
+      "start": 101.9,
+      "end": 105.86,
+      "text": "You totally can do that, but a VPS is always on,"
+    },
+    {
+      "id": "n031",
+      "start": 105.86,
+      "end": 110.34,
+      "text": "even when your home Internet goes down or you turn off your laptop,"
+    },
+    {
+      "id": "n032",
+      "start": 110.34,
+      "end": 113.94,
+      "text": "and when you want to access your documents from your phone in the field,"
+    },
+    {
+      "id": "n033",
+      "start": 113.94,
+      "end": 117.98,
+      "text": "the VPS is already on the Internet and ready to go."
+    },
+    {
+      "id": "n034",
+      "start": 117.98,
+      "end": 122.14,
+      "text": "So that's it. A VPS is just a computer you write online."
+    },
+    {
+      "id": "n035",
+      "start": 122.14,
+      "end": 125.74,
+      "text": "In a later video, we'll walk you through actually creating one of these"
+    },
+    {
+      "id": "n036",
+      "start": 125.74,
+      "end": 128.94,
+      "text": "and installing paperless on it step-by-step."
+    }
+  ],
+  "text": "Hey, this is Brian from Fullstack Egg.\nBefore we set up paperless,\nwe're going to need somewhere to install it.\nWe could install it on our own computer at home.\nOr if we want to install it in the Cloud,\nwe could set up a VPS.\nVPS stands for Virtual Private Server.\nYou can think of it as renting\na small office space instead of buying your own building.\nSomeone else owns the building and handles all the maintenance,\nand you just use the space.\nSetting up a VPS is just like renting an office.\nA company like DigitalOcean has huge data centers full of servers.\nYou rent just a slice of one of those servers.\nIt's always on,\nalways connected to the Internet,\nand you can run whatever you want to install on it.\nHere's what setting up a VPS actually looks like.\nOn DigitalOcean, they call a VPS a droplet.\nYou pick the size you need based on your software requirements.\nFor paperless, we're going to need something with about four gigs of memory.\nOn DigitalOcean, that's going to run us about 24 bucks a month,\nwhich is less than a lot of software subscriptions,\nand you own everything on it.\nAs you can see here,\nyou can choose the region your server lives in,\nso you're going to want to just choose whatever is closest to you.\nI'm sure when you hear $24 a month,\nyou're thinking, \"Why not just run this on my own computer?\"\nYou totally can do that, but a VPS is always on,\neven when your home Internet goes down or you turn off your laptop,\nand when you want to access your documents from your phone in the field,\nthe VPS is already on the Internet and ready to go.\nSo that's it. A VPS is just a computer you write online.\nIn a later video, we'll walk you through actually creating one of these\nand installing paperless on it step-by-step."
+}

@@ -1,0 +1,4030 @@
+{
+  "schema": "nerdout.timing_map.v1",
+  "source_video": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.mp4",
+  "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.m4a",
+  "artifacts": {
+    "media_summary": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/media-summary.json",
+    "transcript": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/transcript.json",
+    "screen_events": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/screen-events.json",
+    "screen_events_contact_sheet": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/screen-events-contact-sheet.jpg",
+    "timing_map_markdown": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/timing-map.md",
+    "timing_map_json": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/timing-map.json"
+  },
+  "media_summary": {
+    "schema": "nerdout.media_summary.v1",
+    "source_video": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.mp4",
+    "source_audio": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.m4a",
+    "video": {
+      "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.mp4",
+      "duration": 31.0,
+      "width": 3600,
+      "height": 2160,
+      "fps": 60.0,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "bit_rate": 29779928.0,
+      "has_embedded_audio": false,
+      "embedded_audio_codecs": []
+    },
+    "audio": {
+      "path": "/Users/brian/github/nerdoutinc/paperless-ag/videos/src/04-what-is-docker.m4a",
+      "duration": 120.418685,
+      "codec": "aac",
+      "channels": 2,
+      "sample_rate": 44100.0,
+      "bit_rate": 261764.0
+    },
+    "duration_delta": 89.418685
+  },
+  "warnings": [
+    "Narration is 89.4s longer than the source video."
+  ],
+  "rows": [
+    {
+      "id": "tm001",
+      "transcript_segment": {
+        "id": "n001",
+        "start": 0.0,
+        "end": 3.08,
+        "text": "Hey, this is Brian from Fullstack Egg."
+      },
+      "narration_time": {
+        "start": 0.0,
+        "end": 3.08,
+        "mid": 1.54,
+        "inferred": false
+      },
+      "expected_source_time": 0.396,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 2.60354989759272,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 4.60354989759272,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 0.0,
+          "start": null,
+          "end": 0.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.39645010240728007,
+          "ocr_text": "Sign In The #1 containerization software for developers and teams Choose plan CPU u3a9e usage .01\u00b0,. 11200% 17.47 GB Ex...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0001_00-00-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.60354989759272,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm002",
+      "transcript_segment": {
+        "id": "n002",
+        "start": 3.08,
+        "end": 4.92,
+        "text": "When we set up paperless,"
+      },
+      "narration_time": {
+        "start": 3.08,
+        "end": 4.92,
+        "mid": 4.0,
+        "inferred": false
+      },
+      "expected_source_time": 1.03,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 1.9702594742668051,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 3.970259474266805,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 0.0,
+          "start": null,
+          "end": 0.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.0297405257331949,
+          "ocr_text": "Sign In The #1 containerization software for developers and teams Choose plan CPU u3a9e usage .01\u00b0,. 11200% 17.47 GB Ex...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0001_00-00-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.970259474266805,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm003",
+      "transcript_segment": {
+        "id": "n003",
+        "start": 4.92,
+        "end": 7.56,
+        "text": "we use something called Docker,"
+      },
+      "narration_time": {
+        "start": 4.92,
+        "end": 7.56,
+        "mid": 6.24,
+        "inferred": false
+      },
+      "expected_source_time": 1.606,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 1.3936047798562157,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.25,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 3.393604779856216,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.25,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.393604779856216,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.25,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 0.0,
+          "start": null,
+          "end": 0.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.6063952201437843,
+          "ocr_text": "Sign In The #1 containerization software for developers and teams Choose plan CPU u3a9e usage .01\u00b0,. 11200% 17.47 GB Ex...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0001_00-00-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.25,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm004",
+      "transcript_segment": {
+        "id": "n004",
+        "start": 7.56,
+        "end": 10.36,
+        "text": "and I'm going to tell you a little bit about it."
+      },
+      "narration_time": {
+        "start": 7.56,
+        "end": 10.36,
+        "mid": 8.96,
+        "inferred": false
+      },
+      "expected_source_time": 2.307,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 0.6933812223576434,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 2.6933812223576434,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 0.0,
+          "start": null,
+          "end": 0.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.3066187776423566,
+          "ocr_text": "Sign In The #1 containerization software for developers and teams Choose plan CPU u3a9e usage .01\u00b0,. 11200% 17.47 GB Ex...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0001_00-00-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.6933812223576434,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm005",
+      "transcript_segment": {
+        "id": "n005",
+        "start": 10.36,
+        "end": 16.52,
+        "text": "You can think of Docker like a collection of shipping containers that all have different things inside,"
+      },
+      "narration_time": {
+        "start": 10.36,
+        "end": 16.52,
+        "mid": 13.44,
+        "inferred": false
+      },
+      "expected_source_time": 3.46,
+      "likely_source_range": {
+        "start": 0.0,
+        "end": 7.0
+      },
+      "candidate_events": [
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 0.45992816646353507,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.1,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 1.540071833536465,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.1,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e003",
+          "kind": "anchor",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.540071833536465,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.1,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e001",
+          "kind": "anchor",
+          "time": 0.0,
+          "start": null,
+          "end": 0.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.459928166463535,
+          "ocr_text": "Sign In The #1 containerization software for developers and teams Choose plan CPU u3a9e usage .01\u00b0,. 11200% 17.47 GB Ex...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0001_00-00-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.1,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm006",
+      "transcript_segment": {
+        "id": "n006",
+        "start": 16.52,
+        "end": 21.04,
+        "text": "but because they are all inside of that same container,"
+      },
+      "narration_time": {
+        "start": 16.52,
+        "end": 21.04,
+        "mid": 18.78,
+        "inferred": false
+      },
+      "expected_source_time": 4.835,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 0.16536823168264903,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 1.834631768317351,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 5.165368231682649,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 5.165368231682649,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm007",
+      "transcript_segment": {
+        "id": "n007",
+        "start": 21.04,
+        "end": 23.64,
+        "text": "it makes it really easy to manage,"
+      },
+      "narration_time": {
+        "start": 21.04,
+        "end": 23.64,
+        "mid": 22.34,
+        "inferred": false
+      },
+      "expected_source_time": 5.751,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 0.7511008362198943,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 2.7511008362198943,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 4.248899163780106,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 4.248899163780106,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm008",
+      "transcript_segment": {
+        "id": "n008",
+        "start": 23.64,
+        "end": 27.08,
+        "text": "and Docker does the same thing for software."
+      },
+      "narration_time": {
+        "start": 23.64,
+        "end": 27.08,
+        "mid": 25.36,
+        "inferred": false
+      },
+      "expected_source_time": 6.529,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 1.528554933148457,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 3.471445066851543,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 3.528554933148457,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 3.471445066851543,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.2,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm009",
+      "transcript_segment": {
+        "id": "n009",
+        "start": 27.08,
+        "end": 31.48,
+        "text": "Instead of installing a program and hoping it works on your computer,"
+      },
+      "narration_time": {
+        "start": 27.08,
+        "end": 31.48,
+        "mid": 29.28,
+        "inferred": false
+      },
+      "expected_source_time": 7.538,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 2.4622993516330123,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 2.5377006483669877,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 4.537700648366988,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 2.4622993516330123,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm010",
+      "transcript_segment": {
+        "id": "n010",
+        "start": 31.48,
+        "end": 35.24,
+        "text": "everything the program needs gets packed into a container."
+      },
+      "narration_time": {
+        "start": 31.48,
+        "end": 35.24,
+        "mid": 33.36,
+        "inferred": false
+      },
+      "expected_source_time": 8.588,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 1.4119640153851538,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 3.588035984614846,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e002",
+          "kind": "ocr_change",
+          "time": 3.0,
+          "start": null,
+          "end": 3.0,
+          "duration": null,
+          "score": 0.9753,
+          "distance_from_expected": 5.588035984614846,
+          "ocr_text": "Docker Desktop.' The #': https'.Ilwww.docker.comlproduct5ldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0002_00-03-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 1.4119640153851538,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm011",
+      "transcript_segment": {
+        "id": "n011",
+        "start": 35.24,
+        "end": 38.64,
+        "text": "So when you run that container, it just works,"
+      },
+      "narration_time": {
+        "start": 35.24,
+        "end": 38.64,
+        "mid": 36.94,
+        "inferred": false
+      },
+      "expected_source_time": 9.51,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 0.49034624485394573,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 4.509653755146054,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 5.490346244853946,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 0.49034624485394573,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm012",
+      "transcript_segment": {
+        "id": "n012",
+        "start": 38.64,
+        "end": 42.52,
+        "text": "and it doesn't matter if you're running it on your desktop computer"
+      },
+      "narration_time": {
+        "start": 38.64,
+        "end": 42.52,
+        "mid": 40.58,
+        "inferred": false
+      },
+      "expected_source_time": 10.447,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 0.44671763356326366,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "desktop"
+            ]
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 4.553282366436736,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "desktop"
+            ]
+          }
+        },
+        {
+          "id": "e004",
+          "kind": "ocr_change",
+          "time": 5.0,
+          "start": null,
+          "end": 5.0,
+          "duration": null,
+          "score": 0.9566,
+          "distance_from_expected": 5.446717633563264,
+          "ocr_text": "Docker Desktop.' The # https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign I...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0003_00-05-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "desktop"
+            ]
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 0.44671763356326366,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "desktop"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.2,
+        "terms": [
+          "desktop"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm013",
+      "transcript_segment": {
+        "id": "n013",
+        "start": 42.52,
+        "end": 46.8,
+        "text": "or on a VPS in the cloud, it always works the same."
+      },
+      "narration_time": {
+        "start": 42.52,
+        "end": 46.8,
+        "mid": 44.66,
+        "inferred": false
+      },
+      "expected_source_time": 11.497,
+      "likely_source_range": {
+        "start": 1.0,
+        "end": 19.0
+      },
+      "candidate_events": [
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 1.4970529698111203,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 3.5029470301888797,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 5.50294703018888,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e006",
+          "kind": "stable_hold",
+          "time": 10.0,
+          "start": 3.0,
+          "end": 17.0,
+          "duration": 14.0,
+          "score": 0.3146,
+          "distance_from_expected": 1.4970529698111203,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm014",
+      "transcript_segment": {
+        "id": "n014",
+        "start": 46.8,
+        "end": 50.64,
+        "text": "So this is Docker desktop on my Mac,"
+      },
+      "narration_time": {
+        "start": 46.8,
+        "end": 50.64,
+        "mid": 48.72,
+        "inferred": false
+      },
+      "expected_source_time": 12.542,
+      "likely_source_range": {
+        "start": 8.0,
+        "end": 20.0
+      },
+      "candidate_events": [
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 2.457760396569686,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "desktop",
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 2.542239603430314,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "desktop",
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 4.457760396569686,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "desktop",
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 5.457760396569686,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.667,
+        "terms": [
+          "desktop",
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm015",
+      "transcript_segment": {
+        "id": "n015",
+        "start": 50.64,
+        "end": 55.0,
+        "text": "and these are the containers running paperless right now on my computer."
+      },
+      "narration_time": {
+        "start": 50.64,
+        "end": 55.0,
+        "mid": 52.82,
+        "inferred": false
+      },
+      "expected_source_time": 13.598,
+      "likely_source_range": {
+        "start": 8.0,
+        "end": 20.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 4.402276357693159,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.167,
+            "terms": [
+              "paperless"
+            ]
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 1.4022763576931592,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 3.402276357693159,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 3.597723642306841,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.167,
+        "terms": [
+          "paperless"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm016",
+      "transcript_segment": {
+        "id": "n016",
+        "start": 55.0,
+        "end": 58.44,
+        "text": "There's a few of them working together, one for the database,"
+      },
+      "narration_time": {
+        "start": 55.0,
+        "end": 58.44,
+        "mid": 56.72,
+        "inferred": false
+      },
+      "expected_source_time": 14.602,
+      "likely_source_range": {
+        "start": 8.0,
+        "end": 20.0
+      },
+      "candidate_events": [
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 0.39827934510329577,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 2.3982793451032958,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 3.3982793451032958,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 4.601720654896704,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm017",
+      "transcript_segment": {
+        "id": "n017",
+        "start": 58.44,
+        "end": 60.32,
+        "text": "one for paperless itself,"
+      },
+      "narration_time": {
+        "start": 58.44,
+        "end": 60.32,
+        "mid": 59.38,
+        "inferred": false
+      },
+      "expected_source_time": 15.286,
+      "likely_source_range": {
+        "start": 8.0,
+        "end": 20.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 2.7135018954907206,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.333,
+            "terms": [
+              "paperless"
+            ]
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 0.28649810450927937,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 1.7135018954907206,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e005",
+          "kind": "ocr_change",
+          "time": 10.0,
+          "start": null,
+          "end": 10.0,
+          "duration": null,
+          "score": 0.7889,
+          "distance_from_expected": 5.286498104509279,
+          "ocr_text": "Docker Desktop.' The #-, https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0004_00-10-000_stable_hold.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.333,
+        "terms": [
+          "paperless"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm018",
+      "transcript_segment": {
+        "id": "n018",
+        "start": 60.32,
+        "end": 63.48,
+        "text": "and one for the search add-on that we built."
+      },
+      "narration_time": {
+        "start": 60.32,
+        "end": 63.48,
+        "mid": 61.9,
+        "inferred": false
+      },
+      "expected_source_time": 15.935,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 2.0647653642788075,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.25,
+            "terms": [
+              "search"
+            ]
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 0.9352346357211925,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 1.0647653642788075,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 5.0647653642788075,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.25,
+        "terms": [
+          "search"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm019",
+      "transcript_segment": {
+        "id": "n019",
+        "start": 63.48,
+        "end": 67.6,
+        "text": "And here I'll show you them running in the terminal as well."
+      },
+      "narration_time": {
+        "start": 63.48,
+        "end": 67.6,
+        "mid": 65.54,
+        "inferred": false
+      },
+      "expected_source_time": 16.872,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 0.1277014858615999,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 1.1277014858616,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 1.8722985141384,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 4.1277014858616,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm020",
+      "transcript_segment": {
+        "id": "n020",
+        "start": 67.6,
+        "end": 70.0,
+        "text": "Each one is running in its own little box,"
+      },
+      "narration_time": {
+        "start": 67.6,
+        "end": 70.0,
+        "mid": 68.8,
+        "inferred": false
+      },
+      "expected_source_time": 17.712,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 0.28846295738904715,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 0.7115370426109529,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 2.711537042610953,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 3.288462957389047,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm021",
+      "transcript_segment": {
+        "id": "n021",
+        "start": 70.0,
+        "end": 72.32,
+        "text": "keeping things clean and separate."
+      },
+      "narration_time": {
+        "start": 70.0,
+        "end": 72.32,
+        "mid": 71.16,
+        "inferred": false
+      },
+      "expected_source_time": 18.319,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 0.31908395279354096,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 1.319083952793541,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 2.680916047206459,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 3.319083952793541,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm022",
+      "transcript_segment": {
+        "id": "n022",
+        "start": 72.32,
+        "end": 75.04,
+        "text": "And while this all might seem complicated,"
+      },
+      "narration_time": {
+        "start": 72.32,
+        "end": 75.04,
+        "mid": 73.68,
+        "inferred": false
+      },
+      "expected_source_time": 18.968,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 0.9678204840054541,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 1.967820484005454,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 2.032179515994546,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 3.967820484005454,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm023",
+      "transcript_segment": {
+        "id": "n023",
+        "start": 75.04,
+        "end": 78.08,
+        "text": "you really don't have to be a programmer to set this up."
+      },
+      "narration_time": {
+        "start": 75.04,
+        "end": 78.08,
+        "mid": 76.56,
+        "inferred": false
+      },
+      "expected_source_time": 19.709,
+      "likely_source_range": {
+        "start": 13.0,
+        "end": 23.0
+      },
+      "candidate_events": [
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 1.2907663374666463,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 1.7092336625333537,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 2.7092336625333537,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e008",
+          "kind": "ocr_change",
+          "time": 15.0,
+          "start": null,
+          "end": 15.0,
+          "duration": null,
+          "score": 0.9484,
+          "distance_from_expected": 4.709233662533354,
+          "ocr_text": "Docker Desktop.' The #'. https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0005_00-15-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm024",
+      "transcript_segment": {
+        "id": "n024",
+        "start": 78.08,
+        "end": 81.0,
+        "text": "Docker handles all the complicated parts."
+      },
+      "narration_time": {
+        "start": 78.08,
+        "end": 81.0,
+        "mid": 79.54,
+        "inferred": false
+      },
+      "expected_source_time": 20.476,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 27.0
+      },
+      "candidate_events": [
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 0.5236096457954176,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 3.4763903542045824,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 4.523609645795418,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.2,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 2.4763903542045824,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.2,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm025",
+      "transcript_segment": {
+        "id": "n025",
+        "start": 81.0,
+        "end": 83.08,
+        "text": "You basically say, \"Run this,\""
+      },
+      "narration_time": {
+        "start": 81.0,
+        "end": 83.08,
+        "mid": 82.04,
+        "inferred": false
+      },
+      "expected_source_time": 21.12,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 27.0
+      },
+      "candidate_events": [
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 0.11997818278782901,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 3.119978182787829,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 3.880021817212171,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 4.119978182787829,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm026",
+      "transcript_segment": {
+        "id": "n026",
+        "start": 83.08,
+        "end": 86.16,
+        "text": "and it pulls everything down and starts it up."
+      },
+      "narration_time": {
+        "start": 83.08,
+        "end": 86.16,
+        "mid": 84.62,
+        "inferred": false
+      },
+      "expected_source_time": 21.784,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 27.0
+      },
+      "candidate_events": [
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 0.7841608218857417,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 3.2158391781142583,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 3.7841608218857417,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 4.784160821885742,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm027",
+      "transcript_segment": {
+        "id": "n027",
+        "start": 86.16,
+        "end": 90.44,
+        "text": "And if something breaks, you throw away the container and start fresh."
+      },
+      "narration_time": {
+        "start": 86.16,
+        "end": 90.44,
+        "mid": 88.3,
+        "inferred": false
+      },
+      "expected_source_time": 22.732,
+      "likely_source_range": {
+        "start": 15.0,
+        "end": 27.0
+      },
+      "candidate_events": [
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 1.731522105560277,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 2.268477894439723,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 4.731522105560277,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e009",
+          "kind": "ocr_change",
+          "time": 17.0,
+          "start": null,
+          "end": 17.0,
+          "duration": null,
+          "score": 0.7559,
+          "distance_from_expected": 5.731522105560277,
+          "ocr_text": "Docker Desktop.' The #\". https'.Ilwww.docker.comlproductsldocker-desktopl Products v Support v Pricing v Blog Docs Sign...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0006_00-17-000_hold_end.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm028",
+      "transcript_segment": {
+        "id": "n028",
+        "start": 90.44,
+        "end": 94.4,
+        "text": "Your data is stored separately, so nothing gets lost."
+      },
+      "narration_time": {
+        "start": 90.44,
+        "end": 94.4,
+        "mid": 92.42,
+        "inferred": false
+      },
+      "expected_source_time": 23.792,
+      "likely_source_range": {
+        "start": 16.0,
+        "end": 27.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 1.207845152934528,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 2.792154847065472,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e010",
+          "kind": "ocr_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.9877,
+          "distance_from_expected": 5.792154847065472,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e011",
+          "kind": "scene_change",
+          "time": 18.0,
+          "start": null,
+          "end": 18.0,
+          "duration": null,
+          "score": 0.5421,
+          "distance_from_expected": 5.792154847065472,
+          "ocr_text": "*dockerdesktop PERSONAL Q Search Sign in Gordon paperless-ag IUsers/brianlgithublnerdoutinc/paperless-ag View configura...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0008_00-18-000_scene_change.jpg",
+          "notes": [
+            "visual change peak",
+            "Apple Vision feature-print analyzed"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm029",
+      "transcript_segment": {
+        "id": "n029",
+        "start": 94.4,
+        "end": 96.76,
+        "text": "So that's Docker in a nutshell."
+      },
+      "narration_time": {
+        "start": 94.4,
+        "end": 96.76,
+        "mid": 95.58,
+        "inferred": false
+      },
+      "expected_source_time": 24.606,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 0.3943501376053007,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.5,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 3.6056498623946993,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.5,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 0.8943501376053007,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.5,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.3943501376053007,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.5,
+            "terms": [
+              "docker"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.5,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm030",
+      "transcript_segment": {
+        "id": "n030",
+        "start": 96.76,
+        "end": 100.24,
+        "text": "It packages software, so it runs the same everywhere,"
+      },
+      "narration_time": {
+        "start": 96.76,
+        "end": 100.24,
+        "mid": 98.5,
+        "inferred": false
+      },
+      "expected_source_time": 25.357,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 0.3573604461799249,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 4.357360446179925,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 0.1426395538200751,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 0.3573604461799249,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm031",
+      "transcript_segment": {
+        "id": "n031",
+        "start": 100.24,
+        "end": 103.4,
+        "text": "and you don't have to worry about installing all these dependencies"
+      },
+      "narration_time": {
+        "start": 100.24,
+        "end": 103.4,
+        "mid": 101.82,
+        "inferred": false
+      },
+      "expected_source_time": 26.212,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 1.2120450825384772,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 5.212045082538477,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 0.7120450825384772,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.2120450825384772,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm032",
+      "transcript_segment": {
+        "id": "n032",
+        "start": 103.4,
+        "end": 105.4,
+        "text": "and breaking things."
+      },
+      "narration_time": {
+        "start": 103.4,
+        "end": 105.4,
+        "mid": 104.4,
+        "inferred": false
+      },
+      "expected_source_time": 26.876,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 1.8762277216363934,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e013",
+          "kind": "ocr_change",
+          "time": 21.0,
+          "start": null,
+          "end": 21.0,
+          "duration": null,
+          "score": 0.9266,
+          "distance_from_expected": 5.876227721636393,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 erless-ag on P vps-and-docker-videos 1$171",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0011_00-21-000_hold_start.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 1.3762277216363934,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 1.8762277216363934,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm033",
+      "transcript_segment": {
+        "id": "n033",
+        "start": 105.4,
+        "end": 108.76,
+        "text": "And for the paperless install videos,"
+      },
+      "narration_time": {
+        "start": 105.4,
+        "end": 108.76,
+        "mid": 107.08,
+        "inferred": false
+      },
+      "expected_source_time": 27.566,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 2.566153873877635,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "paperless",
+              "videos"
+            ]
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 2.066153873877635,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "paperless",
+              "videos"
+            ]
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 2.566153873877635,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.667,
+            "terms": [
+              "paperless",
+              "videos"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.667,
+        "terms": [
+          "paperless",
+          "videos"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "high",
+      "notes": [
+        "OCR text overlaps the narration cue.",
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm034",
+      "transcript_segment": {
+        "id": "n034",
+        "start": 108.76,
+        "end": 112.76,
+        "text": "you'll see that our setup script handles all the Docker stuff for you,"
+      },
+      "narration_time": {
+        "start": 108.76,
+        "end": 112.76,
+        "mid": 110.76,
+        "inferred": false
+      },
+      "expected_source_time": 28.514,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 3.513515157552174,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.143,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 3.013515157552174,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.143,
+            "terms": [
+              "docker"
+            ]
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 3.513515157552174,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.143,
+            "terms": [
+              "docker"
+            ]
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.143,
+        "terms": [
+          "docker"
+        ]
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm035",
+      "transcript_segment": {
+        "id": "n035",
+        "start": 112.76,
+        "end": 116.72,
+        "text": "automatically, so you really don't have to worry about it."
+      },
+      "narration_time": {
+        "start": 112.76,
+        "end": 116.72,
+        "mid": 114.74,
+        "inferred": false
+      },
+      "expected_source_time": 29.538,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 4.5381069806567,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 4.0381069806567,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 4.5381069806567,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm036",
+      "transcript_segment": {
+        "id": "n036",
+        "start": 116.72,
+        "end": 118.16,
+        "text": "And that's it for now."
+      },
+      "narration_time": {
+        "start": 116.72,
+        "end": 118.16,
+        "mid": 117.44,
+        "inferred": false
+      },
+      "expected_source_time": 30.233,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 5.233181835526604,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 4.733181835526604,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 5.233181835526604,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    },
+    {
+      "id": "tm037",
+      "transcript_segment": {
+        "id": "n037",
+        "start": 118.16,
+        "end": 119.88,
+        "text": "Thanks again for watching."
+      },
+      "narration_time": {
+        "start": 118.16,
+        "end": 119.88,
+        "mid": 119.02,
+        "inferred": false
+      },
+      "expected_source_time": 30.64,
+      "likely_source_range": {
+        "start": 19.0,
+        "end": 31.0
+      },
+      "candidate_events": [
+        {
+          "id": "e015",
+          "kind": "ocr_change",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.7347,
+          "distance_from_expected": 5.639929343191216,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "visible text changed between Apple Vision OCR samples"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e016",
+          "kind": "stable_hold",
+          "time": 25.5,
+          "start": 21.0,
+          "end": 30.0,
+          "duration": 9.0,
+          "score": 0.9191,
+          "distance_from_expected": 5.139929343191216,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ?I i) docker ps -filter name=paperles...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0013_00-25-500_stable_hold.jpg",
+          "notes": [
+            "low visual change span",
+            "candidate loading/wait/freeze-frame region"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        },
+        {
+          "id": "e014",
+          "kind": "anchor",
+          "time": 25.0,
+          "start": null,
+          "end": 25.0,
+          "duration": null,
+          "score": 0.0,
+          "distance_from_expected": 5.639929343191216,
+          "ocr_text": "\u2022 \u2022 \u2022 Ai paperless-ag--bash- 126x42 paperloss-ag on tr vps-and-docker-videos 1$ l ? I i) docker ps -filter name=paperle...",
+          "frame": "/Users/brian/github/nerdoutinc/paperless-ag/videos/04-what-is-docker-build/analysis/frames/frame_0012_00-25-000_anchor.jpg",
+          "notes": [
+            "regular Apple Vision sample for agent review"
+          ],
+          "text_overlap": {
+            "score": 0.0,
+            "terms": []
+          }
+        }
+      ],
+      "text_overlap": {
+        "score": 0.0,
+        "terms": []
+      },
+      "proposed_operation": "align_to_event",
+      "confidence": "medium",
+      "notes": [
+        "Narration is 89.4s longer than the source video overall."
+      ]
+    }
+  ]
+}
