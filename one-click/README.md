@@ -88,7 +88,8 @@ See `templates/env.template` for the full template with defaults.
 7. Wizard services stop, Docker Compose services start
 8. Caddy reverse-proxies Paperless on `:80`/`:443` and MCP on `/mcp`
 9. If local AI is enabled, Open WebUI starts with Paperless Ag MCP seeded via
-   `TOOL_SERVER_CONNECTIONS`
+   `TOOL_SERVER_CONNECTIONS`. For selected Qwen 3 models, Open WebUI also
+   starts with Ollama thinking disabled by default.
 
 ## Quick Reference
 

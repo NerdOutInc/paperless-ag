@@ -147,12 +147,18 @@ During setup, choose **local AI chat** to install Ollama and Open WebUI in the
 same Docker Compose stack. The installer detects RAM and recommends a starter
 Ollama chat model:
 
-- Under 8 GB RAM: skip model download by default; `llama3.2:1b` is available
-  as a lightweight option.
-- 8-15 GB RAM: `llama3.2:3b` is recommended.
+- Under 8 GB RAM: skip model download by default; `gemma3:270m` and
+  `qwen3:0.6b` are available as tiny options.
+- 8-15 GB RAM: `qwen3:0.6b` is recommended for practical Raspberry Pi 5
+  performance, with `gemma3:1b`, `gemma3:270m`, and `smollm2:360m` offered as
+  alternatives.
 - 16-31 GB RAM: `qwen3:8b` is recommended.
 - 32 GB+ RAM: `qwen3:8b` remains the default, with `qwen3:14b` offered as a
   larger option.
+
+For Qwen 3 models, Open WebUI is started with Ollama thinking disabled by
+default. This is equivalent to using `--think=false` with `ollama run`, but it
+is applied through Open WebUI's Ollama request parameters.
 
 Ollama models are only for chat in Open WebUI. Paperless Ag still uses
 `all-MiniLM-L6-v2` for 384-dimensional document embeddings.

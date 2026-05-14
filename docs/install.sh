@@ -181,8 +181,10 @@ detect_gpu_hint() {
 
 model_download_size() {
     case "$1" in
-        llama3.2:1b) echo "about 1.3GB" ;;
-        llama3.2:3b | llama3.2) echo "about 2.0GB" ;;
+        qwen3:0.6b) echo "about 523MB" ;;
+        gemma3:270m) echo "about 292MB" ;;
+        smollm2:360m) echo "about 726MB" ;;
+        gemma3:1b) echo "about 815MB" ;;
         gemma3:4b) echo "about 3.3GB" ;;
         qwen3:8b) echo "about 5.2GB" ;;
         qwen3:14b) echo "about 9.3GB" ;;
@@ -196,8 +198,8 @@ recommended_local_ai_model() {
         echo "qwen3:8b"
     elif (( ram_mb >= 16000 )); then
         echo "qwen3:8b"
-    elif (( ram_mb >= 8000 )); then
-        echo "llama3.2:3b"
+    elif (( ram_mb >= 7000 )); then
+        echo "qwen3:0.6b"
     else
         echo ""
     fi
@@ -216,7 +218,7 @@ prompt_model_name() {
             echo "$result"
             return
         fi
-        warn "Use a valid Ollama model name like llama3.2:3b, gemma3:4b, or qwen3:8b." >&2
+        warn "Use a valid Ollama model name like qwen3:0.6b, gemma3:1b, or qwen3:8b." >&2
     done
 }
 
@@ -614,26 +616,32 @@ choose_local_ai_model() {
     echo -e "  ${DIM}Detected: ${ram_mb:-0}MB RAM, $(detect_arch) CPU, GPU: $(detect_gpu_hint)${NC}"
     echo
 
-    if (( ram_mb < 8000 )); then
+    if (( ram_mb < 7000 )); then
         echo "    1) Skip model download (recommended for this machine)"
-        echo "    2) llama3.2:1b -- works, but may be slow ($(model_download_size llama3.2:1b))"
-        echo "    3) Use a custom Ollama model name"
+        echo "    2) gemma3:270m -- tiniest option ($(model_download_size gemma3:270m))"
+        echo "    3) qwen3:0.6b -- better chat, still tiny ($(model_download_size qwen3:0.6b))"
+        echo "    4) Use a custom Ollama model name"
         echo
         case "$(prompt "Choose" "1")" in
-            2) OLLAMA_DEFAULT_MODEL="llama3.2:1b" ;;
-            3) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "llama3.2:1b") ;;
+            2) OLLAMA_DEFAULT_MODEL="gemma3:270m" ;;
+            3) OLLAMA_DEFAULT_MODEL="qwen3:0.6b" ;;
+            4) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "qwen3:0.6b") ;;
             *) OLLAMA_DEFAULT_MODEL="" ;;
         esac
     elif (( ram_mb < 16000 )); then
         echo "    1) ${recommended} -- recommended for this machine ($(model_download_size "$recommended"))"
-        echo "    2) gemma3:4b -- larger, may be slower ($(model_download_size gemma3:4b))"
-        echo "    3) Skip model download"
-        echo "    4) Use a custom Ollama model name"
+        echo "    2) gemma3:1b -- slightly larger fallback ($(model_download_size gemma3:1b))"
+        echo "    3) gemma3:270m -- fastest/smallest ($(model_download_size gemma3:270m))"
+        echo "    4) smollm2:360m -- compact fallback ($(model_download_size smollm2:360m))"
+        echo "    5) Skip model download"
+        echo "    6) Use a custom Ollama model name"
         echo
         case "$(prompt "Choose" "1")" in
-            2) OLLAMA_DEFAULT_MODEL="gemma3:4b" ;;
-            3) OLLAMA_DEFAULT_MODEL="" ;;
-            4) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "$recommended") ;;
+            2) OLLAMA_DEFAULT_MODEL="gemma3:1b" ;;
+            3) OLLAMA_DEFAULT_MODEL="gemma3:270m" ;;
+            4) OLLAMA_DEFAULT_MODEL="smollm2:360m" ;;
+            5) OLLAMA_DEFAULT_MODEL="" ;;
+            6) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "$recommended") ;;
             *) OLLAMA_DEFAULT_MODEL="$recommended" ;;
         esac
     elif (( ram_mb < 32768 )); then
@@ -689,6 +697,7 @@ collect_local_ai_config() {
     AI_DOMAIN=""
     OLLAMA_DEFAULT_MODEL=""
     OLLAMA_PULL_MODEL_ON_INSTALL="false"
+    OPEN_WEBUI_DEFAULT_MODEL_PARAMS=""
 
     divider
     echo "  Optional local AI chat"
@@ -745,6 +754,9 @@ collect_local_ai_config() {
     fi
 
     choose_local_ai_model
+    if [[ "${OLLAMA_DEFAULT_MODEL:-}" == "qwen3" || "${OLLAMA_DEFAULT_MODEL:-}" == qwen3:* ]]; then
+        OPEN_WEBUI_DEFAULT_MODEL_PARAMS='{"think":false}'
+    fi
 }
 
 # ── Collect Configuration ────────────────────────────────
@@ -993,6 +1005,8 @@ do_fresh_install() {
       WEBUI_AUTH: \"True\"
       ENABLE_DIRECT_CONNECTIONS: \"True\"
       BYPASS_ADMIN_ACCESS_CONTROL: \"True\"
+      DEFAULT_MODELS: \"\${OLLAMA_DEFAULT_MODEL}\"
+      DEFAULT_MODEL_PARAMS: '\${OPEN_WEBUI_DEFAULT_MODEL_PARAMS}'
       WEBUI_URL: \${OPEN_WEBUI_URL}
       TOOL_SERVER_CONNECTIONS: >-
         ${tool_server_connections}
@@ -1132,6 +1146,7 @@ OPEN_WEBUI_URL='${OPEN_WEBUI_URL:-}'
 OPEN_WEBUI_FALLBACK_URL='${OPEN_WEBUI_FALLBACK_URL:-}'
 OLLAMA_DEFAULT_MODEL='${OLLAMA_DEFAULT_MODEL:-}'
 OLLAMA_PULL_MODEL_ON_INSTALL='${OLLAMA_PULL_MODEL_ON_INSTALL:-false}'
+OPEN_WEBUI_DEFAULT_MODEL_PARAMS='${OPEN_WEBUI_DEFAULT_MODEL_PARAMS:-}'
 ENV
     chmod 600 "$install_dir/.env"
     info "Generated .env"
@@ -1339,6 +1354,7 @@ OPEN_WEBUI_URL='${OPEN_WEBUI_URL:-}'
 OPEN_WEBUI_FALLBACK_URL='${OPEN_WEBUI_FALLBACK_URL:-}'
 OLLAMA_DEFAULT_MODEL='${OLLAMA_DEFAULT_MODEL:-}'
 OLLAMA_PULL_MODEL_ON_INSTALL='${OLLAMA_PULL_MODEL_ON_INSTALL:-false}'
+OPEN_WEBUI_DEFAULT_MODEL_PARAMS='${OPEN_WEBUI_DEFAULT_MODEL_PARAMS:-}'
 ENVFILE
     chmod 600 "$compose_dir/paperless-ag.env"
 
@@ -1373,6 +1389,8 @@ ENVFILE
       WEBUI_AUTH: \"True\"
       ENABLE_DIRECT_CONNECTIONS: \"True\"
       BYPASS_ADMIN_ACCESS_CONTROL: \"True\"
+      DEFAULT_MODELS: \"${OLLAMA_DEFAULT_MODEL}\"
+      DEFAULT_MODEL_PARAMS: '${OPEN_WEBUI_DEFAULT_MODEL_PARAMS:-}'
       TOOL_SERVER_CONNECTIONS: >-
         ${tool_server_connections}
     volumes:
@@ -1705,6 +1723,9 @@ print_fresh_summary() {
         fi
         if [[ -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
             echo "  Ollama model:      ${OLLAMA_DEFAULT_MODEL}"
+            if [[ "${OPEN_WEBUI_DEFAULT_MODEL_PARAMS:-}" == *'"think":false'* ]]; then
+                echo "  Ollama thinking:   disabled by default in Open WebUI"
+            fi
         else
             echo "  Ollama model:      choose/pull one in Open WebUI"
         fi
@@ -1803,6 +1824,9 @@ print_addon_summary() {
         fi
         if [[ -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
             echo "  Ollama model:      ${OLLAMA_DEFAULT_MODEL}"
+            if [[ "${OPEN_WEBUI_DEFAULT_MODEL_PARAMS:-}" == *'"think":false'* ]]; then
+                echo "  Ollama thinking:   disabled by default in Open WebUI"
+            fi
         else
             echo "  Ollama model:      choose/pull one in Open WebUI"
         fi

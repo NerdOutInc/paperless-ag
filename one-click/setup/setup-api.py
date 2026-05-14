@@ -92,16 +92,16 @@ def recommended_model(ram_mb):
         return "qwen3:8b"
     if ram_mb >= 16000:
         return "qwen3:8b"
-    if ram_mb >= 8000:
-        return "llama3.2:3b"
+    if ram_mb >= 7000:
+        return "qwen3:0.6b"
     return ""
 
 
 def model_options(ram_mb):
-    if ram_mb < 8000:
-        return ["", "llama3.2:1b"]
+    if ram_mb < 7000:
+        return ["", "gemma3:270m", "qwen3:0.6b"]
     if ram_mb < 16000:
-        return ["llama3.2:3b", "gemma3:4b", ""]
+        return ["qwen3:0.6b", "gemma3:1b", "gemma3:270m", "smollm2:360m", ""]
     if ram_mb < 32768:
         return ["qwen3:8b", "gemma3:4b", ""]
     return ["qwen3:8b", "qwen3:14b", "gemma3:4b", ""]
@@ -197,6 +197,8 @@ def build_local_ai_blocks(enabled, values):
       WEBUI_AUTH: "True"
       ENABLE_DIRECT_CONNECTIONS: "True"
       BYPASS_ADMIN_ACCESS_CONTROL: "True"
+      DEFAULT_MODELS: "${{OLLAMA_DEFAULT_MODEL}}"
+      DEFAULT_MODEL_PARAMS: '${{OPEN_WEBUI_DEFAULT_MODEL_PARAMS}}'
       WEBUI_URL: ${{OPEN_WEBUI_URL}}
       TOOL_SERVER_CONNECTIONS: >-
         {values["TOOL_SERVER_CONNECTIONS"]}
@@ -379,6 +381,11 @@ class SetupHandler(BaseHTTPRequestHandler):
             webui_secret_key = generate_secret(50)
             open_webui_host_port = str(find_available_port()) if local_ai_enabled else ""
             tool_server_connections = build_tool_server_connections_json(mcp_token)
+            open_webui_default_model_params = (
+                '{"think":false}'
+                if local_ai_enabled and (ollama_model == "qwen3" or ollama_model.startswith("qwen3:"))
+                else ""
+            )
 
             # Determine Paperless URL
             if domain:
@@ -429,6 +436,7 @@ class SetupHandler(BaseHTTPRequestHandler):
                 "OPEN_WEBUI_FALLBACK_URL": open_webui_fallback_url,
                 "OLLAMA_DEFAULT_MODEL": ollama_model,
                 "OLLAMA_PULL_MODEL_ON_INSTALL": "true" if pull_model else "false",
+                "OPEN_WEBUI_DEFAULT_MODEL_PARAMS": open_webui_default_model_params,
                 "TOOL_SERVER_CONNECTIONS": tool_server_connections,
             }
             variables.update(build_local_ai_blocks(local_ai_enabled, variables))

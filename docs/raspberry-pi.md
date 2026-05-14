@@ -18,9 +18,9 @@ SD card to searching your documents with Claude.
 > embedding model need at least 4 GB to run together.
 >
 > **Local AI chat needs more headroom.** If you enable Ollama and Open WebUI,
-> use a Pi 5 with 8 GB RAM and a USB SSD. Small models such as `llama3.2:3b`
-> can work, but model downloads and responses will be slower than on a desktop
-> or GPU-backed server.
+> use a Pi 5 with 8 GB RAM and a USB SSD. Tiny models such as `qwen3:0.6b`,
+> `gemma3:270m`, or `gemma3:1b` are the realistic targets; 3B+ models are
+> mostly a patience test on Pi hardware.
 
 ## 1. Flash Raspberry Pi OS
 
@@ -111,6 +111,8 @@ connect Claude.
 If you enabled local AI chat, the installer also prints the Open WebUI URL.
 Open WebUI is already configured with the Paperless Ag MCP server, so local
 models can search documents once you sign in and select or pull a model.
+On Raspberry Pi 5 8 GB, the installer recommends `qwen3:0.6b` and disables
+Qwen thinking in Open WebUI by default for faster responses.
 
 ## 5. Access Paperless on your network
 

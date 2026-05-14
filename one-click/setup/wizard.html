@@ -300,7 +300,7 @@
 
           <div id="custom-model-group" class="hidden">
             <label for="custom_model">Custom Ollama Model</label>
-            <input type="text" id="custom_model" placeholder="llama3.2:3b" />
+            <input type="text" id="custom_model" placeholder="qwen3:0.6b" />
           </div>
 
           <div id="ai-domain-group" class="hidden">
@@ -501,8 +501,14 @@
             populateModels({
               ram_mb: "unknown",
               arch: "unknown",
-              recommended_model: "llama3.2:3b",
-              model_options: ["llama3.2:3b", "gemma3:4b", ""],
+              recommended_model: "qwen3:0.6b",
+              model_options: [
+                "qwen3:0.6b",
+                "gemma3:1b",
+                "gemma3:270m",
+                "smollm2:360m",
+                "",
+              ],
             });
           });
 
