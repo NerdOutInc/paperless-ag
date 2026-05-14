@@ -194,37 +194,13 @@
         z-index: 1;
         align-items: center;
         justify-content: center;
-        background-image: url("assets/fullstack-ag-title-card-background-3600x2160.png");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
       }
 
-      .title-card .title-stack {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 62px;
-        padding-top: 120px;
-        text-align: center;
-      }
-
-      .title-card h1 {
-        margin: 0;
-        color: #ffffff;
-        font-family: "Manrope", system-ui, sans-serif;
-        font-size: 168px;
-        font-weight: 700;
-        line-height: 1.18;
-        letter-spacing: 0;
-      }
-
-      .title-card p {
-        margin: 0;
-        color: #f4efe7;
-        font-size: 72px;
-        font-weight: 400;
-        line-height: 1.35;
+      .static-title-card {
+        display: block;
+        width: 3600px;
+        height: 2160px;
+        object-fit: cover;
       }
 
       .dark-field {
@@ -860,11 +836,11 @@
         data-duration="4.15"
         data-track-index="1"
       >
-        <div class="title-stack">
-          <h1 class="title-main">What Is a VPS?</h1>
-          <p class="title-sub">A cloud server you rent online</p>
-          <div class="orange-rule title-rule"></div>
-        </div>
+        <img
+          class="static-title-card"
+          src="assets/original-intro-what-is-a-vps.png"
+          alt=""
+        />
       </section>
 
       <section
@@ -1220,28 +1196,6 @@
       function clearScene(scene, at) {
         tl.set(scene, { opacity: 0, visibility: "hidden" }, at);
       }
-
-      tl.from(
-        ".title-main",
-        { y: 54, opacity: 0, duration: 0.72, ease: "power3.out" },
-        0.2,
-      );
-      tl.from(
-        ".title-sub",
-        { y: 36, opacity: 0, scale: 0.98, duration: 0.62, ease: "power2.out" },
-        0.54,
-      );
-      tl.from(
-        ".title-rule",
-        {
-          scaleX: 0,
-          opacity: 0,
-          transformOrigin: "center",
-          duration: 0.52,
-          ease: "expo.out",
-        },
-        0.9,
-      );
 
       sceneIn("#scene-define", 3.05);
       clearScene("#scene-title", 4.05);

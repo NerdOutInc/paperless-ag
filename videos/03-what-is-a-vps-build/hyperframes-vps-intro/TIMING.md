@@ -4,7 +4,7 @@
 
 | Time | Visual |
 | --- | --- |
-| `00:00-00:04.15` | Fullstack AG series title card |
+| `00:00-00:04.15` | Original static Fullstack AG title card |
 | `00:03.05-00:19.50` | VPS definition and server contrast |
 | `00:18.45-00:38.50` | Rented-space metaphor for cloud hardware |
 | `00:37.45-00:55.15` | Always-on Linux server and Paperless Ag stack |
