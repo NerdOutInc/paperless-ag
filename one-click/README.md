@@ -83,9 +83,12 @@ See `templates/env.template` for the full template with defaults.
 2. Systemd services start the setup wizard (Caddy + Python stdlib API)
 3. Farmer accesses `http://<droplet-ip>` to configure
 4. Farmer fills out admin credentials, timezone, optional domain
-5. On completion, `finalize-setup.sh` is called
-6. Wizard services stop, Docker Compose services start
-7. Caddy reverse-proxies Paperless on `:80`/`:443` and MCP on `/mcp`
+5. Farmer optionally enables local AI chat with Ollama and Open WebUI
+6. On completion, `finalize-setup.sh` is called
+7. Wizard services stop, Docker Compose services start
+8. Caddy reverse-proxies Paperless on `:80`/`:443` and MCP on `/mcp`
+9. If local AI is enabled, Open WebUI starts with Paperless Ag MCP seeded via
+   `TOOL_SERVER_CONNECTIONS`
 
 ## Quick Reference
 

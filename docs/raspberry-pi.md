@@ -16,6 +16,11 @@ SD card to searching your documents with Claude.
 
 > **Pi 4 with 2 GB RAM will not work.** Paperless, Postgres, Redis, and the
 > embedding model need at least 4 GB to run together.
+>
+> **Local AI chat needs more headroom.** If you enable Ollama and Open WebUI,
+> use a Pi 5 with 8 GB RAM and a USB SSD. Small models such as `llama3.2:3b`
+> can work, but model downloads and responses will be slower than on a desktop
+> or GPU-backed server.
 
 ## 1. Flash Raspberry Pi OS
 
@@ -93,6 +98,7 @@ The installer will:
    - Admin username and password
    - Timezone
    - Domain name (press Enter to skip -- not needed for local network)
+   - Optional local AI chat with Ollama and Open WebUI
    - Install directory (default: `~/paperless-ag`)
 4. **Pull images and start services** -- this downloads about 2 GB of
    container images. On a Pi with a decent internet connection, expect
@@ -101,6 +107,10 @@ The installer will:
 When it finishes you'll see a summary with your Paperless URL and MCP
 connection details. **Save the MCP auth token** -- you'll need it to
 connect Claude.
+
+If you enabled local AI chat, the installer also prints the Open WebUI URL.
+Open WebUI is already configured with the Paperless Ag MCP server, so local
+models can search documents once you sign in and select or pull a model.
 
 ## 5. Access Paperless on your network
 

@@ -29,6 +29,42 @@ if [[ $elapsed -ge $timeout ]]; then
     exit 1
 fi
 
+if grep -q "^LOCAL_AI_ENABLED='true'" /opt/paperless-ag/.env 2>/dev/null; then
+    open_webui_port="$(sed -n "s/^OPEN_WEBUI_HOST_PORT='\\([^']*\\)'/\\1/p" /opt/paperless-ag/.env)"
+    ollama_model="$(sed -n "s/^OLLAMA_DEFAULT_MODEL='\\([^']*\\)'/\\1/p" /opt/paperless-ag/.env)"
+    pull_model="$(sed -n "s/^OLLAMA_PULL_MODEL_ON_INSTALL='\\([^']*\\)'/\\1/p" /opt/paperless-ag/.env)"
+
+    echo "Waiting for Open WebUI to become reachable..."
+    elapsed=0
+    while [[ $elapsed -lt $timeout ]]; do
+        if [[ -n "$open_webui_port" ]] && curl -fs "http://127.0.0.1:${open_webui_port}/health" >/dev/null 2>&1; then
+            echo "[OK] Open WebUI is reachable"
+            break
+        fi
+        sleep 5
+        elapsed=$((elapsed + 5))
+    done
+
+    if [[ $elapsed -ge $timeout ]]; then
+        echo "[WARN] Open WebUI did not become reachable within ${timeout}s"
+    fi
+
+    if docker compose exec -T open-webui env 2>/dev/null | grep -q '^TOOL_SERVER_CONNECTIONS='; then
+        echo "[OK] Open WebUI MCP seed config is present"
+    else
+        echo "[WARN] Open WebUI MCP seed config was not found in the container env"
+    fi
+
+    if [[ "$pull_model" == "true" && -n "$ollama_model" ]]; then
+        echo "Downloading Ollama model ${ollama_model}..."
+        if docker compose exec -T ollama ollama pull "$ollama_model"; then
+            echo "[OK] Ollama model downloaded"
+        else
+            echo "[WARN] Ollama model download failed; it can be pulled later in Open WebUI"
+        fi
+    fi
+fi
+
 # Write state before stopping the API -- the Python daemon thread is killed
 # by SIGTERM before it can write this itself (KillMode=process).
 echo "complete" > /opt/paperless-ag/.setup-state

@@ -1,4 +1,4 @@
-:80 {
+{{LOCAL_AI_CADDY_IP_BLOCK}}{{LOCAL_AI_CADDY_DOMAIN_BLOCK}}:80 {
     header {
         X-Frame-Options DENY
         X-Content-Type-Options nosniff

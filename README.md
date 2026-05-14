@@ -15,6 +15,11 @@ A single Docker container that sits alongside a stock Paperless-ngx installation
 1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
 2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
 
+The installer can also add **optional local AI chat** with Ollama and Open
+WebUI. When enabled, Open WebUI starts with the Paperless Ag MCP connection
+already configured, so local chat models can search Paperless through the same
+tools Claude uses.
+
 Paperless-ngx stays completely stock.
 
 ## Deploy
@@ -135,6 +140,39 @@ grep MCP_AUTH_TOKEN /root/paperless-ag/.env
 ```
 
 Then try asking Claude: *"Search my farm documents for crop insurance"*
+
+## Optional Local AI Chat
+
+During setup, choose **local AI chat** to install Ollama and Open WebUI in the
+same Docker Compose stack. The installer detects RAM and recommends a starter
+Ollama chat model:
+
+- Under 8 GB RAM: skip model download by default; `llama3.2:1b` is available
+  as a lightweight option.
+- 8-15 GB RAM: `llama3.2:3b` is recommended.
+- 16-31 GB RAM: `qwen3:8b` is recommended.
+- 32 GB+ RAM: `qwen3:8b` remains the default, with `qwen3:14b` offered as a
+  larger option.
+
+Ollama models are only for chat in Open WebUI. Paperless Ag still uses
+`all-MiniLM-L6-v2` for 384-dimensional document embeddings.
+
+Open WebUI is preconfigured with Paperless Ag MCP using the internal Docker
+URL `http://companion:3001/mcp`. The installer also prints the public MCP URL,
+bearer token, Claude Code command, `.mcp.json`, and Claude Desktop
+`mcp-remote` config so you can connect additional AI agents.
+
+Ollama is not published to the host. Open WebUI gets a fallback port starting
+at `4000`; if that port is taken, the installer chooses the next available
+port. On trusted LAN installs, the installer can also print a clean sslip.io
+URL like:
+
+```text
+http://ai.192-168-68-100.sslip.io
+```
+
+For public servers, use a real HTTPS hostname for Open WebUI, such as
+`https://ai.yourfarm.com`.
 
 ## Architecture
 

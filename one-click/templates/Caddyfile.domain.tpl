@@ -1,4 +1,4 @@
-{{DOMAIN}} {
+{{LOCAL_AI_CADDY_IP_BLOCK}}{{LOCAL_AI_CADDY_DOMAIN_BLOCK}}{{DOMAIN}} {
     tls {{LE_EMAIL}}
 
     header {
