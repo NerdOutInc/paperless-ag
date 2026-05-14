@@ -1,0 +1,1611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=3600, height=2160" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 100 900;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 3600px;
+        height: 2160px;
+        overflow: hidden;
+        background: #17120f;
+      }
+
+      body {
+        color: #f5f1eb;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 3600px;
+        height: 2160px;
+        overflow: hidden;
+        background: #17120f;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
+
+      .scene.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 230px 280px;
+        gap: 72px;
+      }
+
+      .title-card,
+      .outro-card {
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .static-card {
+        display: block;
+        width: 3600px;
+        height: 2160px;
+        object-fit: cover;
+      }
+
+      .dark-field {
+        background:
+          radial-gradient(
+            circle at 70% 28%,
+            rgba(95, 115, 88, 0.28),
+            rgba(95, 115, 88, 0) 32%
+          ),
+          radial-gradient(
+            circle at 18% 22%,
+            rgba(212, 98, 43, 0.18),
+            rgba(212, 98, 43, 0) 34%
+          ),
+          linear-gradient(135deg, #17120f 0%, #241a15 54%, #3f2f27 100%);
+      }
+
+      .cream-field {
+        background:
+          radial-gradient(
+            circle at 82% 20%,
+            rgba(212, 98, 43, 0.15),
+            rgba(212, 98, 43, 0) 34%
+          ),
+          linear-gradient(180deg, #f5f1eb 0%, #eee5da 100%);
+        color: #17120f;
+      }
+
+      .field-lines,
+      .field-lines-soft {
+        position: absolute;
+        inset: -120px;
+        z-index: 0;
+        opacity: 0.42;
+        background-image: url("data:image/svg+xml,%3Csvg width='220' height='220' viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 110 Q55 72 110 110 T220 110' fill='none' stroke='%237a8b6a' stroke-width='2' opacity='0.32'/%3E%3Cpath d='M0 70 Q55 108 110 70 T220 70' fill='none' stroke='%235f7358' stroke-width='2' opacity='0.26'/%3E%3Cpath d='M0 150 Q55 112 110 150 T220 150' fill='none' stroke='%237a8b6a' stroke-width='2' opacity='0.24'/%3E%3C/svg%3E");
+        background-size: 420px 420px;
+      }
+
+      .field-lines-soft {
+        opacity: 0.24;
+      }
+
+      .grain {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.18;
+        background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.34'/%3E%3C/svg%3E");
+        mix-blend-mode: soft-light;
+      }
+
+      .brand {
+        position: absolute;
+        top: 92px;
+        left: 128px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: #f5f1eb;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 44px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 84px;
+        height: 84px;
+        align-items: center;
+        justify-items: center;
+        border-radius: 50%;
+        background: #d4622b;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+      }
+
+      .brand-mark i {
+        grid-area: 1 / 1;
+        display: block;
+        width: 48px;
+        height: 16px;
+        border: 3px solid #f5f1eb;
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+
+      .brand-mark i:nth-child(2) {
+        width: 42px;
+        transform: rotate(0deg) translateY(2px);
+      }
+
+      .brand-mark i:nth-child(3) {
+        width: 48px;
+        transform: rotate(18deg) translateY(4px);
+      }
+
+      .brand span span {
+        font-size: 1.2em;
+        font-weight: 800;
+      }
+
+      .episode-mark {
+        position: absolute;
+        top: 112px;
+        right: 146px;
+        z-index: 20;
+        color: rgba(245, 241, 235, 0.52);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 28px;
+        font-weight: 600;
+      }
+
+      .text-charcoal {
+        color: #17120f;
+      }
+
+      .text-muted-dark {
+        color: rgba(23, 18, 15, 0.68);
+      }
+
+      .badge {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(212, 98, 43, 0.42);
+        border-radius: 999px;
+        background: rgba(212, 98, 43, 0.15);
+        color: #ec8b58;
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 1;
+        padding: 18px 30px;
+        text-transform: uppercase;
+      }
+
+      .cream-field .badge {
+        color: #9c3c18;
+      }
+
+      .headline {
+        max-width: 1660px;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 152px;
+        font-weight: 800;
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .headline .orange {
+        color: #d4622b;
+      }
+
+      .support {
+        max-width: 1240px;
+        color: rgba(245, 241, 235, 0.78);
+        font-size: 50px;
+        font-weight: 420;
+        line-height: 1.34;
+      }
+
+      .orange-rule {
+        width: 360px;
+        height: 10px;
+        border-radius: 99px;
+        background: #d4622b;
+        box-shadow: 0 14px 40px rgba(212, 98, 43, 0.34);
+      }
+
+      .ghost-number {
+        position: absolute;
+        right: 120px;
+        bottom: 40px;
+        z-index: 1;
+        color: rgba(245, 241, 235, 0.045);
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 560px;
+        font-weight: 800;
+        line-height: 0.8;
+      }
+
+      .cream-field .ghost-number {
+        color: rgba(23, 18, 15, 0.05);
+      }
+
+      .ghost-number::before {
+        content: attr(data-number);
+      }
+
+      .split-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        align-items: center;
+        gap: 120px;
+      }
+
+      .operator-card,
+      .definition-card,
+      .container-card,
+      .terminal-card,
+      .service-card {
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.075);
+        box-shadow: 0 36px 100px rgba(0, 0, 0, 0.18);
+      }
+
+      .cream-field .operator-card,
+      .cream-field .definition-card,
+      .cream-field .container-card,
+      .cream-field .terminal-card,
+      .cream-field .service-card {
+        border-color: rgba(23, 18, 15, 0.08);
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: 0 28px 76px rgba(23, 18, 15, 0.08);
+      }
+
+      .definition-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 42px;
+        width: 100%;
+        max-width: 1400px;
+        border-left: 8px solid #d4622b;
+        padding: 40px 48px;
+      }
+
+      .definition-card strong {
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 58px;
+        font-weight: 800;
+      }
+
+      .definition-card span {
+        color: rgba(245, 241, 235, 0.76);
+        font-size: 36px;
+        line-height: 1.3;
+      }
+
+      .setup-board {
+        display: grid;
+        gap: 32px;
+      }
+
+      .operator-card {
+        padding: 42px 46px;
+      }
+
+      .operator-card .label,
+      .terminal-label,
+      .service-label,
+      .container-label {
+        color: rgba(245, 241, 235, 0.56);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .cream-field .operator-card .label,
+      .cream-field .terminal-label,
+      .cream-field .service-label,
+      .cream-field .container-label {
+        color: rgba(23, 18, 15, 0.48);
+      }
+
+      .operator-card h3 {
+        margin: 18px 0 10px;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 56px;
+        font-weight: 800;
+      }
+
+      .operator-card p {
+        margin: 0;
+        color: rgba(245, 241, 235, 0.7);
+        font-size: 34px;
+        line-height: 1.32;
+      }
+
+      .terminal-card {
+        overflow: hidden;
+        background: #17120f;
+      }
+
+      .terminal-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 76px;
+        border-bottom: 1px solid rgba(245, 241, 235, 0.1);
+        background: #241a15;
+        padding: 0 30px;
+      }
+
+      .terminal-dot {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: #d4622b;
+      }
+
+      .terminal-dot:nth-child(2) {
+        background: #e5b95d;
+      }
+
+      .terminal-dot:nth-child(3) {
+        background: #5f7358;
+      }
+
+      .terminal-body {
+        display: grid;
+        gap: 22px;
+        padding: 42px 46px 48px;
+      }
+
+      .terminal-line {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr);
+        align-items: center;
+        gap: 18px;
+        color: rgba(245, 241, 235, 0.84);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 31px;
+        line-height: 1.24;
+      }
+
+      .prompt {
+        color: #d4622b;
+        font-weight: 800;
+      }
+
+      .container-yard {
+        position: relative;
+        min-height: 760px;
+      }
+
+      .container-stack {
+        position: absolute;
+        right: 0;
+        bottom: 80px;
+        display: grid;
+        width: 1220px;
+        gap: 30px;
+      }
+
+      .container-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 130px minmax(0, 1fr) auto;
+        align-items: center;
+        min-height: 150px;
+        gap: 34px;
+        padding: 34px 42px;
+      }
+
+      .container-ribs {
+        display: grid;
+        grid-template-columns: repeat(4, 18px);
+        gap: 11px;
+        height: 74px;
+      }
+
+      .container-ribs span {
+        border-radius: 99px;
+        background: rgba(212, 98, 43, 0.62);
+      }
+
+      .container-card h3 {
+        margin: 0 0 8px;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 48px;
+        font-weight: 800;
+      }
+
+      .container-card p {
+        margin: 0;
+        color: rgba(23, 18, 15, 0.66);
+        font-size: 28px;
+        line-height: 1.28;
+      }
+
+      .status-pill {
+        border-radius: 999px;
+        background: rgba(95, 115, 88, 0.16);
+        color: #3f5740;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+        font-weight: 800;
+        padding: 16px 22px;
+      }
+
+      .package-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+        align-items: center;
+        gap: 130px;
+      }
+
+      .service-box {
+        position: relative;
+        display: grid;
+        gap: 28px;
+        padding: 48px;
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+      }
+
+      .service-card {
+        padding: 32px 34px;
+      }
+
+      .service-card strong {
+        display: block;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+      }
+
+      .service-card span {
+        display: block;
+        margin-top: 10px;
+        color: rgba(245, 241, 235, 0.56);
+        font-size: 24px;
+        line-height: 1.25;
+      }
+
+      .package-shell {
+        position: relative;
+        min-height: 780px;
+      }
+
+      .software-crate {
+        position: absolute;
+        right: 0;
+        top: 16px;
+        width: 1130px;
+        border: 2px solid rgba(212, 98, 43, 0.46);
+        border-radius: 36px;
+        background: rgba(212, 98, 43, 0.12);
+        padding: 52px;
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.22);
+      }
+
+      .crate-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 36px;
+      }
+
+      .crate-header h3 {
+        margin: 0;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 58px;
+        font-weight: 800;
+      }
+
+      .crate-layer {
+        display: grid;
+        grid-template-columns: 290px minmax(0, 1fr);
+        align-items: center;
+        gap: 28px;
+        min-height: 102px;
+        border-top: 1px solid rgba(245, 241, 235, 0.1);
+        padding: 28px 0;
+      }
+
+      .crate-layer strong {
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 34px;
+      }
+
+      .crate-layer span {
+        color: rgba(245, 241, 235, 0.64);
+        font-size: 28px;
+      }
+
+      .destination-row {
+        position: absolute;
+        right: 66px;
+        bottom: 42px;
+        display: flex;
+        gap: 24px;
+      }
+
+      .destination {
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.075);
+        color: #f5f1eb;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 28px;
+        font-weight: 800;
+        padding: 24px 30px;
+      }
+
+      .automation-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+        align-items: center;
+        gap: 126px;
+      }
+
+      .script-steps {
+        display: grid;
+        gap: 26px;
+      }
+
+      .script-step {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        align-items: center;
+        gap: 28px;
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.075);
+        padding: 30px 36px;
+      }
+
+      .script-num {
+        display: flex;
+        width: 72px;
+        height: 72px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        background: #d4622b;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+      }
+
+      .script-step h3 {
+        margin: 0 0 6px;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+      }
+
+      .script-step p {
+        margin: 0;
+        color: rgba(245, 241, 235, 0.64);
+        font-size: 26px;
+        line-height: 1.28;
+      }
+
+      .cream-field .headline,
+      .cream-field .text-charcoal {
+        color: #17120f;
+      }
+
+      .cream-field .support,
+      .cream-field .text-muted-dark {
+        color: rgba(23, 18, 15, 0.68);
+      }
+
+      .dark-field .status-pill {
+        background: rgba(95, 115, 88, 0.24);
+        color: #f5f1eb;
+      }
+
+      .replace-grid,
+      .nutshell-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: center;
+        gap: 126px;
+      }
+
+      .data-panel {
+        display: grid;
+        gap: 28px;
+      }
+
+      .data-row {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 28px;
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.075);
+        padding: 30px 36px;
+      }
+
+      .data-row .status-pill {
+        color: #f5f1eb;
+      }
+
+      .data-icon {
+        display: grid;
+        width: 88px;
+        height: 88px;
+        align-items: center;
+        justify-items: center;
+        border-radius: 22px;
+        background: rgba(212, 98, 43, 0.18);
+      }
+
+      .data-icon span {
+        display: block;
+        width: 52px;
+        height: 22px;
+        border: 4px solid #d4622b;
+        border-radius: 50%;
+      }
+
+      .data-row h3 {
+        margin: 0 0 6px;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+      }
+
+      .data-row p {
+        margin: 0;
+        color: rgba(245, 241, 235, 0.64);
+        font-size: 26px;
+        line-height: 1.28;
+      }
+
+      .nutshell-stack {
+        display: grid;
+        gap: 30px;
+      }
+
+      .nutshell-card {
+        display: grid;
+        grid-template-columns: 86px minmax(0, 1fr);
+        align-items: center;
+        gap: 30px;
+        border: 1px solid rgba(23, 18, 15, 0.08);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.62);
+        padding: 34px 40px;
+        box-shadow: 0 28px 76px rgba(23, 18, 15, 0.08);
+      }
+
+      .nutshell-num {
+        display: flex;
+        width: 86px;
+        height: 86px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 22px;
+        background: #d4622b;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 34px;
+        font-weight: 800;
+      }
+
+      .nutshell-card h3 {
+        margin: 0 0 8px;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 42px;
+        font-weight: 800;
+      }
+
+      .nutshell-card p {
+        margin: 0;
+        color: rgba(23, 18, 15, 0.66);
+        font-size: 28px;
+        line-height: 1.28;
+      }
+
+      .transition-wash {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(212, 98, 43, 0) 0%,
+            rgba(212, 98, 43, 0.46) 46%,
+            rgba(245, 241, 235, 0.18) 100%
+          ),
+          rgba(23, 18, 15, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="docker-slides"
+      data-start="0"
+      data-duration="82.07"
+      data-width="3600"
+      data-height="2160"
+    >
+      <section
+        id="scene-title"
+        class="scene clip title-card is-visible"
+        data-start="0"
+        data-duration="4.2"
+        data-track-index="1"
+      >
+        <img
+          class="static-card"
+          src="assets/original-intro-what-is-docker.png"
+          alt=""
+        />
+      </section>
+
+      <section
+        id="scene-setup"
+        class="scene clip dark-field"
+        data-start="3.1"
+        data-duration="8.7"
+        data-track-index="2"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand setup-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark setup-mark">Video 04</div>
+        <div
+          class="ghost-number"
+          data-number="01"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content split-layout">
+          <div class="copy-block setup-copy">
+            <div class="badge setup-badge">Plain version</div>
+            <h2 class="headline setup-headline">
+              Docker is the packaging system.
+            </h2>
+            <p class="support setup-support">
+              You will see it during setup because it keeps Paperless Ag
+              predictable from one machine to the next.
+            </p>
+            <div class="definition-card setup-definition">
+              <strong>Docker</strong>
+              <span>Pack the software and the pieces it needs together.</span>
+            </div>
+          </div>
+          <div class="setup-board">
+            <article class="operator-card setup-card">
+              <div class="label">without packaging</div>
+              <h3>Install by hand</h3>
+              <p>Versions, libraries, and setup steps can drift.</p>
+            </article>
+            <article class="operator-card setup-card">
+              <div class="label">with Docker</div>
+              <h3>Run the container</h3>
+              <p>The same bundle starts the same way every time.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-container"
+        class="scene clip cream-field"
+        data-start="11"
+        data-duration="16.4"
+        data-track-index="3"
+      >
+        <div
+          class="field-lines-soft"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="grain"></div>
+        <div class="brand container-brand text-charcoal">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark container-mark text-muted-dark">
+          operator analogy
+        </div>
+        <div
+          class="ghost-number"
+          data-number="02"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content split-layout">
+          <div class="copy-block container-copy">
+            <div class="badge container-badge">Container thinking</div>
+            <h2 class="headline container-headline text-charcoal">
+              Different contents. Same shape to manage.
+            </h2>
+            <p class="support container-support text-muted-dark">
+              A shipping container might hold parts, tools, or seed. Docker
+              gives software that same predictable wrapper.
+            </p>
+            <div class="orange-rule container-rule"></div>
+          </div>
+          <div class="container-yard">
+            <div class="container-stack">
+              <article class="container-card yard-card">
+                <div class="container-ribs">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <div>
+                  <div class="container-label">container 01</div>
+                  <h3>Paperless web</h3>
+                  <p>The app you open in the browser.</p>
+                </div>
+                <div class="status-pill">ready</div>
+              </article>
+              <article class="container-card yard-card">
+                <div class="container-ribs">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <div>
+                  <div class="container-label">container 02</div>
+                  <h3>Database</h3>
+                  <p>Stores metadata and document records.</p>
+                </div>
+                <div class="status-pill">ready</div>
+              </article>
+              <article class="container-card yard-card">
+                <div class="container-ribs">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <div>
+                  <div class="container-label">container 03</div>
+                  <h3>Search add-on</h3>
+                  <p>The Paperless Ag semantic search service.</p>
+                </div>
+                <div class="status-pill">ready</div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-package"
+        class="scene clip dark-field"
+        data-start="26.8"
+        data-duration="20.5"
+        data-track-index="4"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand package-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark package-mark">same everywhere</div>
+        <div
+          class="ghost-number"
+          data-number="03"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content package-layout">
+          <div class="copy-block package-copy">
+            <div class="badge package-badge">What gets packed</div>
+            <h2 class="headline package-headline">
+              The app brings its dependencies with it.
+            </h2>
+            <p class="support package-support">
+              Docker avoids the “it worked on my computer” problem by running
+              the same bundle on a desktop or a VPS.
+            </p>
+            <div class="service-grid package-services">
+              <div class="service-card package-service">
+                <strong>Paperless</strong>
+                <span>Document archive</span>
+              </div>
+              <div class="service-card package-service">
+                <strong>Postgres</strong>
+                <span>Database</span>
+              </div>
+              <div class="service-card package-service">
+                <strong>Redis</strong>
+                <span>Background work</span>
+              </div>
+              <div class="service-card package-service">
+                <strong>Paperless Ag</strong>
+                <span>Search and Claude tools</span>
+              </div>
+            </div>
+          </div>
+          <div class="package-shell">
+            <div class="software-crate package-crate">
+              <div class="crate-header">
+                <div>
+                  <div class="terminal-label">image contents</div>
+                  <h3>one predictable bundle</h3>
+                </div>
+                <div class="status-pill">portable</div>
+              </div>
+              <div class="crate-layer package-layer">
+                <strong>application</strong>
+                <span>the service code that needs to run</span>
+              </div>
+              <div class="crate-layer package-layer">
+                <strong>libraries</strong>
+                <span>the versions that service expects</span>
+              </div>
+              <div class="crate-layer package-layer">
+                <strong>runtime</strong>
+                <span>the system pieces around the service</span>
+              </div>
+              <div class="crate-layer package-layer">
+                <strong>settings</strong>
+                <span>environment-based configuration</span>
+              </div>
+            </div>
+            <div class="destination-row package-destinations">
+              <div class="destination">Mac</div>
+              <div class="destination">VPS</div>
+              <div class="destination">same commands</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-replace"
+        class="scene clip dark-field"
+        data-start="47.3"
+        data-duration="12.9"
+        data-track-index="6"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand replace-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark replace-mark">persistent data</div>
+        <div
+          class="ghost-number"
+          data-number="05"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content replace-grid">
+          <div class="copy-block replace-copy">
+            <div class="badge replace-badge">Why this is safe</div>
+            <h2 class="headline replace-headline">
+              Replace the container. Keep the records.
+            </h2>
+            <p class="support replace-support">
+              Containers can be restarted, updated, or thrown away. Your
+              documents and database live in persistent storage.
+            </p>
+            <div class="orange-rule replace-rule"></div>
+          </div>
+          <div class="data-panel replace-panel">
+            <article class="data-row replace-row">
+              <div class="data-icon"><span></span></div>
+              <div>
+                <h3>Container</h3>
+                <p>The replaceable software box.</p>
+              </div>
+              <div class="status-pill">replaceable</div>
+            </article>
+            <article class="data-row replace-row">
+              <div class="data-icon"><span></span></div>
+              <div>
+                <h3>Volume</h3>
+                <p>The storage Docker keeps attached.</p>
+              </div>
+              <div class="status-pill">persistent</div>
+            </article>
+            <article class="data-row replace-row">
+              <div class="data-icon"><span></span></div>
+              <div>
+                <h3>Documents</h3>
+                <p>Your archive stays put through updates.</p>
+              </div>
+              <div class="status-pill">kept</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-nutshell"
+        class="scene clip cream-field"
+        data-start="59.2"
+        data-duration="11.5"
+        data-track-index="7"
+      >
+        <div
+          class="field-lines-soft"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="grain"></div>
+        <div class="brand nutshell-brand text-charcoal">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark nutshell-mark text-muted-dark">
+          in a nutshell
+        </div>
+        <div
+          class="ghost-number"
+          data-number="06"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content nutshell-grid">
+          <div class="copy-block nutshell-copy">
+            <div class="badge nutshell-badge">The point</div>
+            <h2 class="headline nutshell-headline text-charcoal">
+              Same bundle. Same commands. Fewer surprises.
+            </h2>
+            <p class="support nutshell-support text-muted-dark">
+              Docker packages software so it runs the same on the desktop or on
+              the server.
+            </p>
+            <div class="orange-rule nutshell-rule"></div>
+          </div>
+          <div class="nutshell-stack">
+            <article class="nutshell-card nutshell-card-item">
+              <div class="nutshell-num">01</div>
+              <div>
+                <h3>Package the software</h3>
+                <p>App code and dependencies travel together.</p>
+              </div>
+            </article>
+            <article class="nutshell-card nutshell-card-item">
+              <div class="nutshell-num">02</div>
+              <div>
+                <h3>Run it the same way</h3>
+                <p>Mac now, VPS later, same basic workflow.</p>
+              </div>
+            </article>
+            <article class="nutshell-card nutshell-card-item">
+              <div class="nutshell-num">03</div>
+              <div>
+                <h3>Avoid dependency pile-ups</h3>
+                <p>Less hand-installing. Less breaking the machine.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-script"
+        class="scene clip dark-field"
+        data-start="69.8"
+        data-duration="8.8"
+        data-track-index="8"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand script-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark script-mark">installer handles it</div>
+        <div
+          class="ghost-number"
+          data-number="07"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content automation-layout">
+          <div class="copy-block script-copy">
+            <div class="badge script-badge">For the install videos</div>
+            <h2 class="headline script-headline">
+              You do not need to become a Docker expert.
+            </h2>
+            <p class="support script-support">
+              The setup script handles the Docker work automatically, so you
+              know what it is doing without babysitting every command.
+            </p>
+          </div>
+          <div class="terminal-card script-terminal">
+            <div class="terminal-top">
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+              <span class="terminal-dot"></span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-label">paperless-ag setup script</div>
+              <div class="terminal-line script-line">
+                <span class="prompt">1</span>
+                <span>pull the right container images</span>
+              </div>
+              <div class="terminal-line script-line">
+                <span class="prompt">2</span>
+                <span>start Paperless, Postgres, Redis, and Paperless Ag</span>
+              </div>
+              <div class="terminal-line script-line">
+                <span class="prompt">3</span>
+                <span
+                  >keep documents and database data in persistent storage</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-outro"
+        class="scene clip outro-card"
+        data-start="77.6"
+        data-duration="4.47"
+        data-track-index="9"
+      >
+        <img
+          class="static-card outro-image"
+          src="assets/original-outro-fullstack-ag.png"
+          alt=""
+        />
+      </section>
+
+      <div class="transition-wash"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+      const duration = 82.07;
+      const driftCycle = 14;
+
+      function sceneIn(scene, at) {
+        tl.set(".transition-wash", { xPercent: -102, opacity: 0 }, at);
+        tl.set(scene, { visibility: "visible" }, at);
+        tl.to(
+          ".transition-wash",
+          { xPercent: 102, opacity: 1, duration: 0.56, ease: "power2.inOut" },
+          at,
+        );
+        tl.set(".transition-wash", { xPercent: -102, opacity: 0 }, at + 0.62);
+        tl.to(
+          scene,
+          { opacity: 1, duration: 0.68, ease: "sine.inOut" },
+          at + 0.08,
+        );
+      }
+
+      function clearScene(scene, at) {
+        tl.set(scene, { opacity: 0, visibility: "hidden" }, at);
+      }
+
+      sceneIn("#scene-setup", 3.1);
+      clearScene("#scene-title", 4.1);
+      tl.from(
+        ".setup-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        3.46,
+      );
+      tl.from(
+        ".setup-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        3.54,
+      );
+      tl.from(
+        ".setup-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.45)" },
+        3.68,
+      );
+      tl.from(
+        ".setup-headline",
+        { y: 70, opacity: 0, duration: 0.74, ease: "expo.out" },
+        3.9,
+      );
+      tl.from(
+        ".setup-support",
+        { y: 48, opacity: 0, duration: 0.58, ease: "power3.out" },
+        4.28,
+      );
+      tl.from(
+        ".setup-definition",
+        { x: -48, opacity: 0, duration: 0.58, ease: "power2.out" },
+        4.7,
+      );
+      tl.from(
+        ".setup-card",
+        {
+          y: 72,
+          opacity: 0,
+          scale: 0.96,
+          stagger: 0.17,
+          duration: 0.64,
+          ease: "back.out(1.3)",
+        },
+        4.04,
+      );
+
+      sceneIn("#scene-container", 11);
+      clearScene("#scene-setup", 11.9);
+      tl.from(
+        ".container-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        11.38,
+      );
+      tl.from(
+        ".container-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        11.46,
+      );
+      tl.from(
+        ".container-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        11.6,
+      );
+      tl.from(
+        ".container-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        11.82,
+      );
+      tl.from(
+        ".container-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        12.24,
+      );
+      tl.from(
+        ".container-rule",
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left",
+          duration: 0.5,
+          ease: "power4.out",
+        },
+        12.72,
+      );
+      tl.from(
+        ".yard-card",
+        {
+          x: 90,
+          opacity: 0,
+          scale: 0.98,
+          stagger: 0.18,
+          duration: 0.62,
+          ease: "back.out(1.18)",
+        },
+        11.96,
+      );
+      tl.from(
+        ".container-ribs span",
+        {
+          scaleY: 0.2,
+          opacity: 0,
+          transformOrigin: "bottom",
+          stagger: 0.03,
+          duration: 0.32,
+          ease: "power2.out",
+        },
+        12.36,
+      );
+
+      sceneIn("#scene-package", 26.8);
+      clearScene("#scene-container", 27.7);
+      tl.from(
+        ".package-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        27.18,
+      );
+      tl.from(
+        ".package-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        27.26,
+      );
+      tl.from(
+        ".package-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        27.4,
+      );
+      tl.from(
+        ".package-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        27.62,
+      );
+      tl.from(
+        ".package-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        28.04,
+      );
+      tl.from(
+        ".package-service",
+        {
+          y: 42,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 0.48,
+          ease: "power2.out",
+        },
+        28.52,
+      );
+      tl.from(
+        ".package-crate",
+        { x: 96, opacity: 0, duration: 0.72, ease: "back.out(1.18)" },
+        27.72,
+      );
+      tl.from(
+        ".package-layer",
+        {
+          x: 46,
+          opacity: 0,
+          stagger: 0.14,
+          duration: 0.44,
+          ease: "power2.out",
+        },
+        28.3,
+      );
+      tl.from(
+        ".package-destinations .destination",
+        {
+          y: 36,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 0.42,
+          ease: "power3.out",
+        },
+        29.2,
+      );
+
+      sceneIn("#scene-replace", 47.3);
+      clearScene("#scene-package", 48.2);
+      tl.from(
+        ".replace-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        47.42,
+      );
+      tl.from(
+        ".replace-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        47.48,
+      );
+      tl.from(
+        ".replace-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        47.54,
+      );
+      tl.from(
+        ".replace-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        47.68,
+      );
+      tl.from(
+        ".replace-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        48.02,
+      );
+      tl.from(
+        ".replace-rule",
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left",
+          duration: 0.5,
+          ease: "power4.out",
+        },
+        48.4,
+      );
+      tl.from(
+        ".replace-panel",
+        { x: 96, opacity: 0, duration: 0.72, ease: "back.out(1.18)" },
+        47.72,
+      );
+      tl.from(
+        ".replace-row",
+        {
+          x: 46,
+          opacity: 0,
+          stagger: 0.16,
+          duration: 0.46,
+          ease: "power2.out",
+        },
+        48.16,
+      );
+
+      sceneIn("#scene-nutshell", 59.2);
+      clearScene("#scene-replace", 60.1);
+      tl.from(
+        ".nutshell-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        59.58,
+      );
+      tl.from(
+        ".nutshell-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        59.66,
+      );
+      tl.from(
+        ".nutshell-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        59.8,
+      );
+      tl.from(
+        ".nutshell-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        60.02,
+      );
+      tl.from(
+        ".nutshell-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        60.44,
+      );
+      tl.from(
+        ".nutshell-rule",
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left",
+          duration: 0.5,
+          ease: "power4.out",
+        },
+        60.92,
+      );
+      tl.from(
+        ".nutshell-card-item",
+        {
+          x: 70,
+          opacity: 0,
+          stagger: 0.16,
+          duration: 0.56,
+          ease: "power2.out",
+        },
+        60.32,
+      );
+
+      sceneIn("#scene-script", 69.8);
+      clearScene("#scene-nutshell", 70.7);
+      tl.from(
+        ".script-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        70.18,
+      );
+      tl.from(
+        ".script-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        70.26,
+      );
+      tl.from(
+        ".script-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        70.4,
+      );
+      tl.from(
+        ".script-headline",
+        { y: 78, opacity: 0, duration: 0.68, ease: "expo.out" },
+        70.62,
+      );
+      tl.from(
+        ".script-support",
+        { y: 44, opacity: 0, duration: 0.52, ease: "power3.out" },
+        71.02,
+      );
+      tl.from(
+        ".script-terminal",
+        { x: 96, opacity: 0, duration: 0.68, ease: "back.out(1.18)" },
+        70.56,
+      );
+      tl.from(
+        ".script-line",
+        {
+          x: 46,
+          opacity: 0,
+          stagger: 0.16,
+          duration: 0.42,
+          ease: "power2.out",
+        },
+        71.18,
+      );
+
+      sceneIn("#scene-outro", 77.6);
+      clearScene("#scene-script", 78.5);
+      tl.from(
+        ".outro-image",
+        { scale: 1.02, opacity: 0, duration: 0.74, ease: "sine.out" },
+        77.78,
+      );
+
+      tl.to(
+        ".field-lines, .field-lines-soft",
+        {
+          x: -140,
+          y: 70,
+          duration: driftCycle,
+          repeat: Math.floor(duration / driftCycle) - 1,
+          ease: "sine.inOut",
+          yoyo: true,
+        },
+        0,
+      );
+      window.__timelines["docker-slides"] = tl;
+    </script>
+  </body>
+</html>
