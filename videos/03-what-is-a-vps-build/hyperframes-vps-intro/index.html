@@ -1,0 +1,1526 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=3600, height=2160" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 100 900;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 3600px;
+        height: 2160px;
+        overflow: hidden;
+        background: #17120f;
+      }
+
+      body {
+        color: #f5f1eb;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 3600px;
+        height: 2160px;
+        overflow: hidden;
+        background: #17120f;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
+
+      .scene.is-visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 230px 280px;
+        gap: 72px;
+      }
+
+      .brand {
+        position: absolute;
+        top: 92px;
+        left: 128px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: #f5f1eb;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 44px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 84px;
+        height: 84px;
+        align-items: center;
+        justify-items: center;
+        border-radius: 50%;
+        background: #d4622b;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+      }
+
+      .brand-mark i {
+        grid-area: 1 / 1;
+        display: block;
+        width: 48px;
+        height: 16px;
+        border: 3px solid #f5f1eb;
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+
+      .brand-mark i:nth-child(2) {
+        width: 42px;
+        transform: rotate(0deg) translateY(2px);
+      }
+
+      .brand-mark i:nth-child(3) {
+        width: 48px;
+        transform: rotate(18deg) translateY(4px);
+      }
+
+      .brand img {
+        width: 84px;
+        height: 84px;
+        filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.26));
+      }
+
+      .brand span span {
+        font-size: 1.2em;
+        font-weight: 800;
+      }
+
+      .episode-mark {
+        position: absolute;
+        top: 112px;
+        right: 146px;
+        z-index: 20;
+        color: rgba(245, 241, 235, 0.52);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 28px;
+        font-weight: 600;
+      }
+
+      .badge {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(212, 98, 43, 0.42);
+        border-radius: 999px;
+        background: rgba(212, 98, 43, 0.15);
+        color: #ec8b58;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 1;
+        padding: 18px 30px;
+        text-transform: uppercase;
+      }
+
+      .headline {
+        max-width: 1660px;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 158px;
+        font-weight: 800;
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .headline .orange {
+        color: #d4622b;
+      }
+
+      .support {
+        max-width: 1240px;
+        color: rgba(245, 241, 235, 0.78);
+        font-size: 50px;
+        font-weight: 420;
+        line-height: 1.34;
+      }
+
+      .orange-rule {
+        width: 360px;
+        height: 10px;
+        border-radius: 99px;
+        background: #d4622b;
+        box-shadow: 0 14px 40px rgba(212, 98, 43, 0.34);
+      }
+
+      .title-card {
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+        background-image: url("assets/fullstack-ag-title-card-background-3600x2160.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .title-card .title-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 62px;
+        padding-top: 120px;
+        text-align: center;
+      }
+
+      .title-card h1 {
+        margin: 0;
+        color: #ffffff;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 168px;
+        font-weight: 700;
+        line-height: 1.18;
+        letter-spacing: 0;
+      }
+
+      .title-card p {
+        margin: 0;
+        color: #f4efe7;
+        font-size: 72px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .dark-field {
+        background:
+          radial-gradient(
+            circle at 70% 32%,
+            rgba(95, 115, 88, 0.28),
+            rgba(95, 115, 88, 0) 30%
+          ),
+          radial-gradient(
+            circle at 18% 18%,
+            rgba(212, 98, 43, 0.2),
+            rgba(212, 98, 43, 0) 32%
+          ),
+          linear-gradient(135deg, #17120f 0%, #241a15 52%, #3f2f27 100%);
+      }
+
+      .cream-field {
+        background:
+          radial-gradient(
+            circle at 82% 24%,
+            rgba(212, 98, 43, 0.16),
+            rgba(212, 98, 43, 0) 34%
+          ),
+          linear-gradient(180deg, #f5f1eb 0%, #eee5da 100%);
+        color: #17120f;
+      }
+
+      .field-lines,
+      .field-lines-soft {
+        position: absolute;
+        inset: -120px;
+        z-index: 0;
+        opacity: 0.42;
+        background-image: url("data:image/svg+xml,%3Csvg width='220' height='220' viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 110 Q55 72 110 110 T220 110' fill='none' stroke='%237a8b6a' stroke-width='2' opacity='0.32'/%3E%3Cpath d='M0 70 Q55 108 110 70 T220 70' fill='none' stroke='%235f7358' stroke-width='2' opacity='0.26'/%3E%3Cpath d='M0 150 Q55 112 110 150 T220 150' fill='none' stroke='%237a8b6a' stroke-width='2' opacity='0.24'/%3E%3C/svg%3E");
+        background-size: 420px 420px;
+      }
+
+      .field-lines-soft {
+        opacity: 0.24;
+      }
+
+      .grain {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.18;
+        background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.34'/%3E%3C/svg%3E");
+        mix-blend-mode: soft-light;
+      }
+
+      .ghost-number {
+        position: absolute;
+        right: 120px;
+        bottom: 40px;
+        z-index: 1;
+        color: rgba(245, 241, 235, 0.045);
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 560px;
+        font-weight: 800;
+        line-height: 0.8;
+      }
+
+      .cream-field .ghost-number {
+        color: rgba(23, 18, 15, 0.05);
+      }
+
+      .ghost-number::before {
+        content: attr(data-number);
+      }
+
+      .cream-field .badge {
+        color: #9c3c18;
+      }
+
+      .split-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+        align-items: center;
+        gap: 124px;
+      }
+
+      .comparison-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 34px;
+        min-height: 600px;
+      }
+
+      .choice-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.075);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.18);
+        padding: 48px;
+      }
+
+      .choice-card.local {
+        opacity: 0.72;
+      }
+
+      .choice-card.vps {
+        border-color: rgba(212, 98, 43, 0.45);
+        background: rgba(212, 98, 43, 0.16);
+      }
+
+      .card-kicker,
+      .metric-label,
+      .terminal-label,
+      .mock-label {
+        color: rgba(245, 241, 235, 0.56);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .cream-field .card-kicker,
+      .cream-field .metric-label,
+      .cream-field .terminal-label,
+      .cream-field .mock-label {
+        color: rgba(23, 18, 15, 0.48);
+      }
+
+      .choice-card h3 {
+        margin: 22px 0 0;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 66px;
+        font-weight: 800;
+        line-height: 1.02;
+      }
+
+      .choice-card p {
+        margin: 0;
+        color: rgba(245, 241, 235, 0.72);
+        font-size: 34px;
+        line-height: 1.34;
+      }
+
+      .machine-graphic {
+        position: relative;
+        height: 250px;
+        margin-top: 52px;
+      }
+
+      .desktop-base,
+      .server-stack {
+        position: absolute;
+        inset: auto 0 20px;
+        margin: auto;
+        width: 320px;
+        height: 180px;
+      }
+
+      .desktop-screen {
+        width: 320px;
+        height: 180px;
+        border: 8px solid rgba(245, 241, 235, 0.34);
+        border-radius: 18px;
+        background: rgba(23, 18, 15, 0.58);
+      }
+
+      .desktop-foot {
+        position: absolute;
+        left: 132px;
+        bottom: -38px;
+        width: 56px;
+        height: 42px;
+        background: rgba(245, 241, 235, 0.34);
+      }
+
+      .server-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .server-row {
+        display: flex;
+        height: 54px;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid rgba(245, 241, 235, 0.18);
+        border-radius: 16px;
+        background: rgba(23, 18, 15, 0.46);
+        padding: 0 24px;
+      }
+
+      .status-light {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #d4622b;
+        box-shadow: 0 0 26px rgba(212, 98, 43, 0.72);
+      }
+
+      .status-lines {
+        display: grid;
+        gap: 8px;
+        width: 200px;
+      }
+
+      .status-lines span {
+        display: block;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(245, 241, 235, 0.42);
+      }
+
+      .definition-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 42px;
+        width: 100%;
+        max-width: 1410px;
+        border-left: 8px solid #d4622b;
+        border-radius: 24px;
+        background: rgba(245, 241, 235, 0.09);
+        padding: 40px 48px;
+      }
+
+      .definition-card strong {
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 58px;
+        font-weight: 800;
+      }
+
+      .definition-card span {
+        color: rgba(245, 241, 235, 0.76);
+        font-size: 36px;
+        line-height: 1.3;
+      }
+
+      .metaphor-grid {
+        display: grid;
+        grid-template-columns:
+          minmax(0, 0.96fr) minmax(0, 0.82fr)
+          minmax(0, 0.7fr);
+        align-items: center;
+        gap: 86px;
+      }
+
+      .metaphor-headline {
+        font-size: 136px;
+      }
+
+      .metaphor-support {
+        max-width: 1060px;
+      }
+
+      .building-wrap {
+        position: relative;
+        min-height: 740px;
+      }
+
+      .building {
+        position: absolute;
+        right: 0;
+        bottom: 40px;
+        width: 760px;
+        height: 540px;
+        border: 1px solid rgba(23, 18, 15, 0.1);
+        border-radius: 28px;
+        background: #fffaf4;
+        box-shadow: 0 50px 120px rgba(23, 18, 15, 0.14);
+        padding: 58px;
+      }
+
+      .building-top {
+        position: absolute;
+        right: 54px;
+        bottom: 580px;
+        width: 650px;
+        height: 130px;
+        border-radius: 36px 36px 12px 12px;
+        background: #d4622b;
+        transform: skewX(-10deg);
+      }
+
+      .floor-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+
+      .floor-grid span {
+        height: 86px;
+        border-radius: 18px;
+        background: rgba(95, 115, 88, 0.14);
+      }
+
+      .rented-space {
+        position: absolute;
+        left: 98px;
+        bottom: 188px;
+        width: 260px;
+        height: 210px;
+        border: 5px solid #d4622b;
+        border-radius: 22px;
+        background: rgba(212, 98, 43, 0.18);
+        box-shadow: 0 0 0 16px rgba(212, 98, 43, 0.08);
+      }
+
+      .maintained-list {
+        display: grid;
+        gap: 26px;
+        max-width: 780px;
+      }
+
+      .maintained-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 28px;
+        border: 1px solid rgba(23, 18, 15, 0.08);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.62);
+        padding: 30px 36px;
+        box-shadow: 0 28px 76px rgba(23, 18, 15, 0.08);
+      }
+
+      .maintained-item .num {
+        display: flex;
+        width: 68px;
+        height: 68px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        background: #d4622b;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+      }
+
+      .maintained-item h3 {
+        margin: 0 0 6px;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+      }
+
+      .maintained-item p {
+        margin: 0;
+        color: rgba(23, 18, 15, 0.68);
+        font-size: 26px;
+        line-height: 1.28;
+      }
+
+      .infrastructure-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+        align-items: center;
+        gap: 140px;
+      }
+
+      .rack-panel {
+        position: relative;
+        min-height: 820px;
+      }
+
+      .rack {
+        position: absolute;
+        right: 80px;
+        top: 10px;
+        display: grid;
+        width: 860px;
+        gap: 28px;
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.065);
+        padding: 44px;
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.22);
+      }
+
+      .rack-unit {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 26px;
+        min-height: 118px;
+        border: 1px solid rgba(245, 241, 235, 0.14);
+        border-radius: 20px;
+        background: rgba(23, 18, 15, 0.4);
+        padding: 28px 34px;
+      }
+
+      .unit-name {
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+      }
+
+      .unit-detail {
+        color: rgba(245, 241, 235, 0.54);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+      }
+
+      .service-pills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+        max-width: 840px;
+      }
+
+      .service-pill {
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.075);
+        padding: 32px 34px;
+      }
+
+      .service-pill strong {
+        display: block;
+        color: #fffaf4;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+      }
+
+      .service-pill span {
+        display: block;
+        margin-top: 10px;
+        color: rgba(245, 241, 235, 0.56);
+        font-size: 24px;
+        line-height: 1.25;
+      }
+
+      .network-line {
+        position: absolute;
+        right: 850px;
+        top: 472px;
+        width: 520px;
+        height: 6px;
+        border-radius: 999px;
+        background: #d4622b;
+        transform-origin: right center;
+      }
+
+      .field-device {
+        position: absolute;
+        left: 60px;
+        top: 330px;
+        width: 430px;
+        height: 310px;
+        border: 1px solid rgba(245, 241, 235, 0.12);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 36px;
+      }
+
+      .phone-screen {
+        width: 180px;
+        height: 240px;
+        margin: 0 auto;
+        border: 8px solid rgba(245, 241, 235, 0.5);
+        border-radius: 30px;
+        background: #17120f;
+        padding: 28px 18px;
+      }
+
+      .phone-screen span {
+        display: block;
+        height: 12px;
+        margin-bottom: 16px;
+        border-radius: 99px;
+        background: rgba(212, 98, 43, 0.64);
+      }
+
+      .bridge-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+        align-items: center;
+        gap: 116px;
+      }
+
+      .mock-browser {
+        overflow: hidden;
+        border: 1px solid rgba(23, 18, 15, 0.12);
+        border-radius: 34px;
+        background: #ffffff;
+        box-shadow: 0 55px 120px rgba(23, 18, 15, 0.15);
+      }
+
+      .browser-top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 78px;
+        border-bottom: 1px solid rgba(23, 18, 15, 0.08);
+        background: #f5f1eb;
+        padding: 0 32px;
+      }
+
+      .browser-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #d4622b;
+      }
+
+      .browser-dot:nth-child(2) {
+        background: #e5b95d;
+      }
+
+      .browser-dot:nth-child(3) {
+        background: #5f7358;
+      }
+
+      .browser-url {
+        margin-left: 18px;
+        color: rgba(23, 18, 15, 0.48);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+      }
+
+      .droplet-form {
+        display: grid;
+        gap: 34px;
+        padding: 64px;
+      }
+
+      .droplet-form h3 {
+        margin: 0 0 12px;
+        color: #17120f;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 58px;
+        font-weight: 800;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        align-items: center;
+        gap: 34px;
+      }
+
+      .form-row label {
+        color: rgba(23, 18, 15, 0.54);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 24px;
+        text-transform: uppercase;
+      }
+
+      .form-value {
+        border: 1px solid rgba(23, 18, 15, 0.1);
+        border-radius: 18px;
+        background: #f5f1eb;
+        color: #17120f;
+        font-size: 32px;
+        font-weight: 700;
+        padding: 22px 28px;
+      }
+
+      .form-value.highlight {
+        border-color: rgba(212, 98, 43, 0.36);
+        background: rgba(212, 98, 43, 0.13);
+      }
+
+      .handoff-bar {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        width: fit-content;
+        border-radius: 999px;
+        background: #17120f;
+        color: #f5f1eb;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 28px;
+        font-weight: 700;
+        padding: 24px 34px;
+      }
+
+      .handoff-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #d4622b;
+        box-shadow: 0 0 22px rgba(212, 98, 43, 0.74);
+      }
+
+      .text-charcoal {
+        color: #17120f;
+      }
+
+      .text-muted-dark {
+        color: rgba(23, 18, 15, 0.68);
+      }
+
+      .transition-wash {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(212, 98, 43, 0) 0%,
+            rgba(212, 98, 43, 0.46) 46%,
+            rgba(245, 241, 235, 0.18) 100%
+          ),
+          rgba(23, 18, 15, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="vps-intro"
+      data-start="0"
+      data-duration="58.5"
+      data-width="3600"
+      data-height="2160"
+    >
+      <section
+        id="scene-title"
+        class="scene clip title-card is-visible"
+        data-start="0"
+        data-duration="4.15"
+        data-track-index="1"
+      >
+        <div class="title-stack">
+          <h1 class="title-main">What Is a VPS?</h1>
+          <p class="title-sub">A cloud server you rent online</p>
+          <div class="orange-rule title-rule"></div>
+        </div>
+      </section>
+
+      <section
+        id="scene-define"
+        class="scene clip dark-field"
+        data-start="3.05"
+        data-duration="16.45"
+        data-track-index="2"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand define-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark define-mark">Video 03</div>
+        <div
+          class="ghost-number"
+          data-number="01"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content split-layout">
+          <div class="copy-block define-copy">
+            <div class="badge define-badge">The short version</div>
+            <h2 class="headline define-headline">
+              A VPS is a rented computer online.
+            </h2>
+            <p class="support define-support">
+              It gives Paperless Ag somewhere steady to run when you want it
+              available from the office, the house, or the field.
+            </p>
+            <div class="definition-card define-card">
+              <strong>VPS</strong>
+              <span
+                >Virtual private server: a small Linux machine you rent from a
+                cloud provider.</span
+              >
+            </div>
+          </div>
+          <div class="comparison-panel define-comparison">
+            <article class="choice-card local">
+              <div>
+                <div class="card-kicker">at home</div>
+                <h3>Your own computer</h3>
+              </div>
+              <div class="machine-graphic">
+                <div class="desktop-base">
+                  <div class="desktop-screen"></div>
+                  <div class="desktop-foot"></div>
+                </div>
+              </div>
+              <p>
+                Works, but it depends on your power, internet, and machine
+                staying awake.
+              </p>
+            </article>
+            <article class="choice-card vps">
+              <div>
+                <div class="card-kicker">in the cloud</div>
+                <h3>A rented server</h3>
+              </div>
+              <div class="machine-graphic">
+                <div class="server-stack">
+                  <div class="server-row">
+                    <div class="status-light"></div>
+                    <div class="status-lines"><span></span><span></span></div>
+                  </div>
+                  <div class="server-row">
+                    <div class="status-light"></div>
+                    <div class="status-lines"><span></span><span></span></div>
+                  </div>
+                  <div class="server-row">
+                    <div class="status-light"></div>
+                    <div class="status-lines"><span></span><span></span></div>
+                  </div>
+                </div>
+              </div>
+              <p>Runs all the time in a data center, ready when you need it.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-metaphor"
+        class="scene clip cream-field"
+        data-start="18.45"
+        data-duration="20.05"
+        data-track-index="3"
+      >
+        <div
+          class="field-lines-soft"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="grain"></div>
+        <div class="brand metaphor-brand text-charcoal">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark metaphor-mark text-muted-dark">
+          operator analogy
+        </div>
+        <div
+          class="ghost-number"
+          data-number="02"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content metaphor-grid">
+          <div class="copy-block metaphor-copy">
+            <div class="badge metaphor-badge">Rent the space</div>
+            <h2 class="headline metaphor-headline text-charcoal">
+              You do not buy the whole building.
+            </h2>
+            <p class="support metaphor-support text-muted-dark">
+              DigitalOcean owns the hardware. You rent the slice that your
+              software needs.
+            </p>
+            <div class="orange-rule metaphor-rule"></div>
+          </div>
+          <div class="building-wrap">
+            <div class="building-top metaphor-roof"></div>
+            <div class="building metaphor-building">
+              <div class="floor-grid">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="rented-space metaphor-rented"></div>
+            </div>
+          </div>
+          <div class="maintained-list">
+            <article class="maintained-item metaphor-item">
+              <div class="num">01</div>
+              <div>
+                <h3>Power and internet</h3>
+                <p>The provider keeps the server online.</p>
+              </div>
+            </article>
+            <article class="maintained-item metaphor-item">
+              <div class="num">02</div>
+              <div>
+                <h3>Hardware and cooling</h3>
+                <p>You do not manage the physical box.</p>
+              </div>
+            </article>
+            <article class="maintained-item metaphor-item">
+              <div class="num">03</div>
+              <div>
+                <h3>Your Linux machine</h3>
+                <p>You install Paperless Ag on the part you rent.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-infra"
+        class="scene clip dark-field"
+        data-start="37.45"
+        data-duration="17.7"
+        data-track-index="4"
+      >
+        <div class="field-lines" data-layout-ignore aria-hidden="true"></div>
+        <div class="grain"></div>
+        <div class="brand infra-brand">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark infra-mark">always on</div>
+        <div
+          class="ghost-number"
+          data-number="03"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content infrastructure-layout">
+          <div class="copy-block infra-copy">
+            <div class="badge infra-badge">Why this helps</div>
+            <h2 class="headline infra-headline">Always on. Already online.</h2>
+            <p class="support infra-support">
+              A VPS gives Paperless, Postgres, Redis, and the search add-on
+              enough room to run together.
+            </p>
+            <div class="service-pills">
+              <div class="service-pill infra-pill">
+                <strong>Paperless</strong>
+                <span>Document archive</span>
+              </div>
+              <div class="service-pill infra-pill">
+                <strong>Postgres</strong>
+                <span>Metadata and vectors</span>
+              </div>
+              <div class="service-pill infra-pill">
+                <strong>Redis</strong>
+                <span>Background work</span>
+              </div>
+              <div class="service-pill infra-pill">
+                <strong>Search add-on</strong>
+                <span>Semantic search</span>
+              </div>
+            </div>
+          </div>
+          <div class="rack-panel">
+            <div class="field-device infra-device">
+              <div class="mock-label">field access</div>
+              <div class="phone-screen">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="network-line infra-line"></div>
+            <div class="rack infra-rack">
+              <div class="terminal-label">paperless-ag-vps</div>
+              <div class="rack-unit infra-unit">
+                <div class="status-light"></div>
+                <div>
+                  <div class="unit-name">2 CPUs</div>
+                  <div class="unit-detail">steady starter size</div>
+                </div>
+                <div class="unit-detail">online</div>
+              </div>
+              <div class="rack-unit infra-unit">
+                <div class="status-light"></div>
+                <div>
+                  <div class="unit-name">4 GB memory</div>
+                  <div class="unit-detail">room for the stack</div>
+                </div>
+                <div class="unit-detail">ready</div>
+              </div>
+              <div class="rack-unit infra-unit">
+                <div class="status-light"></div>
+                <div>
+                  <div class="unit-name">Linux server</div>
+                  <div class="unit-detail">rented from a cloud provider</div>
+                </div>
+                <div class="unit-detail">24/7</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="scene-bridge"
+        class="scene clip cream-field"
+        data-start="54.1"
+        data-duration="4.4"
+        data-track-index="5"
+      >
+        <div
+          class="field-lines-soft"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="grain"></div>
+        <div class="brand bridge-brand text-charcoal">
+          <span class="brand-mark" aria-hidden="true"
+            ><i></i><i></i><i></i
+          ></span>
+          <span>Fullstack <span>Ag</span></span>
+        </div>
+        <div class="episode-mark bridge-mark text-muted-dark">handoff</div>
+        <div
+          class="ghost-number"
+          data-number="04"
+          data-layout-ignore
+          aria-hidden="true"
+        ></div>
+        <div class="scene-content bridge-layout">
+          <div class="copy-block bridge-copy">
+            <div class="badge bridge-badge">
+              DigitalOcean calls it a Droplet
+            </div>
+            <h2 class="headline bridge-headline text-charcoal">
+              Now we pick the server.
+            </h2>
+            <p class="support bridge-support text-muted-dark">
+              Region, operating system, and size. That is the part the live demo
+              is about to show.
+            </p>
+            <div class="handoff-bar bridge-handoff">
+              <span class="handoff-dot"></span>
+              moving into the real Droplet form
+            </div>
+          </div>
+          <div class="mock-browser bridge-browser">
+            <div class="browser-top">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-url"
+                >cloud.digitalocean.com/droplets/new</span
+              >
+            </div>
+            <div class="droplet-form">
+              <div>
+                <div class="mock-label">setup preview</div>
+                <h3>Create Droplet</h3>
+              </div>
+              <div class="form-row bridge-row">
+                <label>region</label>
+                <div class="form-value">closest datacenter</div>
+              </div>
+              <div class="form-row bridge-row">
+                <label>image</label>
+                <div class="form-value">Ubuntu Linux</div>
+              </div>
+              <div class="form-row bridge-row">
+                <label>size</label>
+                <div class="form-value highlight">2 CPUs / 4 GB memory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="transition-wash"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+      const duration = 58.5;
+      const driftCycle = 14;
+      const pulseCycle = 2.8;
+
+      function sceneIn(scene, at) {
+        tl.set(".transition-wash", { xPercent: -102, opacity: 0 }, at);
+        tl.set(scene, { visibility: "visible" }, at);
+        tl.to(
+          ".transition-wash",
+          { xPercent: 102, opacity: 1, duration: 0.56, ease: "power2.inOut" },
+          at,
+        );
+        tl.set(".transition-wash", { xPercent: -102, opacity: 0 }, at + 0.62);
+        tl.to(
+          scene,
+          { opacity: 1, duration: 0.68, ease: "sine.inOut" },
+          at + 0.08,
+        );
+      }
+
+      function clearScene(scene, at) {
+        tl.set(scene, { opacity: 0, visibility: "hidden" }, at);
+      }
+
+      tl.from(
+        ".title-main",
+        { y: 54, opacity: 0, duration: 0.72, ease: "power3.out" },
+        0.2,
+      );
+      tl.from(
+        ".title-sub",
+        { y: 36, opacity: 0, scale: 0.98, duration: 0.62, ease: "power2.out" },
+        0.54,
+      );
+      tl.from(
+        ".title-rule",
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "center",
+          duration: 0.52,
+          ease: "expo.out",
+        },
+        0.9,
+      );
+
+      sceneIn("#scene-define", 3.05);
+      clearScene("#scene-title", 4.05);
+      tl.from(
+        ".define-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        3.38,
+      );
+      tl.from(
+        ".define-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        3.46,
+      );
+      tl.from(
+        ".define-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.45)" },
+        3.56,
+      );
+      tl.from(
+        ".define-headline",
+        { y: 70, opacity: 0, duration: 0.74, ease: "expo.out" },
+        3.78,
+      );
+      tl.from(
+        ".define-support",
+        { y: 48, opacity: 0, duration: 0.58, ease: "power3.out" },
+        4.16,
+      );
+      tl.from(
+        ".define-card",
+        { x: -48, opacity: 0, duration: 0.58, ease: "power2.out" },
+        4.58,
+      );
+      tl.from(
+        ".define-comparison .choice-card",
+        {
+          y: 80,
+          opacity: 0,
+          scale: 0.96,
+          stagger: 0.18,
+          duration: 0.64,
+          ease: "back.out(1.3)",
+        },
+        4.0,
+      );
+      tl.from(
+        ".server-row",
+        {
+          x: 42,
+          opacity: 0,
+          stagger: 0.11,
+          duration: 0.38,
+          ease: "power2.out",
+        },
+        4.72,
+      );
+      tl.from(
+        ".desktop-screen",
+        { y: 30, opacity: 0, duration: 0.44, ease: "sine.out" },
+        4.86,
+      );
+
+      sceneIn("#scene-metaphor", 18.45);
+      clearScene("#scene-define", 19.35);
+      tl.from(
+        ".metaphor-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        18.86,
+      );
+      tl.from(
+        ".metaphor-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        18.94,
+      );
+      tl.from(
+        ".metaphor-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        19.06,
+      );
+      tl.from(
+        ".metaphor-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        19.28,
+      );
+      tl.from(
+        ".metaphor-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        19.7,
+      );
+      tl.from(
+        ".metaphor-rule",
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left",
+          duration: 0.5,
+          ease: "power4.out",
+        },
+        20.18,
+      );
+      tl.from(
+        ".metaphor-roof",
+        { y: -70, opacity: 0, duration: 0.58, ease: "power3.out" },
+        19.64,
+      );
+      tl.from(
+        ".metaphor-building",
+        {
+          y: 80,
+          opacity: 0,
+          scale: 0.98,
+          duration: 0.72,
+          ease: "back.out(1.2)",
+        },
+        19.92,
+      );
+      tl.from(
+        ".metaphor-rented",
+        { scale: 0.6, opacity: 0, duration: 0.54, ease: "expo.out" },
+        20.54,
+      );
+      tl.from(
+        ".metaphor-item",
+        {
+          x: 68,
+          opacity: 0,
+          stagger: 0.16,
+          duration: 0.56,
+          ease: "power2.out",
+        },
+        20.82,
+      );
+
+      sceneIn("#scene-infra", 37.45);
+      clearScene("#scene-metaphor", 38.34);
+      tl.from(
+        ".infra-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        37.84,
+      );
+      tl.from(
+        ".infra-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        37.92,
+      );
+      tl.from(
+        ".infra-badge",
+        { y: 30, opacity: 0, duration: 0.44, ease: "back.out(1.35)" },
+        38.06,
+      );
+      tl.from(
+        ".infra-headline",
+        { y: 78, opacity: 0, duration: 0.72, ease: "expo.out" },
+        38.28,
+      );
+      tl.from(
+        ".infra-support",
+        { y: 44, opacity: 0, duration: 0.56, ease: "power3.out" },
+        38.7,
+      );
+      tl.from(
+        ".infra-pill",
+        {
+          y: 42,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 0.48,
+          ease: "power2.out",
+        },
+        39.18,
+      );
+      tl.from(
+        ".infra-device",
+        { x: -64, opacity: 0, duration: 0.62, ease: "power3.out" },
+        38.72,
+      );
+      tl.from(
+        ".infra-line",
+        { scaleX: 0, opacity: 0, duration: 0.6, ease: "power4.out" },
+        39.08,
+      );
+      tl.from(
+        ".infra-rack",
+        { x: 90, opacity: 0, duration: 0.72, ease: "back.out(1.18)" },
+        39.2,
+      );
+      tl.from(
+        ".infra-unit",
+        {
+          x: 46,
+          opacity: 0,
+          stagger: 0.14,
+          duration: 0.46,
+          ease: "power2.out",
+        },
+        39.68,
+      );
+
+      sceneIn("#scene-bridge", 54.1);
+      clearScene("#scene-infra", 55.0);
+      tl.from(
+        ".bridge-brand",
+        { y: -28, opacity: 0, duration: 0.48, ease: "power2.out" },
+        54.5,
+      );
+      tl.from(
+        ".bridge-mark",
+        { x: 28, opacity: 0, duration: 0.44, ease: "sine.out" },
+        54.58,
+      );
+      tl.from(
+        ".bridge-badge",
+        { y: 30, opacity: 0, duration: 0.42, ease: "back.out(1.3)" },
+        54.72,
+      );
+      tl.from(
+        ".bridge-headline",
+        { y: 70, opacity: 0, duration: 0.64, ease: "expo.out" },
+        54.92,
+      );
+      tl.from(
+        ".bridge-support",
+        { y: 40, opacity: 0, duration: 0.5, ease: "power3.out" },
+        55.24,
+      );
+      tl.from(
+        ".bridge-handoff",
+        { x: -44, opacity: 0, duration: 0.46, ease: "power2.out" },
+        55.58,
+      );
+      tl.from(
+        ".bridge-browser",
+        {
+          y: 70,
+          opacity: 0,
+          scale: 0.97,
+          duration: 0.64,
+          ease: "back.out(1.12)",
+        },
+        54.96,
+      );
+      tl.from(
+        ".bridge-row",
+        {
+          x: 42,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 0.42,
+          ease: "power2.out",
+        },
+        55.42,
+      );
+
+      tl.to(
+        ".field-lines, .field-lines-soft",
+        {
+          x: -140,
+          y: 70,
+          duration: driftCycle,
+          repeat: Math.floor(duration / driftCycle) - 1,
+          ease: "sine.inOut",
+          yoyo: true,
+        },
+        0,
+      );
+      tl.to(
+        ".status-light, .handoff-dot",
+        {
+          scale: 1.16,
+          opacity: 0.74,
+          duration: pulseCycle,
+          repeat: Math.floor(duration / pulseCycle) - 1,
+          ease: "sine.inOut",
+          yoyo: true,
+        },
+        0.4,
+      );
+
+      window.__timelines["vps-intro"] = tl;
+    </script>
+  </body>
+</html>
