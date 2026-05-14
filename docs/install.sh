@@ -9,9 +9,13 @@ set -euo pipefail
 # ─────────────────────────────────────────────────────────
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
+OPEN_WEBUI_IMAGE="ghcr.io/open-webui/open-webui:main"
+OLLAMA_IMAGE="ollama/ollama:latest"
 MIN_DISK_GB=5
-MIN_RAM_MB=1900
+MIN_RAM_MB=3900
 RECOMMENDED_RAM_MB=3900
+LOCAL_AI_PORT_START=4000
+LOCAL_AI_PORT_END=4099
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
@@ -153,6 +157,119 @@ generate_password() {
     fi
 }
 
+detect_total_ram_mb() {
+    free -m 2>/dev/null | awk '/Mem:/ {print $2}' || echo "0"
+}
+
+detect_arch() {
+    case "$(uname -m 2>/dev/null || echo unknown)" in
+        x86_64 | amd64) echo "amd64" ;;
+        aarch64 | arm64) echo "arm64" ;;
+        *) echo "unknown" ;;
+    esac
+}
+
+detect_gpu_hint() {
+    if command -v nvidia-smi &>/dev/null; then
+        echo "nvidia"
+    elif [[ -e /dev/dri/renderD128 ]] || lspci 2>/dev/null | grep -Eiq 'vga|3d|display'; then
+        echo "present"
+    else
+        echo "none"
+    fi
+}
+
+model_download_size() {
+    case "$1" in
+        llama3.2:1b) echo "about 1.3GB" ;;
+        llama3.2:3b | llama3.2) echo "about 2.0GB" ;;
+        gemma3:4b) echo "about 3.3GB" ;;
+        qwen3:8b) echo "about 5.2GB" ;;
+        qwen3:14b) echo "about 9.3GB" ;;
+        *) echo "size varies" ;;
+    esac
+}
+
+recommended_local_ai_model() {
+    local ram_mb="$1"
+    if (( ram_mb >= 32768 )); then
+        echo "qwen3:8b"
+    elif (( ram_mb >= 16000 )); then
+        echo "qwen3:8b"
+    elif (( ram_mb >= 8000 )); then
+        echo "llama3.2:3b"
+    else
+        echo ""
+    fi
+}
+
+validate_model_name() {
+    local model="$1"
+    [[ "$model" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*(:[A-Za-z0-9][A-Za-z0-9._-]*)?$ ]]
+}
+
+prompt_model_name() {
+    local default_model="$1" result=""
+    while true; do
+        result=$(prompt "Ollama model" "$default_model")
+        if validate_model_name "$result"; then
+            echo "$result"
+            return
+        fi
+        warn "Use a valid Ollama model name like llama3.2:3b, gemma3:4b, or qwen3:8b." >&2
+    done
+}
+
+port_available() {
+    local port="$1"
+    if command -v python3 &>/dev/null; then
+        python3 - "$port" <<'PY'
+import errno
+import socket
+import sys
+
+port = int(sys.argv[1])
+for host in ("0.0.0.0", "::"):
+    family = socket.AF_INET6 if host == "::" else socket.AF_INET
+    sock = socket.socket(family, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        sock.bind((host, port))
+    except OSError as exc:
+        if exc.errno in (errno.EAFNOSUPPORT, errno.EADDRNOTAVAIL) and host == "::":
+            continue
+        sys.exit(1)
+    finally:
+        sock.close()
+sys.exit(0)
+PY
+        return $?
+    fi
+
+    ! ss -tln 2>/dev/null | awk '{print $4}' | grep -Eq "[:.]${port}$"
+}
+
+find_available_port() {
+    local port
+    for (( port = LOCAL_AI_PORT_START; port <= LOCAL_AI_PORT_END; port++ )); do
+        if port_available "$port"; then
+            echo "$port"
+            return
+        fi
+    done
+    fail "No available Open WebUI port found between ${LOCAL_AI_PORT_START}-${LOCAL_AI_PORT_END}."
+    exit 1
+}
+
+dash_ip() {
+    echo "$1" | tr . -
+}
+
+build_tool_server_connections_json() {
+    local token="$1"
+    printf '[{"type":"mcp","url":"http://companion:3001/mcp","path":"","auth_type":"bearer","key":"%s","config":{"enable":true,"access_control":null},"info":{"id":"paperless-ag","name":"Paperless Ag","description":"Search Paperless documents through Paperless Ag."}}]' "$token"
+}
+
 # ── System Checks ────────────────────────────────────────
 
 check_platform() {
@@ -249,7 +366,8 @@ check_resources() {
 
     # RAM
     local total_ram_mb
-    total_ram_mb=$(free -m 2>/dev/null | awk '/Mem:/ {print $2}' || echo "0")
+    total_ram_mb=$(detect_total_ram_mb)
+    TOTAL_RAM_MB="$total_ram_mb"
     if (( total_ram_mb > 0 )); then
         if (( total_ram_mb < MIN_RAM_MB )); then
             fail "Not enough RAM. Need at least 4GB, have ${total_ram_mb}MB."
@@ -487,6 +605,148 @@ validate_pgvector_image() {
     return 1
 }
 
+choose_local_ai_model() {
+    local ram_mb="${TOTAL_RAM_MB:-$(detect_total_ram_mb)}"
+    local recommended
+    recommended=$(recommended_local_ai_model "$ram_mb")
+
+    echo "  Local AI model options"
+    echo -e "  ${DIM}Detected: ${ram_mb:-0}MB RAM, $(detect_arch) CPU, GPU: $(detect_gpu_hint)${NC}"
+    echo
+
+    if (( ram_mb < 8000 )); then
+        echo "    1) Skip model download (recommended for this machine)"
+        echo "    2) llama3.2:1b -- works, but may be slow ($(model_download_size llama3.2:1b))"
+        echo "    3) Use a custom Ollama model name"
+        echo
+        case "$(prompt "Choose" "1")" in
+            2) OLLAMA_DEFAULT_MODEL="llama3.2:1b" ;;
+            3) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "llama3.2:1b") ;;
+            *) OLLAMA_DEFAULT_MODEL="" ;;
+        esac
+    elif (( ram_mb < 16000 )); then
+        echo "    1) ${recommended} -- recommended for this machine ($(model_download_size "$recommended"))"
+        echo "    2) gemma3:4b -- larger, may be slower ($(model_download_size gemma3:4b))"
+        echo "    3) Skip model download"
+        echo "    4) Use a custom Ollama model name"
+        echo
+        case "$(prompt "Choose" "1")" in
+            2) OLLAMA_DEFAULT_MODEL="gemma3:4b" ;;
+            3) OLLAMA_DEFAULT_MODEL="" ;;
+            4) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "$recommended") ;;
+            *) OLLAMA_DEFAULT_MODEL="$recommended" ;;
+        esac
+    elif (( ram_mb < 32768 )); then
+        echo "    1) ${recommended} -- recommended for this machine ($(model_download_size "$recommended"))"
+        echo "    2) gemma3:4b -- faster/lighter ($(model_download_size gemma3:4b))"
+        echo "    3) Skip model download"
+        echo "    4) Use a custom Ollama model name"
+        echo
+        case "$(prompt "Choose" "1")" in
+            2) OLLAMA_DEFAULT_MODEL="gemma3:4b" ;;
+            3) OLLAMA_DEFAULT_MODEL="" ;;
+            4) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "$recommended") ;;
+            *) OLLAMA_DEFAULT_MODEL="$recommended" ;;
+        esac
+    else
+        echo "    1) ${recommended} -- recommended default ($(model_download_size "$recommended"))"
+        echo "    2) qwen3:14b -- higher quality, larger/slower ($(model_download_size qwen3:14b))"
+        echo "    3) gemma3:4b -- faster/lighter ($(model_download_size gemma3:4b))"
+        echo "    4) Skip model download"
+        echo "    5) Use a custom Ollama model name"
+        echo
+        case "$(prompt "Choose" "1")" in
+            2) OLLAMA_DEFAULT_MODEL="qwen3:14b" ;;
+            3) OLLAMA_DEFAULT_MODEL="gemma3:4b" ;;
+            4) OLLAMA_DEFAULT_MODEL="" ;;
+            5) OLLAMA_DEFAULT_MODEL=$(prompt_model_name "$recommended") ;;
+            *) OLLAMA_DEFAULT_MODEL="$recommended" ;;
+        esac
+    fi
+
+    if [[ -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
+        echo
+        echo "  Selected model: ${OLLAMA_DEFAULT_MODEL} ($(model_download_size "$OLLAMA_DEFAULT_MODEL"))"
+        if prompt_yn "Download this model during setup?" "y"; then
+            OLLAMA_PULL_MODEL_ON_INSTALL="true"
+        else
+            OLLAMA_PULL_MODEL_ON_INSTALL="false"
+        fi
+    else
+        OLLAMA_PULL_MODEL_ON_INSTALL="false"
+    fi
+}
+
+collect_local_ai_config() {
+    LOCAL_AI_ENABLED="false"
+    LOCAL_AI_HTTP_EXPOSE="false"
+    WEBUI_SECRET_KEY=""
+    OPEN_WEBUI_HOST_PORT=""
+    OPEN_WEBUI_HOST_BIND="127.0.0.1"
+    OPEN_WEBUI_PORT_MAPPING=""
+    OPEN_WEBUI_URL=""
+    OPEN_WEBUI_FALLBACK_URL=""
+    AI_DOMAIN=""
+    OLLAMA_DEFAULT_MODEL=""
+    OLLAMA_PULL_MODEL_ON_INSTALL="false"
+
+    divider
+    echo "  Optional local AI chat"
+    echo "  This adds Ollama and Open WebUI so a local model can use"
+    echo "  Paperless Ag through MCP. Paperless semantic embeddings stay unchanged."
+    echo
+    if ! prompt_yn "Install local AI chat?" "n"; then
+        return
+    fi
+
+    LOCAL_AI_ENABLED="true"
+    WEBUI_SECRET_KEY=$(generate_password)
+    OPEN_WEBUI_HOST_PORT=$(find_available_port)
+
+    if [[ -n "${DOMAIN:-}" ]]; then
+        echo
+        echo "  Open WebUI should use its own HTTPS hostname."
+        echo -e "  ${DIM}(e.g., ai.smithfarms.com, already pointed at this server)${NC}"
+        echo
+        AI_DOMAIN=$(prompt_domain "AI domain (or press Enter to skip public AI URL)")
+        if [[ -n "$AI_DOMAIN" ]]; then
+            OPEN_WEBUI_URL="https://${AI_DOMAIN}"
+        else
+            warn "Open WebUI will only be available through an SSH tunnel to localhost:${OPEN_WEBUI_HOST_PORT}."
+            OPEN_WEBUI_URL="http://127.0.0.1:${OPEN_WEBUI_HOST_PORT}"
+        fi
+        OPEN_WEBUI_HOST_BIND="127.0.0.1"
+    else
+        warn "Without a domain, Open WebUI is served over plain HTTP if exposed."
+        warn "Only expose it this way on a trusted home/LAN network."
+        if prompt_yn "Expose Open WebUI over HTTP on this server/LAN?" "n"; then
+            LOCAL_AI_HTTP_EXPOSE="true"
+            OPEN_WEBUI_HOST_BIND="0.0.0.0"
+            local detected_ip
+            detected_ip=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "")
+            if [[ -n "$detected_ip" ]]; then
+                OPEN_WEBUI_URL="http://ai.$(dash_ip "$detected_ip").sslip.io"
+                OPEN_WEBUI_FALLBACK_URL="http://${detected_ip}:${OPEN_WEBUI_HOST_PORT}"
+            else
+                OPEN_WEBUI_URL="http://localhost:${OPEN_WEBUI_HOST_PORT}"
+                OPEN_WEBUI_FALLBACK_URL="$OPEN_WEBUI_URL"
+            fi
+        else
+            OPEN_WEBUI_URL="http://127.0.0.1:${OPEN_WEBUI_HOST_PORT}"
+            OPEN_WEBUI_FALLBACK_URL="$OPEN_WEBUI_URL"
+        fi
+    fi
+
+    if [[ "$OPEN_WEBUI_HOST_BIND" == "127.0.0.1" ]]; then
+        OPEN_WEBUI_PORT_MAPPING="127.0.0.1:${OPEN_WEBUI_HOST_PORT}:8080"
+        OPEN_WEBUI_FALLBACK_URL="${OPEN_WEBUI_FALLBACK_URL:-http://127.0.0.1:${OPEN_WEBUI_HOST_PORT}}"
+    else
+        OPEN_WEBUI_PORT_MAPPING="${OPEN_WEBUI_HOST_PORT}:8080"
+    fi
+
+    choose_local_ai_model
+}
+
 # ── Collect Configuration ────────────────────────────────
 
 collect_fresh_config() {
@@ -534,6 +794,8 @@ collect_fresh_config() {
     DB_PASSWORD=$(generate_password)
     SECRET_KEY=$(generate_password)
     MCP_AUTH_TOKEN=$(generate_password)
+
+    collect_local_ai_config
 }
 
 collect_addon_config() {
@@ -634,6 +896,13 @@ collect_addon_config() {
     fi
 
     MCP_AUTH_TOKEN=$(generate_password)
+
+    collect_local_ai_config
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" && -z "${DOMAIN:-}" && -n "${OPEN_WEBUI_FALLBACK_URL:-}" ]]; then
+        # Add-on installs without a domain do not add a new Caddy front door,
+        # so the direct host-port URL is the reliable Open WebUI URL.
+        OPEN_WEBUI_URL="$OPEN_WEBUI_FALLBACK_URL"
+    fi
 }
 
 # ── Fresh Install ────────────────────────────────────────
@@ -692,6 +961,44 @@ do_fresh_install() {
             paperless_url="http://localhost"
             warn "Could not detect server IP. Update PAPERLESS_URL in .env if needed."
         fi
+    fi
+
+    local tool_server_connections
+    tool_server_connections=$(build_tool_server_connections_json "$MCP_AUTH_TOKEN")
+
+    local local_ai_services=""
+    local local_ai_volumes=""
+    local local_ai_caddy_depends=""
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        local_ai_caddy_depends=$'\n      - open-webui'
+        local_ai_volumes=$'\n  ollama:\n  open-webui:'
+        local_ai_services="
+  ollama:
+    image: ${OLLAMA_IMAGE}
+    restart: unless-stopped
+    volumes:
+      - ollama:/root/.ollama
+
+  open-webui:
+    image: ${OPEN_WEBUI_IMAGE}
+    restart: unless-stopped
+    depends_on:
+      - ollama
+      - companion
+    ports:
+      - \"\${OPEN_WEBUI_PORT_MAPPING}\"
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      WEBUI_SECRET_KEY: \${WEBUI_SECRET_KEY}
+      WEBUI_AUTH: \"True\"
+      ENABLE_DIRECT_CONNECTIONS: \"True\"
+      BYPASS_ADMIN_ACCESS_CONTROL: \"True\"
+      WEBUI_URL: \${OPEN_WEBUI_URL}
+      TOOL_SERVER_CONNECTIONS: >-
+        ${tool_server_connections}
+    volumes:
+      - open-webui:/app/backend/data
+"
     fi
 
     # Generate docker-compose.yml
@@ -773,6 +1080,7 @@ services:
       MCP_HTTP_PORT: "3001"
       MCP_AUTH_TOKEN: \${MCP_AUTH_TOKEN}
       PYTHONUNBUFFERED: "1"
+${local_ai_services}
 
   caddy:
     image: caddy:2-alpine
@@ -786,6 +1094,7 @@ ${caddy_ports}
     depends_on:
       - paperless
       - companion
+${local_ai_caddy_depends}
 
 volumes:
   pgdata:
@@ -796,6 +1105,7 @@ volumes:
   paperless-consume:
   caddy-data:
   caddy-config:
+${local_ai_volumes}
 COMPOSE
     info "Generated docker-compose.yml"
 
@@ -811,6 +1121,17 @@ SECRET_KEY='${SECRET_KEY}'
 TIMEZONE='${TIMEZONE}'
 PAPERLESS_URL='${paperless_url}'
 MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
+LOCAL_AI_ENABLED='${LOCAL_AI_ENABLED:-false}'
+LOCAL_AI_HTTP_EXPOSE='${LOCAL_AI_HTTP_EXPOSE:-false}'
+AI_DOMAIN='${AI_DOMAIN:-}'
+WEBUI_SECRET_KEY='${WEBUI_SECRET_KEY:-}'
+OPEN_WEBUI_HOST_PORT='${OPEN_WEBUI_HOST_PORT:-}'
+OPEN_WEBUI_HOST_BIND='${OPEN_WEBUI_HOST_BIND:-}'
+OPEN_WEBUI_PORT_MAPPING='${OPEN_WEBUI_PORT_MAPPING:-}'
+OPEN_WEBUI_URL='${OPEN_WEBUI_URL:-}'
+OPEN_WEBUI_FALLBACK_URL='${OPEN_WEBUI_FALLBACK_URL:-}'
+OLLAMA_DEFAULT_MODEL='${OLLAMA_DEFAULT_MODEL:-}'
+OLLAMA_PULL_MODEL_ON_INSTALL='${OLLAMA_PULL_MODEL_ON_INSTALL:-false}'
 ENV
     chmod 600 "$install_dir/.env"
     info "Generated .env"
@@ -856,6 +1177,23 @@ ENV
         info "Companion service connected"
     else
         warn "Companion service may still be starting. Check: docker compose logs companion"
+    fi
+
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        if (cd "$install_dir" && docker compose ps open-webui 2>/dev/null | grep -q "running"); then
+            info "Open WebUI is running"
+        else
+            warn "Open WebUI may still be starting. Check: docker compose logs open-webui"
+        fi
+
+        if [[ "${OLLAMA_PULL_MODEL_ON_INSTALL:-false}" == "true" && -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
+            step "Downloading Ollama model ${OLLAMA_DEFAULT_MODEL}..."
+            if (cd "$install_dir" && docker compose exec -T ollama ollama pull "$OLLAMA_DEFAULT_MODEL"); then
+                info "Ollama model downloaded"
+            else
+                warn "Model download failed or was interrupted. Open WebUI can pull it later."
+            fi
+        fi
     fi
 
     # Set up daily backup cron
@@ -937,11 +1275,24 @@ do_addon_install() {
     step "Pulling Paperless Ag companion image..."
     run_quiet docker pull "$COMPANION_IMAGE"
     info "Companion image pulled"
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        step "Pulling Local AI images..."
+        run_quiet docker pull "$OLLAMA_IMAGE"
+        run_quiet docker pull "$OPEN_WEBUI_IMAGE"
+        info "Local AI images pulled"
+    fi
 
     # Determine internal Paperless URL
     local paperless_internal_url="http://${PAPERLESS_SERVICE_NAME}:8000"
+    local tool_server_connections
+    tool_server_connections=$(build_tool_server_connections_json "$MCP_AUTH_TOKEN")
 
     # Generate docker-compose.override.yml
+    local caddy_depends="      - companion"
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        caddy_depends+=$'\n      - open-webui'
+    fi
+
     local override_content="# Paperless Ag add-on -- generated by installer
 # This file is automatically loaded by docker compose.
 services:"
@@ -977,6 +1328,17 @@ SYNC_INTERVAL_SECONDS='60'
 MCP_HTTP_PORT='3001'
 MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
 PYTHONUNBUFFERED='1'
+LOCAL_AI_ENABLED='${LOCAL_AI_ENABLED:-false}'
+LOCAL_AI_HTTP_EXPOSE='${LOCAL_AI_HTTP_EXPOSE:-false}'
+AI_DOMAIN='${AI_DOMAIN:-}'
+WEBUI_SECRET_KEY='${WEBUI_SECRET_KEY:-}'
+OPEN_WEBUI_HOST_PORT='${OPEN_WEBUI_HOST_PORT:-}'
+OPEN_WEBUI_HOST_BIND='${OPEN_WEBUI_HOST_BIND:-}'
+OPEN_WEBUI_PORT_MAPPING='${OPEN_WEBUI_PORT_MAPPING:-}'
+OPEN_WEBUI_URL='${OPEN_WEBUI_URL:-}'
+OPEN_WEBUI_FALLBACK_URL='${OPEN_WEBUI_FALLBACK_URL:-}'
+OLLAMA_DEFAULT_MODEL='${OLLAMA_DEFAULT_MODEL:-}'
+OLLAMA_PULL_MODEL_ON_INSTALL='${OLLAMA_PULL_MODEL_ON_INSTALL:-false}'
 ENVFILE
     chmod 600 "$compose_dir/paperless-ag.env"
 
@@ -985,6 +1347,36 @@ ENVFILE
         override_content+="
     ports:
       - \"3001:3001\""
+    fi
+
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        override_content+="
+
+  ollama:
+    image: ${OLLAMA_IMAGE}
+    restart: unless-stopped
+    volumes:
+      - ollama:/root/.ollama
+
+  open-webui:
+    image: ${OPEN_WEBUI_IMAGE}
+    restart: unless-stopped
+    depends_on:
+      - ollama
+      - companion
+    env_file:
+      - paperless-ag.env
+    ports:
+      - \"${OPEN_WEBUI_PORT_MAPPING}\"
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      WEBUI_AUTH: \"True\"
+      ENABLE_DIRECT_CONNECTIONS: \"True\"
+      BYPASS_ADMIN_ACCESS_CONTROL: \"True\"
+      TOOL_SERVER_CONNECTIONS: >-
+        ${tool_server_connections}
+    volumes:
+      - open-webui:/app/backend/data"
     fi
 
     # Add Caddy if domain provided
@@ -1002,11 +1394,22 @@ ENVFILE
       - caddy-data:/data
       - caddy-config:/config
     depends_on:
-      - companion
+${caddy_depends}
 
 volumes:
   caddy-data:
   caddy-config:"
+        if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+            override_content+="
+  ollama:
+  open-webui:"
+        fi
+    elif [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        override_content+="
+
+volumes:
+  ollama:
+  open-webui:"
     fi
 
     echo "$override_content" > "$compose_dir/docker-compose.override.yml"
@@ -1035,6 +1438,23 @@ volumes:
         warn "Companion may still be starting. Check: cd $compose_dir && docker compose logs companion"
     fi
 
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        if (cd "$compose_dir" && docker compose ps open-webui 2>/dev/null | grep -q "running"); then
+            info "Open WebUI is running"
+        else
+            warn "Open WebUI may still be starting. Check: cd $compose_dir && docker compose logs open-webui"
+        fi
+
+        if [[ "${OLLAMA_PULL_MODEL_ON_INSTALL:-false}" == "true" && -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
+            step "Downloading Ollama model ${OLLAMA_DEFAULT_MODEL}..."
+            if (cd "$compose_dir" && docker compose exec -T ollama ollama pull "$OLLAMA_DEFAULT_MODEL"); then
+                info "Ollama model downloaded"
+            else
+                warn "Model download failed or was interrupted. Open WebUI can pull it later."
+            fi
+        fi
+    fi
+
     # Print summary
     print_addon_summary "$compose_dir"
 }
@@ -1044,6 +1464,26 @@ volumes:
 generate_caddyfile() {
     local filepath="$1"
     local paperless_service="${PAPERLESS_SERVICE_NAME:-paperless}"
+    local ai_domain_block=""
+    local ai_lan_block=""
+
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" && -n "${AI_DOMAIN:-}" ]]; then
+        local ai_tls_block=""
+        if [[ -n "${LE_EMAIL:-}" ]]; then
+            ai_tls_block=$'\n    tls '"$LE_EMAIL"
+        fi
+        ai_domain_block="${AI_DOMAIN} {${ai_tls_block}
+    reverse_proxy open-webui:8080
+}
+
+"
+    elif [[ "${LOCAL_AI_ENABLED:-false}" == "true" && "${LOCAL_AI_HTTP_EXPOSE:-false}" == "true" ]]; then
+        ai_lan_block="http://ai.*.sslip.io {
+    reverse_proxy open-webui:8080
+}
+
+"
+    fi
 
     if [[ -n "${DOMAIN:-}" ]]; then
         local tls_block=""
@@ -1051,6 +1491,7 @@ generate_caddyfile() {
             tls_block=$'\n    tls '"$LE_EMAIL"
         fi
         cat > "$filepath" <<CADDY
+${ai_domain_block}${ai_lan_block}
 ${DOMAIN} {${tls_block}
     @discovery path /.well-known/oauth-authorization-server /.well-known/openid-configuration
     handle @discovery {
@@ -1069,6 +1510,7 @@ ${DOMAIN} {${tls_block}
 CADDY
     else
         cat > "$filepath" <<CADDY
+${ai_domain_block}${ai_lan_block}
 :80 {
     @discovery path /.well-known/oauth-authorization-server /.well-known/openid-configuration
     handle @discovery {
@@ -1255,6 +1697,20 @@ print_fresh_summary() {
     echo "  Upload documents: Drag and drop in the web UI, or email them"
     echo "                    (configure in Settings > Mail)"
     echo
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        echo -e "  ${BOLD}LOCAL AI CHAT:${NC}"
+        echo "  Open WebUI:        ${OPEN_WEBUI_URL}"
+        if [[ -n "${OPEN_WEBUI_FALLBACK_URL:-}" && "${OPEN_WEBUI_FALLBACK_URL}" != "${OPEN_WEBUI_URL}" ]]; then
+            echo "  Fallback URL:      ${OPEN_WEBUI_FALLBACK_URL}"
+        fi
+        if [[ -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
+            echo "  Ollama model:      ${OLLAMA_DEFAULT_MODEL}"
+        else
+            echo "  Ollama model:      choose/pull one in Open WebUI"
+        fi
+        echo "  Paperless Ag MCP:  preconfigured in Open WebUI"
+        echo
+    fi
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo
     echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
@@ -1278,6 +1734,27 @@ print_fresh_summary() {
     echo "      }"
     echo "    }"
     echo
+    echo "  Claude Desktop (mcp-remote):"
+    echo
+    echo "    {"
+    echo "      \"mcpServers\": {"
+    echo "        \"paperless-ag\": {"
+    echo "          \"command\": \"npx\","
+    echo "          \"args\": ["
+    echo "            \"-y\", \"mcp-remote\", \"${mcp_url}\","
+    echo "            \"--allow-http\","
+    echo "            \"--header\", \"Authorization:Bearer ${MCP_AUTH_TOKEN}\""
+    echo "          ]"
+    echo "        }"
+    echo "      }"
+    echo "    }"
+    echo
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        echo "  Open WebUI MCP seed/import JSON:"
+        echo
+        echo "    $(build_tool_server_connections_json "$MCP_AUTH_TOKEN")"
+        echo
+    fi
     echo "  Claude Desktop uses mcp-remote instead of the .mcp.json HTTP block."
     echo "  Open Claude > Settings > Developer > Edit Config and use:"
     echo "    Server URL: ${mcp_url}"
@@ -1318,6 +1795,20 @@ print_addon_summary() {
     echo "  Semantic search is now active. Your existing Paperless"
     echo "  documents will be embedded automatically (check logs)."
     echo
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        echo -e "  ${BOLD}LOCAL AI CHAT:${NC}"
+        echo "  Open WebUI:        ${OPEN_WEBUI_URL}"
+        if [[ -n "${OPEN_WEBUI_FALLBACK_URL:-}" && "${OPEN_WEBUI_FALLBACK_URL}" != "${OPEN_WEBUI_URL}" ]]; then
+            echo "  Fallback URL:      ${OPEN_WEBUI_FALLBACK_URL}"
+        fi
+        if [[ -n "${OLLAMA_DEFAULT_MODEL:-}" ]]; then
+            echo "  Ollama model:      ${OLLAMA_DEFAULT_MODEL}"
+        else
+            echo "  Ollama model:      choose/pull one in Open WebUI"
+        fi
+        echo "  Paperless Ag MCP:  preconfigured in Open WebUI"
+        echo
+    fi
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo
     echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
@@ -1341,6 +1832,27 @@ print_addon_summary() {
     echo "      }"
     echo "    }"
     echo
+    echo "  Claude Desktop (mcp-remote):"
+    echo
+    echo "    {"
+    echo "      \"mcpServers\": {"
+    echo "        \"paperless-ag\": {"
+    echo "          \"command\": \"npx\","
+    echo "          \"args\": ["
+    echo "            \"-y\", \"mcp-remote\", \"${mcp_url}\","
+    echo "            \"--allow-http\","
+    echo "            \"--header\", \"Authorization:Bearer ${MCP_AUTH_TOKEN}\""
+    echo "          ]"
+    echo "        }"
+    echo "      }"
+    echo "    }"
+    echo
+    if [[ "${LOCAL_AI_ENABLED:-false}" == "true" ]]; then
+        echo "  Open WebUI MCP seed/import JSON:"
+        echo
+        echo "    $(build_tool_server_connections_json "$MCP_AUTH_TOKEN")"
+        echo
+    fi
     echo "  Claude Desktop uses mcp-remote instead of the .mcp.json HTTP block."
     echo "  Open Claude > Settings > Developer > Edit Config and use:"
     echo "    Server URL: ${mcp_url}"

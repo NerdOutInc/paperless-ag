@@ -54,6 +54,21 @@
         border-radius: 6px;
         font-size: 1rem;
       }
+      input[type="checkbox"] {
+        width: auto;
+      }
+      .checkbox-row {
+        display: flex;
+        gap: 0.6rem;
+        align-items: flex-start;
+        margin-top: 1rem;
+      }
+      .checkbox-row label {
+        margin: 0;
+      }
+      .checkbox-row .hint {
+        margin-top: 0.15rem;
+      }
       input:focus,
       select:focus {
         outline: none;
@@ -164,6 +179,17 @@
         font-size: 0.85rem;
         margin-top: 1.5rem;
       }
+      .config-box {
+        background: #1f241d;
+        color: #f5f5f0;
+        border-radius: 6px;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 0.78rem;
+      }
     </style>
   </head>
   <body>
@@ -254,6 +280,61 @@
           <div class="hint">Used by Let's Encrypt. Not shared publicly.</div>
         </div>
 
+        <div class="checkbox-row">
+          <input type="checkbox" id="local_ai_enabled" />
+          <div>
+            <label for="local_ai_enabled">Install local AI chat</label>
+            <div class="hint">
+              Adds Ollama and Open WebUI. Paperless Ag MCP will be connected
+              automatically.
+            </div>
+          </div>
+        </div>
+
+        <div id="local-ai-group" class="hidden">
+          <label for="ollama_model">Ollama Model</label>
+          <select id="ollama_model"></select>
+          <div class="hint" id="model-hint">
+            Loading model recommendation...
+          </div>
+
+          <div id="custom-model-group" class="hidden">
+            <label for="custom_model">Custom Ollama Model</label>
+            <input type="text" id="custom_model" placeholder="llama3.2:3b" />
+          </div>
+
+          <div id="ai-domain-group" class="hidden">
+            <label for="ai_domain">Open WebUI Domain</label>
+            <input type="text" id="ai_domain" placeholder="ai.yourfarm.com" />
+            <div class="hint">
+              Optional, but recommended for HTTPS access to Open WebUI.
+            </div>
+          </div>
+
+          <div id="ai-http-group" class="checkbox-row">
+            <input type="checkbox" id="expose_ai_http" />
+            <div>
+              <label for="expose_ai_http">Expose Open WebUI over HTTP</label>
+              <div class="hint">
+                Only use this on a trusted local network. For public servers,
+                use a domain with HTTPS instead.
+              </div>
+            </div>
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="pull_model" />
+            <div>
+              <label for="pull_model"
+                >Download selected model during setup</label
+              >
+              <div class="hint">
+                This can take several GB and may take a while.
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="error" id="form-error"></div>
 
         <button type="submit" id="submit-btn">Set Up Paperless Ag</button>
@@ -294,6 +375,42 @@
         <code>cat /opt/paperless-ag/.env | grep MCP_AUTH_TOKEN</code>
       </p>
 
+      <div id="ai-complete-group" class="hidden">
+        <label>Open WebUI</label>
+        <a
+          id="open-webui-link"
+          href="#"
+          style="
+            display: block;
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            background: #2d5016;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+          "
+          >Open Local AI Chat</a
+        >
+        <p class="ssh-hint" id="open-webui-note"></p>
+      </div>
+
+      <label>Claude Code</label>
+      <pre class="config-box" id="claude-code-config"></pre>
+
+      <label>.mcp.json</label>
+      <pre class="config-box" id="mcp-json-config"></pre>
+
+      <label>Claude Desktop</label>
+      <pre class="config-box" id="desktop-config"></pre>
+
+      <div id="open-webui-import-group" class="hidden">
+        <label>Open WebUI MCP Import</label>
+        <pre class="config-box" id="open-webui-config"></pre>
+      </div>
+
       <a
         id="paperless-link"
         href="#"
@@ -321,11 +438,73 @@
         var emailGroup = document.getElementById("email-group");
         var pwError = document.getElementById("pw-error");
         var formError = document.getElementById("form-error");
+        var localAiInput = document.getElementById("local_ai_enabled");
+        var localAiGroup = document.getElementById("local-ai-group");
+        var aiDomainGroup = document.getElementById("ai-domain-group");
+        var aiHttpGroup = document.getElementById("ai-http-group");
+        var modelSelect = document.getElementById("ollama_model");
+        var customModelGroup = document.getElementById("custom-model-group");
 
         // Show/hide email field based on domain
         domainInput.addEventListener("input", function () {
           emailGroup.classList.toggle("hidden", !domainInput.value.trim());
+          syncLocalAiFields();
         });
+
+        localAiInput.addEventListener("change", syncLocalAiFields);
+        modelSelect.addEventListener("change", function () {
+          customModelGroup.classList.toggle(
+            "hidden",
+            modelSelect.value !== "__custom__",
+          );
+        });
+
+        function syncLocalAiFields() {
+          var enabled = localAiInput.checked;
+          var hasDomain = !!domainInput.value.trim();
+          localAiGroup.classList.toggle("hidden", !enabled);
+          aiDomainGroup.classList.toggle("hidden", !enabled || !hasDomain);
+          aiHttpGroup.classList.toggle("hidden", !enabled || hasDomain);
+        }
+
+        function populateModels(data) {
+          var options = data.model_options || [];
+          modelSelect.innerHTML = "";
+          options.forEach(function (model) {
+            var option = document.createElement("option");
+            option.value = model;
+            option.textContent = model
+              ? model +
+                (model === data.recommended_model ? " (recommended)" : "")
+              : "Skip model download";
+            modelSelect.appendChild(option);
+          });
+          var custom = document.createElement("option");
+          custom.value = "__custom__";
+          custom.textContent = "Use a custom Ollama model";
+          modelSelect.appendChild(custom);
+          document.getElementById("model-hint").textContent =
+            "Detected " +
+            (data.ram_mb || "unknown") +
+            "MB RAM on " +
+            (data.arch || "unknown") +
+            ".";
+          customModelGroup.classList.add("hidden");
+        }
+
+        fetch("/api/system")
+          .then(function (res) {
+            return res.json();
+          })
+          .then(populateModels)
+          .catch(function () {
+            populateModels({
+              ram_mb: "unknown",
+              arch: "unknown",
+              recommended_model: "llama3.2:3b",
+              model_options: ["llama3.2:3b", "gemma3:4b", ""],
+            });
+          });
 
         form.addEventListener("submit", function (e) {
           e.preventDefault();
@@ -350,6 +529,13 @@
             return;
           }
 
+          var selectedModel = modelSelect.value;
+          if (selectedModel === "__custom__") {
+            selectedModel = document
+              .getElementById("custom_model")
+              .value.trim();
+          }
+
           var payload = {
             setup_token: document.getElementById("setup_token").value.trim(),
             admin_user: document.getElementById("admin_user").value.trim(),
@@ -357,6 +543,14 @@
             timezone: document.getElementById("timezone").value,
             domain: domainInput.value.trim(),
             le_email: document.getElementById("le_email").value.trim(),
+            local_ai_enabled: localAiInput.checked,
+            ai_domain: document.getElementById("ai_domain").value.trim(),
+            expose_ai_http: document.getElementById("expose_ai_http").checked,
+            ollama_model: localAiInput.checked ? selectedModel : "",
+            pull_model:
+              localAiInput.checked &&
+              !!selectedModel &&
+              document.getElementById("pull_model").checked,
           };
 
           document.getElementById("submit-btn").disabled = true;
@@ -389,9 +583,7 @@
                 .classList.remove("hidden");
 
               // Poll for completion
-              var token = result.data.mcp_token;
-              var url = result.data.paperless_url;
-              pollCompletion(token, url);
+              pollCompletion(result.data);
             })
             .catch(function () {
               formError.textContent = "Connection error. Please try again.";
@@ -400,10 +592,10 @@
             });
         });
 
-        function pollCompletion(token, url) {
+        function pollCompletion(setupResult) {
           var lostContact = false;
           var pollCount = 0;
-          var maxPolls = 200; // ~10 minutes at 3s intervals
+          var maxPolls = 600; // ~30 minutes at 3s intervals for model pulls
 
           var interval = setInterval(function () {
             pollCount++;
@@ -422,7 +614,7 @@
                 .then(function (res) {
                   if (res.ok || res.type === "opaqueredirect") {
                     clearInterval(interval);
-                    showComplete(token, url);
+                    showComplete(setupResult);
                   }
                 })
                 .catch(function () {
@@ -438,7 +630,7 @@
               .then(function (data) {
                 if (data.state === "complete") {
                   clearInterval(interval);
-                  showComplete(token, url);
+                  showComplete(setupResult);
                 } else if (data.state === "failed") {
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
@@ -454,11 +646,81 @@
           }, 3000);
         }
 
-        function showComplete(token, url) {
+        function showComplete(setupResult) {
+          var token = setupResult.mcp_token;
+          var url = setupResult.paperless_url;
+          var mcpUrl = setupResult.mcp_url || url + "/mcp";
           document.getElementById("progress-card").classList.add("hidden");
           document.getElementById("complete-card").classList.remove("hidden");
           document.getElementById("mcp-token").textContent = token;
           document.getElementById("paperless-link").href = url;
+
+          var claudeCode =
+            'claude mcp add --transport http paperless-ag "' +
+            mcpUrl +
+            '" --header "Authorization: Bearer ' +
+            token +
+            '"';
+          document.getElementById("claude-code-config").textContent =
+            claudeCode;
+
+          document.getElementById("mcp-json-config").textContent =
+            JSON.stringify(
+              {
+                mcpServers: {
+                  "paperless-ag": {
+                    type: "http",
+                    url: mcpUrl,
+                    headers: { Authorization: "Bearer " + token },
+                  },
+                },
+              },
+              null,
+              2,
+            );
+
+          document.getElementById("desktop-config").textContent =
+            JSON.stringify(
+              {
+                mcpServers: {
+                  "paperless-ag": {
+                    command: "npx",
+                    args: [
+                      "-y",
+                      "mcp-remote",
+                      mcpUrl,
+                      "--allow-http",
+                      "--header",
+                      "Authorization:Bearer " + token,
+                    ],
+                  },
+                },
+              },
+              null,
+              2,
+            );
+
+          document.getElementById("open-webui-config").textContent =
+            JSON.stringify(
+              JSON.parse(setupResult.tool_server_connections || "[]"),
+              null,
+              2,
+            );
+
+          if (setupResult.local_ai_enabled) {
+            document
+              .getElementById("ai-complete-group")
+              .classList.remove("hidden");
+            document
+              .getElementById("open-webui-import-group")
+              .classList.remove("hidden");
+            document.getElementById("open-webui-link").href =
+              setupResult.open_webui_url || "#";
+            document.getElementById("open-webui-note").textContent =
+              "Paperless Ag MCP is preconfigured. Fallback URL: " +
+              (setupResult.open_webui_fallback_url ||
+                setupResult.open_webui_url);
+          }
 
           // Countdown redirect
           var seconds = 30;

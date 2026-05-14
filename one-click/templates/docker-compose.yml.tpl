@@ -74,6 +74,7 @@ services:
       MCP_HTTP_PORT: "3001"
       MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
       PYTHONUNBUFFERED: "1"
+{{LOCAL_AI_SERVICES}}
 
   caddy:
     image: caddy:2-alpine
@@ -88,6 +89,7 @@ services:
     depends_on:
       - paperless
       - companion
+{{LOCAL_AI_CADDY_DEPENDS}}
 
 volumes:
   pgdata:
@@ -98,3 +100,4 @@ volumes:
   paperless-consume:
   caddy-data:
   caddy-config:
+{{LOCAL_AI_VOLUMES}}
