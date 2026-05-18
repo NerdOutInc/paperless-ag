@@ -21,3 +21,28 @@
         reverse_proxy paperless:8000
     }
 }
+
+http://{{AI_DOMAIN}} {
+    @bootstrap path /
+    handle @bootstrap {
+        root * /srv/llama-bootstrap
+        rewrite * /llama-bootstrap.html
+        file_server
+    }
+    handle {
+        reverse_proxy llama:8080
+    }
+}
+
+:8088 {
+    @mcp path /mcp /mcp/*
+    handle @mcp {
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+            header_up Authorization "Bearer {env.MCP_AUTH_TOKEN}"
+        }
+    }
+    handle {
+        respond 404
+    }
+}

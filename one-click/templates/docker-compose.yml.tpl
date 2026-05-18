@@ -75,14 +75,54 @@ services:
       MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
       PYTHONUNBUFFERED: "1"
 
+  llama-model-init:
+    image: python:3.12-alpine
+    restart: "no"
+    command: ["/bin/sh", "/usr/local/bin/download-models.sh"]
+    volumes:
+      - ./llama-models:/models
+      - ./llama-download-models.sh:/usr/local/bin/download-models.sh:ro
+
+  llama:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    restart: unless-stopped
+    depends_on:
+      llama-model-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./llama-models:/models
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --models-preset
+      - /models/models.ini
+      - --models-max
+      - "1"
+      - --models-autoload
+      - --ctx-size
+      - "4096"
+      - --n-predict
+      - "512"
+      - --parallel
+      - "1"
+      - --jinja
+      - --ui-mcp-proxy
+      - --ui-config-file
+      - /models/ui-config.json
+
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./llama-bootstrap.html:/srv/llama-bootstrap/llama-bootstrap.html:ro
       - caddy-data:/data
       - caddy-config:/config
     depends_on:

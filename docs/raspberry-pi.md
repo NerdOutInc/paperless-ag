@@ -94,9 +94,9 @@ The installer will:
    - Timezone
    - Domain name (press Enter to skip -- not needed for local network)
    - Install directory (default: `~/paperless-ag`)
-4. **Pull images and start services** -- this downloads about 2 GB of
-   container images. On a Pi with a decent internet connection, expect
-   5--15 minutes.
+4. **Pull images, download local AI models, and start services** -- this
+   downloads the Paperless Ag containers plus the llama.cpp test model bundle.
+   On a Pi with a decent internet connection, expect this to take a while.
 
 When it finishes you'll see a summary with your Paperless URL and MCP
 connection details. **Save the MCP auth token** -- you'll need it to
@@ -114,6 +114,24 @@ For example: `http://192.168.1.42` or `http://paperless.local`
 
 Open that URL in a browser on any device on your network. Log in with the
 admin username and password you chose during setup.
+
+The local llama.cpp chat UI is also available at the sslip.io AI hostname
+printed by the installer:
+
+```text
+http://ai.<your-pi-ip-with-dashes>.sslip.io/
+```
+
+For example, a Pi at `192.168.68.202` uses:
+
+```text
+http://ai.192-168-68-202.sslip.io/
+```
+
+The first visit seeds the llama.cpp UI with the Paperless Ag MCP connection.
+Use the model dropdown to switch between the installed Qwen and Gemma test
+models; the Pi only loads one model at a time. GGUF files are stored in the
+`llama-models/` directory inside the install directory.
 
 ### Give it a stable IP
 

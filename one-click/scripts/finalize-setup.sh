@@ -9,7 +9,11 @@ echo "Starting Paperless Ag stack..."
 # child of that service, so stopping it would kill this process mid-setup.
 systemctl stop paperless-setup.service
 
-docker compose up -d
+if ! docker compose up -d; then
+    echo "[!] Docker Compose failed to start"
+    echo "failed" > /opt/paperless-ag/.setup-state
+    exit 1
+fi
 
 echo "Waiting for Paperless to become healthy..."
 timeout=300
@@ -25,6 +29,52 @@ done
 
 if [[ $elapsed -ge $timeout ]]; then
     echo "[!] Paperless did not become healthy within ${timeout}s"
+    echo "failed" > /opt/paperless-ag/.setup-state
+    exit 1
+fi
+
+echo "Waiting for local AI models to finish downloading..."
+timeout=3600
+elapsed=0
+while [[ $elapsed -lt $timeout ]]; do
+    container_id="$(docker compose ps -q llama-model-init 2>/dev/null || true)"
+    if [[ -n "$container_id" ]]; then
+        status="$(docker inspect -f '{{.State.Status}}' "$container_id" 2>/dev/null || true)"
+        exit_code="$(docker inspect -f '{{.State.ExitCode}}' "$container_id" 2>/dev/null || true)"
+        if [[ "$status" == "exited" && "$exit_code" == "0" ]]; then
+            echo "[OK] Local AI models downloaded"
+            break
+        fi
+        if [[ "$status" == "exited" ]]; then
+            echo "[!] Local AI model download failed"
+            echo "failed" > /opt/paperless-ag/.setup-state
+            exit 1
+        fi
+    fi
+    sleep 10
+    elapsed=$((elapsed + 10))
+done
+
+if [[ $elapsed -ge $timeout ]]; then
+    echo "[!] Local AI model download did not finish within ${timeout}s"
+    echo "failed" > /opt/paperless-ag/.setup-state
+    exit 1
+fi
+
+echo "Waiting for llama.cpp Web UI to start..."
+timeout=180
+elapsed=0
+while [[ $elapsed -lt $timeout ]]; do
+    if docker compose ps llama 2>/dev/null | grep -q "running"; then
+        echo "[OK] llama.cpp Web UI is running"
+        break
+    fi
+    sleep 5
+    elapsed=$((elapsed + 5))
+done
+
+if [[ $elapsed -ge $timeout ]]; then
+    echo "[!] llama.cpp Web UI did not start within ${timeout}s"
     echo "failed" > /opt/paperless-ag/.setup-state
     exit 1
 fi

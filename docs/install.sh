@@ -9,9 +9,12 @@ set -euo pipefail
 # ─────────────────────────────────────────────────────────
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
-MIN_DISK_GB=5
-MIN_RAM_MB=1900
-RECOMMENDED_RAM_MB=3900
+LLAMA_IMAGE="ghcr.io/ggml-org/llama.cpp:server"
+MODEL_DOWNLOADER_IMAGE="python:3.12-alpine"
+MIN_DISK_GB=18
+MIN_RAM_MB=3900
+RECOMMENDED_RAM_MB=7800
+LLAMA_DEFAULT_MODEL="qwen3.5-2b-balanced"
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
@@ -132,6 +135,28 @@ run_quiet() {
     fi
 }
 
+wait_for_compose_service_completed() {
+    local compose_dir="$1" service="$2" timeout="${3:-3600}"
+    local elapsed=0
+    while (( elapsed < timeout )); do
+        local container_id status exit_code
+        container_id=$(cd "$compose_dir" && docker compose ps -q "$service" 2>/dev/null || true)
+        if [[ -n "$container_id" ]]; then
+            status=$(docker inspect -f '{{.State.Status}}' "$container_id" 2>/dev/null || echo "")
+            exit_code=$(docker inspect -f '{{.State.ExitCode}}' "$container_id" 2>/dev/null || echo "")
+            if [[ "$status" == "exited" && "$exit_code" == "0" ]]; then
+                return 0
+            fi
+            if [[ "$status" == "exited" ]]; then
+                return 1
+            fi
+        fi
+        sleep 10
+        elapsed=$((elapsed + 10))
+    done
+    return 1
+}
+
 prompt_yn() {
     local prompt_text="$1" default="${2:-y}"
     local yn_hint="[Y/n]"
@@ -150,6 +175,19 @@ generate_password() {
     else
         fail "Neither openssl nor base64 is available for generating passwords."
         exit 1
+    fi
+}
+
+detect_primary_ip() {
+    hostname -I 2>/dev/null | awk '{print $1}' || true
+}
+
+sslip_ai_domain() {
+    local ip_addr="$1"
+    if [[ "$ip_addr" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "ai.${ip_addr//./-}.sslip.io"
+    else
+        echo "ai.127-0-0-1.sslip.io"
     fi
 }
 
@@ -253,10 +291,10 @@ check_resources() {
     if (( total_ram_mb > 0 )); then
         if (( total_ram_mb < MIN_RAM_MB )); then
             fail "Not enough RAM. Need at least 4GB, have ${total_ram_mb}MB."
-            fail "Paperless + the embedding model need at least 4GB to run well."
+            fail "Paperless Ag + llama.cpp need at least 4GB to run."
             exit 1
         elif (( total_ram_mb < RECOMMENDED_RAM_MB )); then
-            warn "${total_ram_mb}MB RAM. 4GB+ recommended for best performance."
+            warn "${total_ram_mb}MB RAM. Raspberry Pi 5 with 8GB is recommended for local AI."
         else
             info "${total_ram_mb}MB RAM available"
         fi
@@ -534,6 +572,7 @@ collect_fresh_config() {
     DB_PASSWORD=$(generate_password)
     SECRET_KEY=$(generate_password)
     MCP_AUTH_TOKEN=$(generate_password)
+    AI_DOMAIN=$(sslip_ai_domain "$(detect_primary_ip)")
 }
 
 collect_addon_config() {
@@ -666,7 +705,7 @@ do_fresh_install() {
     fi
 
     divider
-    echo -e "  ${BOLD}Setting things up. This may take a few minutes...${NC}"
+    echo -e "  ${BOLD}Setting things up. This may take a while while AI models download...${NC}"
     echo
 
     # Determine Caddy ports
@@ -676,16 +715,20 @@ do_fresh_install() {
     fi
 
     # Create directory
-    mkdir -p "$install_dir/backups"
+    mkdir -p "$install_dir/backups" "$install_dir/llama-models"
     info "Created $install_dir"
 
     # Determine Paperless URL for PAPERLESS_URL env var
+    local detected_ip
+    detected_ip=$(detect_primary_ip)
+    if [[ -z "${AI_DOMAIN:-}" ]]; then
+        AI_DOMAIN=$(sslip_ai_domain "$detected_ip")
+    fi
+
     local paperless_url
     if [[ -n "${DOMAIN:-}" ]]; then
         paperless_url="https://$DOMAIN"
     else
-        local detected_ip
-        detected_ip=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "")
         if [[ -n "$detected_ip" ]]; then
             paperless_url="http://${detected_ip}"
         else
@@ -774,13 +817,53 @@ services:
       MCP_AUTH_TOKEN: \${MCP_AUTH_TOKEN}
       PYTHONUNBUFFERED: "1"
 
+  llama-model-init:
+    image: ${MODEL_DOWNLOADER_IMAGE}
+    restart: "no"
+    command: ["/bin/sh", "/usr/local/bin/download-models.sh"]
+    volumes:
+      - ./llama-models:/models
+      - ./llama-download-models.sh:/usr/local/bin/download-models.sh:ro
+
+  llama:
+    image: ${LLAMA_IMAGE}
+    restart: unless-stopped
+    depends_on:
+      llama-model-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./llama-models:/models
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --models-preset
+      - /models/models.ini
+      - --models-max
+      - "1"
+      - --models-autoload
+      - --ctx-size
+      - "4096"
+      - --n-predict
+      - "512"
+      - --parallel
+      - "1"
+      - --jinja
+      - --ui-mcp-proxy
+      - --ui-config-file
+      - /models/ui-config.json
+
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
 ${caddy_ports}
+    environment:
+      MCP_AUTH_TOKEN: \${MCP_AUTH_TOKEN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./llama-bootstrap.html:/srv/llama-bootstrap/llama-bootstrap.html:ro
       - caddy-data:/data
       - caddy-config:/config
     depends_on:
@@ -811,6 +894,7 @@ SECRET_KEY='${SECRET_KEY}'
 TIMEZONE='${TIMEZONE}'
 PAPERLESS_URL='${paperless_url}'
 MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
+AI_DOMAIN='${AI_DOMAIN}'
 ENV
     chmod 600 "$install_dir/.env"
     info "Generated .env"
@@ -818,6 +902,11 @@ ENV
     # Generate Caddyfile
     generate_caddyfile "$install_dir/Caddyfile"
     info "Generated Caddyfile"
+
+    # Generate llama.cpp helper files
+    generate_llama_download_script "$install_dir"
+    generate_llama_bootstrap "$install_dir"
+    info "Generated llama.cpp model and UI bootstrap files"
 
     # Generate helper scripts
     generate_update_script "$install_dir"
@@ -856,6 +945,22 @@ ENV
         info "Companion service connected"
     else
         warn "Companion service may still be starting. Check: docker compose logs companion"
+    fi
+
+    step "Waiting for local AI models to finish downloading..."
+    if wait_for_compose_service_completed "$install_dir" "llama-model-init" 3600; then
+        info "Local AI models downloaded"
+    else
+        warn "Local AI model download did not finish yet or failed."
+        warn "Check: cd $install_dir && docker compose logs -f llama-model-init"
+    fi
+
+    sleep 5
+    if (cd "$install_dir" && docker compose ps llama 2>/dev/null | grep -q "running"); then
+        info "llama.cpp Web UI is running"
+    else
+        warn "llama.cpp may still be starting."
+        warn "Check: cd $install_dir && docker compose logs -f llama"
     fi
 
     # Set up daily backup cron
@@ -1044,6 +1149,38 @@ volumes:
 generate_caddyfile() {
     local filepath="$1"
     local paperless_service="${PAPERLESS_SERVICE_NAME:-paperless}"
+    local ai_blocks=""
+
+    if [[ -n "${AI_DOMAIN:-}" ]]; then
+        ai_blocks=$(cat <<CADDY
+
+http://${AI_DOMAIN} {
+    @bootstrap path /
+    handle @bootstrap {
+        root * /srv/llama-bootstrap
+        rewrite * /llama-bootstrap.html
+        file_server
+    }
+    handle {
+        reverse_proxy llama:8080
+    }
+}
+
+:8088 {
+    @mcp path /mcp /mcp/*
+    handle @mcp {
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+            header_up Authorization "Bearer {env.MCP_AUTH_TOKEN}"
+        }
+    }
+    handle {
+        respond 404
+    }
+}
+CADDY
+)
+    fi
 
     if [[ -n "${DOMAIN:-}" ]]; then
         local tls_block=""
@@ -1066,6 +1203,7 @@ ${DOMAIN} {${tls_block}
         reverse_proxy ${paperless_service}:8000
     }
 }
+${ai_blocks}
 CADDY
     else
         cat > "$filepath" <<CADDY
@@ -1084,8 +1222,192 @@ CADDY
         reverse_proxy ${paperless_service}:8000
     }
 }
+${ai_blocks}
 CADDY
     fi
+}
+
+generate_llama_download_script() {
+    local install_dir="$1"
+    cat > "$install_dir/llama-download-models.sh" <<'SCRIPT'
+#!/bin/sh
+set -eu
+
+MODEL_DIR="/models"
+mkdir -p "$MODEL_DIR"
+
+download_model() {
+    filename="$1"
+    url="$2"
+    target="$MODEL_DIR/$filename"
+    tmp="$target.tmp"
+
+    if [ -s "$target" ]; then
+        echo "[OK] $filename already exists"
+        return 0
+    fi
+
+    echo "[..] Downloading $filename"
+    rm -f "$tmp"
+    python3 - "$url" "$tmp" <<'PY'
+import sys
+import time
+import urllib.request
+
+url, target = sys.argv[1], sys.argv[2]
+request = urllib.request.Request(url, headers={"User-Agent": "paperless-ag-llama-model-installer"})
+
+for attempt in range(1, 4):
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response, open(target, "wb") as output:
+            while True:
+                chunk = response.read(1024 * 1024)
+                if not chunk:
+                    break
+                output.write(chunk)
+        break
+    except Exception:
+        if attempt == 3:
+            raise
+        time.sleep(5 * attempt)
+PY
+    mv "$tmp" "$target"
+    echo "[OK] Downloaded $filename"
+}
+
+download_model "Qwen3-0.6B-Q8_0.gguf" "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q8_0.gguf"
+download_model "Qwen_Qwen3.5-0.8B-Q4_K_M.gguf" "https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF/resolve/main/Qwen_Qwen3.5-0.8B-Q4_K_M.gguf"
+download_model "Qwen_Qwen3.5-2B-Q4_K_M.gguf" "https://huggingface.co/bartowski/Qwen_Qwen3.5-2B-GGUF/resolve/main/Qwen_Qwen3.5-2B-Q4_K_M.gguf"
+download_model "gemma-3-1b-it-Q4_K_M.gguf" "https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF/resolve/main/gemma-3-1b-it-Q4_K_M.gguf"
+download_model "functiongemma-270m-it-q8_0.gguf" "https://huggingface.co/ggml-org/functiongemma-270m-it-GGUF/resolve/main/functiongemma-270m-it-q8_0.gguf"
+download_model "google_gemma-4-E2B-it-Q4_K_M.gguf" "https://huggingface.co/bartowski/google_gemma-4-E2B-it-GGUF/resolve/main/google_gemma-4-E2B-it-Q4_K_M.gguf"
+
+cat > "$MODEL_DIR/models.ini" <<'INI'
+version = 1
+
+[*]
+ctx-size = 4096
+n-predict = 512
+parallel = 1
+jinja = true
+
+[qwen3.5-2b-balanced]
+model = /models/Qwen_Qwen3.5-2B-Q4_K_M.gguf
+chat-template-kwargs = {"enable_thinking":false}
+reasoning = off
+
+[qwen3-0.6b-fast]
+model = /models/Qwen3-0.6B-Q8_0.gguf
+chat-template-kwargs = {"enable_thinking":false}
+reasoning = off
+
+[qwen3.5-0.8b-small]
+model = /models/Qwen_Qwen3.5-0.8B-Q4_K_M.gguf
+chat-template-kwargs = {"enable_thinking":false}
+reasoning = off
+
+[gemma3-1b-light]
+model = /models/gemma-3-1b-it-Q4_K_M.gguf
+
+[functiongemma-270m-tools]
+model = /models/functiongemma-270m-it-q8_0.gguf
+
+[gemma4-e2b-agentic-large]
+model = /models/google_gemma-4-E2B-it-Q4_K_M.gguf
+INI
+
+cat > "$MODEL_DIR/ui-config.json" <<'JSON'
+{
+  "systemMessage": "You are Paperless Ag's local AI chat. When the user asks about documents, use the Paperless Ag MCP tools instead of guessing. Prefer search_documents for broad questions and get_document for follow-up detail. Keep answers concise and cite document titles or IDs from tool results when available.",
+  "max_tokens": 512,
+  "temperature": 0.7,
+  "top_k": 20,
+  "top_p": 0.8,
+  "presence_penalty": 1.5,
+  "agenticMaxTurns": 6,
+  "showToolCallInProgress": true,
+  "alwaysShowAgenticTurns": true,
+  "mcpRequestTimeoutSeconds": 300,
+  "mcpServers": "[{\"id\":\"paperless-ag\",\"enabled\":true,\"url\":\"http://caddy:8088/mcp\",\"name\":\"Paperless Ag\",\"requestTimeoutSeconds\":300,\"useProxy\":true}]"
+}
+JSON
+
+echo "[OK] llama.cpp model presets ready"
+SCRIPT
+    chmod +x "$install_dir/llama-download-models.sh"
+}
+
+generate_llama_bootstrap() {
+    local install_dir="$1"
+    cat > "$install_dir/llama-bootstrap.html" <<'HTML'
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opening Paperless Ag AI</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var mcpServers = [
+          {
+            id: "paperless-ag",
+            enabled: true,
+            url: "http://caddy:8088/mcp",
+            name: "Paperless Ag",
+            requestTimeoutSeconds: 300,
+            useProxy: true,
+          },
+        ];
+        var defaults = {
+          systemMessage:
+            "You are Paperless Ag's local AI chat. When the user asks about documents, use the Paperless Ag MCP tools instead of guessing. Prefer search_documents for broad questions and get_document for follow-up detail. Keep answers concise and cite document titles or IDs from tool results when available.",
+          max_tokens: 512,
+          temperature: 0.7,
+          top_k: 20,
+          top_p: 0.8,
+          presence_penalty: 1.5,
+          agenticMaxTurns: 6,
+          showToolCallInProgress: true,
+          alwaysShowAgenticTurns: true,
+          mcpRequestTimeoutSeconds: 300,
+          mcpServers: JSON.stringify(mcpServers),
+        };
+        var current = {};
+        try {
+          current = JSON.parse(localStorage.getItem("LlamaUi.config") || "{}");
+        } catch (e) {
+          current = {};
+        }
+        localStorage.setItem(
+          "LlamaUi.config",
+          JSON.stringify(Object.assign({}, defaults, current, {
+            mcpServers: defaults.mcpServers,
+          })),
+        );
+        localStorage.setItem(
+          "LlamaUi.mcpDefaultEnabled",
+          JSON.stringify([{ serverId: "paperless-ag", enabled: true }]),
+        );
+        localStorage.setItem(
+          "LlamaUi.favoriteModels",
+          JSON.stringify([
+            "qwen3.5-2b-balanced",
+            "qwen3-0.6b-fast",
+            "qwen3.5-0.8b-small",
+            "gemma3-1b-light",
+            "functiongemma-270m-tools",
+            "gemma4-e2b-agentic-large",
+          ]),
+        );
+        localStorage.setItem("PaperlessAg.llamaBootstrap", "1");
+        window.location.replace("/index.html");
+      })();
+    </script>
+  </body>
+</html>
+HTML
 }
 
 generate_update_script() {
@@ -1249,11 +1571,15 @@ print_fresh_summary() {
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
     echo
     echo -e "  ${BOLD}Paperless Web UI:${NC}  $paperless_url"
+    echo -e "  ${BOLD}Local AI Chat:${NC}     http://${AI_DOMAIN}/"
     echo -e "  ${BOLD}Username:${NC}          $ADMIN_USER"
     echo -e "  ${BOLD}Password:${NC}          (what you entered)"
     echo
     echo "  Upload documents: Drag and drop in the web UI, or email them"
     echo "                    (configure in Settings > Mail)"
+    echo "  Try local AI:     Open the Local AI Chat URL and choose a model"
+    echo "                    from the llama.cpp Web UI dropdown."
+    echo "                    Default model: $LLAMA_DEFAULT_MODEL"
     echo
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo

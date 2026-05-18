@@ -265,7 +265,8 @@
       <h1>Setting Up Paperless Ag</h1>
       <div class="spinner"></div>
       <p class="progress-text">
-        Starting services... this takes a few minutes.
+        Starting services and downloading local AI models... this can take a
+        while.
       </p>
     </div>
 
@@ -310,6 +311,23 @@
           text-decoration: none;
         "
         >Open Paperless</a
+      >
+      <a
+        id="ai-link"
+        href="#"
+        style="
+          display: block;
+          margin-top: 0.75rem;
+          padding: 0.8rem;
+          background: #0f4c5c;
+          color: #fff;
+          border-radius: 6px;
+          font-size: 1rem;
+          font-weight: 600;
+          text-align: center;
+          text-decoration: none;
+        "
+        >Open Local AI Chat</a
       >
       <p class="redirect-note" id="redirect-note"></p>
     </div>
@@ -391,7 +409,8 @@
               // Poll for completion
               var token = result.data.mcp_token;
               var url = result.data.paperless_url;
-              pollCompletion(token, url);
+              var aiUrl = result.data.ai_url;
+              pollCompletion(token, url, aiUrl);
             })
             .catch(function () {
               formError.textContent = "Connection error. Please try again.";
@@ -400,10 +419,10 @@
             });
         });
 
-        function pollCompletion(token, url) {
+        function pollCompletion(token, url, aiUrl) {
           var lostContact = false;
           var pollCount = 0;
-          var maxPolls = 200; // ~10 minutes at 3s intervals
+          var maxPolls = 1500; // ~75 minutes at 3s intervals
 
           var interval = setInterval(function () {
             pollCount++;
@@ -422,7 +441,7 @@
                 .then(function (res) {
                   if (res.ok || res.type === "opaqueredirect") {
                     clearInterval(interval);
-                    showComplete(token, url);
+                    showComplete(token, url, aiUrl);
                   }
                 })
                 .catch(function () {
@@ -438,7 +457,7 @@
               .then(function (data) {
                 if (data.state === "complete") {
                   clearInterval(interval);
-                  showComplete(token, url);
+                  showComplete(token, url, aiUrl);
                 } else if (data.state === "failed") {
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
@@ -454,11 +473,12 @@
           }, 3000);
         }
 
-        function showComplete(token, url) {
+        function showComplete(token, url, aiUrl) {
           document.getElementById("progress-card").classList.add("hidden");
           document.getElementById("complete-card").classList.remove("hidden");
           document.getElementById("mcp-token").textContent = token;
           document.getElementById("paperless-link").href = url;
+          document.getElementById("ai-link").href = aiUrl || "#";
 
           // Countdown redirect
           var seconds = 30;

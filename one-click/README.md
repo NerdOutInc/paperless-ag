@@ -72,6 +72,8 @@ ADMIN_USER='admin'
 ADMIN_PASSWORD='...'
 DB_PASSWORD='...'
 SECRET_KEY='...'
+MCP_AUTH_TOKEN='...'
+AI_DOMAIN='ai.203-0-113-10.sslip.io'
 ...
 ```
 
@@ -84,8 +86,12 @@ See `templates/env.template` for the full template with defaults.
 3. Farmer accesses `http://<droplet-ip>` to configure
 4. Farmer fills out admin credentials, timezone, optional domain
 5. On completion, `finalize-setup.sh` is called
-6. Wizard services stop, Docker Compose services start
-7. Caddy reverse-proxies Paperless on `:80`/`:443` and MCP on `/mcp`
+6. Docker Compose services start
+7. The llama.cpp model initializer downloads the Pi test GGUF bundle into
+   `/opt/paperless-ag/llama-models`
+8. Setup services stop after Paperless and llama.cpp are ready
+9. Caddy reverse-proxies Paperless on `:80`/`:443`, MCP on `/mcp`, and the
+   llama.cpp Web UI on `http://$AI_DOMAIN/`
 
 ## Quick Reference
 

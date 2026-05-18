@@ -46,6 +46,13 @@ def generate_secret(length=32):
     return "".join(secrets.choice(alphabet) for _ in range(length))
 
 
+def sslip_ai_domain(ip):
+    """Return the LAN HTTP AI hostname for an IPv4 address."""
+    if re.match(r"^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$", ip or ""):
+        return "ai." + ip.replace(".", "-") + ".sslip.io"
+    return "ai.127-0-0-1.sslip.io"
+
+
 def valid_timezone(tz):
     """Check timezone exists in system zoneinfo."""
     if not tz or ".." in tz or tz.startswith("/"):
@@ -186,19 +193,27 @@ class SetupHandler(BaseHTTPRequestHandler):
             secret_key = generate_secret(50)
             mcp_token = generate_secret(32)
 
-            # Determine Paperless URL
+            # Determine Paperless and AI URLs
+            try:
+                server_ip = subprocess.check_output(
+                    ["curl", "-sf", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
+                    timeout=5,
+                ).decode().strip()
+            except Exception:
+                try:
+                    server_ip = subprocess.check_output(
+                        ["hostname", "-I"],
+                        timeout=5,
+                    ).decode().strip().split()[0]
+                except Exception:
+                    server_ip = "127.0.0.1"
+
             if domain:
                 paperless_url = f"https://{domain}"
             else:
-                # Get the droplet's public IP
-                try:
-                    ip = subprocess.check_output(
-                        ["curl", "-sf", "-4", "http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address"],
-                        timeout=5,
-                    ).decode().strip()
-                except Exception:
-                    ip = "localhost"
-                paperless_url = f"http://{ip}"
+                paperless_url = f"http://{server_ip}"
+            ai_domain = sslip_ai_domain(server_ip)
+            ai_url = f"http://{ai_domain}/"
 
             # Template variables
             variables = {
@@ -209,6 +224,7 @@ class SetupHandler(BaseHTTPRequestHandler):
                 "TIMEZONE": timezone,
                 "PAPERLESS_URL": paperless_url,
                 "MCP_AUTH_TOKEN": mcp_token,
+                "AI_DOMAIN": ai_domain,
                 "DOMAIN": domain,
                 "LE_EMAIL": le_email,
             }
@@ -239,6 +255,21 @@ class SetupHandler(BaseHTTPRequestHandler):
             )
 
             (BASE_DIR / "Caddyfile").write_text(caddy_content)
+            (BASE_DIR / "llama-models").mkdir(exist_ok=True)
+
+            llama_download_path = BASE_DIR / "llama-download-models.sh"
+            llama_download_path.write_text(
+                render_template(
+                    TEMPLATES_DIR / "llama-download-models.sh.tpl", variables
+                )
+            )
+            llama_download_path.chmod(0o755)
+
+            (BASE_DIR / "llama-bootstrap.html").write_text(
+                render_template(
+                    TEMPLATES_DIR / "llama-bootstrap.html.tpl", variables
+                )
+            )
         except Exception as exc:
             set_state("failed")
             log_path = BASE_DIR / "setup.log"
@@ -267,6 +298,7 @@ class SetupHandler(BaseHTTPRequestHandler):
             "status": "started",
             "mcp_token": mcp_token,
             "paperless_url": paperless_url,
+            "ai_url": ai_url,
         })
 
 
