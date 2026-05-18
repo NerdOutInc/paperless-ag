@@ -13,7 +13,8 @@ The problem is retrieval. Paperless-ngx handles ingestion, OCR, and keyword sear
 A single Docker container that sits alongside a stock Paperless-ngx installation and provides:
 
 1. **Semantic search via pgvector** -- extends the Postgres database Paperless already requires. No additional vector database needed.
-2. **An MCP server for Claude** -- lets farmers search their entire document archive through conversation in Claude Desktop or Claude Code.
+2. **A browser search app at `/search`** -- reuses your Paperless login and opens results in the normal Paperless document viewer.
+3. **An MCP server for Claude** -- optional access for searching the archive through Claude Desktop or Claude Code.
 
 Paperless-ngx stays completely stock.
 
@@ -33,9 +34,21 @@ The installer detects if you already have Paperless-ngx running and walks you th
 
 > **Recommended specs:** 2 vCPU, 4+ GB RAM (~$10-24/mo depending on provider). New DigitalOcean accounts get $200 in free credits.
 
+## Search in the Browser
+
+After installation, open your Paperless URL and add `/search`.
+
+```text
+https://yourdomain.com/search
+```
+
+Log in with your Paperless account if prompted. Search results link back to the
+stock Paperless document page at `/documents/{id}`.
+
 ## Connect to Claude
 
-After installation, connect your MCP server to Claude so you can search documents through conversation.
+Claude integration is optional. Connect your MCP server to Claude if you want
+to search documents through conversation.
 
 The install script prints the exact Claude Code and `.mcp.json` examples with
 your server's URL and token. Claude Desktop uses the same URL and token in the
@@ -139,16 +152,17 @@ Then try asking Claude: *"Search my farm documents for crop insurance"*
 ## Architecture
 
 ```plaintext
-Paperless-ngx (stock)  <-->  Companion Container  <-->  PostgreSQL + pgvector
-     Web UI (:8000)          Embedding Worker              document_embeddings table
-     REST API                MCP Server (:3001)            (shared with Paperless)
-     Consumer                Search API
+Paperless-ngx (stock)  <-->  Companion Container       <-->  PostgreSQL + pgvector
+     Web UI (:8000)          Search Web UI (/search)          document_embeddings table
+     REST API                MCP Server (/mcp)
+     Consumer                Embedding Worker
 ```
 
 The companion container:
 
 - Polls Paperless for new documents and generates vector embeddings using a local model (all-MiniLM-L6-v2)
 - Stores chunk-level embeddings in pgvector alongside Paperless's existing tables
+- Exposes a same-origin read-only search UI at `/search`
 - Exposes hybrid search (semantic + keyword) through an MCP server that Claude can call directly
 
 ## Local Development
@@ -166,6 +180,9 @@ docker compose up -d
 ```
 
 Paperless will be available at <http://localhost:8000> (admin / admin).
+The companion search UI is available at <http://localhost:3001/search> in local
+development. In installed deployments, Caddy serves it at `/search` on the same
+origin as Paperless.
 
 ### Load Test Data
 
@@ -232,6 +249,7 @@ This project is in early development. Current progress:
 - [x] Test data generator (100 realistic farm documents across 3 fictional farms)
 - [x] Companion container with embedding worker
 - [x] pgvector search API (semantic + hybrid)
+- [x] Same-origin browser search UI
 - [x] MCP server for Claude integration
 - [x] Install script for VPS deployment
 - [ ] DigitalOcean 1-click Marketplace image

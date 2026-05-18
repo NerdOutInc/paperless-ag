@@ -1,0 +1,169 @@
+(function () {
+  var form = document.getElementById("search-form");
+  var input = document.getElementById("search-query");
+  var status = document.getElementById("status");
+  var profileStatus = document.getElementById("profile-status");
+  var results = document.getElementById("results");
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function loginRedirect() {
+    window.location.href =
+      "/accounts/login/?next=" + encodeURIComponent("/search");
+  }
+
+  function setStatus(message) {
+    status.textContent = message || "";
+  }
+
+  function renderEmpty(message) {
+    results.innerHTML =
+      '<div class="empty-state">' + escapeHtml(message) + "</div>";
+  }
+
+  function meta(label, value) {
+    if (value === null || value === undefined || value === "") {
+      return "";
+    }
+    return "<span>" + escapeHtml(label + ": " + value) + "</span>";
+  }
+
+  function resultCard(result) {
+    var title = result.title || "Document " + result.id;
+    var source =
+      Array.isArray(result.sources) && result.sources.length
+        ? result.sources.join(" + ")
+        : "search";
+    var snippet = result.matched_chunk || "";
+    var pageCount = result.page_count ? result.page_count + " pages" : "";
+
+    return [
+      '<article class="result-card">',
+      "<div>",
+      '<a class="result-title" href="' +
+        escapeHtml(result.document_url) +
+        '">' +
+        escapeHtml(title) +
+        "</a>",
+      snippet ? '<p class="snippet">' + escapeHtml(snippet) + "</p>" : "",
+      '<div class="meta">',
+      meta("Created", result.created),
+      meta("Source", source),
+      meta("Score", result.relevance_score),
+      pageCount ? "<span>" + escapeHtml(pageCount) + "</span>" : "",
+      "</div>",
+      "</div>",
+      '<a class="open-link" href="' +
+        escapeHtml(result.document_url) +
+        '">Open in Paperless</a>',
+      "</article>",
+    ].join("");
+  }
+
+  function renderResults(payload) {
+    if (!payload.results || payload.results.length === 0) {
+      renderEmpty("No matching documents found.");
+      setStatus("No results");
+      return;
+    }
+
+    results.innerHTML = payload.results.map(resultCard).join("");
+    setStatus(
+      payload.count +
+        (payload.count === 1 ? " result" : " results") +
+        ' for "' +
+        payload.query +
+        '"',
+    );
+  }
+
+  function runSearch(query) {
+    var trimmed = query.trim();
+    if (!trimmed) {
+      input.focus();
+      setStatus("Enter a search query.");
+      results.innerHTML = "";
+      return;
+    }
+
+    setStatus("Searching...");
+    results.innerHTML = "";
+    fetch(
+      "/search/api/documents?q=" + encodeURIComponent(trimmed) + "&limit=10",
+      {
+        headers: { Accept: "application/json" },
+      },
+    )
+      .then(function (response) {
+        if (response.status === 401) {
+          loginRedirect();
+          return null;
+        }
+        return response.json().then(function (body) {
+          if (!response.ok) {
+            throw new Error(body.error || "Search failed");
+          }
+          return body;
+        });
+      })
+      .then(function (payload) {
+        if (payload) {
+          renderResults(payload);
+          window.history.replaceState(
+            null,
+            "",
+            "/search?q=" + encodeURIComponent(trimmed),
+          );
+        }
+      })
+      .catch(function (error) {
+        setStatus(error.message || "Search failed");
+        renderEmpty("Search is unavailable right now.");
+      });
+  }
+
+  fetch("/search/api/me", { headers: { Accept: "application/json" } })
+    .then(function (response) {
+      if (response.status === 401) {
+        loginRedirect();
+        return null;
+      }
+      return response.json();
+    })
+    .then(function (payload) {
+      if (!payload) {
+        return;
+      }
+      var profile = payload.profile || {};
+      var name =
+        [profile.first_name, profile.last_name].filter(Boolean).join(" ") ||
+        profile.email ||
+        profile.username ||
+        "Paperless";
+      profileStatus.textContent = "Signed in as " + name;
+    })
+    .catch(function () {
+      profileStatus.textContent = "Signed in";
+    });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    runSearch(input.value);
+  });
+
+  var params = new URLSearchParams(window.location.search);
+  var initialQuery = params.get("q");
+  if (initialQuery) {
+    input.value = initialQuery;
+    runSearch(initialQuery);
+  } else {
+    input.focus();
+  }
+})();

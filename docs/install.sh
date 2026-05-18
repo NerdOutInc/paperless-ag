@@ -10,8 +10,8 @@ set -euo pipefail
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
 MIN_DISK_GB=5
-MIN_RAM_MB=1900
-RECOMMENDED_RAM_MB=3900
+MIN_RAM_MB=3900
+RECOMMENDED_RAM_MB=7800
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
@@ -256,7 +256,7 @@ check_resources() {
             fail "Paperless + the embedding model need at least 4GB to run well."
             exit 1
         elif (( total_ram_mb < RECOMMENDED_RAM_MB )); then
-            warn "${total_ram_mb}MB RAM. 4GB+ recommended for best performance."
+            warn "${total_ram_mb}MB RAM. 8GB recommended for best performance."
         else
             info "${total_ram_mb}MB RAM available"
         fi
@@ -980,43 +980,43 @@ PYTHONUNBUFFERED='1'
 ENVFILE
     chmod 600 "$compose_dir/paperless-ag.env"
 
-    # Expose MCP port directly when no domain/Caddy is configured
+    # Keep the direct MCP port for no-domain add-on installs so existing
+    # client configs still work, while Caddy provides the same-origin web UI.
     if [[ -z "${DOMAIN:-}" ]]; then
         override_content+="
     ports:
       - \"3001:3001\""
     fi
 
-    # Add Caddy if domain provided
+    local caddy_ports='      - "80:80"'
     if [[ -n "${DOMAIN:-}" ]]; then
-        override_content+="
+        caddy_ports="$caddy_ports"$'\n''      - "443:443"'
+    fi
+
+    override_content+="
 
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
-      - \"80:80\"
-      - \"443:443\"
+${caddy_ports}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
       - caddy-config:/config
     depends_on:
+      - ${PAPERLESS_SERVICE_NAME}
       - companion
 
 volumes:
   caddy-data:
   caddy-config:"
-    fi
 
     echo "$override_content" > "$compose_dir/docker-compose.override.yml"
     info "Generated docker-compose.override.yml"
 
-    # Generate Caddyfile if domain provided
-    if [[ -n "${DOMAIN:-}" ]]; then
-        generate_caddyfile "$compose_dir/Caddyfile"
-        info "Generated Caddyfile"
-    fi
+    generate_caddyfile "$compose_dir/Caddyfile"
+    info "Generated Caddyfile"
 
     # Generate helper scripts
     generate_addon_update_script "$compose_dir"
@@ -1062,6 +1062,12 @@ ${DOMAIN} {${tls_block}
             header_up Host localhost:3001
         }
     }
+    @search path /search /search/*
+    handle @search {
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+        }
+    }
     handle {
         reverse_proxy ${paperless_service}:8000
     }
@@ -1076,6 +1082,12 @@ CADDY
     }
     @mcp path /mcp /mcp/*
     handle @mcp {
+        reverse_proxy companion:3001 {
+            header_up Host localhost:3001
+        }
+    }
+    @search path /search /search/*
+    handle @search {
         reverse_proxy companion:3001 {
             header_up Host localhost:3001
         }
@@ -1120,6 +1132,11 @@ fi
 if [[ -f Caddyfile ]] && grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
     sed -i '/handle \/\.well-known\/oauth\*/,/}/c\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     echo "[✓] Caddyfile discovery block updated"
+fi
+# Add same-origin search route for existing installs.
+if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
+    sed -i '/^[[:space:]]*handle {$/i\    @search path \/search \/search\/*\n    handle @search {\n        reverse_proxy companion:3001 {\n            header_up Host localhost:3001\n        }\n    }' Caddyfile
+    echo "[✓] Caddyfile search route added"
 fi
 
 echo "Pulling latest images..."
@@ -1242,6 +1259,7 @@ print_fresh_summary() {
     local install_dir="$1"
     local paperless_url="$2"
     local mcp_url="${paperless_url}/mcp"
+    local search_url="${paperless_url}/search"
 
     echo
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
@@ -1249,15 +1267,16 @@ print_fresh_summary() {
     echo -e "${BOLD}════════════════════════════════════════════════════${NC}"
     echo
     echo -e "  ${BOLD}Paperless Web UI:${NC}  $paperless_url"
+    echo -e "  ${BOLD}Search Web UI:${NC}     $search_url"
     echo -e "  ${BOLD}Username:${NC}          $ADMIN_USER"
     echo -e "  ${BOLD}Password:${NC}          (what you entered)"
     echo
-    echo "  Upload documents: Drag and drop in the web UI, or email them"
-    echo "                    (configure in Settings > Mail)"
+    echo "  Upload documents: Drag and drop in Paperless, then search them"
+    echo "                    from the Search Web UI."
     echo
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo
-    echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
+    echo -e "  ${BOLD}OPTIONAL: CONNECT TO CLAUDE:${NC}"
     echo
     echo "  In Claude Code, run this command:"
     echo
@@ -1304,10 +1323,13 @@ print_addon_summary() {
     ip_addr=$(hostname -I 2>/dev/null | awk '{print $1}' || echo "YOUR_SERVER_IP")
 
     local mcp_url
+    local search_url
     if [[ -n "${DOMAIN:-}" ]]; then
         mcp_url="https://${DOMAIN}/mcp"
+        search_url="https://${DOMAIN}/search"
     else
-        mcp_url="http://${ip_addr}:3001/mcp"
+        mcp_url="http://${ip_addr}/mcp"
+        search_url="http://${ip_addr}/search"
     fi
 
     echo
@@ -1318,9 +1340,11 @@ print_addon_summary() {
     echo "  Semantic search is now active. Your existing Paperless"
     echo "  documents will be embedded automatically (check logs)."
     echo
+    echo -e "  ${BOLD}Search Web UI:${NC}  ${search_url}"
+    echo
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo
-    echo -e "  ${BOLD}CONNECT TO CLAUDE:${NC}"
+    echo -e "  ${BOLD}OPTIONAL: CONNECT TO CLAUDE:${NC}"
     echo
     echo "  In Claude Code, run this command:"
     echo

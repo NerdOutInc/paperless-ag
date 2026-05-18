@@ -14,6 +14,11 @@ else
     echo "[!] Database not running -- skipping backup"
 fi
 
+if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
+    sed -i '/^[[:space:]]*handle {$/i\    @search path \/search \/search\/*\n    handle @search {\n        reverse_proxy companion:3001 {\n            header_up Host localhost:3001\n        }\n    }' Caddyfile
+    echo "[OK] Caddyfile search route added"
+fi
+
 echo "Pulling latest images..."
 docker compose pull
 

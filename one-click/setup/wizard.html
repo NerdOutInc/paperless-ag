@@ -286,7 +286,7 @@
         </button>
       </div>
       <div class="warning">
-        Save this token now. You need it to connect Claude to your Paperless
+        Save this token now if you plan to connect Claude to your Paperless
         instance.
       </div>
       <p class="ssh-hint">
@@ -295,7 +295,7 @@
       </p>
 
       <a
-        id="paperless-link"
+        id="search-link"
         href="#"
         style="
           display: block;
@@ -303,6 +303,25 @@
           padding: 0.8rem;
           background: #2d5016;
           color: #fff;
+          border-radius: 6px;
+          font-size: 1rem;
+          font-weight: 600;
+          text-align: center;
+          text-decoration: none;
+        "
+        >Open Search</a
+      >
+
+      <a
+        id="paperless-link"
+        href="#"
+        style="
+          display: block;
+          margin-top: 0.75rem;
+          padding: 0.8rem;
+          background: #eef3e9;
+          color: #2d5016;
+          border: 1px solid #d9dfd4;
           border-radius: 6px;
           font-size: 1rem;
           font-weight: 600;
@@ -391,7 +410,8 @@
               // Poll for completion
               var token = result.data.mcp_token;
               var url = result.data.paperless_url;
-              pollCompletion(token, url);
+              var searchUrl = result.data.search_url || url + "/search";
+              pollCompletion(token, url, searchUrl);
             })
             .catch(function () {
               formError.textContent = "Connection error. Please try again.";
@@ -400,7 +420,7 @@
             });
         });
 
-        function pollCompletion(token, url) {
+        function pollCompletion(token, url, searchUrl) {
           var lostContact = false;
           var pollCount = 0;
           var maxPolls = 200; // ~10 minutes at 3s intervals
@@ -422,7 +442,7 @@
                 .then(function (res) {
                   if (res.ok || res.type === "opaqueredirect") {
                     clearInterval(interval);
-                    showComplete(token, url);
+                    showComplete(token, url, searchUrl);
                   }
                 })
                 .catch(function () {
@@ -438,7 +458,7 @@
               .then(function (data) {
                 if (data.state === "complete") {
                   clearInterval(interval);
-                  showComplete(token, url);
+                  showComplete(token, url, searchUrl);
                 } else if (data.state === "failed") {
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
@@ -454,25 +474,25 @@
           }, 3000);
         }
 
-        function showComplete(token, url) {
+        function showComplete(token, url, searchUrl) {
           document.getElementById("progress-card").classList.add("hidden");
           document.getElementById("complete-card").classList.remove("hidden");
           document.getElementById("mcp-token").textContent = token;
           document.getElementById("paperless-link").href = url;
+          document.getElementById("search-link").href = searchUrl;
 
           // Countdown redirect
           var seconds = 30;
           var note = document.getElementById("redirect-note");
           var timer = setInterval(function () {
             seconds--;
-            note.textContent =
-              "Redirecting to Paperless in " + seconds + "s...";
+            note.textContent = "Redirecting to Search in " + seconds + "s...";
             if (seconds <= 0) {
               clearInterval(timer);
-              window.location.href = url;
+              window.location.href = searchUrl;
             }
           }, 1000);
-          note.textContent = "Redirecting to Paperless in 30s...";
+          note.textContent = "Redirecting to Search in 30s...";
         }
       })();
 

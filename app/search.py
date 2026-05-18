@@ -1,3 +1,5 @@
+import requests
+
 import auth
 import config
 import db
@@ -18,6 +20,51 @@ def get_document_metadata(doc_id):
         "created": doc.get("created", ""),
         "content": doc.get("content", "")[:500],
     }
+
+
+def paperless_session_request(method, path, cookie_header, **kwargs):
+    """Call Paperless as the browser user identified by the session cookie."""
+    headers = kwargs.pop("headers", {})
+    headers.setdefault("Accept", "application/json")
+    if cookie_header:
+        headers["Cookie"] = cookie_header
+
+    url = path if path.startswith("http") else f"{config.PAPERLESS_API_URL}{path}"
+    kwargs.setdefault("timeout", 30)
+    return requests.request(method, url, headers=headers, **kwargs)
+
+
+def _document_payload(doc, matched_chunk="", similarity=None, sources=None):
+    doc_id = doc["id"]
+    content = doc.get("content") or ""
+    snippet = matched_chunk or content[:300]
+    payload = {
+        "id": doc_id,
+        "title": doc.get("title") or doc.get("original_file_name") or f"Document {doc_id}",
+        "created": doc.get("created_date") or doc.get("created", ""),
+        "added": doc.get("added", ""),
+        "original_file_name": doc.get("original_file_name", ""),
+        "page_count": doc.get("page_count"),
+        "mime_type": doc.get("mime_type", ""),
+        "document_url": f"/documents/{doc_id}",
+        "matched_chunk": snippet[:500] if snippet else "",
+        "sources": sources or [],
+    }
+    if similarity is not None:
+        payload["similarity"] = round(similarity, 4)
+    return payload
+
+
+def get_document_for_session(doc_id, cookie_header):
+    resp = paperless_session_request(
+        "GET",
+        f"/api/documents/{doc_id}/",
+        cookie_header,
+    )
+    if resp.status_code in (401, 403, 404):
+        return None
+    resp.raise_for_status()
+    return resp.json()
 
 
 def semantic_search(query, limit=10):
@@ -53,6 +100,37 @@ def semantic_search(query, limit=10):
     return enriched
 
 
+def semantic_search_for_session(query, limit=10, cookie_header=""):
+    query_embedding = embeddings.get_embedding(query)
+    candidate_limit = min(max(limit * 8, 20), 100)
+    raw_results = db.search_similar(query_embedding, limit=candidate_limit)
+
+    seen = {}
+    for result in raw_results:
+        doc_id = result["document_id"]
+        if doc_id not in seen or result["similarity"] > seen[doc_id]["similarity"]:
+            seen[doc_id] = result
+
+    candidates = sorted(seen.values(), key=lambda x: x["similarity"], reverse=True)
+    results = []
+    for result in candidates:
+        doc = get_document_for_session(result["document_id"], cookie_header)
+        if doc is None:
+            continue
+        results.append(
+            _document_payload(
+                doc,
+                matched_chunk=result["chunk_text"],
+                similarity=float(result["similarity"]),
+                sources=["semantic"],
+            )
+        )
+        if len(results) >= limit:
+            break
+
+    return results
+
+
 def keyword_search(query, limit=10):
     resp = auth.api_request(
         "GET", f"{config.PAPERLESS_API_URL}/api/documents/",
@@ -67,6 +145,20 @@ def keyword_search(query, limit=10):
             "tags": doc.get("tags", []),
             "created": doc.get("created", ""),
         }
+        for doc in resp.json().get("results", [])
+    ]
+
+
+def keyword_search_for_session(query, limit=10, cookie_header=""):
+    resp = paperless_session_request(
+        "GET",
+        "/api/documents/",
+        cookie_header,
+        params={"query": query, "page_size": limit},
+    )
+    resp.raise_for_status()
+    return [
+        _document_payload(doc, sources=["keyword"])
         for doc in resp.json().get("results", [])
     ]
 
@@ -95,6 +187,48 @@ def hybrid_search(query, limit=10):
     results = []
     for doc_id, score in ranked:
         entry = doc_data[doc_id].copy()
+        entry["relevance_score"] = round(score, 6)
+        results.append(entry)
+
+    return results
+
+
+def hybrid_search_for_session(query, limit=10, cookie_header=""):
+    semantic_results = semantic_search_for_session(
+        query,
+        limit=limit,
+        cookie_header=cookie_header,
+    )
+    keyword_results = keyword_search_for_session(
+        query,
+        limit=limit,
+        cookie_header=cookie_header,
+    )
+
+    k = 60
+    scores = {}
+    doc_data = {}
+    sources = {}
+
+    for rank, result in enumerate(semantic_results):
+        doc_id = result["id"]
+        scores[doc_id] = scores.get(doc_id, 0) + 1.0 / (k + rank)
+        doc_data[doc_id] = result
+        sources.setdefault(doc_id, set()).update(result.get("sources", []))
+
+    for rank, result in enumerate(keyword_results):
+        doc_id = result["id"]
+        scores[doc_id] = scores.get(doc_id, 0) + 1.0 / (k + rank)
+        if doc_id not in doc_data:
+            doc_data[doc_id] = result
+        sources.setdefault(doc_id, set()).update(result.get("sources", []))
+
+    ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:limit]
+
+    results = []
+    for doc_id, score in ranked:
+        entry = doc_data[doc_id].copy()
+        entry["sources"] = sorted(sources.get(doc_id, []))
         entry["relevance_score"] = round(score, 6)
         results.append(entry)
 
