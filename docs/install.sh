@@ -844,7 +844,7 @@ services:
       - "1"
       - --models-autoload
       - --ctx-size
-      - "4096"
+      - "8192"
       - --n-predict
       - "512"
       - --parallel
@@ -1155,7 +1155,10 @@ generate_caddyfile() {
         ai_blocks=$(cat <<CADDY
 
 http://${AI_DOMAIN} {
-    @bootstrap path /
+    @bootstrap {
+        path /
+        not header Cookie *paperless_ag_llama_bootstrapped=1*
+    }
     handle @bootstrap {
         root * /srv/llama-bootstrap
         rewrite * /llama-bootstrap.html
@@ -1286,7 +1289,7 @@ cat > "$MODEL_DIR/models.ini" <<'INI'
 version = 1
 
 [*]
-ctx-size = 4096
+ctx-size = 8192
 n-predict = 512
 parallel = 1
 jinja = true
@@ -1402,7 +1405,9 @@ generate_llama_bootstrap() {
           ]),
         );
         localStorage.setItem("PaperlessAg.llamaBootstrap", "1");
-        window.location.replace("/index.html");
+        document.cookie =
+          "paperless_ag_llama_bootstrapped=1; Path=/; Max-Age=31536000; SameSite=Lax";
+        window.location.replace("/");
       })();
     </script>
   </body>

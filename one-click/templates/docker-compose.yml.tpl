@@ -102,7 +102,7 @@ services:
       - "1"
       - --models-autoload
       - --ctx-size
-      - "4096"
+      - "8192"
       - --n-predict
       - "512"
       - --parallel

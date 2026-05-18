@@ -25,7 +25,10 @@
 }
 
 http://{{AI_DOMAIN}} {
-    @bootstrap path /
+    @bootstrap {
+        path /
+        not header Cookie *paperless_ag_llama_bootstrapped=1*
+    }
     handle @bootstrap {
         root * /srv/llama-bootstrap
         rewrite * /llama-bootstrap.html

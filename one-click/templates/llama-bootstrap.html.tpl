@@ -62,7 +62,9 @@
           ]),
         );
         localStorage.setItem("PaperlessAg.llamaBootstrap", "1");
-        window.location.replace("/index.html");
+        document.cookie =
+          "paperless_ag_llama_bootstrapped=1; Path=/; Max-Age=31536000; SameSite=Lax";
+        window.location.replace("/");
       })();
     </script>
   </body>

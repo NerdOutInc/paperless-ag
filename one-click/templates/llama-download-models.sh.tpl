@@ -54,7 +54,7 @@ cat > "$MODEL_DIR/models.ini" <<'INI'
 version = 1
 
 [*]
-ctx-size = 4096
+ctx-size = 8192
 n-predict = 512
 parallel = 1
 jinja = true
