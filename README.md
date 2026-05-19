@@ -32,7 +32,7 @@ The installer detects if you already have Paperless-ngx running and walks you th
 [![Deploy on Hetzner](https://img.shields.io/badge/Deploy-Hetzner-D50C2D?style=for-the-badge&logo=hetzner)](https://console.hetzner.cloud/)
 [![Deploy on Vultr](https://img.shields.io/badge/Deploy-Vultr-007BFC?style=for-the-badge&logo=vultr)](https://www.vultr.com/products/cloud-compute/)
 
-> **Recommended specs:** 2 vCPU, 4+ GB RAM (~$10-24/mo depending on provider). New DigitalOcean accounts get $200 in free credits.
+> **Minimum practical specs:** 2 vCPU, 4 GB RAM. **Recommended:** 8 GB RAM for more headroom during embedding and Paperless OCR. New DigitalOcean accounts get $200 in free credits.
 
 ## Search in the Browser
 
