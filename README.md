@@ -32,12 +32,12 @@ tag and pass it to the installer:
 ```bash
 gh workflow run publish-image.yml \
   --repo NerdOutInc/paperless-ag \
-  --ref companion-web-app
+  --ref your-branch-name
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/NerdOutInc/paperless-ag/companion-web-app/docs/install.sh \
-  | COMPANION_IMAGE=ghcr.io/nerdoutinc/paperless-ag:companion-web-app bash
+curl -fsSL https://raw.githubusercontent.com/NerdOutInc/paperless-ag/your-branch-name/docs/install.sh \
+  | COMPANION_IMAGE=ghcr.io/nerdoutinc/paperless-ag:your-branch-name bash
 ```
 
 The installer detects if you already have Paperless-ngx running and walks you through setup. Works on any VPS -- pick one to get started:
