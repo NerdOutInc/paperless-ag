@@ -16,8 +16,9 @@
   }
 
   function loginRedirect() {
+    var target = window.location.pathname + window.location.search;
     window.location.href =
-      "/accounts/login/?next=" + encodeURIComponent("/search");
+      "/accounts/login/?next=" + encodeURIComponent(target || "/search");
   }
 
   function setStatus(message) {

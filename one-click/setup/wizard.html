@@ -481,17 +481,51 @@
         }
 
         function waitForSearch(searchUrl) {
-          return fetch(searchUrl || "/search", {
-            method: "GET",
-            mode: "no-cors",
-            cache: "no-store",
-          }).then(function (res) {
-            return (
-              res.ok ||
-              res.type === "opaque" ||
-              res.type === "opaqueredirect" ||
-              (res.status >= 300 && res.status < 400)
-            );
+          var readyUrl = searchAssetUrl(searchUrl);
+          if (readyUrl.origin === window.location.origin) {
+            return fetch(readyUrl.toString(), {
+              method: "GET",
+              cache: "no-store",
+            }).then(function (res) {
+              return res.ok;
+            });
+          }
+          return probeStylesheet(readyUrl.toString());
+        }
+
+        function searchAssetUrl(searchUrl) {
+          var url = new URL(searchUrl || "/search", window.location.href);
+          url.pathname = url.pathname.replace(/\/$/, "") + "/static/ready.css";
+          url.search = "v=" + Date.now();
+          return url;
+        }
+
+        function probeStylesheet(url) {
+          return new Promise(function (resolve) {
+            var link = document.createElement("link");
+            var timeout = window.setTimeout(function () {
+              cleanup(false);
+            }, 5000);
+
+            function cleanup(ready) {
+              window.clearTimeout(timeout);
+              link.onload = null;
+              link.onerror = null;
+              if (link.parentNode) {
+                link.parentNode.removeChild(link);
+              }
+              resolve(ready);
+            }
+
+            link.rel = "stylesheet";
+            link.href = url;
+            link.onload = function () {
+              cleanup(true);
+            };
+            link.onerror = function () {
+              cleanup(false);
+            };
+            document.head.appendChild(link);
           });
         }
 
