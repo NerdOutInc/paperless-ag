@@ -98,8 +98,8 @@ The installer will:
    container images. On a Pi with a decent internet connection, expect
    5--15 minutes.
 
-When it finishes you'll see a summary with your Paperless URL and MCP
-connection details. **Save the MCP auth token** -- you'll need it to
+When it finishes you'll see a summary with your Paperless URL, Search URL,
+and MCP connection details. **Save the MCP auth token** if you plan to
 connect Claude.
 
 ## 5. Access Paperless on your network
@@ -140,10 +140,24 @@ progress in the logs):
 cd ~/paperless-ag && docker compose logs -f companion
 ```
 
-## 7. Connect Claude
+## 7. Search your documents
 
-The MCP server lets Claude search your documents using natural language.
-The install summary printed an auth token -- use it in one of these
+Open the Search URL from the install summary:
+
+```text
+http://<your-pi-ip>/search
+```
+
+Log in with the same Paperless username and password. Search results open in
+the normal Paperless document viewer.
+
+For example: `http://192.168.1.42/search` or
+`http://paperless.local/search`
+
+## 8. Connect Claude
+
+The MCP server is optional. It lets Claude search your documents using natural
+language. The install summary printed an auth token -- use it in one of these
 methods.
 
 ### Claude Code (CLI)
@@ -206,7 +220,7 @@ Claude Desktop completely, and reopen it before checking the connector.
 
 Then try: *"Search my documents for crop insurance"*
 
-## 8. Find your MCP token later
+## 9. Find your MCP token later
 
 If you didn't save the token from the install summary, it's in the `.env`
 file:
@@ -257,8 +271,8 @@ docker compose logs -f paperless    # just Paperless-ngx
 
 - **Use a USB SSD** instead of an SD card. Postgres performance improves
   dramatically with faster random I/O.
-- **Pi 5 with 8 GB** gives the most headroom. The embedding model and
-  Paperless both benefit from extra RAM.
+- **Pi 5 with 8 GB** gives the most headroom. The embedding model,
+  Postgres, and Paperless all benefit from extra RAM.
 - **Ethernet** instead of Wi-Fi reduces latency for the web UI and MCP
   connections.
 - **First embedding run is slow.** If you upload many documents at once,

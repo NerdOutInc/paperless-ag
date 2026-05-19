@@ -4,6 +4,7 @@ umask 077
 cd /opt/paperless-ag
 
 mkdir -p backups
+caddyfile_changed=false
 
 if docker compose ps --status running db 2>/dev/null | grep -q db; then
     echo "Backing up database before update..."
@@ -14,11 +15,23 @@ else
     echo "[!] Database not running -- skipping backup"
 fi
 
+if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
+    sed -i '/^[[:space:]]*handle {$/i\    @search path \/search \/search\/*\n    handle @search {\n        reverse_proxy companion:3001 {\n            header_up Host localhost:3001\n        }\n    }' Caddyfile
+    echo "[OK] Caddyfile search route added"
+    caddyfile_changed=true
+fi
+
 echo "Pulling latest images..."
 docker compose pull
 
 echo "Restarting services..."
 docker compose up -d
+
+if [[ "$caddyfile_changed" == "true" ]]; then
+    echo "Reloading Caddy..."
+    docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile \
+        || docker compose restart caddy
+fi
 
 echo ""
 echo "[OK] Update complete. Check your Paperless UI to confirm."

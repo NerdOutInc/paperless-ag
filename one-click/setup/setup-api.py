@@ -267,6 +267,7 @@ class SetupHandler(BaseHTTPRequestHandler):
             "status": "started",
             "mcp_token": mcp_token,
             "paperless_url": paperless_url,
+            "search_url": f"{paperless_url}/search",
         })
 
 
