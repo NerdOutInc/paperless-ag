@@ -167,7 +167,7 @@ def semantic_search_for_session(query, limit=10, cookie_header=""):
 
         if (
             len(results) >= limit
-            or len(raw_results) < candidate_limit
+            or not raw_results
             or candidate_limit >= SEMANTIC_MAX_CANDIDATES
         ):
             return results

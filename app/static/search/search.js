@@ -182,7 +182,7 @@
       profileStatus.textContent = "Signed in as " + name;
     })
     .catch(function () {
-      profileStatus.textContent = "Signed in";
+      profileStatus.textContent = "Sign-in status unavailable";
     });
 
   form.addEventListener("submit", function (event) {
