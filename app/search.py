@@ -12,6 +12,7 @@ PAPERLESS_DOCUMENT_BATCH_SIZE = 100
 PAPERLESS_DOCUMENT_CARD_FIELDS = (
     "id,title,created,created_date,added,original_file_name,page_count,mime_type"
 )
+PAPERLESS_KEYWORD_DOCUMENT_FIELDS = f"{PAPERLESS_DOCUMENT_CARD_FIELDS},content"
 
 
 def get_document_metadata(doc_id):
@@ -205,7 +206,8 @@ def keyword_search_for_session(query, limit=10, cookie_header=""):
         params={
             "query": query,
             "page_size": limit,
-            "fields": PAPERLESS_DOCUMENT_CARD_FIELDS,
+            "fields": PAPERLESS_KEYWORD_DOCUMENT_FIELDS,
+            "truncate_content": "true",
         },
     )
     resp.raise_for_status()

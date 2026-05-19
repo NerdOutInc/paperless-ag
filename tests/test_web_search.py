@@ -120,6 +120,7 @@ class SessionSearchTests(unittest.TestCase):
                         "id": 7,
                         "title": "Crop plan",
                         "created_date": "2026-01-02",
+                        "content": "Crop plan notes from Paperless",
                     },
                 ],
             },
@@ -132,12 +133,14 @@ class SessionSearchTests(unittest.TestCase):
         )
 
         self.assertEqual(results[0]["document_url"], "/documents/7")
+        self.assertEqual(results[0]["matched_chunk"], "Crop plan notes from Paperless")
         self.assertEqual(results[0]["sources"], ["keyword"])
         _method, _path, _cookie_header = paperless_request.call_args.args
         params = paperless_request.call_args.kwargs["params"]
         self.assertEqual(params["query"], "crop")
         self.assertEqual(params["page_size"], 12)
-        self.assertEqual(params["fields"], search.PAPERLESS_DOCUMENT_CARD_FIELDS)
+        self.assertEqual(params["fields"], search.PAPERLESS_KEYWORD_DOCUMENT_FIELDS)
+        self.assertEqual(params["truncate_content"], "true")
 
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
     @patch("search.db.search_similar_documents")

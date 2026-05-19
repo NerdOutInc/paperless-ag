@@ -992,6 +992,8 @@ EMBEDDING_MODEL='all-MiniLM-L6-v2'
 SYNC_INTERVAL_SECONDS='60'
 MCP_HTTP_PORT='3001'
 MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
+PAPERLESS_AG_DOMAIN='${DOMAIN:-}'
+PAPERLESS_AG_CADDY_ENABLED='${ADDON_ENABLE_CADDY}'
 PYTHONUNBUFFERED='1'
 ENVFILE
     chmod 600 "$compose_dir/paperless-ag.env"
@@ -1209,6 +1211,21 @@ port_in_use() {
     ss -tlnp 2>/dev/null | grep -q ":${1} "
 }
 
+paperless_ag_env_value() {
+    local key="$1"
+    local line
+    line=$(grep -E "^${key}=" paperless-ag.env 2>/dev/null | tail -1 || true)
+    if [[ -z "$line" ]]; then
+        return
+    fi
+    line="${line#*=}"
+    line="${line#\'}"
+    line="${line%\'}"
+    line="${line#\"}"
+    line="${line%\"}"
+    printf '%s\n' "$line"
+}
+
 write_default_caddyfile() {
     local paperless_service="$1"
     cat > Caddyfile <<CADDY
@@ -1238,6 +1255,14 @@ CADDY
 
 ensure_caddy_for_legacy_no_domain_addon() {
     if [[ -f Caddyfile ]]; then
+        return
+    fi
+    local configured_domain configured_caddy_enabled
+    configured_domain=$(paperless_ag_env_value PAPERLESS_AG_DOMAIN)
+    configured_caddy_enabled=$(paperless_ag_env_value PAPERLESS_AG_CADDY_ENABLED)
+    if [[ -n "$configured_domain" && "$configured_caddy_enabled" == "false" ]]; then
+        echo "[!] This add-on was installed for https://${configured_domain} with managed Caddy disabled."
+        echo "    Leaving routing unchanged; keep using your existing reverse proxy for /search and /mcp."
         return
     fi
     local paperless_service
