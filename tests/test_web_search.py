@@ -60,6 +60,18 @@ class WebSearchTests(unittest.TestCase):
 
         self.assertIsNone(web_search.validate_paperless_session("sessionid=bad"))
 
+    def test_login_redirect_fully_encodes_next_url(self):
+        request = SimpleNamespace(
+            url=SimpleNamespace(path="/search", query="q=a&foo=b"),
+        )
+
+        response = web_search.login_redirect_for(request)
+
+        self.assertEqual(
+            response.headers["location"],
+            "/accounts/login/?next=%2Fsearch%3Fq%3Da%26foo%3Db",
+        )
+
     @patch("web_search.validate_paperless_session", side_effect=requests.Timeout("slow"))
     def test_profile_api_returns_controlled_error_when_paperless_is_unavailable(
         self,
@@ -74,6 +86,29 @@ class WebSearchTests(unittest.TestCase):
 
 
 class SessionSearchTests(unittest.TestCase):
+    @patch("search.paperless_session_request")
+    def test_get_documents_for_session_batches_large_candidate_sets(self, paperless_request):
+        def response_for(method, path, cookie_header, **kwargs):
+            self.assertEqual(method, "GET")
+            self.assertEqual(path, "/api/documents/")
+            self.assertEqual(cookie_header, "sessionid=abc")
+            ids = [
+                int(doc_id)
+                for doc_id in kwargs["params"]["id__in"].split(",")
+            ]
+            self.assertLessEqual(kwargs["params"]["page_size"], 100)
+            return FakeResponse(200, {"results": [{"id": doc_id} for doc_id in ids]})
+
+        paperless_request.side_effect = response_for
+
+        results = search.get_documents_for_session(
+            list(range(1, 206)),
+            "sessionid=abc",
+        )
+
+        self.assertEqual(len(results), 205)
+        self.assertEqual(paperless_request.call_count, 3)
+
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
     @patch("search.db.search_similar")
     @patch("search.get_documents_for_session")
@@ -109,6 +144,54 @@ class SessionSearchTests(unittest.TestCase):
         self.assertEqual(results[0]["matched_chunk"], "authorized soil test chunk")
         self.assertNotIn("secret unauthorized chunk", json.dumps(results))
         get_documents.assert_called_once_with([1, 2], "sessionid=abc")
+
+    @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
+    @patch("search.db.search_similar")
+    @patch("search.get_documents_for_session")
+    def test_semantic_search_expands_until_authorized_results_are_found(
+        self,
+        get_documents,
+        search_similar,
+        _get_embedding,
+    ):
+        first_page = [
+            {
+                "document_id": doc_id,
+                "chunk_index": 0,
+                "chunk_text": f"unauthorized chunk {doc_id}",
+                "similarity": 1.0 - doc_id / 100,
+            }
+            for doc_id in range(1, 21)
+        ]
+        second_page = first_page + [
+            {
+                "document_id": 99,
+                "chunk_index": 0,
+                "chunk_text": "authorized late chunk",
+                "similarity": 0.5,
+            }
+        ]
+        search_similar.side_effect = [first_page, second_page]
+
+        def authorized_for(doc_ids, _cookie_header):
+            if 99 in doc_ids:
+                return {99: {"id": 99, "title": "Late Match"}}
+            return {}
+
+        get_documents.side_effect = authorized_for
+
+        results = search.semantic_search_for_session(
+            "late",
+            limit=1,
+            cookie_header="sessionid=abc",
+        )
+
+        self.assertEqual([result["id"] for result in results], [99])
+        self.assertEqual(results[0]["matched_chunk"], "authorized late chunk")
+        self.assertEqual(
+            [call.kwargs["limit"] for call in search_similar.call_args_list],
+            [20, 40],
+        )
 
     @patch("search.keyword_search_for_session")
     @patch("search.semantic_search_for_session")

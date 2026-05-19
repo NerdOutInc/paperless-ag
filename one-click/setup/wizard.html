@@ -437,7 +437,7 @@
 
             if (lostContact) {
               // Setup API is gone -- Docker Caddy now owns :80.
-              waitForSearch()
+              waitForSearch(searchUrl)
                 .then(function (ready) {
                   if (ready) {
                     clearInterval(interval);
@@ -456,7 +456,7 @@
               })
               .then(function (data) {
                 if (data.state === "complete") {
-                  waitForSearch().then(function (ready) {
+                  waitForSearch(searchUrl).then(function (ready) {
                     if (ready) {
                       clearInterval(interval);
                       showComplete(token, url, searchUrl);
@@ -480,16 +480,19 @@
           }, 3000);
         }
 
-        function waitForSearch() {
-          return fetch("/search", { method: "GET", redirect: "manual" }).then(
-            function (res) {
-              return (
-                res.ok ||
-                res.type === "opaqueredirect" ||
-                (res.status >= 300 && res.status < 400)
-              );
-            },
-          );
+        function waitForSearch(searchUrl) {
+          return fetch(searchUrl || "/search", {
+            method: "GET",
+            mode: "no-cors",
+            cache: "no-store",
+          }).then(function (res) {
+            return (
+              res.ok ||
+              res.type === "opaque" ||
+              res.type === "opaqueredirect" ||
+              (res.status >= 300 && res.status < 400)
+            );
+          });
         }
 
         function showComplete(token, url, searchUrl) {

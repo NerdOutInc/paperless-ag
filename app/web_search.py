@@ -32,7 +32,7 @@ def login_redirect_for(request):
     if request.url.query:
         target = f"{target}?{request.url.query}"
     return RedirectResponse(
-        f"/accounts/login/?next={quote(target, safe='/?=&')}",
+        f"/accounts/login/?next={quote(target, safe='')}",
         status_code=302,
     )
 

@@ -4,6 +4,7 @@
   var status = document.getElementById("status");
   var profileStatus = document.getElementById("profile-status");
   var results = document.getElementById("results");
+  var latestSearchId = 0;
 
   function escapeHtml(value) {
     return String(value || "")
@@ -87,6 +88,8 @@
   }
 
   function runSearch(query) {
+    latestSearchId += 1;
+    var searchId = latestSearchId;
     var trimmed = query.trim();
     if (!trimmed) {
       input.focus();
@@ -104,6 +107,9 @@
       },
     )
       .then(function (response) {
+        if (searchId !== latestSearchId) {
+          return null;
+        }
         if (response.status === 401) {
           loginRedirect();
           return null;
@@ -116,6 +122,9 @@
         });
       })
       .then(function (payload) {
+        if (searchId !== latestSearchId) {
+          return;
+        }
         if (payload) {
           renderResults(payload);
           window.history.replaceState(
@@ -126,6 +135,9 @@
         }
       })
       .catch(function (error) {
+        if (searchId !== latestSearchId) {
+          return;
+        }
         setStatus(error.message || "Search failed");
         renderEmpty("Search is unavailable right now.");
       });
@@ -137,7 +149,12 @@
         loginRedirect();
         return null;
       }
-      return response.json();
+      return response.json().then(function (body) {
+        if (!response.ok) {
+          throw new Error(body.error || "Profile unavailable");
+        }
+        return body;
+      });
     })
     .then(function (payload) {
       if (!payload) {

@@ -6,6 +6,11 @@ import db
 import embeddings
 
 
+SEMANTIC_MIN_CANDIDATES = 20
+SEMANTIC_MAX_CANDIDATES = 500
+PAPERLESS_DOCUMENT_BATCH_SIZE = 100
+
+
 def get_document_metadata(doc_id):
     resp = auth.api_request(
         "GET", f"{config.PAPERLESS_API_URL}/api/documents/{doc_id}/",
@@ -55,36 +60,30 @@ def _document_payload(doc, matched_chunk="", similarity=None, sources=None):
     return payload
 
 
-def get_document_for_session(doc_id, cookie_header):
-    resp = paperless_session_request(
-        "GET",
-        f"/api/documents/{doc_id}/",
-        cookie_header,
-    )
-    if resp.status_code in (401, 403, 404):
-        return None
-    resp.raise_for_status()
-    return resp.json()
-
-
 def get_documents_for_session(doc_ids, cookie_header):
     if not doc_ids:
         return {}
 
-    resp = paperless_session_request(
-        "GET",
-        "/api/documents/",
-        cookie_header,
-        params={
-            "id__in": ",".join(str(doc_id) for doc_id in doc_ids),
-            "page_size": len(doc_ids),
-        },
-    )
-    resp.raise_for_status()
-    return {
-        doc["id"]: doc
-        for doc in resp.json().get("results", [])
-    }
+    documents = {}
+    for offset in range(0, len(doc_ids), PAPERLESS_DOCUMENT_BATCH_SIZE):
+        batch = doc_ids[offset:offset + PAPERLESS_DOCUMENT_BATCH_SIZE]
+        resp = paperless_session_request(
+            "GET",
+            "/api/documents/",
+            cookie_header,
+            params={
+                "id__in": ",".join(str(doc_id) for doc_id in batch),
+                "page_size": len(batch),
+            },
+        )
+        resp.raise_for_status()
+        documents.update(
+            {
+                doc["id"]: doc
+                for doc in resp.json().get("results", [])
+            }
+        )
+    return documents
 
 
 def semantic_search(query, limit=10):
@@ -122,38 +121,49 @@ def semantic_search(query, limit=10):
 
 def semantic_search_for_session(query, limit=10, cookie_header=""):
     query_embedding = embeddings.get_embedding(query)
-    candidate_limit = min(max(limit * 8, 20), 100)
-    raw_results = db.search_similar(query_embedding, limit=candidate_limit)
-
-    seen = {}
-    for result in raw_results:
-        doc_id = result["document_id"]
-        if doc_id not in seen or result["similarity"] > seen[doc_id]["similarity"]:
-            seen[doc_id] = result
-
-    candidates = sorted(seen.values(), key=lambda x: x["similarity"], reverse=True)
-    authorized_docs = get_documents_for_session(
-        [result["document_id"] for result in candidates],
-        cookie_header,
+    candidate_limit = min(
+        max(limit * 8, SEMANTIC_MIN_CANDIDATES),
+        SEMANTIC_MAX_CANDIDATES,
     )
 
-    results = []
-    for result in candidates:
-        doc = authorized_docs.get(result["document_id"])
-        if doc is None:
-            continue
-        results.append(
-            _document_payload(
-                doc,
-                matched_chunk=result["chunk_text"],
-                similarity=float(result["similarity"]),
-                sources=["semantic"],
-            )
-        )
-        if len(results) >= limit:
-            break
+    while True:
+        raw_results = db.search_similar(query_embedding, limit=candidate_limit)
+        seen = {}
+        for result in raw_results:
+            doc_id = result["document_id"]
+            if doc_id not in seen or result["similarity"] > seen[doc_id]["similarity"]:
+                seen[doc_id] = result
 
-    return results
+        candidates = sorted(seen.values(), key=lambda x: x["similarity"], reverse=True)
+        authorized_docs = get_documents_for_session(
+            [result["document_id"] for result in candidates],
+            cookie_header,
+        )
+
+        results = []
+        for result in candidates:
+            doc = authorized_docs.get(result["document_id"])
+            if doc is None:
+                continue
+            results.append(
+                _document_payload(
+                    doc,
+                    matched_chunk=result["chunk_text"],
+                    similarity=float(result["similarity"]),
+                    sources=["semantic"],
+                )
+            )
+            if len(results) >= limit:
+                break
+
+        if (
+            len(results) >= limit
+            or len(raw_results) < candidate_limit
+            or candidate_limit >= SEMANTIC_MAX_CANDIDATES
+        ):
+            return results
+
+        candidate_limit = min(candidate_limit * 2, SEMANTIC_MAX_CANDIDATES)
 
 
 def keyword_search(query, limit=10):

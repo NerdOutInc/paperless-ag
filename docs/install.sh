@@ -10,8 +10,8 @@ set -euo pipefail
 
 COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
 MIN_DISK_GB=5
-MIN_RAM_MB=3900
-RECOMMENDED_RAM_MB=7800
+MIN_RAM_MB=3500
+RECOMMENDED_RAM_MB=7400
 
 # ── Colors ───────────────────────────────────────────────
 RED='\033[0;31m'
@@ -252,7 +252,7 @@ check_resources() {
     total_ram_mb=$(free -m 2>/dev/null | awk '/Mem:/ {print $2}' || echo "0")
     if (( total_ram_mb > 0 )); then
         if (( total_ram_mb < MIN_RAM_MB )); then
-            fail "Not enough RAM. Need at least 4GB, have ${total_ram_mb}MB."
+            fail "Not enough RAM. Need a 4GB-class machine, have ${total_ram_mb}MB."
             fail "Paperless + the embedding model need at least 4GB to run well."
             exit 1
         elif (( total_ram_mb < RECOMMENDED_RAM_MB )); then
@@ -655,6 +655,8 @@ do_fresh_install() {
             1)
                 step "Updating existing installation..."
                 if [[ -f "$install_dir/update.sh" ]]; then
+                    generate_update_script "$install_dir"
+                    info "Refreshed update script"
                     bash "$install_dir/update.sh"
                     return
                 else
