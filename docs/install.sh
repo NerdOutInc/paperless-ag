@@ -280,7 +280,25 @@ check_ports() {
     if [[ -n "$blocked" ]]; then
         warn "Port(s)${blocked} already in use."
         warn "Another web server may be running (nginx, apache, etc.)."
-        warn "Caddy needs ports 80 and 443 for HTTPS."
+        warn "We'll account for this after choosing an install type."
+    fi
+}
+
+confirm_fresh_caddy_ports() {
+    local blocked=""
+    if [[ "$PORT_80_IN_USE" == "true" ]]; then
+        blocked="${blocked} 80"
+    fi
+    if [[ -n "${DOMAIN:-}" && "$PORT_443_IN_USE" == "true" ]]; then
+        blocked="${blocked} 443"
+    fi
+    if [[ -n "$blocked" ]]; then
+        warn "Port(s)${blocked} already in use."
+        if [[ -n "${DOMAIN:-}" ]]; then
+            warn "A fresh HTTPS install needs ports 80 and 443 for Caddy."
+        else
+            warn "A fresh HTTP install needs port 80 for Caddy."
+        fi
         if ! prompt_yn "Continue anyway?" "n"; then
             exit 0
         fi
@@ -673,6 +691,8 @@ do_fresh_install() {
             *) exit 0 ;;
         esac
     fi
+
+    confirm_fresh_caddy_ports
 
     divider
     echo -e "  ${BOLD}Setting things up. This may take a few minutes...${NC}"

@@ -35,6 +35,16 @@
     return messages[code] || fallback || "Something went wrong.";
   }
 
+  function parseJsonResponse(response, fallback) {
+    var contentType = response.headers.get("content-type") || "";
+    if (contentType.indexOf("application/json") === -1) {
+      throw new Error(fallback);
+    }
+    return response.json().catch(function () {
+      throw new Error(fallback);
+    });
+  }
+
   function renderEmpty(message) {
     results.innerHTML =
       '<div class="empty-state">' + escapeHtml(message) + "</div>";
@@ -127,12 +137,14 @@
           loginRedirect();
           return null;
         }
-        return response.json().then(function (body) {
-          if (!response.ok) {
-            throw new Error(errorMessage(body.error, "Search failed"));
-          }
-          return body;
-        });
+        return parseJsonResponse(response, "Search failed").then(
+          function (body) {
+            if (!response.ok) {
+              throw new Error(errorMessage(body.error, "Search failed"));
+            }
+            return body;
+          },
+        );
       })
       .then(function (payload) {
         if (searchId !== latestSearchId) {
@@ -162,12 +174,14 @@
         loginRedirect();
         return null;
       }
-      return response.json().then(function (body) {
-        if (!response.ok) {
-          throw new Error(errorMessage(body.error, "Profile unavailable"));
-        }
-        return body;
-      });
+      return parseJsonResponse(response, "Profile unavailable").then(
+        function (body) {
+          if (!response.ok) {
+            throw new Error(errorMessage(body.error, "Profile unavailable"));
+          }
+          return body;
+        },
+      );
     })
     .then(function (payload) {
       if (!payload) {
