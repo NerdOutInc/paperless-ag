@@ -1036,8 +1036,6 @@ volumes:
     if [[ "${ADDON_ENABLE_CADDY}" == "true" ]]; then
         generate_caddyfile "$compose_dir/Caddyfile"
         info "Generated Caddyfile"
-    else
-        rm -f "$compose_dir/Caddyfile"
     fi
 
     # Generate helper scripts
@@ -1478,7 +1476,6 @@ print_addon_summary() {
     local search_url
     if [[ "${ADDON_ENABLE_CADDY:-true}" != "true" ]]; then
         mcp_url="http://${ip_addr}:3001/mcp"
-        search_url="http://${ip_addr}:3001/search"
     elif [[ -n "${DOMAIN:-}" ]]; then
         mcp_url="https://${DOMAIN}/mcp"
         search_url="https://${DOMAIN}/search"
@@ -1495,10 +1492,12 @@ print_addon_summary() {
     echo "  Semantic search is now active. Your existing Paperless"
     echo "  documents will be embedded automatically (check logs)."
     echo
-    echo -e "  ${BOLD}Search Web UI:${NC}  ${search_url}"
     if [[ "${ADDON_ENABLE_CADDY:-true}" != "true" ]]; then
+        echo -e "  ${BOLD}Search Web UI:${NC}  configure your existing reverse proxy for /search"
         echo "  Same-origin /search was not added because port 80/443 is already in use."
         echo "  Configure your existing reverse proxy to send /search and /mcp to companion:3001."
+    else
+        echo -e "  ${BOLD}Search Web UI:${NC}  ${search_url}"
     fi
     echo
     echo -e "  ${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

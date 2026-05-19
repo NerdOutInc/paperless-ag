@@ -486,46 +486,42 @@
             return fetch(readyUrl.toString(), {
               method: "GET",
               cache: "no-store",
+              redirect: "manual",
             }).then(function (res) {
               return res.ok;
             });
           }
-          return probeStylesheet(readyUrl.toString());
+          return probeImage(readyUrl.toString());
         }
 
         function searchAssetUrl(searchUrl) {
           var url = new URL(searchUrl || "/search", window.location.href);
-          url.pathname = url.pathname.replace(/\/$/, "") + "/static/ready.css";
+          url.pathname = url.pathname.replace(/\/$/, "") + "/static/ready.svg";
           url.search = "v=" + Date.now();
           return url;
         }
 
-        function probeStylesheet(url) {
+        function probeImage(url) {
           return new Promise(function (resolve) {
-            var link = document.createElement("link");
+            var image = new Image();
             var timeout = window.setTimeout(function () {
               cleanup(false);
             }, 5000);
 
             function cleanup(ready) {
               window.clearTimeout(timeout);
-              link.onload = null;
-              link.onerror = null;
-              if (link.parentNode) {
-                link.parentNode.removeChild(link);
-              }
+              image.onload = null;
+              image.onerror = null;
               resolve(ready);
             }
 
-            link.rel = "stylesheet";
-            link.href = url;
-            link.onload = function () {
+            image.onload = function () {
               cleanup(true);
             };
-            link.onerror = function () {
+            image.onerror = function () {
               cleanup(false);
             };
-            document.head.appendChild(link);
+            image.src = url;
           });
         }
 
