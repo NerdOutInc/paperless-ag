@@ -30,6 +30,12 @@ To test a branch or fork image before it becomes `latest`, publish that image
 tag and pass it to the installer:
 
 ```bash
+gh workflow run publish-image.yml \
+  --repo NerdOutInc/paperless-ag \
+  --ref companion-web-app
+```
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/NerdOutInc/paperless-ag/companion-web-app/docs/install.sh \
   | COMPANION_IMAGE=ghcr.io/nerdoutinc/paperless-ag:companion-web-app bash
 ```
