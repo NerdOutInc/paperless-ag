@@ -90,6 +90,30 @@ def search_similar(query_embedding, limit=20):
         ]
 
 
+def search_similar_documents(query_embedding, limit=20):
+    with get_cursor() as cur:
+        vec_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
+        cur.execute(
+            """SELECT document_id, chunk_index, chunk_text, similarity
+               FROM (
+                   SELECT DISTINCT ON (document_id)
+                          document_id, chunk_index, chunk_text,
+                          1 - (embedding <=> %s::vector) as similarity,
+                          embedding <=> %s::vector as distance
+                   FROM document_embeddings
+                   ORDER BY document_id, embedding <=> %s::vector
+               ) best_chunks
+               ORDER BY distance
+               LIMIT %s""",
+            (vec_str, vec_str, vec_str, limit)
+        )
+        return [
+            {"document_id": row[0], "chunk_index": row[1],
+             "chunk_text": row[2], "similarity": float(row[3])}
+            for row in cur.fetchall()
+        ]
+
+
 def get_embedding_stats():
     with get_cursor() as cur:
         cur.execute("""

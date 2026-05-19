@@ -67,6 +67,15 @@ def api_error_response(error, status_code):
     )
 
 
+def log_paperless_error(context, exc):
+    response = getattr(exc, "response", None)
+    if response is not None:
+        detail = f"status={response.status_code}"
+    else:
+        detail = f"type={exc.__class__.__name__}"
+    print(f"{context}: Paperless API request failed ({detail})")
+
+
 def search_unavailable_response():
     return HTMLResponse(
         """<!doctype html>
@@ -100,7 +109,7 @@ def search_page(request):
     try:
         profile = validate_paperless_session(cookie_header_from_request(request))
     except requests.RequestException as exc:
-        print(f"Paperless session validation failed: {exc}")
+        log_paperless_error("Paperless session validation failed", exc)
         return search_unavailable_response()
     if profile is None:
         return login_redirect_for(request)
@@ -116,7 +125,7 @@ def profile_api(request):
     try:
         profile = validate_paperless_session(cookie_header_from_request(request))
     except requests.RequestException as exc:
-        print(f"Paperless profile validation failed: {exc}")
+        log_paperless_error("Paperless profile validation failed", exc)
         return api_error_response("paperless_api_error", 502)
     if profile is None:
         return api_error_response("not_authenticated", 401)
@@ -131,7 +140,7 @@ def documents_api(request):
     try:
         profile = validate_paperless_session(cookie_header)
     except requests.RequestException as exc:
-        print(f"Paperless search validation failed: {exc}")
+        log_paperless_error("Paperless search validation failed", exc)
         return api_error_response("paperless_api_error", 502)
     if profile is None:
         return api_error_response("not_authenticated", 401)
@@ -151,13 +160,13 @@ def documents_api(request):
                 status_code=401,
                 headers={"Cache-Control": "no-store"},
             )
-        print(f"Search API upstream error: {exc}")
+        log_paperless_error("Search API upstream error", exc)
         return api_error_response("paperless_api_error", 502)
     except requests.RequestException as exc:
-        print(f"Search API upstream error: {exc}")
+        log_paperless_error("Search API upstream error", exc)
         return api_error_response("paperless_api_error", 502)
     except Exception as exc:
-        print(f"Search API error: {exc}")
+        print(f"Search API error: {exc.__class__.__name__}")
         return api_error_response("search_failed", 500)
 
     return JSONResponse(

@@ -127,7 +127,7 @@ def semantic_search_for_session(query, limit=10, cookie_header=""):
     )
 
     while True:
-        raw_results = db.search_similar(query_embedding, limit=candidate_limit)
+        raw_results = db.search_similar_documents(query_embedding, limit=candidate_limit)
         seen = {}
         for result in raw_results:
             doc_id = result["document_id"]

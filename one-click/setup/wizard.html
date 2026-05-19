@@ -424,10 +424,38 @@
           var lostContact = false;
           var pollCount = 0;
           var maxPolls = 200; // ~10 minutes at 3s intervals
+          var searchProbeInFlight = false;
+          var completionShown = false;
+
+          function completeWhenSearchIsReady() {
+            if (completionShown || searchProbeInFlight) {
+              return;
+            }
+            searchProbeInFlight = true;
+            waitForSearch(searchUrl)
+              .then(function (ready) {
+                searchProbeInFlight = false;
+                if (completionShown) {
+                  return;
+                }
+                if (ready) {
+                  completionShown = true;
+                  clearInterval(interval);
+                  showComplete(token, url, searchUrl);
+                } else {
+                  document.querySelector(".progress-text").textContent =
+                    "Paperless is ready... waiting for Search to start.";
+                }
+              })
+              .catch(function () {
+                searchProbeInFlight = false;
+              });
+          }
 
           var interval = setInterval(function () {
             pollCount++;
             if (pollCount > maxPolls) {
+              completionShown = true;
               clearInterval(interval);
               document.querySelector(".progress-text").textContent =
                 "Setup timed out. SSH in and check: cat /opt/paperless-ag/setup.log";
@@ -437,16 +465,7 @@
 
             if (lostContact) {
               // Setup API is gone -- Docker Caddy now owns :80.
-              waitForSearch(searchUrl)
-                .then(function (ready) {
-                  if (ready) {
-                    clearInterval(interval);
-                    showComplete(token, url, searchUrl);
-                  }
-                })
-                .catch(function () {
-                  // Still starting up, keep polling
-                });
+              completeWhenSearchIsReady();
               return;
             }
 
@@ -456,16 +475,9 @@
               })
               .then(function (data) {
                 if (data.state === "complete") {
-                  waitForSearch(searchUrl).then(function (ready) {
-                    if (ready) {
-                      clearInterval(interval);
-                      showComplete(token, url, searchUrl);
-                    } else {
-                      document.querySelector(".progress-text").textContent =
-                        "Paperless is ready... waiting for Search to start.";
-                    }
-                  });
+                  completeWhenSearchIsReady();
                 } else if (data.state === "failed") {
+                  completionShown = true;
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
                     "Setup failed. SSH in and check: cat /opt/paperless-ag/setup.log";

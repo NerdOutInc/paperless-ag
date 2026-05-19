@@ -110,7 +110,7 @@ class SessionSearchTests(unittest.TestCase):
         self.assertEqual(paperless_request.call_count, 3)
 
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
-    @patch("search.db.search_similar")
+    @patch("search.db.search_similar_documents")
     @patch("search.get_documents_for_session")
     def test_semantic_search_filters_before_returning_chunks(
         self,
@@ -146,7 +146,7 @@ class SessionSearchTests(unittest.TestCase):
         get_documents.assert_called_once_with([1, 2], "sessionid=abc")
 
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
-    @patch("search.db.search_similar")
+    @patch("search.db.search_similar_documents")
     @patch("search.get_documents_for_session")
     def test_semantic_search_expands_until_authorized_results_are_found(
         self,

@@ -66,6 +66,8 @@
       "</div>",
       '<a class="open-link" href="' +
         escapeHtml(result.document_url) +
+        '" aria-label="' +
+        escapeHtml("Open " + title + " in Paperless") +
         '">Open in Paperless</a>',
       "</article>",
     ].join("");
