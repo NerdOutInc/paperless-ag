@@ -1243,13 +1243,8 @@ ensure_caddy_for_legacy_no_domain_addon() {
     local paperless_service
     paperless_service=$(detect_paperless_service)
     if docker compose config --services 2>/dev/null | grep -qx caddy; then
-        if [[ -z "$paperless_service" ]]; then
-            echo "[!] Could not detect the Paperless service name. Re-run the installer to add /search routing."
-            return
-        fi
-        write_default_caddyfile "$paperless_service"
-        echo "[✓] Caddyfile search route added"
-        caddyfile_changed=true
+        echo "[!] Existing caddy service found, but no ./Caddyfile is present."
+        echo "    Configure that Caddy service to send /search and /mcp to companion:3001."
         return
     fi
     if [[ ! -f docker-compose.override.yml ]] \
@@ -1259,7 +1254,8 @@ ensure_caddy_for_legacy_no_domain_addon() {
     fi
     if port_in_use 80; then
         echo "[!] Port 80 is already in use; leaving the existing Paperless routing unchanged."
-        echo "    Configure your existing reverse proxy to send /search and /mcp to companion:3001."
+        echo "    Host proxies should send /search and /mcp to http://127.0.0.1:3001."
+        echo "    Container proxies on this Compose network can use http://companion:3001."
         return
     fi
 
@@ -1495,7 +1491,8 @@ print_addon_summary() {
     if [[ "${ADDON_ENABLE_CADDY:-true}" != "true" ]]; then
         echo -e "  ${BOLD}Search Web UI:${NC}  configure your existing reverse proxy for /search"
         echo "  Same-origin /search was not added because port 80/443 is already in use."
-        echo "  Configure your existing reverse proxy to send /search and /mcp to companion:3001."
+        echo "  Host proxies should use http://127.0.0.1:3001."
+        echo "  Container proxies on this Compose network can use http://companion:3001."
     else
         echo -e "  ${BOLD}Search Web UI:${NC}  ${search_url}"
     fi

@@ -125,6 +125,8 @@ def semantic_search_for_session(query, limit=10, cookie_header=""):
         max(limit * 8, SEMANTIC_MIN_CANDIDATES),
         SEMANTIC_MAX_CANDIDATES,
     )
+    authorized_docs = {}
+    checked_doc_ids = set()
 
     while True:
         raw_results = db.search_similar_documents(query_embedding, limit=candidate_limit)
@@ -135,10 +137,17 @@ def semantic_search_for_session(query, limit=10, cookie_header=""):
                 seen[doc_id] = result
 
         candidates = sorted(seen.values(), key=lambda x: x["similarity"], reverse=True)
-        authorized_docs = get_documents_for_session(
-            [result["document_id"] for result in candidates],
-            cookie_header,
-        )
+        candidate_doc_ids = [result["document_id"] for result in candidates]
+        unchecked_doc_ids = [
+            doc_id
+            for doc_id in candidate_doc_ids
+            if doc_id not in checked_doc_ids
+        ]
+        if unchecked_doc_ids:
+            authorized_docs.update(
+                get_documents_for_session(unchecked_doc_ids, cookie_header)
+            )
+            checked_doc_ids.update(unchecked_doc_ids)
 
         results = []
         for result in candidates:

@@ -25,6 +25,16 @@
     status.textContent = message || "";
   }
 
+  function errorMessage(code, fallback) {
+    var messages = {
+      paperless_api_error: "Paperless is unavailable right now.",
+      search_failed: "Search failed. Try again in a moment.",
+      not_authenticated: "Your Paperless session expired.",
+      "q is required": "Enter a search query.",
+    };
+    return messages[code] || fallback || "Something went wrong.";
+  }
+
   function renderEmpty(message) {
     results.innerHTML =
       '<div class="empty-state">' + escapeHtml(message) + "</div>";
@@ -119,7 +129,7 @@
         }
         return response.json().then(function (body) {
           if (!response.ok) {
-            throw new Error(body.error || "Search failed");
+            throw new Error(errorMessage(body.error, "Search failed"));
           }
           return body;
         });
@@ -154,7 +164,7 @@
       }
       return response.json().then(function (body) {
         if (!response.ok) {
-          throw new Error(body.error || "Profile unavailable");
+          throw new Error(errorMessage(body.error, "Profile unavailable"));
         }
         return body;
       });

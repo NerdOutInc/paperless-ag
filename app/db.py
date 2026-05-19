@@ -90,22 +90,28 @@ def search_similar(query_embedding, limit=20):
         ]
 
 
-def search_similar_documents(query_embedding, limit=20):
+def search_similar_documents(query_embedding, limit=20, chunk_limit=None):
     with get_cursor() as cur:
         vec_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
+        chunk_limit = chunk_limit or max(limit * 8, limit)
         cur.execute(
             """SELECT document_id, chunk_index, chunk_text, similarity
                FROM (
                    SELECT DISTINCT ON (document_id)
-                          document_id, chunk_index, chunk_text,
-                          1 - (embedding <=> %s::vector) as similarity,
-                          embedding <=> %s::vector as distance
-                   FROM document_embeddings
-                   ORDER BY document_id, embedding <=> %s::vector
-               ) best_chunks
+                          document_id, chunk_index, chunk_text, similarity, distance
+                   FROM (
+                       SELECT document_id, chunk_index, chunk_text,
+                              1 - (embedding <=> %s::vector) as similarity,
+                              embedding <=> %s::vector as distance
+                       FROM document_embeddings
+                       ORDER BY embedding <=> %s::vector
+                       LIMIT %s
+                   ) nearest_chunks
+                   ORDER BY document_id, distance
+               ) best_document_chunks
                ORDER BY distance
                LIMIT %s""",
-            (vec_str, vec_str, vec_str, limit)
+            (vec_str, vec_str, vec_str, chunk_limit, limit)
         )
         return [
             {"document_id": row[0], "chunk_index": row[1],
