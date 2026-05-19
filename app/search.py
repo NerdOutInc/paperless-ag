@@ -74,6 +74,10 @@ def get_documents_for_session(doc_ids, cookie_header):
             params={
                 "id__in": ",".join(str(doc_id) for doc_id in batch),
                 "page_size": len(batch),
+                "fields": (
+                    "id,title,created,created_date,added,original_file_name,"
+                    "page_count,mime_type"
+                ),
             },
         )
         resp.raise_for_status()

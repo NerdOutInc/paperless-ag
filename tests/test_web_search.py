@@ -97,6 +97,7 @@ class SessionSearchTests(unittest.TestCase):
                 for doc_id in kwargs["params"]["id__in"].split(",")
             ]
             self.assertLessEqual(kwargs["params"]["page_size"], 100)
+            self.assertIn("title", kwargs["params"]["fields"])
             return FakeResponse(200, {"results": [{"id": doc_id} for doc_id in ids]})
 
         paperless_request.side_effect = response_for
