@@ -54,6 +54,20 @@ class WebSearchTests(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(json.loads(response.body), {"error": "q is required"})
 
+    @patch("web_search.validate_paperless_session", return_value={"username": "admin"})
+    @patch("web_search.search.hybrid_search_for_session")
+    def test_documents_api_rejects_oversized_query(self, hybrid_search, _validate):
+        request = SimpleNamespace(
+            headers={"cookie": "sessionid=abc"},
+            query_params={"q": "x" * (web_search.MAX_QUERY_LENGTH + 1)},
+        )
+
+        response = web_search.documents_api(request)
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(json.loads(response.body), {"error": "q is too long"})
+        hybrid_search.assert_not_called()
+
     @patch("web_search.requests.get")
     def test_validate_session_returns_none_for_unauthenticated_cookie(self, get):
         get.return_value = FakeResponse(403, {"detail": "not authenticated"})

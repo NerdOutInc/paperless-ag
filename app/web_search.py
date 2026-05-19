@@ -12,6 +12,7 @@ import search
 
 STATIC_DIR = Path(__file__).with_name("static").joinpath("search")
 MAX_SEARCH_LIMIT = 50
+MAX_QUERY_LENGTH = 500
 DEFAULT_SEARCH_LIMIT = 10
 
 
@@ -148,6 +149,8 @@ def documents_api(request):
     query = request.query_params.get("q", "").strip()
     if not query:
         return api_error_response("q is required", 400)
+    if len(query) > MAX_QUERY_LENGTH:
+        return api_error_response("q is too long", 400)
 
     limit = clamp_limit(request.query_params.get("limit"))
     try:

@@ -31,6 +31,7 @@
       search_failed: "Search failed. Try again in a moment.",
       not_authenticated: "Your Paperless session expired.",
       "q is required": "Enter a search query.",
+      "q is too long": "Search query is too long.",
     };
     return messages[code] || fallback || "Something went wrong.";
   }
