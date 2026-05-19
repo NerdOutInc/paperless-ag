@@ -59,6 +59,33 @@ def validate_paperless_session(cookie_header):
         return None
 
 
+def api_error_response(error, status_code):
+    return JSONResponse(
+        {"error": error},
+        status_code=status_code,
+        headers={"Cache-Control": "no-store"},
+    )
+
+
+def search_unavailable_response():
+    return HTMLResponse(
+        """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Paperless Ag Search unavailable</title>
+  </head>
+  <body>
+    <h1>Search is temporarily unavailable</h1>
+    <p>Paperless Ag could not verify your Paperless session. Try again in a moment.</p>
+  </body>
+</html>
+""",
+        status_code=503,
+        headers={"Cache-Control": "no-store"},
+    )
+
+
 def public_profile(profile):
     return {
         "id": profile.get("id"),
@@ -70,7 +97,11 @@ def public_profile(profile):
 
 
 def search_page(request):
-    profile = validate_paperless_session(cookie_header_from_request(request))
+    try:
+        profile = validate_paperless_session(cookie_header_from_request(request))
+    except requests.RequestException as exc:
+        print(f"Paperless session validation failed: {exc}")
+        return search_unavailable_response()
     if profile is None:
         return login_redirect_for(request)
 
@@ -82,13 +113,13 @@ def search_page(request):
 
 
 def profile_api(request):
-    profile = validate_paperless_session(cookie_header_from_request(request))
+    try:
+        profile = validate_paperless_session(cookie_header_from_request(request))
+    except requests.RequestException as exc:
+        print(f"Paperless profile validation failed: {exc}")
+        return api_error_response("paperless_api_error", 502)
     if profile is None:
-        return JSONResponse(
-            {"error": "not_authenticated"},
-            status_code=401,
-            headers={"Cache-Control": "no-store"},
-        )
+        return api_error_response("not_authenticated", 401)
     return JSONResponse(
         {"profile": public_profile(profile)},
         headers={"Cache-Control": "no-store"},
@@ -97,20 +128,17 @@ def profile_api(request):
 
 def documents_api(request):
     cookie_header = cookie_header_from_request(request)
-    if validate_paperless_session(cookie_header) is None:
-        return JSONResponse(
-            {"error": "not_authenticated"},
-            status_code=401,
-            headers={"Cache-Control": "no-store"},
-        )
+    try:
+        profile = validate_paperless_session(cookie_header)
+    except requests.RequestException as exc:
+        print(f"Paperless search validation failed: {exc}")
+        return api_error_response("paperless_api_error", 502)
+    if profile is None:
+        return api_error_response("not_authenticated", 401)
 
     query = request.query_params.get("q", "").strip()
     if not query:
-        return JSONResponse(
-            {"error": "q is required"},
-            status_code=400,
-            headers={"Cache-Control": "no-store"},
-        )
+        return api_error_response("q is required", 400)
 
     limit = clamp_limit(request.query_params.get("limit"))
     try:
@@ -124,18 +152,13 @@ def documents_api(request):
                 headers={"Cache-Control": "no-store"},
             )
         print(f"Search API upstream error: {exc}")
-        return JSONResponse(
-            {"error": "paperless_api_error"},
-            status_code=502,
-            headers={"Cache-Control": "no-store"},
-        )
+        return api_error_response("paperless_api_error", 502)
+    except requests.RequestException as exc:
+        print(f"Search API upstream error: {exc}")
+        return api_error_response("paperless_api_error", 502)
     except Exception as exc:
         print(f"Search API error: {exc}")
-        return JSONResponse(
-            {"error": "search_failed"},
-            status_code=500,
-            headers={"Cache-Control": "no-store"},
-        )
+        return api_error_response("search_failed", 500)
 
     return JSONResponse(
         {

@@ -42,7 +42,9 @@
         ? result.sources.join(" + ")
         : "search";
     var snippet = result.matched_chunk || "";
-    var pageCount = result.page_count ? result.page_count + " pages" : "";
+    var pageCount = result.page_count
+      ? result.page_count + (result.page_count === 1 ? " page" : " pages")
+      : "";
 
     return [
       '<article class="result-card">',

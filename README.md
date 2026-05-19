@@ -180,9 +180,10 @@ docker compose up -d
 ```
 
 Paperless will be available at <http://localhost:8000> (admin / admin).
-The companion search UI is available at <http://localhost:3001/search> in local
-development. In installed deployments, Caddy serves it at `/search` on the same
-origin as Paperless.
+For local development, log in to Paperless first at <http://localhost:8000>,
+then open the companion search UI at <http://localhost:3001/search>. In
+installed deployments, Caddy serves it at `/search` on the same origin as
+Paperless.
 
 ### Load Test Data
 

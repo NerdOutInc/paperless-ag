@@ -1107,6 +1107,7 @@ generate_update_script() {
 set -euo pipefail
 cd "$(dirname "$0")"
 mkdir -p backups
+caddyfile_changed=false
 
 if docker compose ps --status running db 2>/dev/null | grep -q db; then
     echo "Backing up database before update..."
@@ -1127,16 +1128,19 @@ if [[ -f Caddyfile ]] && grep -q 'handle_path /mcp' Caddyfile; then
         sed -i '/@mcp path/i\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     fi
     echo "[✓] Caddyfile updated"
+    caddyfile_changed=true
 fi
 # Migrate legacy .well-known/oauth* to specific discovery endpoints
 if [[ -f Caddyfile ]] && grep -q 'handle /\.well-known/oauth\*' Caddyfile; then
     sed -i '/handle \/\.well-known\/oauth\*/,/}/c\    @discovery path \/.well-known\/oauth-authorization-server \/.well-known\/openid-configuration\n    handle @discovery {\n        respond 404\n    }' Caddyfile
     echo "[✓] Caddyfile discovery block updated"
+    caddyfile_changed=true
 fi
 # Add same-origin search route for existing installs.
 if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
     sed -i '/^[[:space:]]*handle {$/i\    @search path \/search \/search\/*\n    handle @search {\n        reverse_proxy companion:3001 {\n            header_up Host localhost:3001\n        }\n    }' Caddyfile
     echo "[✓] Caddyfile search route added"
+    caddyfile_changed=true
 fi
 
 echo "Pulling latest images..."
@@ -1144,6 +1148,12 @@ docker compose pull
 
 echo "Restarting services..."
 docker compose up -d
+
+if [[ "$caddyfile_changed" == "true" ]]; then
+    echo "Reloading Caddy..."
+    docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile \
+        || docker compose restart caddy
+fi
 
 echo ""
 echo "[✓] Update complete. Check your Paperless UI to confirm."
@@ -1157,12 +1167,26 @@ generate_addon_update_script() {
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
+caddyfile_changed=false
+
+# Add same-origin search route for existing add-on installs.
+if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
+    sed -i '/^[[:space:]]*handle {$/i\    @search path \/search \/search\/*\n    handle @search {\n        reverse_proxy companion:3001 {\n            header_up Host localhost:3001\n        }\n    }' Caddyfile
+    echo "[✓] Caddyfile search route added"
+    caddyfile_changed=true
+fi
 
 echo "Pulling latest Paperless Ag image..."
 docker pull ghcr.io/nerdoutinc/paperless-ag:latest
 
 echo "Restarting services..."
 docker compose up -d
+
+if [[ "$caddyfile_changed" == "true" ]]; then
+    echo "Reloading Caddy..."
+    docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile \
+        || docker compose restart caddy
+fi
 
 echo ""
 echo "[✓] Paperless Ag updated."

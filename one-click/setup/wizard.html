@@ -437,10 +437,9 @@
 
             if (lostContact) {
               // Setup API is gone -- Docker Caddy now owns :80.
-              // Only probe root; a 2xx/3xx means Paperless is up.
-              fetch("/", { method: "GET", redirect: "manual" })
-                .then(function (res) {
-                  if (res.ok || res.type === "opaqueredirect") {
+              waitForSearch()
+                .then(function (ready) {
+                  if (ready) {
                     clearInterval(interval);
                     showComplete(token, url, searchUrl);
                   }
@@ -457,8 +456,15 @@
               })
               .then(function (data) {
                 if (data.state === "complete") {
-                  clearInterval(interval);
-                  showComplete(token, url, searchUrl);
+                  waitForSearch().then(function (ready) {
+                    if (ready) {
+                      clearInterval(interval);
+                      showComplete(token, url, searchUrl);
+                    } else {
+                      document.querySelector(".progress-text").textContent =
+                        "Paperless is ready... waiting for Search to start.";
+                    }
+                  });
                 } else if (data.state === "failed") {
                   clearInterval(interval);
                   document.querySelector(".progress-text").textContent =
@@ -472,6 +478,18 @@
                   "Finalizing setup... waiting for Paperless to start.";
               });
           }, 3000);
+        }
+
+        function waitForSearch() {
+          return fetch("/search", { method: "GET", redirect: "manual" }).then(
+            function (res) {
+              return (
+                res.ok ||
+                res.type === "opaqueredirect" ||
+                (res.status >= 300 && res.status < 400)
+              );
+            },
+          );
         }
 
         function showComplete(token, url, searchUrl) {

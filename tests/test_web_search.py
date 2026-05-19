@@ -6,6 +6,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import requests
+
 
 APP_DIR = Path(os.environ.get("PAPERLESS_AG_APP_DIR", Path(__file__).resolve().parents[1] / "app"))
 sys.path.insert(0, str(APP_DIR))
@@ -58,14 +60,26 @@ class WebSearchTests(unittest.TestCase):
 
         self.assertIsNone(web_search.validate_paperless_session("sessionid=bad"))
 
+    @patch("web_search.validate_paperless_session", side_effect=requests.Timeout("slow"))
+    def test_profile_api_returns_controlled_error_when_paperless_is_unavailable(
+        self,
+        _validate,
+    ):
+        request = SimpleNamespace(headers={"cookie": "sessionid=abc"})
+
+        response = web_search.profile_api(request)
+
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(json.loads(response.body), {"error": "paperless_api_error"})
+
 
 class SessionSearchTests(unittest.TestCase):
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
     @patch("search.db.search_similar")
-    @patch("search.paperless_session_request")
+    @patch("search.get_documents_for_session")
     def test_semantic_search_filters_before_returning_chunks(
         self,
-        paperless_request,
+        get_documents,
         search_similar,
         _get_embedding,
     ):
@@ -83,17 +97,7 @@ class SessionSearchTests(unittest.TestCase):
                 "similarity": 0.8,
             },
         ]
-
-        def response_for(method, path, cookie_header, **_kwargs):
-            self.assertEqual(method, "GET")
-            self.assertEqual(cookie_header, "sessionid=abc")
-            if path == "/api/documents/1/":
-                return FakeResponse(200, {"id": 1, "title": "Soil Test"})
-            if path == "/api/documents/2/":
-                return FakeResponse(403, {"detail": "forbidden"})
-            return FakeResponse(404, {})
-
-        paperless_request.side_effect = response_for
+        get_documents.return_value = {1: {"id": 1, "title": "Soil Test"}}
 
         results = search.semantic_search_for_session(
             "soil",
@@ -104,6 +108,7 @@ class SessionSearchTests(unittest.TestCase):
         self.assertEqual([result["id"] for result in results], [1])
         self.assertEqual(results[0]["matched_chunk"], "authorized soil test chunk")
         self.assertNotIn("secret unauthorized chunk", json.dumps(results))
+        get_documents.assert_called_once_with([1, 2], "sessionid=abc")
 
     @patch("search.keyword_search_for_session")
     @patch("search.semantic_search_for_session")
