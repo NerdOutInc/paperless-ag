@@ -164,8 +164,9 @@
         if (searchId !== latestSearchId) {
           return;
         }
-        setStatus(error.message || "Search failed");
-        renderEmpty("Search is unavailable right now.");
+        var message = error.message || "Search failed";
+        setStatus(message);
+        renderEmpty(message);
       });
   }
 

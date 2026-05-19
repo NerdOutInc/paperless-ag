@@ -95,22 +95,34 @@ def search_similar_documents(query_embedding, limit=20, chunk_limit=None):
         vec_str = "[" + ",".join(str(x) for x in query_embedding) + "]"
         chunk_limit = chunk_limit or max(limit * 8, limit)
         cur.execute(
-            """SELECT document_id, chunk_index, chunk_text, similarity
-               FROM (
+            """WITH nearest_chunks AS (
+                   SELECT id, document_id, chunk_index,
+                          1 - (embedding <=> %s::vector) as similarity,
+                          embedding <=> %s::vector as distance
+                   FROM document_embeddings
+                   ORDER BY embedding <=> %s::vector
+                   LIMIT %s
+               ),
+               best_document_chunks AS (
                    SELECT DISTINCT ON (document_id)
-                          document_id, chunk_index, chunk_text, similarity, distance
-                   FROM (
-                       SELECT document_id, chunk_index, chunk_text,
-                              1 - (embedding <=> %s::vector) as similarity,
-                              embedding <=> %s::vector as distance
-                       FROM document_embeddings
-                       ORDER BY embedding <=> %s::vector
-                       LIMIT %s
-                   ) nearest_chunks
+                          id, document_id, chunk_index, similarity, distance
+                   FROM nearest_chunks
                    ORDER BY document_id, distance
-               ) best_document_chunks
-               ORDER BY distance
-               LIMIT %s""",
+               ),
+               ranked_documents AS (
+                   SELECT id, document_id, chunk_index, similarity, distance
+                   FROM best_document_chunks
+                   ORDER BY distance
+                   LIMIT %s
+               )
+               SELECT ranked_documents.document_id,
+                      ranked_documents.chunk_index,
+                      document_embeddings.chunk_text,
+                      ranked_documents.similarity
+               FROM ranked_documents
+               JOIN document_embeddings
+                 ON document_embeddings.id = ranked_documents.id
+               ORDER BY ranked_documents.distance""",
             (vec_str, vec_str, vec_str, chunk_limit, limit)
         )
         return [
