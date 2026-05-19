@@ -8,7 +8,7 @@ set -euo pipefail
 # Usage: curl -fsSL https://paperless.fullstack.ag/install.sh | bash
 # ─────────────────────────────────────────────────────────
 
-COMPANION_IMAGE="ghcr.io/nerdoutinc/paperless-ag:latest"
+COMPANION_IMAGE="${COMPANION_IMAGE:-ghcr.io/nerdoutinc/paperless-ag:latest}"
 MIN_DISK_GB=5
 MIN_RAM_MB=3500
 RECOMMENDED_RAM_MB=7400
@@ -1012,6 +1012,7 @@ EMBEDDING_MODEL='all-MiniLM-L6-v2'
 SYNC_INTERVAL_SECONDS='60'
 MCP_HTTP_PORT='3001'
 MCP_AUTH_TOKEN='${MCP_AUTH_TOKEN}'
+PAPERLESS_AG_COMPANION_IMAGE='${COMPANION_IMAGE}'
 PAPERLESS_AG_DOMAIN='${DOMAIN:-}'
 PAPERLESS_AG_CADDY_ENABLED='${ADDON_ENABLE_CADDY}'
 PYTHONUNBUFFERED='1'
@@ -1342,8 +1343,8 @@ if [[ -f Caddyfile ]] && ! grep -q '@search path' Caddyfile; then
     caddyfile_changed=true
 fi
 
-echo "Pulling latest Paperless Ag image..."
-docker pull ghcr.io/nerdoutinc/paperless-ag:latest
+echo "Pulling Paperless Ag companion image..."
+docker compose pull companion
 
 echo "Restarting services..."
 docker compose up -d

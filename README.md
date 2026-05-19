@@ -26,6 +26,14 @@ SSH into any Linux server and run:
 curl -fsSL https://paperless.fullstack.ag/install.sh | bash
 ```
 
+To test a branch or fork image before it becomes `latest`, publish that image
+tag and pass it to the installer:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/NerdOutInc/paperless-ag/companion-web-app/docs/install.sh \
+  | COMPANION_IMAGE=ghcr.io/nerdoutinc/paperless-ag:companion-web-app bash
+```
+
 The installer detects if you already have Paperless-ngx running and walks you through setup. Works on any VPS -- pick one to get started:
 
 [![Deploy on DigitalOcean](https://img.shields.io/badge/Deploy-DigitalOcean-0080FF?style=for-the-badge&logo=digitalocean)](https://cloud.digitalocean.com/droplets/new?size=s-2vcpu-4gb&image=docker-20-04&region=nyc1)
