@@ -9,6 +9,9 @@ import embeddings
 SEMANTIC_MIN_CANDIDATES = 20
 SEMANTIC_MAX_CANDIDATES = 500
 PAPERLESS_DOCUMENT_BATCH_SIZE = 100
+PAPERLESS_DOCUMENT_CARD_FIELDS = (
+    "id,title,created,created_date,added,original_file_name,page_count,mime_type"
+)
 
 
 def get_document_metadata(doc_id):
@@ -74,10 +77,7 @@ def get_documents_for_session(doc_ids, cookie_header):
             params={
                 "id__in": ",".join(str(doc_id) for doc_id in batch),
                 "page_size": len(batch),
-                "fields": (
-                    "id,title,created,created_date,added,original_file_name,"
-                    "page_count,mime_type"
-                ),
+                "fields": PAPERLESS_DOCUMENT_CARD_FIELDS,
             },
         )
         resp.raise_for_status()
@@ -202,7 +202,11 @@ def keyword_search_for_session(query, limit=10, cookie_header=""):
         "GET",
         "/api/documents/",
         cookie_header,
-        params={"query": query, "page_size": limit},
+        params={
+            "query": query,
+            "page_size": limit,
+            "fields": PAPERLESS_DOCUMENT_CARD_FIELDS,
+        },
     )
     resp.raise_for_status()
     return [

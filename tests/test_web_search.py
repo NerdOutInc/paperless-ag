@@ -110,6 +110,35 @@ class SessionSearchTests(unittest.TestCase):
         self.assertEqual(len(results), 205)
         self.assertEqual(paperless_request.call_count, 3)
 
+    @patch("search.paperless_session_request")
+    def test_keyword_search_for_session_requests_card_fields(self, paperless_request):
+        paperless_request.return_value = FakeResponse(
+            200,
+            {
+                "results": [
+                    {
+                        "id": 7,
+                        "title": "Crop plan",
+                        "created_date": "2026-01-02",
+                    },
+                ],
+            },
+        )
+
+        results = search.keyword_search_for_session(
+            "crop",
+            limit=12,
+            cookie_header="sessionid=abc",
+        )
+
+        self.assertEqual(results[0]["document_url"], "/documents/7")
+        self.assertEqual(results[0]["sources"], ["keyword"])
+        _method, _path, _cookie_header = paperless_request.call_args.args
+        params = paperless_request.call_args.kwargs["params"]
+        self.assertEqual(params["query"], "crop")
+        self.assertEqual(params["page_size"], 12)
+        self.assertEqual(params["fields"], search.PAPERLESS_DOCUMENT_CARD_FIELDS)
+
     @patch("search.embeddings.get_embedding", return_value=[0.1, 0.2])
     @patch("search.db.search_similar_documents")
     @patch("search.get_documents_for_session")
